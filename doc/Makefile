@@ -1,8 +1,11 @@
 
-all: cahier_charge.pdf
+all: cahier_charge.pdf architecture.pdf
 
 cahier_charge.pdf: 
 	pdflatex cahier_charge.tex
+
+architecture.pdf:
+	pdflatex architecture.tex
 
 
 clean:
