@@ -1,66 +1,88 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
-\usepackage[colorlinks]{hyperref}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\input{vc.tex}
 
 \begin{document}
 
-\title{Projet de Programmation}
-\author{David Cheminade\and Guillaume Desbieys\and Quentin Michaud\and Hubert Mondon}
+	\title{Projet de Programmation}
+	\author{David Cheminade\and Guillaume Desbieys\and Quentin Michaud\and Hubert Mondon}
+	\date{}
+	\maketitle
 
-\maketitle
+	\let\thefootnote\relax
+	\footnotetext{Base revision~\GITAbrHash, \GITAuthorDate}
 
-\section{Etude de l'existant}
+	\section{Etude de l'existant}
 
-	Le jeu de la guerre ou kriegspiel est l'évolution d'une amélioration du jeu d'échecs.
-	Le modèle qui nous intéresse est celui de Guy Debord qui l'a breveté en 1965.
-	Une application permettant de jouer au jeu a été développée par Radical Software Group (RSG), un collectif de développeurs et d'artistes créé en 2000 dont le but est de travailler sur des programmes expérimentaux.\\[1\baselineskip]
-	Cette version du jeu a été développée en Java en utilisant les librairies suivantes\\[1\baselineskip]
+		Le jeu de la guerre ou kriegspiel est l'évolution d'une amélioration du jeu d'échecs.
+		Le modèle qui nous intéresse est celui de Guy Debord qui l'a breveté en 1965.
+		Une application permettant de jouer au jeu a été développée par Radical Software Group (RSG), un collectif de développeurs et d'artistes créé en 2000 dont le but est de travailler sur des programmes expérimentaux.\\[1\baselineskip]
+		Cette version du jeu a été développée en Java en utilisant les librairies suivantes
 
+		~~\\
+
+		\begin{itemize}
+			\item Java Monkey Engine pour le moteur de jeu
+			\item Project Darkstar pour la partie réseau
+			\item La modélisation des objets graphiques a été faite via Blender
+			~~\\
+		\end{itemize}
+
+		L'interface du jeu a été travaillé de sorte à montrer aux joueurs les déplacements possibles pour chaque pièce. De plus les axes de communication sont affichés avec des pointillés pour faciliter la vision du jeu.\\[1\baselineskip]
+		L'application propose un mode \"practice\" permettant de jouer seul afin de se familiariser avec les règles du jeu ainsi que l'interface.
+		Un second mode permet aux joueurs de s'affronter en ligne afin d'expérimenter de nouvelles stratégies.
+
+		~~\\
+
+		Cependant, étant considéré comme un outil pour apprendre la stratégie face a un adversaire réel, la possibilité d'y implémenter une Intelligence artificielle a été écartée.\\[1\baselineskip]
+		Malgré les documents décrivant des stratégies de jeu, il n'existe donc pas actuellement d'IA informatique pour ce jeu.
+
+
+
+
+	\section{Elements bibliographiques}
 	\begin{itemize}
-		\item Java Monkey Engine pour le moteur de jeu
-		\item Project Darkstar pour la partie réseau
-		\item La modélisation des objets graphiques a été faite via Blender\\[1\baselineskip]
+		\item Le livre~\cite{ref1} présente une partie commentée du jeu de la guerre accompagnée de schémas illustrant les positions des unités. De plus on peut trouver les règles officielles proposées par Guy Debord à partir de la page 131.
+		~~\\
+
+		\item Le livre Artificial Intelligence for Games~\cite{ref2} aborde dans son 5\up{ème} chapitre la prise de décision d'un point de vue technique. On y trouve le principe de fonctionnement et un example d'implémentation de diverses structures de données (arbre de décision, machine à état, arbre de comportement, moteur de règles).
+		~~\\
+
+
+		\item Cet ouvrage~\cite{ref3} est porté sur l'aspect théorique des systèmes intelligents, il pourrait nous apporter les outils nécessaires pour la résolution de divers problèmes auquels nous seront confrontés.
+		~~\\
+
+		\item Ce site~\cite{ref4} nous sera très utile puisqu'il regroupe l'ensemble des règles du jeu de la guerre et propose une version jouable. Cela nous permettra d'avoir une première approche du jeu et d'en comprendre les différentes tactiques.
+		~~\\
+
+		\item Cet article~\cite{ref6} aborde différentes approches pour concevoir une intelligence artificielle de jeu vidéo. La 3eme partie parle notamment de la conception d'une "IA tactique et stratégique".
+		~~\\
+
+		\item Cet ouvrage~\cite{ref7} traite comme son nom l'indique de l'aspect heuristique des IA. Etant donné qu'il existe un trop grand nombre de coups possibles à chaque tour pour le jeu de la guerre, l'heuristique sera donc un aspect important de notre projet.
+		~~\\
+
+		\item Une fois encore l'heuristique sera un point important de notre projet, or ce livre~\cite{ref8} aborde ce point de façon précise. De plus Marvin Lee Minsky est un personnage important dans le domaine des sciences cognitives et de l'intelligence artificielle.
+		~~\\
+
+		\item Ce PDF~\cite{ref9} traite de beaucoup d'aspects de l'IA dans les jeux, et notamment de la recherche du plus court chemin dont nous aurons probablement besoin.
+		~~\\
+
+		\item Ce site~\cite{ref10} aborde un grand nombre de sujets relatifs à l'intelligence artificielle et se découpe en plusieurs parties distinctes. Nous pourrons y trouver par exemple des informations sur les systèmes experts.
+		~~\\
+
+		\item Ce support de cours~\cite{ref11} introduit les champs d'application des intelligences artificielles et propose une présentation des systèmes formels. De plus il aborde le langage Prolog.
+		~~\\
+
+		\item Cette page~\cite{ref12} propose des explications d'algorithmes utilisablent dans le cas de jeu se jouant à deux, tour par tour et pour lequel chaque joueur connait la position de son adversaire.
+		~~\\
+
+
 	\end{itemize}
-
-	L'interface du jeu a été travaillé de sorte à montrer aux joueurs les déplacements possibles pour chaque pièce. De plus les axes de communication sont affichés avec des pointillés pour faciliter la vision du jeu.\\[1\baselineskip]
-	L'application propose un mode \"practice\" permettant de jouer seul afin de se familiariser avec les règles du jeu ainsi que l'interface.
-	Un second mode permet aux joueurs de s'affronter en ligne afin d'expérimenter de nouvelles stratégies.\\[1\baselineskip]
-
-	Cependant, étant considéré comme un outil pour apprendre la stratégie face a un adversaire réel, la possibilité d'y implémenter une Intelligence artificielle a été écartée.\\[1\baselineskip]
-	Malgré les documents décrivant des stratégies de jeu, il n'existe donc pas actuellement d'IA informatique pour ce jeu.
-
-
-
-
-\section{Elements bibliographiques}
-\begin{itemize}
-\item Ce livre ~\cite{ref1} nous parrait être essentiel dans la mesure où il a été écrit par Guy Debord, l'inventeur du jeu de la guerre. Ce livre peut nous aider à mieux comprendre certaines positions stratégiques dans le jeu et par conséquent on pourrait trouver des heuristiques. 
-\\[1\baselineskip]
-
-\item Le livre Artificial Intelligence for Games ~\cite{ref2} pourrait nous être utile d'un point de vue plus général car il n'est pas étroitement lié à un jeu en particulier. On pourra donc s'aider de ce livre afin de mettre au points des algorithmes adaptés au jeu de la guerre.\\[1\baselineskip]
-
-\item Cet ouvrage ~\cite{ref3} est porté sur l'aspect théorique des systèmes intelligents, il pourrait nous apporter les outils nécessaires pour la résolution de divers problèmes auquels nous seront confrontés.\\[1\baselineskip]
-
-\item Ce site ~\cite{ref4} nous sera très utile puisqu'il regroupe l'ensemble des règles du jeu de la guerre et propose une version jouable. Cela nous permettra d'avoir une première approche du jeu et d'en comprendre les différentes tactiques.\\[1\baselineskip]
-
-\item Cet article ~\cite{ref6} aborde différentes approches pour concevoir une intelligence artificielle de jeu vidéo. La 3eme partie parle notamment de la conception d'une "IA tactique et stratégique".\\[1\baselineskip]
-
-\item Cet ouvrage ~\cite{ref7} traite comme son nom l'indique de l'aspect heuristique des IA. Etant donné qu'il existe un trop grand nombre de coups possibles à chaque tour pour le jeu de la guerre, l'heuristique sera donc un aspect important de notre projet.\\[1\baselineskip]
-
-\item Une fois encore l'heuristique sera un point important de notre projet, or ce livre ~\cite{ref8} aborde ce point de façon précise. De plus Marvin Lee Minsky est un personnage important dans le domaine des sciences cognitives et de l'intelligence artificielle.\\[1\baselineskip]
-
-\item Ce PDF ~\cite{ref9} traite de beaucoup d'aspects de l'IA dans les jeux, et notamment de la recherche du plus court chemin dont nous aurons probablement besoin.\\[1\baselineskip]
-
-\item Ce site ~\cite{ref10} aborde un grand nombre de sujets relatifs à l'intelligence artificielle et se découpe en plusieurs parties distinctes. Nous pourrons y trouver par exemple des informations sur les systèmes experts.\\[1\baselineskip]
-
-\item Ce support de cours ~\cite{ref11} introduit les champs d'application des intelligences artificielles et propose une présentation des systèmes formels. De plus il aborde le langage Prolog.\\[1\baselineskip]
-
-\item Cette page ~\cite{ref12} propose des explications d'algorithmes utilisablent dans le cas de jeu se jouant à deux, tour par tour et pour lequel chaque joueur connait la position de son adversaire.\\[1\baselineskip]
-
-
-\end{itemize}
-
-\bibliography{ref.bib}{}
-\bibliographystyle{plain}
+	
+	\bibliographystyle{unsrt}
+	\bibliography{ref.bib}{}
 \end{document}
