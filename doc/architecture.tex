@@ -28,7 +28,7 @@
 
 		\subsection{Schéma UML}
 
-			\includegraphics[scale=0.4]{images/diag_classes.jpg}
+			\includegraphics[scale=0.4]{images/diag_classes.png}
 
 			\clearpage
 
@@ -59,11 +59,11 @@
 
 				\paragraph{Définition :}
 
-				Les entités représentent les éléments de jeu. Sans entité, le plateau serait vide.
+				Les entités représentent les éléments de jeu (les unités ainsi que les batiments et obstacles).
 
 				\paragraph{Interaction :}
 
-				Toutes les Entités seront disposées à l'intérieur d'une matrice dans la Classe Plateau.
+				Toutes les Entités seront disposées à l'intérieur d'une matrice dans la classe Plateau.
 
 			\subsubsection{Entité mobile}
 
@@ -73,7 +73,7 @@
 
 				\paragraph{Interaction :}
 
-				Les Entités mobiles seront disposées à l'intérieur d'une matrice dans la Classe Plateau.
+				Les Entités mobiles seront disposées à l'intérieur d'une matrice dans la classe Plateau.
 
 			\subsubsection{Entité immobile}
 
@@ -89,7 +89,7 @@
 
 				\paragraph{Définition :}
 
-				Le moteur de règles est la classe qui se chargera de vérifier et de faire appliquer les règles du jeu qui lui seront données.
+				Cette classe doit faire l'intermediaire entre les faits (la situation de jeu actuelle) et les règles qui sont implémentées dans un fichier ".drl".
 
 				\paragraph{Interaction :}
 
