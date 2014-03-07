@@ -1,0 +1,24 @@
+package com.sample
+ 
+import com.sample.Board;
+ 
+rule "PlaceEntity"
+	agenda-group "PlaceEntity"
+	no-loop
+    when
+        b : Board( isInit == false, myBoard : board )
+    then
+    	System.out.println("Place moutain");
+    	b.setIsInit(true);
+    	
+        b.placeEntity(2, 9, new Mountain());
+        b.placeEntity(2, 10, new Mountain());
+        b.placeEntity(2, 11, new Mountain());
+        b.placeEntity(2, 12, new Mountain());
+        
+        b.placeEntity(3, 9, new Mountain());
+        b.placeEntity(4, 9, new Mountain());
+        b.placeEntity(6, 9, new Mountain());
+        b.placeEntity(7, 9, new Mountain());
+        b.placeEntity(8, 9, new Mountain());
+end

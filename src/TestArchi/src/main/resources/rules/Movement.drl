@@ -1,0 +1,34 @@
+package com.sample
+ 
+import com.sample.Board;
+
+import com.sample.Coord;
+import com.sample.MovableEntity;
+ 
+rule "Movement"
+	agenda-group "Movement"
+	no-loop
+	when
+		b : Board(myBoard : board)
+	then
+		System.out.println("Movement");
+		for(int i=0; i<20; i++){
+			for(int j=0; j<25; j++){
+				//System.out.println("Boucle : " + i + "," + j);
+				if (myBoard[i][j] instanceof MovableEntity){
+					System.out.println("Movable found " + i + ", " + j);
+					int speed = ((MovableEntity)myBoard[i][j]).getSpeed();
+					for(int k=speed*-1; k<=speed; k++){
+						for(int l=speed*-1; l<=speed; l++){
+							if (b.isValidSquare(i+k, j+l)){
+								System.out.println((i+k) + "," + (j+l));
+								((MovableEntity)myBoard[i][j]).addPossibleMovement(new Coord(i+k, j+l));
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
+end
