@@ -1,13 +1,12 @@
 package com.sample;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovableEntity extends Entity {
 	protected int defense;
 	protected int attack;
 	protected int speed;
-	protected List<Coord> possibleMovement;
+	protected ArrayList<Coord> possibleMovement;
 	
 	public MovableEntity(){
 		possibleMovement = new ArrayList<Coord>();
@@ -17,15 +16,23 @@ public class MovableEntity extends Entity {
 		return speed;
 	}
 	
+	public void resetPossibleMovement(){
+		possibleMovement.clear();
+	}
+	
 	public void addPossibleMovement(Coord c){
-		possibleMovement.add(c);
+		Boolean exists = false;
+		for(Coord coord : possibleMovement){
+			if (c.equals(coord))
+				exists = true;
+		}
+		
+		if (!exists)
+			possibleMovement.add(c);
 	}
 
-	public List<Coord> getPossibleMovement() {
+	public ArrayList<Coord> getPossibleMovement() {
 		return possibleMovement;
 	}
 	
-
-	
-
 }

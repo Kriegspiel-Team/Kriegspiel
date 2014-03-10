@@ -1,5 +1,7 @@
 package com.sample;
 
+import java.nio.file.Paths;
+
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -16,8 +18,8 @@ public class Engine {
     	    KieContainer kContainer = ks.getKieClasspathContainer();
         	KieSession kSession = kContainer.newKieSession("test-rules");
         	
-        	Board b = new Board();
-        	b.placeEntity(5, 9, new Infantery());
+        	Board b = new Board(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
+
 
             kSession.insert(b);
             
@@ -25,10 +27,8 @@ public class Engine {
             kSession.fireAllRules();
             kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
             kSession.fireAllRules();
-        	
-            
-            
-            b.display(5, 9);
+        	      
+            b.display(2, 8);
         } catch (Throwable t) {
             t.printStackTrace();
         }

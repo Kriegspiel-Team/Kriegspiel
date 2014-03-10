@@ -8,7 +8,6 @@ rule "PlaceEntity"
     when
         b : Board( isInit == false, myBoard : board )
     then
-    	System.out.println("Place moutain");
     	b.setIsInit(true);
     	
         b.placeEntity(2, 9, new Mountain());

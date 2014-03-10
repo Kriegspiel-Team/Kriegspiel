@@ -7,9 +7,16 @@ public class Board {
 	private Entity board[][];
 	private Boolean isInit = false;
 	
+	public static int WIDTH = 25;
+	public static int HEIGHT = 20;
 	
 	public Board(){
-		board = new Entity[20][25];
+		board = new Entity[HEIGHT][WIDTH];
+	}
+	
+	public Board(String filename){
+		board = new Entity[HEIGHT][WIDTH];
+		new EntityLoader(this, filename);
 	}
 	
 	public void placeEntity(int i, int j, Entity e){
@@ -18,12 +25,17 @@ public class Board {
 	
 	public void display(int x, int y){
 		
-		List<Coord> possibleMovement = ((MovableEntity)board[x][y]).getPossibleMovement();
+		List<Coord> possibleMovement = new ArrayList<Coord>();
+		
+		if (board[x][y] instanceof MovableEntity){
+			possibleMovement = ((MovableEntity)board[x][y]).getPossibleMovement();
+		}
+		
 		System.out.println(possibleMovement.size());
 
 		System.out.println("____________________________________________________");
-		for(int i=0; i<20; i++){
-			for(int j=0; j<25; j++){
+		for(int i=0; i<HEIGHT; i++){
+			for(int j=0; j<WIDTH; j++){
 				System.out.print("|");
 				
 				Coord currentCoord = new Coord(i,j);
@@ -49,6 +61,10 @@ public class Board {
 			System.out.println("|");
 			System.out.println("____________________________________________________");
 		}
+		
+		for(Coord c : possibleMovement){
+			System.out.println(c.x + "," + c.y);
+		}
 	}
 	
 	public Entity[][] getBoard(){
@@ -70,8 +86,8 @@ public class Board {
 	public List<Entity> getMovableEntity(){
 		List<Entity> movableEntity = new ArrayList<Entity>();
 		
-		for(int i=0; i<20; i++){
-			for(int j=0; j<25; j++){
+		for(int i=0; i<HEIGHT; i++){
+			for(int j=0; j<WIDTH; j++){
 				if (board[i][j] instanceof MovableEntity)
 					movableEntity.add(board[i][j]);
 			}
@@ -81,14 +97,13 @@ public class Board {
 	}
 	
 	public Boolean isValidSquare(int i, int j){
-		if (j < 0 || j > 25 || i < 0 || i > 20)
+		if (j < 0 || j > WIDTH || i < 0 || i > HEIGHT)
 			return false;
 		
 		/*
 		 * Authorize if there is a fortress, mountain pass...
 		 */
 		if (board[i][j] != null){
-			System.out.println("NOT NULL");
 			return false;
 		}
 			
