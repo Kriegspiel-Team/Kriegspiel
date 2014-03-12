@@ -2,6 +2,7 @@ package com.sample;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class EntityLoader {
 	
@@ -21,8 +22,9 @@ public class EntityLoader {
 	}
 	
 	private void readFile(){
+		BufferedReader br = null;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(filename));
+			br = new BufferedReader(new FileReader(filename));
 			
 			String line;
 			while ((line = br.readLine()) != null) {
@@ -35,10 +37,17 @@ public class EntityLoader {
 					board.placeEntity(Integer.parseInt(st[2]), Integer.parseInt(st[3]), new Canon());
 				}
 			}
-			
-			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 }
