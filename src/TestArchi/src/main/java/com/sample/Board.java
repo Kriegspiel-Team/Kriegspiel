@@ -112,38 +112,4 @@ public class Board {
 		return true;
 	}
 	
-	public void updatePossibleMoves()
-	{
-		for(int i=0; i<Board.HEIGHT; i++){
-			for(int j=0; j<Board.WIDTH; j++){
-			
-				if (this.board[i][j] instanceof MovableEntity){
-
-					MovableEntity entity = (MovableEntity)this.board[i][j];
-					int speed = entity.getSpeed();
-					entity.resetPossibleMovement();
-
-					List<Coord> possibleMovements = new ArrayList<Coord>();
-
-					possibleMovements.add(new Coord(i,j));
-					for(int s = 0; s<speed; s++)
-					{
-						for(Coord c : possibleMovements){
-							for(int k=-1; k<=1; k++){
-								for(int l=-1; l<=1; l++){
-								
-									if (this.isValidSquare(c.x+k, c.y+l)){
-										entity.addPossibleMovement(new Coord(c.x+k, c.y+l));
-									}
-								}
-							}
-						}
-						
-						possibleMovements = (ArrayList<Coord>)entity.getPossibleMovement().clone();
-					}
-				}
-			}
-		}
-	}
-	
 }
