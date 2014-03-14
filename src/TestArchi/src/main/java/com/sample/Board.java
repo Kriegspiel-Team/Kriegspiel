@@ -11,16 +11,20 @@ public class Board {
 	public static int HEIGHT = 20;
 	
 	public Board(){
-		board = new Entity[HEIGHT][WIDTH];
+		board = new Entity[WIDTH][HEIGHT];
 	}
 	
-	public Board(String filename){
-		board = new Entity[HEIGHT][WIDTH];
+
+	
+	public void loadBoardWithFile(String filename){
 		new EntityLoader(this, filename);
 	}
 	
-	public void placeEntity(int i, int j, Entity e){
-		board[i][j] = e;
+	public void placeEntity(int x, int y, Entity e){
+		if (isValidSquare(x, y)){
+			e.setCoord(new Coord(x, y));
+			board[x][y] = e;
+		}
 	}
 	
 	public void display(int x, int y){
@@ -34,8 +38,8 @@ public class Board {
 		System.out.println(possibleMovement.size());
 
 		System.out.println("____________________________________________________");
-		for(int i=0; i<HEIGHT; i++){
-			for(int j=0; j<WIDTH; j++){
+		for(int j=0; j<HEIGHT; j++){
+			for(int i=0; i<WIDTH; i++){
 				System.out.print("|");
 				
 				Coord currentCoord = new Coord(i,j);
@@ -83,27 +87,27 @@ public class Board {
 		this.isInit = isInit;
 	}
 	
-	public List<Entity> getMovableEntity(){
-		List<Entity> movableEntity = new ArrayList<Entity>();
+	public List<MovableEntity> getMovableEntity(){
+		List<MovableEntity> movableEntity = new ArrayList<MovableEntity>();
 		
-		for(int i=0; i<HEIGHT; i++){
-			for(int j=0; j<WIDTH; j++){
+		for(int j=0; j<HEIGHT; j++){
+			for(int i=0; i<WIDTH; i++){
 				if (board[i][j] instanceof MovableEntity)
-					movableEntity.add(board[i][j]);
+					movableEntity.add((MovableEntity)board[i][j]);
 			}
 		}
 		
 		return movableEntity;
 	}
 	
-	public Boolean isValidSquare(int i, int j){
-		if (j < 0 || j > WIDTH || i < 0 || i > HEIGHT)
+	public Boolean isValidSquare(int x, int y){
+		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return false;
 		
 		/*
 		 * Authorize if there is a fortress, mountain pass...
 		 */
-		if (board[i][j] != null){
+		if (board[x][y] != null){
 			return false;
 		}
 			

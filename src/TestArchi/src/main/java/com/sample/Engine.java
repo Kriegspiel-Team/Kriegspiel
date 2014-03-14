@@ -1,6 +1,7 @@
 package com.sample;
 
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -18,17 +19,30 @@ public class Engine {
     	    KieContainer kContainer = ks.getKieClasspathContainer();
         	KieSession kSession = kContainer.newKieSession("test-rules");
         	
-        	Board b = new Board(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
-
-
-            kSession.insert(b);
-            
-            kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
+        	
+        	
+        	Board b = new Board();
+        	
+        	kSession.insert(b);
+        	
+        	kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
             kSession.fireAllRules();
+            
+            b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
+        	
+        	List<MovableEntity> movableEntity = b.getMovableEntity();
+        	
+        	System.out.println(movableEntity.size() + " movable entity");
+        	
+        	for (MovableEntity entity : movableEntity){
+        		kSession.insert(entity);
+        	}            
+            
+        	
             kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
             kSession.fireAllRules();
         	      
-            b.display(2, 8);
+            b.display(10, 3);
         } catch (Throwable t) {
             t.printStackTrace();
         }

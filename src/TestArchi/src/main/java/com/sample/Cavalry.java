@@ -6,5 +6,6 @@ public class Cavalry extends MovableEntity {
 		
 		symbol = 'H';
 		speed = 2;
+		speedLeft = speed;
 	}
 }

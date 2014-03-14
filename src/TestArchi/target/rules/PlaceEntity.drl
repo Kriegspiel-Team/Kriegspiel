@@ -10,14 +10,14 @@ rule "PlaceEntity"
     then
     	b.setIsInit(true);
     	
-        b.placeEntity(2, 9, new Mountain());
-        b.placeEntity(2, 10, new Mountain());
-        b.placeEntity(2, 11, new Mountain());
-        b.placeEntity(2, 12, new Mountain());
+        b.placeEntity(9, 2, new Mountain());
+        b.placeEntity(10, 2, new Mountain());
+        b.placeEntity(11, 2, new Mountain());
+        b.placeEntity(12, 2, new Mountain());
         
-        b.placeEntity(3, 9, new Mountain());
-        b.placeEntity(4, 9, new Mountain());
-        b.placeEntity(6, 9, new Mountain());
-        b.placeEntity(7, 9, new Mountain());
-        b.placeEntity(8, 9, new Mountain());
+        b.placeEntity(9, 3, new Mountain());
+        b.placeEntity(9, 4, new Mountain());
+        b.placeEntity(9, 6, new Mountain());
+        b.placeEntity(9, 7, new Mountain());
+        b.placeEntity(9, 8, new Mountain());
 end

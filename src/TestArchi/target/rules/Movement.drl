@@ -5,42 +5,150 @@ import java.util.ArrayList;
 import java.util.List;
 import com.sample.Coord;
 import com.sample.MovableEntity;
- 
-rule "Movement"
+
+rule "register all"
 	agenda-group "Movement"
-	no-loop
 	when
-		b : Board(myBoard : board)
+		$m : MovableEntity(speedLeft > 0 && counterDirectionRule == 0) 
 	then
 	
-		for(int i=0; i<Board.HEIGHT; i++){
-			for(int j=0; j<Board.WIDTH; j++){
-			
-				if (myBoard[i][j] instanceof MovableEntity){
-
-					MovableEntity entity = (MovableEntity)myBoard[i][j];
-					int speed = entity.getSpeed();
-					entity.resetPossibleMovement();
-
-					List<Coord> possibleMovements = new ArrayList<Coord>();
-
-					possibleMovements.add(new Coord(i,j));
-					for(int s = 0; s<speed; s++)
-					{
-						for(Coord c : possibleMovements){
-							for(int k=-1; k<=1; k++){
-								for(int l=-1; l<=1; l++){
-								
-									if (b.isValidSquare(c.x+k, c.y+l)){
-										entity.addPossibleMovement(new Coord(c.x+k, c.y+l));
-									}
-								}
-							}
-						}
-						
-						possibleMovements = (ArrayList<Coord>)entity.getPossibleMovement().clone();
-					}
-				}
-			}
+		System.out.println("register all");
+		
+		int counter = 1;
+		int nbrDirectionRule = 8;
+		
+		for(Coord c : $m.getPossibleMovement()){
+			insert(new PossibleMove(c, $m));
+			counter ++;
 		}
+		
+		insert(new PossibleMove($m.getCoord(), $m));
+		
+		modify($m){
+				setCounterDirectionRule(counter*nbrDirectionRule);
+		}
+		
+		$m.decreaseSpeedLeft();	
+
 end
+		
+
+rule "register NORTH"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register north");
+		
+		if ($b.isValidSquare($pm.getCoord().x, $pm.getCoord().y-1)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x, $pm.getCoord().y-1));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	
+
+rule "register SOUTH"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register south");
+		
+		if ($b.isValidSquare($pm.getCoord().x, $pm.getCoord().y+1)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x, $pm.getCoord().y+1));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	
+
+rule "register EAST"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register east");
+		
+		if ($b.isValidSquare($pm.getCoord().x+1, $pm.getCoord().y)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x+1, $pm.getCoord().y));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	
+
+rule "register WEST"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register west");
+		
+		if ($b.isValidSquare($pm.getCoord().x-1, $pm.getCoord().y)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x-1, $pm.getCoord().y));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	
+
+rule "register NORTHEAST"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register northeast");
+		
+		if ($b.isValidSquare($pm.getCoord().x+1, $pm.getCoord().y-1)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x+1, $pm.getCoord().y-1));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	
+
+rule "register NORTHWEST"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register northwest");
+		
+		if ($b.isValidSquare($pm.getCoord().x-1, $pm.getCoord().y-1)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x-1, $pm.getCoord().y-1));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	
+
+rule "register SOUTHEAST"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register southeast");
+		
+		if ($b.isValidSquare($pm.getCoord().x+1, $pm.getCoord().y+1)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x+1, $pm.getCoord().y+1));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	
+
+rule "register SOUTHWEST"
+	agenda-group "Movement"
+	when
+		$pm : PossibleMove($m : movableEntity)
+		$b : Board($board : board) 
+	then
+		System.out.println("register southwest");
+		
+		if ($b.isValidSquare($pm.getCoord().x-1, $pm.getCoord().y+1)){
+			$m.addPossibleMovement(new Coord($pm.getCoord().x-1, $pm.getCoord().y+1));
+		}
+		
+		modify($m) {decrCounterDirectionRule();}
+end	

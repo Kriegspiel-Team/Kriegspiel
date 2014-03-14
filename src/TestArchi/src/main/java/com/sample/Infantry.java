@@ -6,5 +6,6 @@ public class Infantry extends MovableEntity {
 		
 		symbol = 'I';
 		speed = 1;
+		speedLeft = speed;
 	}
 }
