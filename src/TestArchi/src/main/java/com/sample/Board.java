@@ -39,13 +39,13 @@ public class Board {
 	
 	public void display(int x, int y, boolean graphical){
 		
-		List<Coord> possibleMovement = new ArrayList<Coord>();
+		List<Coord> possibleMoves = new ArrayList<Coord>();
 		
 		if (board[x][y] instanceof MovableEntity){
-			possibleMovement = ((MovableEntity)board[x][y]).getPossibleMovement();
+			possibleMoves = ((MovableEntity)board[x][y]).getPossibleMovement();
 		}
 		
-		System.out.println(possibleMovement.size());
+		System.out.println(possibleMoves.size());
 		if(graphical)
 		{
 			Random r = new Random();
@@ -86,7 +86,7 @@ public class Board {
 					
 					Coord currentCoord = new Coord(i,j);
 					Boolean isPossibleMovement = false;
-					for(Coord c : possibleMovement){
+					for(Coord c : possibleMoves){
 						if (c.equals(currentCoord)){
 							isPossibleMovement = true;
 							break;
@@ -109,7 +109,7 @@ public class Board {
 			}
 		}
 		
-		for(Coord c : possibleMovement){
+		for(Coord c : possibleMoves){
 			System.out.println(c.x + "," + c.y);
 		}
 	}
