@@ -71,6 +71,15 @@ public class Board {
 						squares[i][j].add(tmp);
 						if(board[i][j] instanceof Mountain)
 							squares[i][j].setBackground(new Color(200,200,200));
+						switch(board[i][j].getOwner())
+						{
+							case 1:
+								squares[i][j].setBackground(new Color(100,150,255));
+								break;
+							case 2:
+								squares[i][j].setBackground(new Color(255,100,100));
+								break;
+						}
 					}
 					content.add(squares[i][j]);
 				}

@@ -1,2 +1,2 @@
 Infantry;1;10;3
-Infantry;1;8;2
+Infantry;2;8;2

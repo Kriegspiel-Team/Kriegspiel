@@ -1,6 +1,6 @@
 package com.sample;
 
-import javax.swing.ImageIcon;
+import com.sample.Coord;
 
 public class Entity {
 	protected char symbol;
@@ -19,5 +19,9 @@ public class Entity {
 		return coord;
 	}
 	
+	public int getOwner()
+	{
+		return this.owner;
+	}
 	
 }
