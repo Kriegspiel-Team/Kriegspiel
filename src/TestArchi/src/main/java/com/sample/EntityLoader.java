@@ -34,7 +34,7 @@ public class EntityLoader {
 					throw new Exception("Invalid file format");
 				
 				if (st[0].equals("Infantry")){
-					board.placeEntity(Integer.parseInt(st[2]), Integer.parseInt(st[3]), new Canon());
+					board.placeEntity(Integer.parseInt(st[2]), Integer.parseInt(st[3]), new Infantry());
 				}
 			}
 		} catch (Exception e) {
