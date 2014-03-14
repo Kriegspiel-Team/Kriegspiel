@@ -14,15 +14,17 @@ rule "register all"
 	
 		System.out.println("register all");
 		
-		int counter = 1;
+		int counter = 0;
 		int nbrDirectionRule = 8;
+		
+		$m.addPossibleMovement($m.getCoord());
 		
 		for(Coord c : $m.getPossibleMovement()){
 			insert(new PossibleMove(c, $m));
 			counter ++;
 		}
 		
-		insert(new PossibleMove($m.getCoord(), $m));
+		//insert(new PossibleMove($m.getCoord(), $m));
 		
 		modify($m){
 				setCounterDirectionRule(counter*nbrDirectionRule);

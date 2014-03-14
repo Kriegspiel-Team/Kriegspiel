@@ -1,10 +1,13 @@
 package com.sample;
 
 public class SwiftRelay extends MovableEntity {
-	public SwiftRelay(){
+	
+	public SwiftRelay(int owner)
+	{
 		super();
-		
 		symbol = 'R';
 		speed = 2;
+		speedLeft = speed;
+		this.owner = owner;
 	}
 }

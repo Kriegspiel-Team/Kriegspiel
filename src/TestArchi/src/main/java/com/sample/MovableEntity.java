@@ -13,6 +13,7 @@ public class MovableEntity extends Entity {
 	public MovableEntity(){
 		possibleMovement = new ArrayList<Coord>();
 		counterDirectionRule = 0;
+		canContain = false;
 	}
 
 	public int getSpeed() {

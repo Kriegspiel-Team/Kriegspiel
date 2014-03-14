@@ -1,11 +1,13 @@
 package com.sample;
 
 public class Cavalry extends MovableEntity {
-	public Cavalry(){
+	
+	public Cavalry(int owner)
+	{
 		super();
-		
 		symbol = 'H';
 		speed = 2;
 		speedLeft = speed;
+		this.owner = owner;
 	}
 }

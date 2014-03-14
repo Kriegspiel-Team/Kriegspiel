@@ -32,19 +32,29 @@ public class Board {
 	public void placeEntity(int x, int y, Entity e){
 		if (isValidSquare(x, y)){
 			e.setCoord(new Coord(x, y));
-			board[x][y] = e;
+			
+			if(board[x][y]!=null && board[x][y].canContain())
+			{
+				((UnmovableEntity)board[x][y]).setEntity((MovableEntity)e);
+			}
+			else
+			{
+				board[x][y] = e;
+			}
 		}
 	}
 	
 	public void display(int x, int y, boolean graphical){
 		
 		List<Coord> possibleMoves = new ArrayList<Coord>();
-		
-		if (board[x][y] instanceof MovableEntity){
-			possibleMoves = ((MovableEntity)board[x][y]).getPossibleMovement();
+		if (board[x][y] instanceof MovableEntity || (board[x][y] != null && board[x][y].canContain() && !((UnmovableEntity)board[x][y]).isEmpty())){
+			if (board[x][y].canContain()){
+				possibleMoves = ((UnmovableEntity)board[x][y]).getEntity().getPossibleMovement();
+			}else{
+				possibleMoves = ((MovableEntity)board[x][y]).getPossibleMovement();
+			}
 		}
 		
-		System.out.println(possibleMoves.size());
 		if(graphical)
 		{
 			//Random r = new Random();
@@ -66,13 +76,17 @@ public class Board {
 						squares[i][j].setBackground(new Color(255, 255, 255));
 					else
 					{
+						int owner = board[i][j].getOwner();
 						JLabel tmp = new JLabel(""+board[i][j].getSymbol());
 						tmp.setFont(new Font("Serif", Font.PLAIN, 32));
 						squares[i][j].add(tmp);
 						if(board[i][j] instanceof Mountain)
 							squares[i][j].setBackground(new Color(200,200,200));
-						switch(board[i][j].getOwner())
-						{
+						
+						if(board[i][j].canContain() && !((UnmovableEntity)board[i][j]).isEmpty())
+							owner = ((UnmovableEntity)board[i][j]).getEntity().getOwner();
+						
+						switch(owner) {
 							case 1:
 								squares[i][j].setBackground(new Color(100,150,255));
 								break;
@@ -151,6 +165,8 @@ public class Board {
 			for(int i=0; i<WIDTH; i++){
 				if (board[i][j] instanceof MovableEntity)
 					movableEntity.add((MovableEntity)board[i][j]);
+				else if (board[i][j] != null && board[i][j].canContain() && !((UnmovableEntity)board[i][j]).isEmpty())
+					movableEntity.add(((UnmovableEntity)board[i][j]).getEntity());
 			}
 		}
 		
@@ -164,11 +180,9 @@ public class Board {
 		/*
 		 * Authorize if there is a fortress, mountain pass...
 		 */
-		if (board[x][y] != null){
+		if (board[x][y] != null && !board[x][y].canContain()){
 			return false;
 		}
-			
-		
 		
 		return true;
 	}
