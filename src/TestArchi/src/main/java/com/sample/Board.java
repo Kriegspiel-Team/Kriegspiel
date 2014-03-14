@@ -70,10 +70,16 @@ public class Board {
 						JLabel tmp = new JLabel(""+board[j][i].getSymbol());
 						tmp.setFont(new Font("Serif", Font.PLAIN, 32));
 						squares[i][j].add(tmp);
+						if(board[j][i] instanceof Mountain)
+							squares[i][j].setBackground(new Color(200,200,200));
 					}
 					content.add(squares[i][j]);
 				}
-			}			
+			}
+			for(Coord c : possibleMoves)
+			{
+				squares[c.y][c.x].setBackground(new Color(50,255,50));
+			}
 			
 			window.setVisible(true);
 		}
