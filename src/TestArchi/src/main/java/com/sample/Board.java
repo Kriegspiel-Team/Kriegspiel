@@ -1,20 +1,16 @@
 package com.sample;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Board {
 	private Entity board[][];
@@ -48,7 +44,7 @@ public class Board {
 		System.out.println(possibleMoves.size());
 		if(graphical)
 		{
-			Random r = new Random();
+			//Random r = new Random();
 			JFrame window = new JFrame("Board display");
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			window.setSize(SQUARESIZE*WIDTH, SQUARESIZE*HEIGHT);
