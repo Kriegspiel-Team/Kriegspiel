@@ -1,5 +1,6 @@
 package com.sample;
 
+
 public class Infantry extends MovableEntity {
 	public Infantry(){
 		super();
