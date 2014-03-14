@@ -1,2 +1,4 @@
+.metadata/*
 .metadata
 .class
+./*/*.class
