@@ -49,7 +49,7 @@ public class Board {
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			window.setSize(SQUARESIZE*WIDTH, SQUARESIZE*HEIGHT);
 			Container content = window.getContentPane();
-			content.setLayout(new GridLayout(HEIGHT, WIDTH, 5, 5));
+			content.setLayout(new GridLayout(HEIGHT, WIDTH, 3, 3));
 			content.setBackground(new Color(0, 0, 0));
 			JPanel squares[][] = new JPanel[WIDTH][HEIGHT];
 			for(int j=0 ; j<HEIGHT ; j++)

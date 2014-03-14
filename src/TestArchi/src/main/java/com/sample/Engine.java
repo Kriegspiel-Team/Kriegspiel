@@ -28,7 +28,7 @@ public class Engine {
             kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
             kSession.fireAllRules();
         	      
-            b.display(2, 8, false);
+            b.display(2, 8, true);
         } catch (Throwable t) {
             t.printStackTrace();
         }
