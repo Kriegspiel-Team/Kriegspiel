@@ -1,6 +1,5 @@
 package com.sample;
 
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.kie.api.KieServices;
@@ -11,26 +10,40 @@ import org.kie.api.runtime.KieSession;
  * This is a sample class to launch a rule.
  */
 public class Engine {
+	
+	private Board board;
+	private KieServices ks;
+	private KieContainer kContainer;
+	private KieSession kSession;
 
-    public static final void main(String[] args) {
-        try {
+    public Engine(Board b) 
+    {	
+    	this.board = b;
+    	
+        try 
+        {
             // load up the knowledge base
-	        KieServices ks = KieServices.Factory.get();
-    	    KieContainer kContainer = ks.getKieClasspathContainer();
-        	KieSession kSession = kContainer.newKieSession("test-rules");
-        	
-        	
-        	
-        	Board b = new Board();
-        	
-        	kSession.insert(b);
+	        ks = KieServices.Factory.get();
+    	    kContainer = ks.getKieClasspathContainer();
+        	kSession = kContainer.newKieSession("test-rules");
+        }
+        catch (Throwable t) 
+        {
+            t.printStackTrace();
+        }
+    }
+    
+    public void placeFixedEntities()
+    {
+        	kSession.insert(board);
         	
         	kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
             kSession.fireAllRules();
-            
-            b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
-        	
-        	List<MovableEntity> movableEntity = b.getMovableEntity();
+    }
+    
+    public void computePossibleMoves()
+    {        	
+        	List<MovableEntity> movableEntity = board.getMovableEntity();
         	
         	System.out.println(movableEntity.size() + " movable entity");
         	
@@ -41,11 +54,5 @@ public class Engine {
         	
             kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
             kSession.fireAllRules();
-        	      
-            b.display(10, 6, true);
-            
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
     }
 }
