@@ -72,9 +72,6 @@ public class Board {
 		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return false;
 		
-		/*
-		 * Authorize if there is a fortress, mountain pass...
-		 */
 		if (board[x][y] != null && (!board[x][y].canContain() || !((UnmovableEntity)board[x][y]).isEmpty())){
 			return false;
 		}

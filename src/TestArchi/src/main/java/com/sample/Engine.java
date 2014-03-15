@@ -9,7 +9,7 @@ import org.kie.api.runtime.KieSession;
 /**
  * This is a sample class to launch a rule.
  */
-public class Engine {
+public class Engine implements IEngine{
 	
 	private Board board;
 	private KieServices ks;
@@ -55,4 +55,8 @@ public class Engine {
             kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
             kSession.fireAllRules();
     }
+
+	public void computeCommunications() {
+		
+	}
 }
