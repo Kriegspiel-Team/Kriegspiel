@@ -3,6 +3,8 @@ package com.sample;
 import java.util.ArrayList;
 
 public class MovableEntity extends Entity {
+	
+	protected boolean isConnected;
 	protected int defense;
 	protected int attack;
 	protected int speed;
@@ -61,6 +63,14 @@ public class MovableEntity extends Entity {
 
 	public void decrCounterDirectionRule() {
 		this.counterDirectionRule -= 1;
+	}
+	
+	public boolean isConnected() {
+		return isConnected;
+	}
+
+	public void setConnected(boolean isConnected) {
+		this.isConnected = isConnected;
 	}
 	
 }

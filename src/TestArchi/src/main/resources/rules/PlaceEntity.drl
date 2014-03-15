@@ -39,8 +39,12 @@ rule "PlaceEntity"
         b.placeEntity(14, 11, new Fortress());
         
         b.placeEntity(14, 1, new Arsenal(1));
+        b.saveArsenalPlacement(14,1);
         b.placeEntity(7, 3, new Arsenal(1));
+        b.saveArsenalPlacement(7,3);
         b.placeEntity(2, 19, new Arsenal(2));
-        b.placeEntity(22, 19, new Arsenal(2));   
+        b.saveArsenalPlacement(2,19);
+        b.placeEntity(22, 19, new Arsenal(2));
+        b.saveArsenalPlacement(22,19);
         
 end
