@@ -16,5 +16,4 @@ public class Main {
     	e.computePossibleMoves();
         bd.displayGUI(-1, -1);
 	}
-
 }
