@@ -2,8 +2,13 @@ package com.sample;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,11 +63,17 @@ public class Board {
 		if(graphical)
 		{
 			//Random r = new Random();
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			GraphicsDevice[] gs = ge.getScreenDevices();
+			DisplayMode dm = gs[0].getDisplayMode();
+			int windowheight = dm.getHeight()-50;
+			int windowwidth = windowheight*5/4;
 			JFrame window = new JFrame("Board display");
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			window.setSize(SQUARESIZE*WIDTH, SQUARESIZE*HEIGHT);
+			window.setMinimumSize(new Dimension(windowwidth, windowheight));
+			window.setResizable(false);
 			Container content = window.getContentPane();
-			content.setLayout(new GridLayout(HEIGHT, WIDTH, 3, 3));
+			content.setLayout(new GridLayout(HEIGHT, WIDTH, windowheight/500, windowheight/500));
 			content.setBackground(new Color(0, 0, 0));
 			JPanel squares[][] = new JPanel[WIDTH][HEIGHT];
 			for(int j=0 ; j<HEIGHT ; j++)
@@ -70,7 +81,6 @@ public class Board {
 				for(int i=0 ; i<WIDTH ; i++)
 				{
 					squares[i][j] = new JPanel();
-					squares[i][j].setSize(SQUARESIZE, SQUARESIZE);
 					//squares[i][j].setBackground(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)));
 					if(board[i][j] == null)
 						squares[i][j].setBackground(new Color(255, 255, 255));
@@ -78,7 +88,7 @@ public class Board {
 					{
 						int owner = board[i][j].getOwner();
 						JLabel tmp = new JLabel(""+board[i][j].getSymbol());
-						tmp.setFont(new Font("Serif", Font.PLAIN, 32));
+						tmp.setFont(new Font("Serif", Font.PLAIN, windowheight/40));
 						squares[i][j].add(tmp);
 						if(board[i][j] instanceof Mountain)
 							squares[i][j].setBackground(new Color(200,200,200));
