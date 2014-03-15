@@ -1,0 +1,43 @@
+package com.sample
+ 
+import com.sample.Board;
+import com.sample.MovableEntity;
+import com.sample.Coord;
+import java.util.ArrayList;
+import java.util.List;
+ 
+rule "initArsenalsCommunications"
+	no-loop
+    when
+        $b : Board( isInit == true, myBoard : board )
+    then
+    	$b.calculateArsenalsCommunications();
+end
+
+rule "isConnected"
+	when
+		$b : Board( $listCoordCommunications : communications)
+		$m : MovableEntity( isConnected() == false, $team : owner, $coord : coord )
+	then
+		
+		//ArrayList<MovableEntity> listNeighbours = new ArrayList<MovableEntity>();
+		/*listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);
+		
+		for(MovableEntity neighbour : listNeighbours) {
+			if(neighbour.isConnected()) {
+					$m.setConnected(true);
+			}
+		}*/
+		
+		if(!$m.isConnected()) { 
+			ArrayList<Coord> com =  $listCoordCommunications[$team];
+			for(Coord c : com) {
+				if($m.getCoord().equals(c))
+					$m.setConnected(true);
+			}
+		}
+		
+		if($m.isConnected()) {
+			modify($m) { }
+		}
+end
