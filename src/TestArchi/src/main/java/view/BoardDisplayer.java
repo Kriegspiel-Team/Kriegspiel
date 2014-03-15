@@ -57,7 +57,10 @@ public class BoardDisplayer extends JFrame{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseEntered(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
-				displayGUI(e.getX()*Board.WIDTH/windowWidth, e.getY()*Board.HEIGHT/windowHeight);
+				if(e.getButton() == MouseEvent.BUTTON1)
+					displayGUI(e.getX()*Board.WIDTH/windowWidth, e.getY()*Board.HEIGHT/windowHeight);
+				if(e.getButton() == MouseEvent.BUTTON3)
+					displayGUI(-1, -1);
 			}
 		});
 		Container content = this.getContentPane();
