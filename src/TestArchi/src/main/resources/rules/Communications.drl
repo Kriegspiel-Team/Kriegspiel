@@ -5,7 +5,7 @@ import com.sample.MovableEntity;
 import com.sample.Coord;
 import java.util.ArrayList;
 import java.util.List;
- 
+
 rule "initArsenalsCommunications"
 	no-loop
     when
@@ -20,14 +20,14 @@ rule "isConnected"
 		$m : MovableEntity( isConnected() == false, $team : owner, $coord : coord )
 	then
 		
-		//ArrayList<MovableEntity> listNeighbours = new ArrayList<MovableEntity>();
-		/*listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);
+		ArrayList listNeighbours = new ArrayList<MovableEntity>();
+		listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);
 		
-		for(MovableEntity neighbour : listNeighbours) {
+		for(MovableEntity neighbour : (ArrayList<MovableEntity>)listNeighbours) {
 			if(neighbour.isConnected()) {
 					$m.setConnected(true);
 			}
-		}*/
+		}
 		
 		if(!$m.isConnected()) { 
 			ArrayList<Coord> com =  $listCoordCommunications[$team];
