@@ -31,6 +31,13 @@ public class BoardDisplayer extends JFrame{
 	private int windowHeight;
 	private int windowWidth;
 	private JPanel squares[][];
+	private Coord selectedSquare = null;
+	
+	public static Color COLOR_PLAYER1 = new Color(100,150,255);
+	public static Color COLOR_PLAYER2 = new Color(255,100,100);
+	public static Color COLOR_MOUTAIN = new Color(200,200,200);
+	public static Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
+	public static Color COLOR_EMPTY = new Color(255,255,255);
 	
 	public BoardDisplayer(Board board)
 	{
@@ -58,9 +65,9 @@ public class BoardDisplayer extends JFrame{
 			public void mouseEntered(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1)
-					displayGUI(e.getX()*Board.WIDTH/windowWidth, e.getY()*Board.HEIGHT/windowHeight);
+					drawPossibleMovement(e.getX()*Board.WIDTH/windowWidth, e.getY()*Board.HEIGHT/windowHeight);
 				if(e.getButton() == MouseEvent.BUTTON3)
-					displayGUI(-1, -1);
+					clearPossibleMovement();
 			}
 		});
 		Container content = this.getContentPane();
@@ -76,6 +83,63 @@ public class BoardDisplayer extends JFrame{
 			}
 		}
 	}
+		
+	private void clearPossibleMovement(){
+		if (selectedSquare == null)
+			return;
+		
+		for(int j=0 ; j<Board.HEIGHT ; j++){
+			for(int i=0 ; i<Board.WIDTH ; i++){
+				JPanel currentSquare = squares[i][j];
+				Entity currentEntity = matrix[i][j];
+				
+				if(currentEntity == null){
+					currentSquare.removeAll();
+					currentSquare.setBackground(COLOR_EMPTY);
+				}
+			}
+		}
+		
+		colorSquareByOwner(selectedSquare.x, selectedSquare.y);
+		
+		repaint();
+		
+		selectedSquare = null;
+	}
+	
+	private void colorSquareByOwner(int x, int y){
+		JPanel currentSquare = squares[x][y];
+		Entity currentEntity = matrix[x][y];
+		int owner = currentEntity.getOwner();
+		
+		if(currentEntity.canContain() && !((UnmovableEntity)currentEntity).isEmpty())
+			owner = ((UnmovableEntity)currentEntity).getEntity().getOwner();
+		
+		switch(owner) {
+			case 0:
+				currentSquare.setBackground(COLOR_PLAYER1);
+				break;
+			case 1:
+				currentSquare.setBackground(COLOR_PLAYER2);
+				break;
+		}
+	}
+	
+	private void drawPossibleMovement(int x, int y){		
+		if(x >= 0 && y >= 0 && x < Board.WIDTH && y < Board.HEIGHT){
+			clearPossibleMovement();
+			
+			List<Coord> possibleMoves = getPossibleMoves(x, y);
+			for(Coord c : possibleMoves){
+				squares[c.x][c.y].setBackground(COLOR_POSSIBLEMOVE);
+			}
+			
+			if (possibleMoves.size() > 0)
+				selectedSquare = new Coord(x, y);
+			
+			repaint();
+		}
+	}
 	
 	public void displayGUI(int x, int y){
 		
@@ -88,36 +152,17 @@ public class BoardDisplayer extends JFrame{
 				//squares[i][j].setBackground(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)));
 				currentSquare.removeAll();
 				if(currentEntity == null)
-					currentSquare.setBackground(new Color(255, 255, 255));
+					currentSquare.setBackground(COLOR_EMPTY);
 				else
 				{
-					int owner = currentEntity.getOwner();
-					JLabel tmp = new JLabel(""+currentEntity.getSymbol());
+					JLabel tmp = new JLabel(Character.toString(currentEntity.getSymbol()));
 					tmp.setFont(new Font("Serif", Font.PLAIN, windowHeight/40));
 					currentSquare.add(tmp);
 					if(currentEntity instanceof Mountain)
-						currentSquare.setBackground(new Color(200,200,200));
+						currentSquare.setBackground(COLOR_MOUTAIN);
 					
-					if(currentEntity.canContain() && !((UnmovableEntity)currentEntity).isEmpty())
-						owner = ((UnmovableEntity)currentEntity).getEntity().getOwner();
-					
-					switch(owner) {
-						case 1:
-							currentSquare.setBackground(new Color(100,150,255));
-							break;
-						case 2:
-							currentSquare.setBackground(new Color(255,100,100));
-							break;
-					}
+					colorSquareByOwner(i, j);
 				}
-			}
-		}
-		if(x >= 0 && y >= 0 && x < Board.WIDTH && y < Board.HEIGHT)
-		{
-			List<Coord> possibleMoves = getPossibleMoves(x, y);
-			for(Coord c : possibleMoves)
-			{
-				squares[c.x][c.y].setBackground(new Color(50,255,50));
 			}
 		}
 		
@@ -156,10 +201,11 @@ public class BoardDisplayer extends JFrame{
 		}
 	}*/
 
-	private List<Coord> getPossibleMoves(int x, int y)
-	{
+	private List<Coord> getPossibleMoves(int x, int y){
 		List<Coord> possibleMoves = new ArrayList<Coord>();
-		if (matrix[x][y] instanceof MovableEntity || (matrix[x][y] != null && matrix[x][y].canContain() && !((UnmovableEntity)matrix[x][y]).isEmpty())){
+		if (matrix[x][y] instanceof MovableEntity || 
+				(matrix[x][y] != null && matrix[x][y].canContain() && !((UnmovableEntity)matrix[x][y]).isEmpty())){
+			
 			if (matrix[x][y].canContain()){
 				possibleMoves = ((UnmovableEntity)matrix[x][y]).getEntity().getPossibleMovement();
 			}else{
