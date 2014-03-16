@@ -4,7 +4,7 @@ import com.sample.Coord;
 
 public class Entity {
 	protected char symbol;
-	protected int owner;
+	protected int owner = -1;
 	protected Coord coord;
 	protected Boolean canContain = false;
 	

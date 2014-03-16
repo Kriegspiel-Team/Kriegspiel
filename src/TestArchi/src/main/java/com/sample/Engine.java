@@ -6,9 +6,6 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-/**
- * This is a sample class to launch a rule.
- */
 public class Engine implements IEngine{
 	
 	private Board board;
@@ -16,44 +13,39 @@ public class Engine implements IEngine{
 	private KieContainer kContainer;
 	private KieSession kSession;
 
-    public Engine(Board b) 
-    {	
+    public Engine(Board b){	
     	this.board = b;
     	
-        try 
-        {
+        try{
             // load up the knowledge base
 	        ks = KieServices.Factory.get();
     	    kContainer = ks.getKieClasspathContainer();
-        	kSession = kContainer.newKieSession("test-rules");
+        	kSession = kContainer.newKieSession("kriegspiel-knowledge");
         }
-        catch (Throwable t) 
-        {
+        catch (Throwable t){
             t.printStackTrace();
         }
     }
     
-    public void placeFixedEntities()
-    {
-        	kSession.insert(board);
-        	
-        	kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
-            kSession.fireAllRules();
+    public void placeFixedEntities(){
+    	kSession.insert(board);
+    	
+    	kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
+        kSession.fireAllRules();
     }
     
-    public void computePossibleMoves()
-    {        	
-        	List<MovableEntity> movableEntity = board.getMovableEntity();
-        	
-        	System.out.println(movableEntity.size() + " movable entity");
-        	
-        	for (MovableEntity entity : movableEntity){
-        		kSession.insert(entity);
-        	}            
-            
-        	
-            kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
-            kSession.fireAllRules();
+    public void computePossibleMoves(){        	
+    	List<MovableEntity> movableEntity = board.getMovableEntity();
+    	
+    	System.out.println(movableEntity.size() + " movable entity");
+    	
+    	for (MovableEntity entity : movableEntity){
+    		kSession.insert(entity);
+    	}            
+        
+    	
+        kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
+        kSession.fireAllRules();
     }
 
 	public void computeCommunications() {
