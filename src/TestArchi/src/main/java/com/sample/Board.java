@@ -126,8 +126,104 @@ public class Board {
 		}
 	}
 	
+	public boolean letTheCommunicationPass(int x, int y, int team) {
+		
+		boolean inBoard = false, emptyCase = false, canContain = false, canContainButEmpty = false, containFriendlyUnity = false, isFriendlyUnity = false;
+		
+		inBoard = x<WIDTH && y<HEIGHT && x>=0 && y>=0;
+		if(inBoard)
+		{
+			System.out.println(x+" "+y);
+			emptyCase = matrix[x][y] == null;
+			if(!emptyCase)
+			{
+				canContain = matrix[x][y].canContain();
+				if(canContain)
+				{
+					canContainButEmpty = ((UnmovableEntity)matrix[x][y]).isEmpty();
+					if(!canContainButEmpty)
+					{
+						containFriendlyUnity = ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
+					}
+				}
+				else
+				{
+					isFriendlyUnity = matrix[x][y].getOwner() == team;
+				}
+			}
+		}
+		
+		
+		if(inBoard && (emptyCase || (canContain && (canContainButEmpty || containFriendlyUnity)) || isFriendlyUnity)) {
+			return true;	
+		}
+		
+		return false;
+	}
+	
 	public void calculateCommunications(int x, int y, int team) {
+		
+		System.out.println(team);
+		
+		int i = 0;
+		boolean north = true, south = true, east = true, west = true, northest = true, northwest = true, southeast = true, southwest = true;
+				
+		while(north || south || east || west || northest || northwest || southeast || southwest) {
 			
+			if(east && letTheCommunicationPass(x+i,y,team)) {
+				communications.get(team).add(new Coord(x+i,y));
+			} else {
+				east = false;
+			}
+			
+			if(south && letTheCommunicationPass(x,y+i,team)) {
+				communications.get(team).add(new Coord(x,y+i));
+			} else {
+				south = false;
+			}
+			
+			if(west && letTheCommunicationPass(x-i,y,team)) {
+				communications.get(team).add(new Coord(x-i,y));
+			} else {
+				west = false;
+			}
+			
+			if(north && letTheCommunicationPass(x,y-i,team)) {
+				communications.get(team).add(new Coord(x,y-i));
+			} else {
+				north = false;
+			}
+			
+			if(southeast && letTheCommunicationPass(x+i,y+i,team)) {
+				communications.get(team).add(new Coord(x+i,y+i));
+			} else {
+				southeast = false;
+			}
+			
+			if(northwest && letTheCommunicationPass(x-i,y-i,team)) {
+				communications.get(team).add(new Coord(x-i,y-i));
+			} else {
+				northwest = false;
+			}
+			
+			if(northest && letTheCommunicationPass(x+i,y-i,team)) {
+				communications.get(team).add(new Coord(x+i,y-i));
+			} else {
+				northest = false;
+			}
+			
+			if(southwest && letTheCommunicationPass(x-i,y+i,team)) {
+				communications.get(team).add(new Coord(x-i,y+i));
+			} else {
+				southwest = false;
+			}
+			
+			i++;
+		}
+	}	
+	
+	public void OLDcalculateCommunications(int x, int y, int team) {
+		
 		System.out.println(team);
 		
 		int i = 0;
