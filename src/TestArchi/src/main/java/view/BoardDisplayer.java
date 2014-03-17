@@ -87,18 +87,10 @@ public class BoardDisplayer extends JFrame{
 	private void clearPossibleMovement(){
 		if (selectedSquare == null)
 			return;
-		
-		for(int j=0 ; j<Board.HEIGHT ; j++){
-			for(int i=0 ; i<Board.WIDTH ; i++){
-				JPanel currentSquare = squares[i][j];
-				Entity currentEntity = matrix[i][j];
-				
-				if(currentEntity == null){
-					currentSquare.removeAll();
-					currentSquare.setBackground(COLOR_EMPTY);
-				}
-			}
-		}
+
+		List<Coord> moves = getPossibleMoves(selectedSquare.x, selectedSquare.y);
+		for (Coord c : moves)
+				squares[c.x][c.y].setBackground(COLOR_EMPTY);
 		
 		colorSquareByOwner(selectedSquare.x, selectedSquare.y);
 		
