@@ -37,6 +37,7 @@ public class BoardDisplayer extends JFrame{
 	public static Color COLOR_COM_PLAYER0 = new Color(50,100,200);
 	public static Color COLOR_PLAYER1 = new Color(255,100,100);
 	public static Color COLOR_COM_PLAYER1 = new Color(200,50,50);
+	public static Color COLOR_COM_INTERSECT = new Color(200,50,200);
 	public static Color COLOR_MOUTAIN = new Color(200,200,200);
 	public static Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
 	public static Color COLOR_EMPTY = new Color(255,255,255);
@@ -111,10 +112,16 @@ public class BoardDisplayer extends JFrame{
 		
 		switch(owner) {
 			case 0:
-				currentSquare.setBackground(COLOR_PLAYER0);
+				if(currentEntity.isConnected())
+					currentSquare.setBackground(COLOR_COM_PLAYER0);
+				else
+					currentSquare.setBackground(COLOR_PLAYER0);
 				break;
 			case 1:
-				currentSquare.setBackground(COLOR_PLAYER1);
+				if(currentEntity.isConnected())
+					currentSquare.setBackground(COLOR_COM_PLAYER1);
+				else
+					currentSquare.setBackground(COLOR_PLAYER1);
 				break;
 		}
 	}
@@ -168,10 +175,17 @@ public class BoardDisplayer extends JFrame{
 	{
 		List<Coord> com = board.getCommunications(0);
 		for (Coord c : com)
-			squares[c.x][c.y].setBackground(COLOR_COM_PLAYER0);
+			if(matrix[c.x][c.y] == null)
+				squares[c.x][c.y].setBackground(COLOR_COM_PLAYER0);
 		com = board.getCommunications(1);
 		for (Coord c : com)
-			squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
+			if(matrix[c.x][c.y] == null)
+			{
+				if(squares[c.x][c.y].getBackground()==COLOR_COM_PLAYER0)
+					squares[c.x][c.y].setBackground(COLOR_COM_INTERSECT);
+				else
+					squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
+			}
 	}
 	
 	/*public void displayASCII(int x, int y){
