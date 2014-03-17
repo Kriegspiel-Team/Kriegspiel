@@ -17,6 +17,7 @@ public class Main {
     	e.placeFixedEntities();
     	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
     	e.computePossibleMoves();
+    	e.computeCommunications();
     	
     	SwingUtilities.invokeLater(new Runnable() {
             @Override

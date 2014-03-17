@@ -1,6 +1,7 @@
 package com.sample;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Board {
@@ -11,19 +12,16 @@ public class Board {
 	public static int HEIGHT = 20;
 	
 	private ArrayList<Coord> coord_arsenals;
-	private ArrayList<Coord> communications[];
+	private HashMap<Integer,ArrayList<Coord>> communications;
 	
 
-	@SuppressWarnings("unchecked")
 	public Board(){
 		board = new Entity[WIDTH][HEIGHT];
 		coord_arsenals = new ArrayList<Coord>();
 		
-		communications = new ArrayList[2];
-		ArrayList<Coord> array0 = new ArrayList<Coord>();
-		ArrayList<Coord> array1 = new ArrayList<Coord>();
-		communications[0] = array0;
-		communications[1] = array1;
+		communications = new HashMap<Integer,ArrayList<Coord>>();
+		communications.put(0, new ArrayList<Coord>());
+		communications.put(1, new ArrayList<Coord>());
 	}
 	
 	public void loadBoardWithFile(String filename){
@@ -69,8 +67,8 @@ public class Board {
 		this.isInit = isInit;
 	}
 	
-	public ArrayList<Coord>[] getCommunications() {
-		return communications;
+	public ArrayList<Coord> getCommunications(int team) {
+		return communications.get(team);
 	}
 	
 	public List<MovableEntity> getMovableEntity(){
@@ -130,55 +128,57 @@ public class Board {
 	
 	public void calculateCommunications(int x, int y, int team) {
 			
+		System.out.println(team);
+		
 		int i = 0;
 		boolean north = true, south = true, east = true, west = true, northest = true, northwest = true, southeast = true, southwest = true;
 				
 		while(north || south || east || west || northest || northwest || southeast || southwest) {
 			
 			if(east && x+i<WIDTH && (board[x+i][y]==null || (board[x+i][y].canContain() && ((UnmovableEntity)board[x+i][y]).isEmpty()))) {
-				communications[team].add(new Coord(x+i,y));
+				communications.get(team).add(new Coord(x+i,y));
 			} else {
 				east = false;
 			}
 			
 			if(south && y+i<HEIGHT && (board[x][y+i]==null || (board[x][y+i].canContain() && ((UnmovableEntity)board[x][y+i]).isEmpty()))) {
-				communications[team].add(new Coord(x,y+i));
+				communications.get(team).add(new Coord(x,y+i));
 			} else {
 				south = false;
 			}
 			
 			if(west && x-i>=0 && (board[x-i][y]==null || (board[x-i][y].canContain() && ((UnmovableEntity)board[x-i][y]).isEmpty()))) {
-				communications[team].add(new Coord(x-i,y));
+				communications.get(team).add(new Coord(x-i,y));
 			} else {
 				west = false;
 			}
 			
 			if(north && y-i>=0 && (board[x][y-i]==null || (board[x][y-i].canContain() && ((UnmovableEntity)board[x][y-i]).isEmpty()))) {
-				communications[team].add(new Coord(x,y-i));
+				communications.get(team).add(new Coord(x,y-i));
 			} else {
 				north = false;
 			}
 			
 			if(southeast && (x+i<WIDTH && y+i<HEIGHT) && (board[x+i][y+i]==null || (board[x+i][y+i].canContain() && ((UnmovableEntity)board[x+i][y+i]).isEmpty()))) {
-				communications[team].add(new Coord(x+i,y+i));
+				communications.get(team).add(new Coord(x+i,y+i));
 			} else {
 				southeast = false;
 			}
 			
 			if(northwest && (x-i>=0 && y-i>=0) && (board[x-i][y-i]==null || (board[x-i][y-i].canContain() && ((UnmovableEntity)board[x-i][y-i]).isEmpty()))) {
-				communications[team].add(new Coord(x-i,y-i));
+				communications.get(team).add(new Coord(x-i,y-i));
 			} else {
 				northwest = false;
 			}
 			
 			if(northest && (x+i<WIDTH && y-i>=0) && (board[x+i][y-i]==null || (board[x+i][y-i].canContain() && ((UnmovableEntity)board[x+i][y-i]).isEmpty()))) {
-				communications[team].add(new Coord(x+i,y-i));
+				communications.get(team).add(new Coord(x+i,y-i));
 			} else {
 				northest = false;
 			}
 			
 			if(southwest && (x-i>=0 && y+i<HEIGHT) && (board[x-i][y+i]==null || (board[x-i][y+i].canContain() && ((UnmovableEntity)board[x-i][y+i]).isEmpty()))) {
-				communications[team].add(new Coord(x-i,y+i));
+				communications.get(team).add(new Coord(x-i,y+i));
 			} else {
 				southwest = false;
 			}

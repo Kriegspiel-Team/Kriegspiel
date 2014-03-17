@@ -49,6 +49,7 @@ public class Engine implements IEngine{
     }
 
 	public void computeCommunications() {
-		
+        kSession.getAgenda().getAgendaGroup( "Communication" ).setFocus();
+        kSession.fireAllRules();
 	}
 }

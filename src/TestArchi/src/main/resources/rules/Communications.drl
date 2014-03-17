@@ -7,16 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 rule "initArsenalsCommunications"
+	agenda-group "Communication"
 	no-loop
     when
-        $b : Board( isInit == true, myBoard : board )
+        $b : Board( myBoard : board )
     then
+    	System.out.println("Entrée dans initArsenalsCommunications");
     	$b.calculateArsenalsCommunications();
 end
 
 rule "isConnected"
+	agenda-group "Communication"
 	when
-		$b : Board( $listCoordCommunications : communications)
+		$b : Board()
 		$m : MovableEntity( isConnected() == false, $team : owner, $coord : coord )
 	then
 		
@@ -30,7 +33,7 @@ rule "isConnected"
 		}
 		
 		if(!$m.isConnected()) { 
-			ArrayList<Coord> com =  $listCoordCommunications[$team];
+			ArrayList<Coord> com = $b.getCommunications($team);
 			for(Coord c : com) {
 				if($m.getCoord().equals(c))
 					$m.setConnected(true);
