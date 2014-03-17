@@ -12,7 +12,6 @@ rule "initArsenalsCommunications"
     when
         $b : Board( myBoard : matrix )
     then
-    	System.out.println("Entrée dans initArsenalsCommunications");
     	$b.calculateArsenalsCommunications();
 end
 
@@ -22,7 +21,8 @@ rule "isConnected"
 		$b : Board()
 		$m : MovableEntity( isConnected() == false, $team : owner, $coord : coord )
 	then
-		
+    	System.out.println("Entrée dans isConnected");
+    	
 		ArrayList listNeighbours = new ArrayList<MovableEntity>();
 		listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);
 		
@@ -41,6 +41,7 @@ rule "isConnected"
 		}
 		
 		if($m.isConnected()) {
+			System.out.println("L'unité en " + $coord.x + ", " + $coord.y + " est connectée.");
 			modify($m) { }
 		}
 end
