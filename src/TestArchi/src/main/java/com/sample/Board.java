@@ -51,11 +51,11 @@ public class Board {
 	
 	
 	
-	public Entity[][] getBoard(){
+	public Entity[][] getMatrix(){
 		return matrix;
 	}
 	
-	public void setBoard(Entity[][] board){
+	public void setMatrix(Entity[][] board){
 		this.matrix = board;
 	}
 

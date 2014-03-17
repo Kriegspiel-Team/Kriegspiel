@@ -42,7 +42,7 @@ public class BoardDisplayer extends JFrame{
 	public BoardDisplayer(Board board)
 	{
 		this.board = board;
-		this.matrix = this.board.getBoard();
+		this.matrix = this.board.getMatrix();
 		initGUI();
 	}
 	

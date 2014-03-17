@@ -10,7 +10,7 @@ rule "initArsenalsCommunications"
 	agenda-group "Communication"
 	no-loop
     when
-        $b : Board( myBoard : board )
+        $b : Board( myBoard : matrix )
     then
     	System.out.println("Entrée dans initArsenalsCommunications");
     	$b.calculateArsenalsCommunications();

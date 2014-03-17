@@ -6,7 +6,7 @@ rule "PlaceEntity"
 	agenda-group "PlaceEntity"
 	no-loop
     when
-        b : Board( isInit == false, myBoard : board )
+        b : Board( isInit == false, myBoard : matrix )
     then
     	b.setIsInit(true);
     	
