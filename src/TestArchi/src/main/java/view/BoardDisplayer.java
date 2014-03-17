@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -37,6 +38,7 @@ public class BoardDisplayer extends JFrame{
 	public static Color COLOR_COM_PLAYER0 = new Color(50,100,200);
 	public static Color COLOR_PLAYER1 = new Color(255,100,100);
 	public static Color COLOR_COM_PLAYER1 = new Color(200,50,50);
+	public static Color COLOR_COM_INTERSECT = new Color(200,50,200);
 	public static Color COLOR_MOUTAIN = new Color(200,200,200);
 	public static Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
 	public static Color COLOR_EMPTY = new Color(255,255,255);
@@ -81,6 +83,7 @@ public class BoardDisplayer extends JFrame{
 			for(int i=0 ; i<Board.WIDTH ; i++)
 			{
 				squares[i][j] = new JPanel();
+				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
 				content.add(squares[i][j]);
 			}
 		}
@@ -95,6 +98,7 @@ public class BoardDisplayer extends JFrame{
 				squares[c.x][c.y].setBackground(COLOR_EMPTY);
 		
 		colorSquareByOwner(selectedSquare.x, selectedSquare.y);
+		drawCommunications();
 		
 		repaint();
 		
@@ -111,10 +115,16 @@ public class BoardDisplayer extends JFrame{
 		
 		switch(owner) {
 			case 0:
-				currentSquare.setBackground(COLOR_PLAYER0);
+				if(currentEntity.isConnected())
+					currentSquare.setBackground(COLOR_COM_PLAYER0);
+				else
+					currentSquare.setBackground(COLOR_PLAYER0);
 				break;
 			case 1:
-				currentSquare.setBackground(COLOR_PLAYER1);
+				if(currentEntity.isConnected())
+					currentSquare.setBackground(COLOR_COM_PLAYER1);
+				else
+					currentSquare.setBackground(COLOR_PLAYER1);
 				break;
 		}
 	}
@@ -166,12 +176,50 @@ public class BoardDisplayer extends JFrame{
 	
 	private void drawCommunications()
 	{
-		List<Coord> com = board.getCommunications(0);
+		/*List<Coord> com = board.getCommunications(0);
 		for (Coord c : com)
-			squares[c.x][c.y].setBackground(COLOR_COM_PLAYER0);
+			if(matrix[c.x][c.y] == null)
+				squares[c.x][c.y].setBackground(COLOR_COM_PLAYER0);
 		com = board.getCommunications(1);
 		for (Coord c : com)
-			squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
+			if(matrix[c.x][c.y] == null)
+			{
+				if(squares[c.x][c.y].getBackground()==COLOR_COM_PLAYER0)
+					squares[c.x][c.y].setBackground(COLOR_COM_INTERSECT);
+				else
+					squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
+			}*/
+		
+		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+		
+		List<Coord> com = board.getCommunications(0);
+		
+		for (Coord c : com)
+			if(matrix[c.x][c.y] == null && squares[c.x][c.y].getComponentCount() == 0)
+			{
+				JLabel tmp = new JLabel("●", JLabel.CENTER);
+				tmp.setFont(fnt);
+				tmp.setForeground(COLOR_COM_PLAYER0);
+				squares[c.x][c.y].add(tmp);
+			}
+		com = board.getCommunications(1);
+		for (Coord c : com)
+			if(matrix[c.x][c.y] == null && squares[c.x][c.y].getComponentCount() == 0)
+			{
+				JLabel tmp = new JLabel("●", JLabel.CENTER);
+				tmp.setFont(fnt);
+				tmp.setForeground(COLOR_COM_PLAYER1);
+				squares[c.x][c.y].add(tmp);
+			}
+			else
+				if(squares[c.x][c.y].getComponentCount() == 1 && squares[c.x][c.y].getComponent(0).getForeground() == COLOR_COM_PLAYER0)
+				{
+					JLabel tmp = new JLabel("●", JLabel.CENTER);
+					tmp.setFont(fnt);
+					tmp.setForeground(COLOR_COM_PLAYER1);
+					squares[c.x][c.y].add(tmp);
+					
+				}
 	}
 	
 	/*public void displayASCII(int x, int y){
