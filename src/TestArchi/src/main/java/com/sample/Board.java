@@ -105,11 +105,31 @@ public class Board {
 		{
 			for(int j = -1 ; j <= 1 ; j++)
 			{
-				if(matrix[x+i][y+j]!=null && matrix[x+i][y+j] instanceof MovableEntity && matrix[x+i][y+j].getOwner() == team)
-				{
-					listNeighbours.add((MovableEntity)matrix[x+i][y+j]);
-				}
+				boolean inBoard = false, isEmptyCase = false, isFriendlyUnit = false, canContain = false, containFriendlyUnit = false;
 				
+				inBoard = (x+i)<WIDTH && (y+j)<HEIGHT && (x+i)>=0 && (y+j)>=0;
+				
+				if(inBoard)
+				{
+					isEmptyCase = matrix[x+i][y+j]==null;
+					if(!isEmptyCase)
+					{
+						isFriendlyUnit = (matrix[x+i][y+j] instanceof MovableEntity && matrix[x+i][y+j].getOwner() == team);
+						if(isFriendlyUnit) {
+							listNeighbours.add((MovableEntity)matrix[x+i][y+j]);
+						}
+						
+						canContain = matrix[x+i][y+j] instanceof UnmovableEntity && matrix[x+i][y+j].canContain();
+						if(canContain)
+						{
+							containFriendlyUnit = ((UnmovableEntity)matrix[x+i][y+j]).getEntity().getOwner() == team;
+							if(containFriendlyUnit) {
+								listNeighbours.add(((UnmovableEntity)matrix[x+i][y+j]).getEntity());
+							}
+						}
+					}
+				}
+						
 			}	
 		}
 		
@@ -220,67 +240,5 @@ public class Board {
 			
 			i++;
 		}
-	}	
-	
-	public void OLDcalculateCommunications(int x, int y, int team) {
-		
-		System.out.println(team);
-		
-		int i = 0;
-		boolean north = true, south = true, east = true, west = true, northest = true, northwest = true, southeast = true, southwest = true;
-				
-		while(north || south || east || west || northest || northwest || southeast || southwest) {
-			
-			if(east && x+i<WIDTH && (matrix[x+i][y]==null || (matrix[x+i][y].canContain() && ((UnmovableEntity)matrix[x+i][y]).isEmpty()) || matrix[x+i][y].getOwner() == team)) {
-				communications.get(team).add(new Coord(x+i,y));
-			} else {
-				east = false;
-			}
-			
-			if(south && y+i<HEIGHT && (matrix[x][y+i]==null || (matrix[x][y+i].canContain() && ((UnmovableEntity)matrix[x][y+i]).isEmpty()) || matrix[x][y+i].getOwner() == team)) {
-				communications.get(team).add(new Coord(x,y+i));
-			} else {
-				south = false;
-			}
-			
-			if(west && x-i>=0 && (matrix[x-i][y]==null || (matrix[x-i][y].canContain() && ((UnmovableEntity)matrix[x-i][y]).isEmpty()) || matrix[x-i][y].getOwner() == team)) {
-				communications.get(team).add(new Coord(x-i,y));
-			} else {
-				west = false;
-			}
-			
-			if(north && y-i>=0 && (matrix[x][y-i]==null || (matrix[x][y-i].canContain() && ((UnmovableEntity)matrix[x][y-i]).isEmpty()) || matrix[x][y-i].getOwner() == team)) {
-				communications.get(team).add(new Coord(x,y-i));
-			} else {
-				north = false;
-			}
-			
-			if(southeast && (x+i<WIDTH && y+i<HEIGHT) && (matrix[x+i][y+i]==null || (matrix[x+i][y+i].canContain() && ((UnmovableEntity)matrix[x+i][y+i]).isEmpty()) || matrix[x+i][y+i].getOwner() == team)) {
-				communications.get(team).add(new Coord(x+i,y+i));
-			} else {
-				southeast = false;
-			}
-			
-			if(northwest && (x-i>=0 && y-i>=0) && (matrix[x-i][y-i]==null || (matrix[x-i][y-i].canContain() && ((UnmovableEntity)matrix[x-i][y-i]).isEmpty()) || matrix[x-i][y-i].getOwner() == team)) {
-				communications.get(team).add(new Coord(x-i,y-i));
-			} else {
-				northwest = false;
-			}
-			
-			if(northest && (x+i<WIDTH && y-i>=0) && (matrix[x+i][y-i]==null || (matrix[x+i][y-i].canContain() && ((UnmovableEntity)matrix[x+i][y-i]).isEmpty()) || matrix[x+i][y-i].getOwner() == team)) {
-				communications.get(team).add(new Coord(x+i,y-i));
-			} else {
-				northest = false;
-			}
-			
-			if(southwest && (x-i>=0 && y+i<HEIGHT) && (matrix[x-i][y+i]==null || (matrix[x-i][y+i].canContain() && ((UnmovableEntity)matrix[x-i][y+i]).isEmpty()) || matrix[x-i][y+i].getOwner() == team)) {
-				communications.get(team).add(new Coord(x-i,y+i));
-			} else {
-				southwest = false;
-			}
-			
-			i++;
-		}
-	}	
-		
+	}		
 }
