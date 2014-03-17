@@ -39,7 +39,7 @@ rule "register NORTH"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register north");
 		
@@ -54,7 +54,7 @@ rule "register SOUTH"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register south");
 		
@@ -69,7 +69,7 @@ rule "register EAST"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register east");
 		
@@ -84,7 +84,7 @@ rule "register WEST"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register west");
 		
@@ -99,7 +99,7 @@ rule "register NORTHEAST"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register northeast");
 		
@@ -114,7 +114,7 @@ rule "register NORTHWEST"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register northwest");
 		
@@ -129,7 +129,7 @@ rule "register SOUTHEAST"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register southeast");
 		
@@ -144,7 +144,7 @@ rule "register SOUTHWEST"
 	agenda-group "Movement"
 	when
 		$pm : PossibleMove($m : movableEntity)
-		$b : Board($board : board) 
+		$b : Board($board : matrix) 
 	then
 		System.out.println("register southwest");
 		
