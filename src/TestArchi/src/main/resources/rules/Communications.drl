@@ -47,3 +47,26 @@ rule "isConnected"
 				modify(neighbour) { }
 		}
 end
+
+rule "RelayComm"
+	agenda-group "Communication"
+	when
+		$b : Board()
+		$r : Relay( isConnected() == true, $team : owner, $coord : coord)
+	then
+		System.out.println("RELAY");
+		
+		$b.calculateCommunications($coord.x, $coord.y, $team);
+		
+end
+
+rule "SwiftRelayComm"
+	agenda-group "Communication"
+	when
+		$b : Board()
+		$sr : SwiftRelay( isConnected() == true, $team : owner, $coord : coord)
+	then
+		System.out.println("RELAY");
+		$b.calculateCommunications($coord.x, $coord.y, $team);
+		
+end
