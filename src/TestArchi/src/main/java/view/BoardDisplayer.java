@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -82,6 +83,7 @@ public class BoardDisplayer extends JFrame{
 			for(int i=0 ; i<Board.WIDTH ; i++)
 			{
 				squares[i][j] = new JPanel();
+				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
 				content.add(squares[i][j]);
 			}
 		}
@@ -96,6 +98,7 @@ public class BoardDisplayer extends JFrame{
 				squares[c.x][c.y].setBackground(COLOR_EMPTY);
 		
 		colorSquareByOwner(selectedSquare.x, selectedSquare.y);
+		drawCommunications();
 		
 		repaint();
 		
@@ -173,7 +176,7 @@ public class BoardDisplayer extends JFrame{
 	
 	private void drawCommunications()
 	{
-		List<Coord> com = board.getCommunications(0);
+		/*List<Coord> com = board.getCommunications(0);
 		for (Coord c : com)
 			if(matrix[c.x][c.y] == null)
 				squares[c.x][c.y].setBackground(COLOR_COM_PLAYER0);
@@ -185,7 +188,38 @@ public class BoardDisplayer extends JFrame{
 					squares[c.x][c.y].setBackground(COLOR_COM_INTERSECT);
 				else
 					squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
+			}*/
+		
+		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+		
+		List<Coord> com = board.getCommunications(0);
+		
+		for (Coord c : com)
+			if(matrix[c.x][c.y] == null && squares[c.x][c.y].getComponentCount() == 0)
+			{
+				JLabel tmp = new JLabel("●", JLabel.CENTER);
+				tmp.setFont(fnt);
+				tmp.setForeground(COLOR_COM_PLAYER0);
+				squares[c.x][c.y].add(tmp);
 			}
+		com = board.getCommunications(1);
+		for (Coord c : com)
+			if(matrix[c.x][c.y] == null && squares[c.x][c.y].getComponentCount() == 0)
+			{
+				JLabel tmp = new JLabel("●", JLabel.CENTER);
+				tmp.setFont(fnt);
+				tmp.setForeground(COLOR_COM_PLAYER1);
+				squares[c.x][c.y].add(tmp);
+			}
+			else
+				if(squares[c.x][c.y].getComponentCount() == 1 && squares[c.x][c.y].getComponent(0).getForeground() == COLOR_COM_PLAYER0)
+				{
+					JLabel tmp = new JLabel("●", JLabel.CENTER);
+					tmp.setFont(fnt);
+					tmp.setForeground(COLOR_COM_PLAYER1);
+					squares[c.x][c.y].add(tmp);
+					
+				}
 	}
 	
 	/*public void displayASCII(int x, int y){
