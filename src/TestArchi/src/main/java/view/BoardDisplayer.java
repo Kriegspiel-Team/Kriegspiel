@@ -190,14 +190,14 @@ public class BoardDisplayer extends JFrame{
 					squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
 			}*/
 		
-		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/30);
 		
 		List<Coord> com = board.getCommunications(0);
 		
 		for (Coord c : com)
 			if(matrix[c.x][c.y] == null && squares[c.x][c.y].getComponentCount() == 0)
 			{
-				JLabel tmp = new JLabel("●", JLabel.CENTER);
+				JLabel tmp = new JLabel("•", JLabel.CENTER);
 				tmp.setFont(fnt);
 				tmp.setForeground(COLOR_COM_PLAYER0);
 				squares[c.x][c.y].add(tmp);
@@ -206,7 +206,7 @@ public class BoardDisplayer extends JFrame{
 		for (Coord c : com)
 			if(matrix[c.x][c.y] == null && squares[c.x][c.y].getComponentCount() == 0)
 			{
-				JLabel tmp = new JLabel("●", JLabel.CENTER);
+				JLabel tmp = new JLabel("•", JLabel.CENTER);
 				tmp.setFont(fnt);
 				tmp.setForeground(COLOR_COM_PLAYER1);
 				squares[c.x][c.y].add(tmp);
@@ -214,7 +214,7 @@ public class BoardDisplayer extends JFrame{
 			else
 				if(squares[c.x][c.y].getComponentCount() == 1 && squares[c.x][c.y].getComponent(0).getForeground() == COLOR_COM_PLAYER0)
 				{
-					JLabel tmp = new JLabel("●", JLabel.CENTER);
+					JLabel tmp = new JLabel("•", JLabel.CENTER);
 					tmp.setFont(fnt);
 					tmp.setForeground(COLOR_COM_PLAYER1);
 					squares[c.x][c.y].add(tmp);
