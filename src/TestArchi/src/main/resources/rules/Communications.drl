@@ -5,6 +5,7 @@ import model.MovableEntity;
 import main.Coord;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet
 
 rule "initArsenalsCommunications"
 	agenda-group "Communication"
@@ -33,7 +34,7 @@ rule "isConnected"
 		}
 		
 		if(!$m.isConnected()) { 
-			ArrayList<Coord> com = $b.getCommunications($team);
+			HashSet<Coord> com = $b.getCommunications($team);
 			for(Coord c : com) {
 				if($m.getCoord().equals(c))
 					$m.setConnected(true);

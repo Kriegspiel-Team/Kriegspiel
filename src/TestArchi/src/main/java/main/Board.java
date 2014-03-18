@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import model.Entity;
@@ -16,16 +17,16 @@ public class Board {
 	public static int HEIGHT = 20;
 	
 	private ArrayList<Coord> coord_arsenals;
-	private HashMap<Integer,ArrayList<Coord>> communications;
+	private HashMap<Integer,HashSet<Coord>> communications;
 	
 
 	public Board(){
 		matrix = new Entity[WIDTH][HEIGHT];
 		coord_arsenals = new ArrayList<Coord>();
 		
-		communications = new HashMap<Integer,ArrayList<Coord>>();
-		communications.put(0, new ArrayList<Coord>());
-		communications.put(1, new ArrayList<Coord>());
+		communications = new HashMap<Integer,HashSet<Coord>>();
+		communications.put(0, new HashSet<Coord>());
+		communications.put(1, new HashSet<Coord>());
 	}
 	
 	public void loadBoardWithFile(String filename){
@@ -71,7 +72,7 @@ public class Board {
 		this.isInit = isInit;
 	}
 	
-	public ArrayList<Coord> getCommunications(int team) {
+	public HashSet<Coord> getCommunications(int team) {
 		return communications.get(team);
 	}
 	
@@ -231,7 +232,7 @@ public class Board {
 			}
 			
 			if(northest && letTheCommunicationPass(x+i,y-i,team)) {
-				communications.get(team).add(new Coord(x+i,y-i));
+				communications.get(team).add(new Coord(x+i,y-i));				
 			} else {
 				northest = false;
 			}

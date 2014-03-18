@@ -1,6 +1,7 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import main.Coord;
 
@@ -11,10 +12,10 @@ public class MovableEntity extends Entity {
 	protected int speed;
 	protected int speedLeft;
 	protected int counterDirectionRule;
-	protected ArrayList<Coord> possibleMovement;
+	protected Set<Coord> possibleMovement;
 	
 	public MovableEntity(){
-		possibleMovement = new ArrayList<Coord>();
+		possibleMovement = new HashSet<Coord>();
 		counterDirectionRule = 0;
 		canContain = false;
 	}
@@ -27,18 +28,12 @@ public class MovableEntity extends Entity {
 		possibleMovement.clear();
 	}
 	
-	public void addPossibleMovement(Coord c){
-		Boolean exists = false;
-		for(Coord coord : possibleMovement){
-			if (c.equals(coord))
-				exists = true;
-		}
+	public void addPossibleMovement(Coord c){		
+		possibleMovement.add(c);
 		
-		if (!exists)
-			possibleMovement.add(c);
 	}
 
-	public ArrayList<Coord> getPossibleMovement() {
+	public Set<Coord> getPossibleMovement() {
 		return possibleMovement;
 	}
 
