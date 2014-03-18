@@ -14,7 +14,6 @@ import model.UnmovableEntity;
 
 public class Board {
 	private Entity matrix[][];
-	private Boolean isInit = false;
 	
 	public static int WIDTH = 25;
 	public static int HEIGHT = 20;
@@ -61,14 +60,6 @@ public class Board {
 	public void setMatrix(Entity[][] board) {
 		this.matrix = board;
 	}
-
-	public Boolean getIsInit() {
-		return isInit;
-	}
-
-	public void setIsInit(Boolean isInit) {
-		this.isInit = isInit;
-	}
 	
 	public HashSet<Coord> getCommunications(int team) {
 		return communications.get(team);
@@ -103,19 +94,20 @@ public class Board {
 		return true;
 	}
 	
-	public boolean isMontain(int x, int y) {
+	public boolean isMountain(int x, int y) {
 		return matrix[x][y] instanceof Mountain;
 	}
 	
 	public boolean isRelay(int x, int y) {
-		return (getUnity(x,y) instanceof Relay || getUnity(x,y) instanceof SwiftRelay);
+		return (getUnit(x,y) instanceof Relay || getUnit(x,y) instanceof SwiftRelay);
 	}
 	
 	public boolean inBoard(int x, int y) {
 		return (x<WIDTH && y<HEIGHT && x>=0 && y>=0);
 	}
 	
-	public boolean emptyCase(int x, int y) {
+	public boolean emptySquare(int x, int y)
+	{
 		return matrix[x][y] == null;
 	}
 	
@@ -127,17 +119,23 @@ public class Board {
 		return canContain(x,y) && ((UnmovableEntity)matrix[x][y]).isEmpty();
 	}
 	
-	public boolean containFriendlyUnity(int x, int y, int team) {
+	public boolean containsFriendlyUnit(int x, int y, int team)
+	{
 		return ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
 	}
 	
-	public boolean isFriendlyUnity(int x, int y, int team) {
-		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containFriendlyUnity(x,y,team));
+	public boolean isFriendlyUnit(int x, int y, int team)
+	{
+		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containsFriendlyUnit(x,y,team));
 	}
 	
-	public MovableEntity getUnity(int x, int y) {
+	public MovableEntity getUnit(int x, int y)
+	{
 		if(canContain(x,y))
 			return ((UnmovableEntity)matrix[x][y]).getEntity();
+		
+		if(matrix[x][y] instanceof UnmovableEntity)
+			return null;
 		
 		return (MovableEntity)matrix[x][y];
 	}
@@ -148,8 +146,8 @@ public class Board {
 		
 		for(int i = -1 ; i <= 1 ; i++) {
 			for(int j = -1 ; j <= 1 ; j++) {
-				if(inBoard(x+i,y+j) && !emptyCase(x+i,y+j) && isFriendlyUnity(x+i,y+j,team)) {
-					listNeighbours.add(getUnity(x+i,y+j));
+				if(inBoard(x+i,y+j) && !emptySquare(x+i,y+j) && isFriendlyUnit(x+i,y+j,team)) {
+					listNeighbours.add(getUnit(x+i,y+j));
 				}
 			}	
 		}
@@ -163,18 +161,18 @@ public class Board {
 		for(Coord c : coord_arsenals) {
 			
 			team = matrix[c.x][c.y].getOwner();
-			calculateCommunications(c.x, c.y, team);
+			computeCommunications(c.x, c.y, team);
 		}
 	}
 	
 	public boolean isObstacle(int x, int y, int team) {
-		if(!inBoard(x,y) || (!emptyCase(x,y) && (isMontain(x,y) || (!isRelay(x,y) && (!canContainButEmpty(x,y) && getUnity(x,y).getOwner() != team ))))) 
+		if(!inBoard(x,y) || (!emptySquare(x,y) && (isMountain(x,y) || (!isRelay(x,y) && (!canContainButEmpty(x,y) && getUnit(x,y).getOwner() != team ))))) 
 			return true;
 		
 		return false;
 	}
 	
-	public void calculateCommunications(int x, int y, int team) {
+	public void computeCommunications(int x, int y, int team) {
 		
 		System.out.println(team);
 		

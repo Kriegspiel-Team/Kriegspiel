@@ -25,7 +25,7 @@ rule "RelayComm"
 		System.out.println("RELAY");
 			
 		if($b.isOnCommunications($coord, $team)) {
-			$b.calculateCommunications($coord.x, $coord.y, $team);
+			$b.computeCommunications($coord.x, $coord.y, $team);
 			modify($r) { setOnCommunications(true); }
 		}
 end
@@ -39,7 +39,7 @@ rule "SwiftRelayComm"
 		System.out.println("SWIFTRELAY");
 		
 		if($b.isOnCommunications($coord, $team)) {
-			$b.calculateCommunications($coord.x, $coord.y, $team);
+			$b.computeCommunications($coord.x, $coord.y, $team);
 			modify($sr) { setOnCommunications(true); }
 		}
 end
@@ -73,4 +73,3 @@ rule "isConnected"
 				modify(neighbour) { }
 		}
 end
-
