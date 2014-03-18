@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -90,6 +91,11 @@ public class BoardDisplayer extends JFrame{
 			{
 				squares[i][j] = new JPanel();
 				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
+				
+				if (!board.emptySquare(i, j) && board.canContain(i, j)){
+					squares[i][j].setBorder(BorderFactory.createDashedBorder(Color.BLACK, 3.0f, 3.0f, 1.0f, false));
+				}
+				
 				content.add(squares[i][j]);
 			}
 		}
