@@ -54,13 +54,11 @@ public class Board {
 		}
 	}
 	
-	
-	
-	public Entity[][] getMatrix(){
+	public Entity[][] getMatrix() {
 		return matrix;
 	}
 	
-	public void setMatrix(Entity[][] board){
+	public void setMatrix(Entity[][] board) {
 		this.matrix = board;
 	}
 
@@ -76,7 +74,7 @@ public class Board {
 		return communications.get(team);
 	}
 	
-	public List<MovableEntity> getMovableEntity(){
+	public List<MovableEntity> getMovableEntity() {
 		List<MovableEntity> movableEntity = new ArrayList<MovableEntity>();
 		
 		for(int j=0; j<HEIGHT; j++){
@@ -91,7 +89,7 @@ public class Board {
 		return movableEntity;
 	}
 	
-	public boolean isValidSquare(int x, int y){
+	public boolean isValidSquare(int x, int y) {
 		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return false;
 		
@@ -102,40 +100,32 @@ public class Board {
 		return true;
 	}
 	
-	public boolean inBoard(int x, int y)
-	{
+	public boolean inBoard(int x, int y) {
 		return (x<WIDTH && y<HEIGHT && x>=0 && y>=0);
 	}
 	
-	public boolean emptyCase(int x, int y)
-	{
+	public boolean emptyCase(int x, int y) {
 		return matrix[x][y] == null;
 	}
 	
-	public boolean canContain(int x, int y)
-	{
+	public boolean canContain(int x, int y) {
 		return matrix[x][y] instanceof UnmovableEntity && matrix[x][y].canContain();
 	}
 	
-	public boolean canContainButEmpty(int x, int y)
-	{
+	public boolean canContainButEmpty(int x, int y) {
 		return canContain(x,y) && ((UnmovableEntity)matrix[x][y]).isEmpty();
 	}
 	
-	public boolean containFriendlyUnity(int x, int y, int team)
-	{
+	public boolean containFriendlyUnity(int x, int y, int team) {
 		return ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
 	}
 	
-	public boolean isFriendlyUnity(int x, int y, int team)
-	{
+	public boolean isFriendlyUnity(int x, int y, int team) {
 		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containFriendlyUnity(x,y,team));
 	}
 	
-	public MovableEntity getUnity(int x, int y)
-	{
-		if(canContain(x,y))
-		{
+	public MovableEntity getUnity(int x, int y) {
+		if(canContain(x,y)) {
 			return ((UnmovableEntity)matrix[x][y]).getEntity();
 		}
 		
@@ -167,8 +157,7 @@ public class Board {
 		}
 	}
 	
-	public boolean isObstacle(int x, int y, int team) 
-	{
+	public boolean isObstacle(int x, int y, int team) {
 		if(!inBoard(x,y) || (!emptyCase(x,y) && (matrix[x][y] instanceof Mountain || (!canContainButEmpty(x,y) && getUnity(x,y).getOwner() != team)))) {
 			return true;
 		}
