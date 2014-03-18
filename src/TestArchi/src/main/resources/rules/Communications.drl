@@ -59,7 +59,7 @@ rule "RelayComm"
 		
 		HashSet<Coord> com = $b.getCommunications($team);
 		if(com.contains($coord))
-			$b.calculateCommunications($coord.x, $coord.y, $team);
+			$b.computeCommunications($coord.x, $coord.y, $team);
 end
 
 rule "SwiftRelayComm"
@@ -72,5 +72,5 @@ rule "SwiftRelayComm"
 		
 		HashSet<Coord> com = $b.getCommunications($team);
 		if(com.contains($coord))
-			$b.calculateCommunications($coord.x, $coord.y, $team);
+			$b.computeCommunications($coord.x, $coord.y, $team);
 end

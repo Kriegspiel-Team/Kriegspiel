@@ -108,7 +108,7 @@ public class Board {
 		return (x<WIDTH && y<HEIGHT && x>=0 && y>=0);
 	}
 	
-	public boolean emptyCase(int x, int y)
+	public boolean emptySquare(int x, int y)
 	{
 		return matrix[x][y] == null;
 	}
@@ -123,17 +123,17 @@ public class Board {
 		return canContain(x,y) && ((UnmovableEntity)matrix[x][y]).isEmpty();
 	}
 	
-	public boolean containFriendlyUnity(int x, int y, int team)
+	public boolean containsFriendlyUnit(int x, int y, int team)
 	{
 		return ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
 	}
 	
-	public boolean isFriendlyUnity(int x, int y, int team)
+	public boolean isFriendlyUnit(int x, int y, int team)
 	{
-		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containFriendlyUnity(x,y,team));
+		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containsFriendlyUnit(x,y,team));
 	}
 	
-	public MovableEntity getUnity(int x, int y)
+	public MovableEntity getUnit(int x, int y)
 	{
 		if(canContain(x,y))
 		{
@@ -152,8 +152,8 @@ public class Board {
 		
 		for(int i = -1 ; i <= 1 ; i++) {
 			for(int j = -1 ; j <= 1 ; j++) {
-				if(inBoard(x+i,y+j) && !emptyCase(x+i,y+j) && isFriendlyUnity(x+i,y+j,team)) {
-					listNeighbours.add(getUnity(x+i,y+j));
+				if(inBoard(x+i,y+j) && !emptySquare(x+i,y+j) && isFriendlyUnit(x+i,y+j,team)) {
+					listNeighbours.add(getUnit(x+i,y+j));
 				}
 			}	
 		}
@@ -167,20 +167,20 @@ public class Board {
 		for(Coord c : coord_arsenals) {
 			
 			team = matrix[c.x][c.y].getOwner();
-			calculateCommunications(c.x, c.y, team);
+			computeCommunications(c.x, c.y, team);
 		}
 	}
 	
 	public boolean isObstacle(int x, int y, int team) 
 	{
-		if(!inBoard(x,y) || (!emptyCase(x,y) && (matrix[x][y] instanceof Mountain || (!canContainButEmpty(x,y) && getUnity(x,y).getOwner() != team)))) {
+		if(!inBoard(x,y) || (!emptySquare(x,y) && (matrix[x][y] instanceof Mountain || (!canContainButEmpty(x,y) && getUnit(x,y).getOwner() != team)))) {
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public void calculateCommunications(int x, int y, int team) {
+	public void computeCommunications(int x, int y, int team) {
 		
 		System.out.println(team);
 		

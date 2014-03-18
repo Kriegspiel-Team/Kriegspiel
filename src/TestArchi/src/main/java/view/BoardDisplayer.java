@@ -133,8 +133,8 @@ public class BoardDisplayer extends JFrame{
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
 		
-		if(currentEntity instanceof Fortress && board.getUnity(x, y) != null)
-			currentEntity = board.getUnity(x, y);
+		if(currentEntity instanceof Fortress && board.getUnit(x, y) != null)
+			currentEntity = board.getUnit(x, y);
 		
 		int owner = currentEntity.getOwner();
 		
@@ -281,8 +281,8 @@ public class BoardDisplayer extends JFrame{
 	}*/
 
 	private Set<Coord> getPossibleMoves(int x, int y){
-		if(board.getUnity(x, y) instanceof MovableEntity)
-			return board.getUnity(x,y).getPossibleMovement();
+		if(board.getUnit(x, y) instanceof MovableEntity)
+			return board.getUnit(x,y).getPossibleMovement();
 		return new HashSet<Coord>();
 	}	
 }
