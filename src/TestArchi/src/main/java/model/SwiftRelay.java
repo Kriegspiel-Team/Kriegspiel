@@ -9,6 +9,11 @@ public class SwiftRelay extends MovableEntity {
 		super();
 		symbol = 'R';
 		speed = 2;
+		range = 0;
+		attack = 0;
+		defence = 1;
+		enemyAttack = 0;
+		allyDefence = 0;
 		speedLeft = speed;
 		onCommunications = false;
 		this.owner = owner;
