@@ -8,6 +8,8 @@ import java.util.List;
 import model.Entity;
 import model.Mountain;
 import model.MovableEntity;
+import model.Relay;
+import model.SwiftRelay;
 import model.UnmovableEntity;
 
 public class Board {
@@ -20,7 +22,7 @@ public class Board {
 	private HashMap<Integer,HashSet<Coord>> communications;
 	
 
-	public Board(){
+	public Board() {
 		matrix = new Entity[WIDTH][HEIGHT];
 		coord_arsenals = new ArrayList<Coord>();
 		
@@ -29,38 +31,33 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
-	public void loadBoardWithFile(String filename){
+	public void loadBoardWithFile(String filename) {
 		new EntityLoader(this, filename);
 	}
 	
-	public void saveArsenalPlacement(int x, int y)
-	{
+	public void saveArsenalPlacement(int x, int y) {
 		coord_arsenals.add(new Coord(x,y));
 		
 	}
 	
-	public void placeEntity(int x, int y, Entity e){
+	public void placeEntity(int x, int y, Entity e) {
 		if (isValidSquare(x, y)){
 			e.setCoord(new Coord(x, y));
 			
-			if(matrix[x][y]!=null && matrix[x][y].canContain())
-			{
+			if(matrix[x][y]!=null && matrix[x][y].canContain()) {
 				((UnmovableEntity)matrix[x][y]).setEntity((MovableEntity)e);
 			}
-			else
-			{
+			else {
 				matrix[x][y] = e;
 			}
 		}
 	}
 	
-	
-	
-	public Entity[][] getMatrix(){
+	public Entity[][] getMatrix() {
 		return matrix;
 	}
 	
-	public void setMatrix(Entity[][] board){
+	public void setMatrix(Entity[][] board) {
 		this.matrix = board;
 	}
 	
@@ -68,11 +65,15 @@ public class Board {
 		return communications.get(team);
 	}
 	
-	public List<MovableEntity> getMovableEntity(){
+	public boolean isOnCommunications(Coord coord, int team) {
+		return getCommunications(team).contains(coord);
+	}
+	
+	public List<MovableEntity> getMovableEntity() {
 		List<MovableEntity> movableEntity = new ArrayList<MovableEntity>();
 		
-		for(int j=0; j<HEIGHT; j++){
-			for(int i=0; i<WIDTH; i++){
+		for(int j=0; j<HEIGHT; j++) {
+			for(int i=0; i<WIDTH; i++) {
 				if (matrix[i][j] instanceof MovableEntity)
 					movableEntity.add((MovableEntity)matrix[i][j]);
 				else if (matrix[i][j] != null && matrix[i][j].canContain() && !((UnmovableEntity)matrix[i][j]).isEmpty())
@@ -83,19 +84,25 @@ public class Board {
 		return movableEntity;
 	}
 	
-	public boolean isValidSquare(int x, int y){
+	public boolean isValidSquare(int x, int y) {
 		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return false;
 		
-		if (matrix[x][y] != null && (!matrix[x][y].canContain() || !((UnmovableEntity)matrix[x][y]).isEmpty())){
+		if (matrix[x][y] != null && (!matrix[x][y].canContain() || !((UnmovableEntity)matrix[x][y]).isEmpty()))
 			return false;
-		}
 		
 		return true;
 	}
 	
-	public boolean inBoard(int x, int y)
-	{
+	public boolean isMountain(int x, int y) {
+		return matrix[x][y] instanceof Mountain;
+	}
+	
+	public boolean isRelay(int x, int y) {
+		return (getUnit(x,y) instanceof Relay || getUnit(x,y) instanceof SwiftRelay);
+	}
+	
+	public boolean inBoard(int x, int y) {
 		return (x<WIDTH && y<HEIGHT && x>=0 && y>=0);
 	}
 	
@@ -104,13 +111,11 @@ public class Board {
 		return matrix[x][y] == null;
 	}
 	
-	public boolean canContain(int x, int y)
-	{
+	public boolean canContain(int x, int y) {
 		return matrix[x][y] instanceof UnmovableEntity && matrix[x][y].canContain();
 	}
 	
-	public boolean canContainButEmpty(int x, int y)
-	{
+	public boolean canContainButEmpty(int x, int y) {
 		return canContain(x,y) && ((UnmovableEntity)matrix[x][y]).isEmpty();
 	}
 	
@@ -127,9 +132,7 @@ public class Board {
 	public MovableEntity getUnit(int x, int y)
 	{
 		if(canContain(x,y))
-		{
 			return ((UnmovableEntity)matrix[x][y]).getEntity();
-		}
 		
 		if(matrix[x][y] instanceof UnmovableEntity)
 			return null;
@@ -162,11 +165,9 @@ public class Board {
 		}
 	}
 	
-	public boolean isObstacle(int x, int y, int team) 
-	{
-		if(!inBoard(x,y) || (!emptySquare(x,y) && (matrix[x][y] instanceof Mountain || (!canContainButEmpty(x,y) && getUnit(x,y).getOwner() != team)))) {
+	public boolean isObstacle(int x, int y, int team) {
+		if(!inBoard(x,y) || (!emptySquare(x,y) && (isMountain(x,y) || (!isRelay(x,y) && (!canContainButEmpty(x,y) && getUnit(x,y).getOwner() != team ))))) 
 			return true;
-		}
 		
 		return false;
 	}
