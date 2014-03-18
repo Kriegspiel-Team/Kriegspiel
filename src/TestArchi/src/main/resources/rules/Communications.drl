@@ -16,6 +16,34 @@ rule "initArsenalsCommunications"
     	$b.calculateArsenalsCommunications();
 end
 
+rule "RelayComm"
+	agenda-group "Communication"
+	when
+		$b : Board()
+		$r : Relay( onCommunications == false, $team : owner, $coord : coord)
+	then
+		System.out.println("RELAY");
+			
+		if($b.isOnCommunications($coord, $team)) {
+			$b.calculateCommunications($coord.x, $coord.y, $team);
+			modify($r) { setOnCommunications(true); }
+		}
+end
+
+rule "SwiftRelayComm"
+	agenda-group "Communication"
+	when
+		$b : Board()
+		$sr : SwiftRelay( onCommunications == false, $team : owner, $coord : coord)
+	then
+		System.out.println("SWIFTRELAY");
+		
+		if($b.isOnCommunications($coord, $team)) {
+			$b.calculateCommunications($coord.x, $coord.y, $team);
+			modify($sr) { setOnCommunications(true); }
+		}
+end
+
 rule "isConnected"
 	agenda-group "Communication"
 	when
@@ -34,11 +62,8 @@ rule "isConnected"
 		}
 		
 		if(!$m.isConnected()) { 
-			HashSet<Coord> com = $b.getCommunications($team);
-			for(Coord c : com) {
-				if($m.getCoord().equals(c))
-					$m.setConnected(true);
-			}
+			if($b.isOnCommunications($coord, $team))
+				$m.setConnected(true);
 		}
 		
 		if($m.isConnected()) {
@@ -49,28 +74,3 @@ rule "isConnected"
 		}
 end
 
-rule "RelayComm"
-	agenda-group "Communication"
-	when
-		$b : Board()
-		Relay( isConnected() == true, $team : owner, $coord : coord)
-	then
-		System.out.println("RELAY");
-		
-		HashSet<Coord> com = $b.getCommunications($team);
-		if(com.contains($coord))
-			$b.calculateCommunications($coord.x, $coord.y, $team);
-end
-
-rule "SwiftRelayComm"
-	agenda-group "Communication"
-	when
-		$b : Board()
-		SwiftRelay( isConnected() == true, $team : owner, $coord : coord)
-	then
-		System.out.println("SWIFTRELAY");
-		
-		HashSet<Coord> com = $b.getCommunications($team);
-		if(com.contains($coord))
-			$b.calculateCommunications($coord.x, $coord.y, $team);
-end
