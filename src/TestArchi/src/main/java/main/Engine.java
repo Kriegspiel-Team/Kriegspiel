@@ -37,20 +37,21 @@ public class Engine implements IEngine{
     }
     
     public void computePossibleMoves(){        	
-    	List<MovableEntity> movableEntity = board.getMovableEntity();
-    	
-    	System.out.println(movableEntity.size() + " movable entity");
-    	
-    	for (MovableEntity entity : movableEntity){
-    		kSession.insert(entity);
-    	}            
-        
     	
         kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
         kSession.fireAllRules();
     }
 
 	public void computeCommunications() {
+	
+		List<MovableEntity> movableEntity = board.getMovableEntity();
+    	
+    	System.out.println(movableEntity.size() + " movable entity");
+    	
+    	for (MovableEntity entity : movableEntity){
+    		kSession.insert(entity);
+    	}            
+		
         kSession.getAgenda().getAgendaGroup( "Communication" ).setFocus();
         kSession.fireAllRules();
 	}
