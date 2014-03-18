@@ -56,7 +56,15 @@ rule "RelayComm"
 	then
 		System.out.println("RELAY");
 		
-		$b.calculateCommunications($coord.x, $coord.y, $team);
+		boolean RelayIsDirectlyConnected = false;
+		ArrayList<Coord> com = $b.getCommunications($team);
+		for(Coord c : com) {
+			if($r.getCoord().equals(c))
+				RelayIsDirectlyConnected = true;
+		}
+			
+		if(RelayIsDirectlyConnected)
+			$b.calculateCommunications($coord.x, $coord.y, $team);
 		
 end
 
@@ -66,7 +74,16 @@ rule "SwiftRelayComm"
 		$b : Board()
 		$sr : SwiftRelay( isConnected() == true, $team : owner, $coord : coord)
 	then
-		System.out.println("RELAY");
-		$b.calculateCommunications($coord.x, $coord.y, $team);
+		System.out.println("SWIFTRELAY");
+		
+		boolean RelayIsDirectlyConnected = false;
+		ArrayList<Coord> com = $b.getCommunications($team);
+		for(Coord c : com) {
+			if($sr.getCoord().equals(c))
+				RelayIsDirectlyConnected = true;
+		}
+			
+		if(RelayIsDirectlyConnected)
+			$b.calculateCommunications($coord.x, $coord.y, $team);
 		
 end
