@@ -5,6 +5,7 @@ import model.MovableEntity;
 import main.Coord;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet
 
 rule "initArsenalsCommunications"
 	agenda-group "Communication"
@@ -33,7 +34,7 @@ rule "isConnected"
 		}
 		
 		if(!$m.isConnected()) { 
-			ArrayList<Coord> com = $b.getCommunications($team);
+			HashSet<Coord> com = $b.getCommunications($team);
 			for(Coord c : com) {
 				if($m.getCoord().equals(c))
 					$m.setConnected(true);
@@ -52,38 +53,24 @@ rule "RelayComm"
 	agenda-group "Communication"
 	when
 		$b : Board()
-		$r : Relay( isConnected() == true, $team : owner, $coord : coord)
+		Relay( isConnected() == true, $team : owner, $coord : coord)
 	then
 		System.out.println("RELAY");
 		
-		boolean RelayIsDirectlyConnected = false;
-		ArrayList<Coord> com = $b.getCommunications($team);
-		for(Coord c : com) {
-			if($r.getCoord().equals(c))
-				RelayIsDirectlyConnected = true;
-		}
-			
-		if(RelayIsDirectlyConnected)
+		HashSet<Coord> com = $b.getCommunications($team);
+		if(com.contains($coord))
 			$b.calculateCommunications($coord.x, $coord.y, $team);
-		
 end
 
 rule "SwiftRelayComm"
 	agenda-group "Communication"
 	when
 		$b : Board()
-		$sr : SwiftRelay( isConnected() == true, $team : owner, $coord : coord)
+		SwiftRelay( isConnected() == true, $team : owner, $coord : coord)
 	then
 		System.out.println("SWIFTRELAY");
 		
-		boolean RelayIsDirectlyConnected = false;
-		ArrayList<Coord> com = $b.getCommunications($team);
-		for(Coord c : com) {
-			if($sr.getCoord().equals(c))
-				RelayIsDirectlyConnected = true;
-		}
-			
-		if(RelayIsDirectlyConnected)
+		HashSet<Coord> com = $b.getCommunications($team);
+		if(com.contains($coord))
 			$b.calculateCommunications($coord.x, $coord.y, $team);
-		
 end
