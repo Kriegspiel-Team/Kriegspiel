@@ -1,6 +1,8 @@
-package com.sample;
+package model;
 
 import java.util.ArrayList;
+
+import main.Coord;
 
 public class MovableEntity extends Entity {
 	

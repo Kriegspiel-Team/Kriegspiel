@@ -1,4 +1,6 @@
-package com.sample;
+package main;
+
+import model.MovableEntity;
 
 public class PossibleMove {
 

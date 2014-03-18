@@ -1,6 +1,8 @@
-package com.sample;
+package main;
 
 import java.util.List;
+
+import model.MovableEntity;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;

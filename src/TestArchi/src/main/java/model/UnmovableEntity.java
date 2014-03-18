@@ -1,4 +1,4 @@
-package com.sample;
+package model;
 
 public class UnmovableEntity extends Entity {
 

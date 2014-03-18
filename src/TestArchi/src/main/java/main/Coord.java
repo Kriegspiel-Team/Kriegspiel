@@ -1,4 +1,4 @@
-package com.sample;
+package main;
 
 public class Coord {
 	public int x;

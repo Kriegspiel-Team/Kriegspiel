@@ -1,10 +1,10 @@
-package com.sample
+package main
  
-import com.sample.Board;
+import main.Board;
 import java.util.ArrayList;
 import java.util.List;
-import com.sample.Coord;
-import com.sample.MovableEntity;
+import main.Coord;
+import model.MovableEntity;
 
 rule "register all"
 	agenda-group "Movement"

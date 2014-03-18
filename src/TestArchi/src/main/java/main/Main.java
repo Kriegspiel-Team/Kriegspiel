@@ -1,4 +1,4 @@
-package com.sample;
+package main;
 
 import java.nio.file.Paths;
 

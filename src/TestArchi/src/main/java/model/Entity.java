@@ -1,6 +1,6 @@
-package com.sample;
+package model;
 
-import com.sample.Coord;
+import main.Coord;
 
 public class Entity {
 	protected char symbol;

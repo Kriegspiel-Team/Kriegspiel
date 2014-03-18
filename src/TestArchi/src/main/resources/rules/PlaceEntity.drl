@@ -1,6 +1,6 @@
-package com.sample
+package model
  
-import com.sample.Board;
+import main.Board;
  
 rule "PlaceEntity"
 	agenda-group "PlaceEntity"

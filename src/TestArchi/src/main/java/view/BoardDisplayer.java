@@ -18,12 +18,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.sample.Board;
-import com.sample.Coord;
-import com.sample.Entity;
-import com.sample.Mountain;
-import com.sample.MovableEntity;
-import com.sample.UnmovableEntity;
+import main.Board;
+import main.Coord;
+import model.Entity;
+import model.Mountain;
+import model.MovableEntity;
+import model.UnmovableEntity;
 
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame{

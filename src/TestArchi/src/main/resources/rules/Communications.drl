@@ -1,8 +1,8 @@
-package com.sample
+package model
  
-import com.sample.Board;
-import com.sample.MovableEntity;
-import com.sample.Coord;
+import main.Board;
+import model.MovableEntity;
+import main.Coord;
 import java.util.ArrayList;
 import java.util.List;
 

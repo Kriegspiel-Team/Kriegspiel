@@ -1,4 +1,4 @@
-package com.sample;
+package main;
 
 public interface IEngine {
 	public void placeFixedEntities();

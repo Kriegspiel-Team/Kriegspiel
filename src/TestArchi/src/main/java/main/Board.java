@@ -1,8 +1,12 @@
-package com.sample;
+package main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import model.Entity;
+import model.MovableEntity;
+import model.UnmovableEntity;
 
 public class Board {
 	private Entity matrix[][];

@@ -1,8 +1,15 @@
-package com.sample;
+package main;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import model.Canon;
+import model.Cavalry;
+import model.Infantry;
+import model.Relay;
+import model.SwiftCanon;
+import model.SwiftRelay;
 
 public class EntityLoader {
 	
