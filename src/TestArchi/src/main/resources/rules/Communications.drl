@@ -53,21 +53,24 @@ rule "RelayComm"
 	agenda-group "Communication"
 	when
 		$b : Board()
-		$r : Relay( isConnected() == true, $team : owner, $coord : coord)
+		Relay( isConnected() == true, $team : owner, $coord : coord)
 	then
 		System.out.println("RELAY");
 		
-		$b.calculateCommunications($coord.x, $coord.y, $team);
-		
+		HashSet<Coord> com = $b.getCommunications($team);
+		if(com.contains($coord))
+			$b.calculateCommunications($coord.x, $coord.y, $team);
 end
 
 rule "SwiftRelayComm"
 	agenda-group "Communication"
 	when
 		$b : Board()
-		$sr : SwiftRelay( isConnected() == true, $team : owner, $coord : coord)
+		SwiftRelay( isConnected() == true, $team : owner, $coord : coord)
 	then
-		System.out.println("RELAY");
-		$b.calculateCommunications($coord.x, $coord.y, $team);
+		System.out.println("SWIFTRELAY");
 		
+		HashSet<Coord> com = $b.getCommunications($team);
+		if(com.contains($coord))
+			$b.calculateCommunications($coord.x, $coord.y, $team);
 end

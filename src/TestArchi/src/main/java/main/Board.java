@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import model.Entity;
+import model.Mountain;
 import model.MovableEntity;
 import model.UnmovableEntity;
 
@@ -91,7 +92,7 @@ public class Board {
 		return movableEntity;
 	}
 	
-	public Boolean isValidSquare(int x, int y){
+	public boolean isValidSquare(int x, int y){
 		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return false;
 		
@@ -102,39 +103,55 @@ public class Board {
 		return true;
 	}
 	
+	public boolean inBoard(int x, int y)
+	{
+		return (x<WIDTH && y<HEIGHT && x>=0 && y>=0);
+	}
+	
+	public boolean emptyCase(int x, int y)
+	{
+		return matrix[x][y] == null;
+	}
+	
+	public boolean canContain(int x, int y)
+	{
+		return matrix[x][y] instanceof UnmovableEntity && matrix[x][y].canContain();
+	}
+	
+	public boolean canContainButEmpty(int x, int y)
+	{
+		return canContain(x,y) && ((UnmovableEntity)matrix[x][y]).isEmpty();
+	}
+	
+	public boolean containFriendlyUnity(int x, int y, int team)
+	{
+		return ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
+	}
+	
+	public boolean isFriendlyUnity(int x, int y, int team)
+	{
+		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containFriendlyUnity(x,y,team));
+	}
+	
+	public MovableEntity getUnity(int x, int y)
+	{
+		if(canContain(x,y))
+		{
+			return ((UnmovableEntity)matrix[x][y]).getEntity();
+		}
+		
+		return (MovableEntity)matrix[x][y];
+	}
+	
 	public ArrayList<MovableEntity> getNeighboursMovableEntity(int x, int y, int team) {
 		
 		ArrayList<MovableEntity> listNeighbours = new ArrayList<MovableEntity>();
 		
-		for(int i = -1 ; i <= 1 ; i++)
-		{
-			for(int j = -1 ; j <= 1 ; j++)
-			{
-				boolean inBoard = false, isEmptyCase = false, isFriendlyUnit = false, canContain = false, containFriendlyUnit = false;
-				
-				inBoard = (x+i)<WIDTH && (y+j)<HEIGHT && (x+i)>=0 && (y+j)>=0;
-				
-				if(inBoard)
-				{
-					isEmptyCase = matrix[x+i][y+j]==null;
-					if(!isEmptyCase)
-					{
-						isFriendlyUnit = (matrix[x+i][y+j] instanceof MovableEntity && matrix[x+i][y+j].getOwner() == team);
-						if(isFriendlyUnit) {
-							listNeighbours.add((MovableEntity)matrix[x+i][y+j]);
-						}
-						
-						canContain = matrix[x+i][y+j] instanceof UnmovableEntity && matrix[x+i][y+j].canContain();
-						if(canContain)
-						{
-							containFriendlyUnit = ((UnmovableEntity)matrix[x+i][y+j]).getEntity().getOwner() == team;
-							if(containFriendlyUnit) {
-								listNeighbours.add(((UnmovableEntity)matrix[x+i][y+j]).getEntity());
-							}
-						}
-					}
+		for(int i = -1 ; i <= 1 ; i++) {
+			for(int j = -1 ; j <= 1 ; j++) {
+				if(inBoard(x+i,y+j) && !emptyCase(x+i,y+j) && isFriendlyUnity(x+i,y+j,team)) {
+					listNeighbours.add(getUnity(x+i,y+j));
 				}
-						
 			}	
 		}
 		
@@ -151,36 +168,10 @@ public class Board {
 		}
 	}
 	
-	public boolean letTheCommunicationPass(int x, int y, int team) {
-		
-		boolean inBoard = false, emptyCase = false, canContain = false, canContainButEmpty = false, containFriendlyUnity = false, isFriendlyUnity = false;
-		
-		inBoard = x<WIDTH && y<HEIGHT && x>=0 && y>=0;
-		if(inBoard)
-		{
-			System.out.println(x+" "+y);
-			emptyCase = matrix[x][y] == null;
-			if(!emptyCase)
-			{
-				canContain = matrix[x][y].canContain();
-				if(canContain)
-				{
-					canContainButEmpty = ((UnmovableEntity)matrix[x][y]).isEmpty();
-					if(!canContainButEmpty)
-					{
-						containFriendlyUnity = ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
-					}
-				}
-				else
-				{
-					isFriendlyUnity = matrix[x][y].getOwner() == team;
-				}
-			}
-		}
-		
-		
-		if(inBoard && (emptyCase || (canContain && (canContainButEmpty || containFriendlyUnity)) || isFriendlyUnity)) {
-			return true;	
+	public boolean isObstacle(int x, int y, int team) 
+	{
+		if(!inBoard(x,y) || (!emptyCase(x,y) && (matrix[x][y] instanceof Mountain || (!canContainButEmpty(x,y) && getUnity(x,y).getOwner() != team)))) {
+			return true;
 		}
 		
 		return false;
@@ -195,49 +186,50 @@ public class Board {
 				
 		while(north || south || east || west || northest || northwest || southeast || southwest) {
 			
-			if(east && letTheCommunicationPass(x+i,y,team)) {
+			if(east && !isObstacle(x+i,y,team)) {
 				communications.get(team).add(new Coord(x+i,y));
 			} else {
 				east = false;
 			}
 			
-			if(south && letTheCommunicationPass(x,y+i,team)) {
+			if(south && !isObstacle(x,y+i,team)) {
 				communications.get(team).add(new Coord(x,y+i));
 			} else {
 				south = false;
 			}
 			
-			if(west && letTheCommunicationPass(x-i,y,team)) {
+			if(west && !isObstacle(x-i,y,team)) {
 				communications.get(team).add(new Coord(x-i,y));
 			} else {
 				west = false;
 			}
 			
-			if(north && letTheCommunicationPass(x,y-i,team)) {
+			if(north && !isObstacle(x,y-i,team)) {
 				communications.get(team).add(new Coord(x,y-i));
 			} else {
 				north = false;
 			}
 			
-			if(southeast && letTheCommunicationPass(x+i,y+i,team)) {
+			if(southeast && !isObstacle(x+i,y+i,team)) {
 				communications.get(team).add(new Coord(x+i,y+i));
 			} else {
 				southeast = false;
 			}
 			
-			if(northwest && letTheCommunicationPass(x-i,y-i,team)) {
+			if(northwest && !isObstacle(x-i,y-i,team)) {
 				communications.get(team).add(new Coord(x-i,y-i));
 			} else {
 				northwest = false;
 			}
 			
-			if(northest && letTheCommunicationPass(x+i,y-i,team)) {
-				communications.get(team).add(new Coord(x+i,y-i));				
+			if(northest && !isObstacle(x+i,y-i,team)) {
+				communications.get(team).add(new Coord(x+i,y-i));
+
 			} else {
 				northest = false;
 			}
 			
-			if(southwest && letTheCommunicationPass(x-i,y+i,team)) {
+			if(southwest && !isObstacle(x-i,y+i,team)) {
 				communications.get(team).add(new Coord(x-i,y+i));
 			} else {
 				southwest = false;
