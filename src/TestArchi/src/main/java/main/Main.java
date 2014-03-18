@@ -23,7 +23,7 @@ public class Main {
             @Override
             public void run() {
             	BoardDisplayer bd = new BoardDisplayer(b);
-                bd.displayGUI(-1, -1);
+                bd.displayGUI();
             }
         });
     	

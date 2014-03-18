@@ -9,10 +9,11 @@ import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -35,6 +36,9 @@ public class BoardDisplayer extends JFrame{
 	private int windowWidth;
 	private JPanel squares[][];
 	private Coord selectedSquare = null;
+	
+	private boolean p0coms = true;
+	private boolean p1coms = true;
 	
 	public static Color COLOR_PLAYER0 = new Color(100,150,255);
 	public static Color COLOR_COM_PLAYER0 = new Color(50,100,200);
@@ -89,6 +93,24 @@ public class BoardDisplayer extends JFrame{
 				content.add(squares[i][j]);
 			}
 		}
+		this.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {}
+			public void keyPressed(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+				switch(e.getKeyCode())
+				{
+					case KeyEvent.VK_NUMPAD0:
+						p0coms = !p0coms;
+						displayGUI();
+						break;
+					case KeyEvent.VK_NUMPAD1:
+						p1coms = !p1coms;
+						displayGUI();
+						break;
+				}
+			}
+
+		});
 	}
 		
 	private void clearPossibleMovement(){
@@ -151,7 +173,7 @@ public class BoardDisplayer extends JFrame{
 		}
 	}
 	
-	public void displayGUI(int x, int y){
+	public void displayGUI(){
 		
 		for(int j=0 ; j<Board.HEIGHT ; j++)
 		{
@@ -178,7 +200,7 @@ public class BoardDisplayer extends JFrame{
 		}
 		
 		drawCommunications();
-		
+		this.repaint();
 		this.setVisible(true);
 	}
 	
@@ -198,27 +220,33 @@ public class BoardDisplayer extends JFrame{
 					squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
 			}*/
 		
-		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/30);
-		
-		Set<Coord> com = board.getCommunications(0);
-		
-		for (Coord c : com)
-			if(matrix[c.x][c.y] == null)
-			{
-				JLabel tmp = new JLabel("•", JLabel.CENTER);
-				tmp.setFont(fnt);
-				tmp.setForeground(COLOR_COM_PLAYER0);
-				squares[c.x][c.y].add(tmp);
-			}
-		com = board.getCommunications(1);
-		for (Coord c : com)
+		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+		Set<Coord> com;
+		if(p0coms)
 		{
-			if(matrix[c.x][c.y] == null)
+			com = board.getCommunications(0);
+			
+			for (Coord c : com)
+				if(matrix[c.x][c.y] == null)
+				{
+					JLabel tmp = new JLabel("o", JLabel.CENTER);
+					tmp.setFont(fnt);
+					tmp.setForeground(COLOR_COM_PLAYER0);
+					squares[c.x][c.y].add(tmp);
+				}
+		}
+		if(p1coms)
+		{
+			com = board.getCommunications(1);
+			for (Coord c : com)
 			{
-				JLabel tmp = new JLabel("•", JLabel.CENTER);
-				tmp.setFont(fnt);
-				tmp.setForeground(COLOR_COM_PLAYER1);
-				squares[c.x][c.y].add(tmp);
+				if(matrix[c.x][c.y] == null)
+				{
+					JLabel tmp = new JLabel("o", JLabel.CENTER);
+					tmp.setFont(fnt);
+					tmp.setForeground(COLOR_COM_PLAYER1);
+					squares[c.x][c.y].add(tmp);
+				}
 			}
 		}
 	}
@@ -266,7 +294,6 @@ public class BoardDisplayer extends JFrame{
 				possibleMoves = ((MovableEntity)matrix[x][y]).getPossibleMovement();
 			}
 		}
-		System.out.println("COUOCUCOUCUCOUCOUCUCOUCOUCOUCUCOUC : " + possibleMoves.size());
 		return possibleMoves;
 	}	
 }
