@@ -140,6 +140,9 @@ public class Board {
 			return ((UnmovableEntity)matrix[x][y]).getEntity();
 		}
 		
+		if(matrix[x][y] instanceof UnmovableEntity)
+			return null;
+		
 		return (MovableEntity)matrix[x][y];
 	}
 	

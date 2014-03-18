@@ -24,9 +24,9 @@ import main.Board;
 import main.Coord;
 import model.Arsenal;
 import model.Entity;
+import model.Fortress;
 import model.Mountain;
 import model.MovableEntity;
-import model.UnmovableEntity;
 
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame{
@@ -132,24 +132,21 @@ public class BoardDisplayer extends JFrame{
 	private void colorSquareByOwner(int x, int y){
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
-		int owner = currentEntity.getOwner();
-		boolean connectedFort = false;
 		
-		if(currentEntity.canContain() && !((UnmovableEntity)currentEntity).isEmpty())
-		{
-			owner = ((UnmovableEntity)currentEntity).getEntity().getOwner();
-			connectedFort = ((UnmovableEntity)currentEntity).getEntity().isConnected();
-		}
+		if(currentEntity instanceof Fortress && board.getUnity(x, y) != null)
+			currentEntity = board.getUnity(x, y);
+		
+		int owner = currentEntity.getOwner();
 		
 		switch(owner) {
 			case 0:
-				if(currentEntity.isConnected() || currentEntity instanceof Arsenal || connectedFort)
+				if(currentEntity.isConnected() || currentEntity instanceof Arsenal)
 					currentSquare.setBackground(COLOR_COM_PLAYER0);
 				else
 					currentSquare.setBackground(COLOR_PLAYER0);
 				break;
 			case 1:
-				if(currentEntity.isConnected() || currentEntity instanceof Arsenal || connectedFort)
+				if(currentEntity.isConnected() || currentEntity instanceof Arsenal)
 					currentSquare.setBackground(COLOR_COM_PLAYER1);
 				else
 					currentSquare.setBackground(COLOR_PLAYER1);
@@ -284,16 +281,8 @@ public class BoardDisplayer extends JFrame{
 	}*/
 
 	private Set<Coord> getPossibleMoves(int x, int y){
-		Set<Coord> possibleMoves = new HashSet<Coord>();
-		if (matrix[x][y] instanceof MovableEntity || 
-				(matrix[x][y] != null && matrix[x][y].canContain() && !((UnmovableEntity)matrix[x][y]).isEmpty())){
-			
-			if (matrix[x][y].canContain()){
-				possibleMoves = ((UnmovableEntity)matrix[x][y]).getEntity().getPossibleMovement();
-			}else{
-				possibleMoves = ((MovableEntity)matrix[x][y]).getPossibleMovement();
-			}
-		}
-		return possibleMoves;
+		if(board.getUnity(x, y) instanceof MovableEntity)
+			return board.getUnity(x,y).getPossibleMovement();
+		return new HashSet<Coord>();
 	}	
 }
