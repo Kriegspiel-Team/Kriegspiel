@@ -15,9 +15,9 @@ public class Main {
     	
     	Engine e = new Engine(b);
     	e.placeFixedEntities();
-    	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
-    	e.computePossibleMoves();
+    	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample2.txt").toAbsolutePath().toString());
     	e.computeCommunications();
+      	e.computePossibleMoves();
     	
     	SwingUtilities.invokeLater(new Runnable() {
             @Override

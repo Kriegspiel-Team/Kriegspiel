@@ -9,7 +9,7 @@ import model.MovableEntity;
 rule "register all"
 	agenda-group "Movement"
 	when
-		$m : MovableEntity(speedLeft > 0 && counterDirectionRule == 0) 
+		$m : MovableEntity(isConnected() == true, speedLeft > 0 && counterDirectionRule == 0) 
 	then
 	
 		System.out.println("register all");
@@ -23,8 +23,6 @@ rule "register all"
 			insert(new PossibleMove(c, $m));
 			counter ++;
 		}
-		
-		//insert(new PossibleMove($m.getCoord(), $m));
 		
 		modify($m){
 				setCounterDirectionRule(counter*nbrDirectionRule);

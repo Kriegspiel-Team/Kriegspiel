@@ -32,3 +32,4 @@ Canon;1;16;13
 SwiftCanon;1;14;11
 Relay;1;22;17
 SwiftRelay;1;8;15
+Infantry;1;5;12
