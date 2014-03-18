@@ -6,9 +6,8 @@ rule "PlaceEntity"
 	agenda-group "PlaceEntity"
 	no-loop
     when
-        b : Board( isInit == false, myBoard : matrix )
+        b : Board( myBoard : matrix )
     then
-    	b.setIsInit(true);
     	
         b.placeEntity(9, 2, new Mountain());
         b.placeEntity(10, 2, new Mountain());

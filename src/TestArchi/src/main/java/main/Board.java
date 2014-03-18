@@ -12,7 +12,6 @@ import model.UnmovableEntity;
 
 public class Board {
 	private Entity matrix[][];
-	private Boolean isInit = false;
 	
 	public static int WIDTH = 25;
 	public static int HEIGHT = 20;
@@ -63,14 +62,6 @@ public class Board {
 	
 	public void setMatrix(Entity[][] board){
 		this.matrix = board;
-	}
-
-	public Boolean getIsInit() {
-		return isInit;
-	}
-
-	public void setIsInit(Boolean isInit) {
-		this.isInit = isInit;
 	}
 	
 	public HashSet<Coord> getCommunications(int team) {
