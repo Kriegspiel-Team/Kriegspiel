@@ -5,7 +5,7 @@ import model.Cavalry;
 import model.Fortress;
 
 rule "outOfCom"
-	agenda-group "DefenceBonuses"
+	agenda-group "Battle"
 	when
 		$m : MovableEntity(isConnected() == false) 
 	then
@@ -15,7 +15,7 @@ rule "outOfCom"
 end
 
 rule "bonusFortress"
-	agenda-group "DefenceBonuses"
+	agenda-group "Battle"
 	when
 		$b : Board()
 		$m : MovableEntity(isConnected() == true, $coord : coord)
@@ -26,7 +26,7 @@ rule "bonusFortress"
 end
 
 rule "bonusMountainPass"
-	agenda-group "DefenceBonuses"
+	agenda-group "Battle"
 	when
 		$b : Board()
 		$m : MovableEntity(isConnected() == true, $coord : coord)
@@ -36,3 +36,13 @@ rule "bonusMountainPass"
 		
 end
 
+rule "canBeKilled"
+	agenda-group "Battle"
+	when 
+		$m : MovableEntity($coord : coord)
+	then
+		if($m.getAllyDefence() < $m.getEnemyAttack())
+			$m.setCanBeKilled(true);
+		if($m.getAllyDefence() == $m.getEnemyAttack())
+			$m.setMustRetreat(true);
+end
