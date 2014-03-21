@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 
 import javax.swing.SwingUtilities;
 
+import evaluator.Potentials;
 import view.BoardDisplayer;
 
 public class Main {
@@ -18,6 +19,9 @@ public class Main {
     	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample2.txt").toAbsolutePath().toString());
     	e.computeCommunications();
       	e.computePossibleMoves();
+      	
+      	Potentials p = new Potentials(b);
+      	p.UnityPotentials();
     	
     	SwingUtilities.invokeLater(new Runnable() {
             @Override
