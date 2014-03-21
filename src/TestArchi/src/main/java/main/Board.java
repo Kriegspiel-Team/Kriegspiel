@@ -55,7 +55,6 @@ public class Board {
 			e.setCoord(new Coord(x, y));
 			
 			if(matrix[x][y]!=null && matrix[x][y].canContain()) {
-				System.out.println(e.getClass() + " : " + x + "," + y);
 				((UnmovableEntity)matrix[x][y]).setEntity((MovableEntity)e);
 			}
 			else {
@@ -200,9 +199,7 @@ public class Board {
 	}
 	
 	public void computeCommunications(int x, int y, int team) {
-		
-		System.out.println(team);
-		
+				
 		int i = 0;
 		boolean north = true, south = true, east = true, west = true, northest = true, northwest = true, southeast = true, southwest = true;
 				

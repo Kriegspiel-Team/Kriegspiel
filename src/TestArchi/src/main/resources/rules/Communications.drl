@@ -22,7 +22,6 @@ rule "RelayComm"
 		$b : Board()
 		$r : Relay( onCommunications == false, $team : owner, $coord : coord)
 	then
-		System.out.println("RELAY");
 			
 		if($b.isOnCommunications($coord, $team)) {
 			$b.computeCommunications($coord.x, $coord.y, $team);
@@ -36,7 +35,6 @@ rule "SwiftRelayComm"
 		$b : Board()
 		$sr : SwiftRelay( onCommunications == false, $team : owner, $coord : coord)
 	then
-		System.out.println("SWIFTRELAY");
 		
 		if($b.isOnCommunications($coord, $team)) {
 			$b.computeCommunications($coord.x, $coord.y, $team);
@@ -50,7 +48,6 @@ rule "isConnected"
 		$b : Board()
 		$m : MovableEntity( isConnected() == false, $team : owner, $coord : coord )
 	then
-    	System.out.println("Entrée dans isConnected ");
     	
 		ArrayList listNeighbours = new ArrayList<MovableEntity>();
 		listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);
@@ -66,9 +63,7 @@ rule "isConnected"
 				$m.setConnected(true);
 		}
 		
-		if($m.isConnected()) {
-			System.out.println("L'unité en " + $coord.x + ", " + $coord.y + " est connectée.");
-			
+		if($m.isConnected()) {			
 			for(MovableEntity neighbour : (ArrayList<MovableEntity>)listNeighbours)
 				modify(neighbour) { }
 		}

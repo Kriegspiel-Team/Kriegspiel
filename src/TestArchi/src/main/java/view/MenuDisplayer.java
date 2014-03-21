@@ -204,11 +204,11 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
             	b.loadBoardWithFile(file.getAbsolutePath());
             	engine.computeCommunications();
               	engine.computePossibleMoves();
+              	engine.computeDefenceBonuses();
               	
               	Potentials p = new Potentials(b);
               	p.UnityPotentials();
               	
-              	boardDisplayer.setMatrix(b.getMatrix());
               	boardDisplayer.drawEntities();
               	
               	boardDisplayer.displayGUI();

@@ -95,11 +95,7 @@ public class BoardDisplayer extends JFrame {
 	public Board getBoard(){
 		return board;
 	}
-	
-	public void setMatrix(Entity[][] e) {
-		this.matrix = e;
-	}
-	
+		
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
 		

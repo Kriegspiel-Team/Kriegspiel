@@ -10,10 +10,7 @@ rule "register all"
 	agenda-group "Movement"
 	when
 		$m : MovableEntity(isConnected() == true, speedLeft > 0 && counterDirectionRule == 0) 
-	then
-	
-		System.out.println("register all");
-		
+	then		
 		int counter = 0;
 		int nbrDirectionRule = 8;
 		
@@ -38,9 +35,7 @@ rule "register NORTH"
 	when
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
-	then
-		System.out.println("register north");
-		
+	then		
 		if ($b.isValidSquare($pm.getCoord().x, $pm.getCoord().y-1)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x, $pm.getCoord().y-1));
 		}
@@ -54,7 +49,6 @@ rule "register SOUTH"
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
 	then
-		System.out.println("register south");
 		
 		if ($b.isValidSquare($pm.getCoord().x, $pm.getCoord().y+1)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x, $pm.getCoord().y+1));
@@ -69,7 +63,6 @@ rule "register EAST"
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
 	then
-		System.out.println("register east");
 		
 		if ($b.isValidSquare($pm.getCoord().x+1, $pm.getCoord().y)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x+1, $pm.getCoord().y));
@@ -84,7 +77,6 @@ rule "register WEST"
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
 	then
-		System.out.println("register west");
 		
 		if ($b.isValidSquare($pm.getCoord().x-1, $pm.getCoord().y)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x-1, $pm.getCoord().y));
@@ -99,7 +91,6 @@ rule "register NORTHEAST"
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
 	then
-		System.out.println("register northeast");
 		
 		if ($b.isValidSquare($pm.getCoord().x+1, $pm.getCoord().y-1)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x+1, $pm.getCoord().y-1));
@@ -114,8 +105,7 @@ rule "register NORTHWEST"
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
 	then
-		System.out.println("register northwest");
-		
+
 		if ($b.isValidSquare($pm.getCoord().x-1, $pm.getCoord().y-1)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x-1, $pm.getCoord().y-1));
 		}
@@ -129,7 +119,6 @@ rule "register SOUTHEAST"
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
 	then
-		System.out.println("register southeast");
 		
 		if ($b.isValidSquare($pm.getCoord().x+1, $pm.getCoord().y+1)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x+1, $pm.getCoord().y+1));
@@ -144,7 +133,6 @@ rule "register SOUTHWEST"
 		$pm : PossibleMove($m : movableEntity)
 		$b : Board($board : matrix) 
 	then
-		System.out.println("register southwest");
 		
 		if ($b.isValidSquare($pm.getCoord().x-1, $pm.getCoord().y+1)){
 			$m.addPossibleMovement(new Coord($pm.getCoord().x-1, $pm.getCoord().y+1));
