@@ -16,6 +16,7 @@ rule "PlaceEntity"
         
         b.placeEntity(9, 3, new Mountain());
         b.placeEntity(9, 4, new Mountain());
+        b.placeEntity(9, 5, new MountainPass());
         b.placeEntity(9, 6, new Mountain());
         b.placeEntity(9, 7, new Mountain());
         b.placeEntity(9, 8, new Mountain());
@@ -23,6 +24,7 @@ rule "PlaceEntity"
         b.placeEntity(15, 17, new Mountain());
         b.placeEntity(15, 16, new Mountain());
         b.placeEntity(15, 15, new Mountain());
+        b.placeEntity(15, 14, new MountainPass());
         b.placeEntity(15, 13, new Mountain());
         
         b.placeEntity(14, 13, new Mountain());
