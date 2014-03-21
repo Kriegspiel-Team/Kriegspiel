@@ -1,0 +1,12 @@
+package model
+
+import model.MovableEntity;
+
+rule "outOfCom"
+	agenda-group "Potentials"
+	when
+		$m : MovableEntity(isConnected() == false) 
+	then
+		$m.setAttack(0);
+		$m.setDefence(0);
+end
