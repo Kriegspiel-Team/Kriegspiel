@@ -16,9 +16,10 @@ public class Main {
     	
     	Engine e = new Engine(b);
     	e.placeFixedEntities();
-    	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample2.txt").toAbsolutePath().toString());
+    	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample3.txt").toAbsolutePath().toString());
     	e.computeCommunications();
       	e.computePossibleMoves();
+      	e.computeDefenceBonuses();
       	
       	Potentials p = new Potentials(b);
       	p.UnityPotentials();

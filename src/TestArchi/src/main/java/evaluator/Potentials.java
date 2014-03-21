@@ -1,6 +1,8 @@
 package evaluator;
 import main.Board;
 import model.Cavalry;
+import model.Entity;
+import model.Fortress;
 import model.MovableEntity;
 
 public class Potentials {
@@ -27,27 +29,35 @@ public class Potentials {
 			for(int j = -1; j <= 1; j++) {
 				
 				boolean charge = true;
+				boolean obstacle = false;
 				
 				for(int r = 1; r <= maxRange; r++) {
 					
-					int x = e.getCoord().x + i*r;
-					int y = e.getCoord().y + j*r;
+					if((i != 0 || j != 0) && !obstacle) {
+						
+						int x = e.getCoord().x + i*r;
+						int y = e.getCoord().y + j*r;
 					
-					if(board.inBoard(x, y) && board.isMovableEntity(x, y) && !board.isFriendlyUnit(x, y, e.getOwner())) {
+						if(board.inBoard(x, y)) {
 						
-						MovableEntity enemy = board.getUnit(x, y);
-						
-						if(enemy instanceof Cavalry && charge) {
-							e.setEnemyAttack(e.getEnemyAttack()+((Cavalry)enemy).getAttackCharge());
-						} else {
+							MovableEntity unit = board.getUnit(x, y);
+							if(unit != null && !board.isFriendlyUnit(x, y, e.getOwner())) {
+								
+								if(unit instanceof Cavalry && !board.isFortress(x,y) && charge) {
+									e.setEnemyAttack(e.getEnemyAttack()+((Cavalry)unit).getAttackCharge());
+								} else {
 							
-							charge = false;
+									charge = false;
 							
-							if(r <= enemy.getRange())
-								e.setEnemyAttack(e.getEnemyAttack()+enemy.getAttack());
+									if(r <= unit.getRange())
+										e.setEnemyAttack(e.getEnemyAttack()+unit.getAttack());
+								}
+							} else {
+								if(board.isMountain(x, y))
+									obstacle = true;
+								charge = false;
+							}
 						}
-					} else {
-						charge = false;
 					}
 				}
 			}
@@ -57,19 +67,32 @@ public class Potentials {
 	public void CalculDefence(MovableEntity e) {
 		int maxRange = 3;
 		
+		e.setAllyDefence(e.getDefence());
+		
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
+				
+				boolean obstacle = false;
+				
 				for(int r = 1; r <= maxRange; r++) {
 					
-					int x = e.getCoord().x + i*r;
-					int y = e.getCoord().y + j*r;
-					
-					if(board.inBoard(x, y) && board.isMovableEntity(x, y) && board.isFriendlyUnit(x, y, e.getOwner())) {
+					if((i != 0 || j != 0) && !obstacle) {
 						
-						MovableEntity ally = board.getUnit(x, y);
-							
-						if(r <= ally.getRange())
-							e.setAllyDefence(e.getAllyDefence()+ally.getDefence());
+						int x = e.getCoord().x + i*r;
+						int y = e.getCoord().y + j*r;
+						
+						if(board.inBoard(x, y)) {
+						
+							MovableEntity unit = board.getUnit(x, y);
+					
+							if(unit != null && board.isFriendlyUnit(x, y, e.getOwner())) {
+						
+								if(r <= unit.getRange())
+									e.setAllyDefence(e.getAllyDefence()+unit.getDefence());
+								
+							} else if(board.isMountain(x, y))
+								obstacle = true;
+						}
 					}
 				}
 			}
