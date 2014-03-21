@@ -8,6 +8,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -15,8 +16,14 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import evaluator.Potentials;
+import main.Board;
+import main.Engine;
 
 @SuppressWarnings("serial")
 public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {
@@ -26,29 +33,33 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	private JCheckBox displayCom0;
 	private JCheckBox displayCom1;
 	
+	private JFileChooser fileChooser;
+	private JButton loadBoardBtn;
+	
 	private JButton displayUnitBtn;
 	private JButton displayAttackBtn;
 	private JButton displayDefenceBtn;
 	
 	public MenuDisplayer(BoardDisplayer b){
 		boardDisplayer = b;
-		initKeyBinding();
 		
 		initUI();
-		
+		initKeyBinding();		
 	}
 
-	
-	/*
-	 * TODO
-	 * Center element in this JPanel
-	 * Fix a correct size to the 3 buttons
-	 */
 	private void initUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		displayCom0 = new JCheckBox("Communication blue player", true);
+		fileChooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+		fileChooser.setFileFilter(filter);
 		
+		loadBoardBtn = new JButton("Load a board...");
+		loadBoardBtn.setFocusable(false);
+		loadBoardBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		loadBoardBtn.addMouseListener(this);
+		
+		displayCom0 = new JCheckBox("Communication blue player", true);
 		displayCom0.setFocusable(false);
 		displayCom1 = new JCheckBox("Communication red player", true);
 		displayCom1.setFocusable(false);
@@ -60,7 +71,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		
 		JPanel displayModePanel = new JPanel();
 
-		displayModePanel.setLayout(new GridLayout(3, 1));
+		displayModePanel.setLayout(new GridLayout(15, 1));
 		displayModePanel.setBorder(BorderFactory.createTitledBorder("Display mode"));
 		
 		displayUnitBtn = new JButton("Unit");
@@ -69,7 +80,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
 		displayDefenceBtn.setFocusable(false);
-		
+				
 		displayUnitBtn.addMouseListener(this);
 		displayAttackBtn.addMouseListener(this);
 		displayDefenceBtn.addMouseListener(this);
@@ -78,6 +89,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayModePanel.add(displayAttackBtn);
 		displayModePanel.add(displayDefenceBtn);
 		
+		this.add(loadBoardBtn);
 		this.add(displayCom0);
 		this.add(displayCom1);
 		this.add(displayModePanel);
@@ -177,6 +189,31 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		}else if (source == displayDefenceBtn){
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 			boardDisplayer.displayGUI();
+		}else if (source == loadBoardBtn){
+			int returnVal = fileChooser.showOpenDialog(MenuDisplayer.this);
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                
+                Board b = boardDisplayer.getBoard();
+                b.resetBoard();
+                
+                Engine engine = new Engine(b);
+                
+            	engine.placeFixedEntities();
+            	b.loadBoardWithFile(file.getAbsolutePath());
+            	engine.computeCommunications();
+              	engine.computePossibleMoves();
+              	
+              	Potentials p = new Potentials(b);
+              	p.UnityPotentials();
+              	
+              	boardDisplayer.setMatrix(b.getMatrix());
+              	boardDisplayer.drawEntities();
+              	
+              	boardDisplayer.displayGUI();
+            }
+			 
 		}
 	}
 

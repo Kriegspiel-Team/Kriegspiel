@@ -1,10 +1,7 @@
 package main;
 
-import java.nio.file.Paths;
-
 import javax.swing.SwingUtilities;
 
-import evaluator.Potentials;
 import view.BoardDisplayer;
 
 public class Main {
@@ -14,14 +11,14 @@ public class Main {
     	
     	final Board b = new Board();
     	
-    	Engine e = new Engine(b);
+    	/*Engine e = new Engine(b);
     	e.placeFixedEntities();
     	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample2.txt").toAbsolutePath().toString());
     	e.computeCommunications();
       	e.computePossibleMoves();
       	
       	Potentials p = new Potentials(b);
-      	p.UnityPotentials();
+      	p.UnityPotentials();*/
     	
     	SwingUtilities.invokeLater(new Runnable() {
             @Override
