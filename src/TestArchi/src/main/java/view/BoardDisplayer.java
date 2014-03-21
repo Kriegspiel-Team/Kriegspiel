@@ -70,6 +70,14 @@ public class BoardDisplayer extends JFrame {
 		p1Coms = b;
 	}
 	
+	public boolean getP0Coms(){
+		return p0Coms;
+	}
+	
+	public boolean getP1Coms(){
+		return p1Coms;
+	}
+	
 	public void switchPOComs(){
 		p0Coms = !p0Coms;
 	}
