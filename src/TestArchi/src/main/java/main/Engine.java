@@ -56,9 +56,9 @@ public class Engine implements IEngine{
         kSession.fireAllRules();
 	}
 	
-	public void computeDefenceBonuses(){        	
+	public void computeAttackDefence(){        	
 	    	
-		kSession.getAgenda().getAgendaGroup( "DefenceBonuses" ).setFocus();
+		kSession.getAgenda().getAgendaGroup( "Battle" ).setFocus();
 		kSession.fireAllRules();
 	}
 }

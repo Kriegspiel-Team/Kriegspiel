@@ -19,7 +19,7 @@ public class Main {
     	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample3.txt").toAbsolutePath().toString());
     	e.computeCommunications();
       	e.computePossibleMoves();
-      	e.computeDefenceBonuses();
+      	e.computeAttackDefence();
       	
       	Potentials p = new Potentials(b);
       	p.UnityPotentials();
