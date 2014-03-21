@@ -1,21 +1,24 @@
 package view;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 @SuppressWarnings("serial")
-public class MenuDisplayer extends JPanel implements ItemListener, KeyListener, MouseListener {
+public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {
 
 	private BoardDisplayer boardDisplayer;
 	
@@ -30,6 +33,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, KeyListener, 
 		boardDisplayer = b;
 		
 		initUI();
+		initKeyBinding();
 	}
 
 	
@@ -41,8 +45,8 @@ public class MenuDisplayer extends JPanel implements ItemListener, KeyListener, 
 	private void initUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		this.addKeyListener(this);
-		this.setFocusable(true);
+		/*this.addKeyListener(this);
+		this.setFocusable(true);*/
 		
 		displayCom0 = new JCheckBox("Communication blue player", true);
 		displayCom1 = new JCheckBox("Communication red player", true);
@@ -74,6 +78,66 @@ public class MenuDisplayer extends JPanel implements ItemListener, KeyListener, 
 		this.add(displayModePanel);
 	}
 	
+	private void initKeyBinding(){
+		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Quit");
+		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), "DisplayCom0");
+		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "DisplayCom1");
+		this.getInputMap().put(KeyStroke.getKeyStroke("U"), "DisplayUnits");
+		this.getInputMap().put(KeyStroke.getKeyStroke("A"), "DisplayAttack");
+		this.getInputMap().put(KeyStroke.getKeyStroke("D"), "DisplayDefence");
+		
+		Action doQuit = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				System.exit(1);
+		    }
+		};
+		
+		Action doDisplayCom0 = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				boardDisplayer.switchPOComs();
+				displayCom0.setSelected(boardDisplayer.getP0Coms());
+				boardDisplayer.displayGUI();
+		    }
+		};
+		
+		Action doDisplayCom1 = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				boardDisplayer.switchP1Coms();
+				displayCom1.setSelected(boardDisplayer.getP1Coms());
+				boardDisplayer.displayGUI();
+		    }
+		};
+		
+		Action doDisplayUnits = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_UNITS);
+				boardDisplayer.displayGUI();
+		    }
+		};
+		
+		Action doDisplayAttack = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK);
+				boardDisplayer.displayGUI();
+		    }
+		};
+		
+		Action doDisplayDefence = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
+				boardDisplayer.displayGUI();
+		    }
+		};
+		
+		this.getActionMap().put("Quit", doQuit);
+		this.getActionMap().put("DisplayCom0", doDisplayCom0);
+		this.getActionMap().put("DisplayCom1", doDisplayCom1);
+		this.getActionMap().put("DisplayUnits", doDisplayUnits);
+		this.getActionMap().put("DisplayAttack", doDisplayAttack);
+		this.getActionMap().put("DisplayDefence", doDisplayDefence);
+		
+	}
+	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		
@@ -94,42 +158,6 @@ public class MenuDisplayer extends JPanel implements ItemListener, KeyListener, 
 		boardDisplayer.displayGUI();
 		
 	}
-
-	public void keyTyped(KeyEvent e) {}
-	public void keyPressed(KeyEvent e) {}
-
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-				
-		switch(e.getKeyCode())
-		{
-			case KeyEvent.VK_NUMPAD0:
-				boardDisplayer.switchPOComs();
-				displayCom0.setSelected(boardDisplayer.getP0Coms());
-				boardDisplayer.displayGUI();
-				break;
-			case KeyEvent.VK_NUMPAD1:
-				boardDisplayer.switchP1Coms();
-				displayCom1.setSelected(boardDisplayer.getP1Coms());
-				boardDisplayer.displayGUI();
-				break;
-			case KeyEvent.VK_U:
-				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_UNITS);
-				boardDisplayer.displayGUI();
-				break;
-			case KeyEvent.VK_A:
-				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK);
-				boardDisplayer.displayGUI();
-				break;
-			case KeyEvent.VK_D:
-				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
-				boardDisplayer.displayGUI();
-				break;
-		}
-		
-	}
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
