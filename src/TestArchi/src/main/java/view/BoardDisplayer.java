@@ -28,6 +28,7 @@ import model.Entity;
 import model.Fortress;
 import model.Mountain;
 import model.MovableEntity;
+import model.UnmovableEntity;
 
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame{
@@ -51,7 +52,7 @@ public class BoardDisplayer extends JFrame{
 	private static final Color COLOR_COM_PLAYER0 = new Color(50,100,200);
 	private static final Color COLOR_PLAYER1 = new Color(255,100,100);
 	private static final Color COLOR_COM_PLAYER1 = new Color(200,50,50);
-	private static final Color COLOR_COM_INTERSECT = new Color(200,50,200);
+//	private static final Color COLOR_COM_INTERSECT = new Color(200,50,200);
 	private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
 	private static final Color COLOR_EMPTY = new Color(255,255,255);
@@ -282,23 +283,31 @@ public class BoardDisplayer extends JFrame{
 	
 	public void displayAttackPotential(int x, int y)
 	{
-		if(matrix[x][y] != null && matrix[x][y] instanceof MovableEntity)
+		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain))
 		{
-			Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
-			JLabel tmp = new JLabel(Integer.toString(((MovableEntity)matrix[x][y]).getAttack()), JLabel.RIGHT);
-			tmp.setFont(fnt);
-			squares[x][y].add(tmp);
+			MovableEntity unit = board.getUnit(x, y);
+			if(unit != null)
+			{
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+				JLabel tmp = new JLabel(Integer.toString(unit.getAttack()), JLabel.RIGHT);
+				tmp.setFont(fnt);
+				squares[x][y].add(tmp);
+			}
 		}
 	}
 	
 	public void displayDefencePotential(int x, int y)
 	{
-		if(matrix[x][y] != null && matrix[x][y] instanceof MovableEntity)
+		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain))
 		{
-			Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
-			JLabel tmp = new JLabel(Integer.toString(((MovableEntity)matrix[x][y]).getDefence()), JLabel.RIGHT);
-			tmp.setFont(fnt);
-			squares[x][y].add(tmp);
+			MovableEntity unit = board.getUnit(x, y);
+			if(unit != null)
+			{
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+				JLabel tmp = new JLabel(Integer.toString(unit.getDefence()), JLabel.RIGHT);
+				tmp.setFont(fnt);
+				squares[x][y].add(tmp);
+			}
 		}
 	}
 	
