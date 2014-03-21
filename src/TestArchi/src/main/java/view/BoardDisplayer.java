@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -30,7 +31,7 @@ import model.Mountain;
 import model.MovableEntity;
 
 @SuppressWarnings("serial")
-public class BoardDisplayer extends JFrame{
+public class BoardDisplayer extends JFrame {
 	private Board board;
 	private Entity[][] matrix;
 	private int windowHeight;
@@ -38,8 +39,8 @@ public class BoardDisplayer extends JFrame{
 	private JPanel squares[][];
 	private Coord selectedSquare = null;
 	
-	private boolean p0coms = true;
-	private boolean p1coms = true;
+	private boolean p0Coms = true;
+	private boolean p1Coms = true;
 	
 	public static Color COLOR_PLAYER0 = new Color(100,150,255);
 	public static Color COLOR_COM_PLAYER0 = new Color(50,100,200);
@@ -54,12 +55,19 @@ public class BoardDisplayer extends JFrame{
 	{
 		this.board = board;
 		this.matrix = this.board.getMatrix();
-		initGUI();
+		initGUI();			
+	}
+	
+	public void setP0Coms(boolean b){
+		p0Coms = b;
+	}
+	
+	public void setP1Coms(boolean b){
+		p1Coms = b;
 	}
 	
 	public void initGUI()
 	{
-		//Random r = new Random();
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
 		DisplayMode dm = gs[0].getDisplayMode();
@@ -69,21 +77,19 @@ public class BoardDisplayer extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(windowWidth, windowHeight));
 		this.setResizable(false);
-		this.addMouseListener(new MouseListener() {
-			public void mouseReleased(MouseEvent e) {}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseClicked(MouseEvent e) {
-				if(e.getButton() == MouseEvent.BUTTON1)
-					drawPossibleMovement(e.getX()*Board.WIDTH/windowWidth, e.getY()*Board.HEIGHT/windowHeight);
-				if(e.getButton() == MouseEvent.BUTTON3)
-					clearPossibleMovement();
-			}
-		});
-		Container content = this.getContentPane();
-		content.setLayout(new GridLayout(Board.HEIGHT, Board.WIDTH, windowHeight/500, windowHeight/500));
-		content.setBackground(new Color(0, 0, 0));
+
+		Container content = this.getContentPane();		
+		
+		JPanel boardPanel = new JPanel();
+		boardPanel.setLayout(new GridLayout(Board.HEIGHT, Board.WIDTH, windowHeight/500, windowHeight/500));
+		JPanel menuPanel = new MenuDisplayer(this);
+		content.setLayout(new BorderLayout());
+		
+		this.add(boardPanel, BorderLayout.CENTER);
+		this.add(menuPanel, BorderLayout.EAST);
+		
+		boardPanel.setBackground(new Color(0, 0, 0));			
+		
 		squares = new JPanel[Board.WIDTH][Board.HEIGHT];
 		for(int j=0 ; j<Board.HEIGHT ; j++)
 		{
@@ -92,11 +98,14 @@ public class BoardDisplayer extends JFrame{
 				squares[i][j] = new JPanel();
 				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
 				
+				if (matrix[i][j] instanceof MovableEntity)
+					squares[i][j].addMouseListener(new CellMouseListener(i, j));
+				
 				if (!board.emptySquare(i, j) && board.canContain(i, j)){
 					squares[i][j].setBorder(BorderFactory.createDashedBorder(Color.BLACK, 3.0f, 3.0f, 1.0f, false));
 				}
 				
-				content.add(squares[i][j]);
+				boardPanel.add(squares[i][j]);
 			}
 		}
 		this.addKeyListener(new KeyListener() {
@@ -106,11 +115,11 @@ public class BoardDisplayer extends JFrame{
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_NUMPAD0:
-						p0coms = !p0coms;
+						p0Coms = !p0Coms;
 						displayGUI();
 						break;
 					case KeyEvent.VK_NUMPAD1:
-						p1coms = !p1coms;
+						p1Coms = !p1Coms;
 						displayGUI();
 						break;
 				}
@@ -176,8 +185,7 @@ public class BoardDisplayer extends JFrame{
 		}
 	}
 	
-	public void displayGUI(){
-		
+	public void displayGUI(){		
 		for(int j=0 ; j<Board.HEIGHT ; j++)
 		{
 			for(int i=0 ; i<Board.WIDTH ; i++)
@@ -201,8 +209,14 @@ public class BoardDisplayer extends JFrame{
 				
 			}
 		}
+				
+		if (selectedSquare != null)
+			drawPossibleMovement(selectedSquare.x, selectedSquare.y);
+		else
+			drawCommunications();
 		
-		drawCommunications();
+		
+		
 		this.repaint();
 		this.setVisible(true);
 	}
@@ -225,10 +239,10 @@ public class BoardDisplayer extends JFrame{
 		
 		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
 		Set<Coord> com;
-		if(p0coms)
+		if(p0Coms)
 		{
 			com = board.getCommunications(0);
-			
+						
 			for (Coord c : com)
 				if(matrix[c.x][c.y] == null)
 				{
@@ -238,7 +252,7 @@ public class BoardDisplayer extends JFrame{
 					squares[c.x][c.y].add(tmp);
 				}
 		}
-		if(p1coms)
+		if(p1Coms)
 		{
 			com = board.getCommunications(1);
 			for (Coord c : com)
@@ -290,5 +304,29 @@ public class BoardDisplayer extends JFrame{
 		if(board.getUnit(x, y) instanceof MovableEntity)
 			return board.getUnit(x,y).getPossibleMovement();
 		return new HashSet<Coord>();
-	}	
+	}
+
+	private class CellMouseListener implements MouseListener{
+	
+		private int x;
+		private int y;
+		
+		public CellMouseListener(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getButton() == MouseEvent.BUTTON1)
+				drawPossibleMovement(x, y);
+			if(e.getButton() == MouseEvent.BUTTON3)
+				clearPossibleMovement();
+		}
+	
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}	
+	}
 }
