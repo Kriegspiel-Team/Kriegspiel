@@ -114,7 +114,7 @@ public class BoardDisplayer extends JFrame {
 				squares[i][j] = new JPanel();
 				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
 				
-				if (matrix[i][j] instanceof MovableEntity)
+				if (matrix[i][j] instanceof MovableEntity || matrix[i][j] instanceof Fortress || matrix[i][j] instanceof Arsenal)
 					squares[i][j].addMouseListener(new CellMouseListener(i, j));
 				
 				if (!board.emptySquare(i, j) && board.canContain(i, j)){
