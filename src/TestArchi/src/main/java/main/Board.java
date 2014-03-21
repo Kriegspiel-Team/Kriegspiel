@@ -38,6 +38,13 @@ public class Board {
 		new EntityLoader(this, filename);
 	}
 	
+	public void resetBoard(){
+		matrix = new Entity[WIDTH][HEIGHT];
+		coord_arsenals.clear();
+		communications.get(0).clear();
+		communications.get(1).clear();
+	}
+	
 	public void saveArsenalPlacement(int x, int y) {
 		coord_arsenals.add(new Coord(x,y));
 		
@@ -48,6 +55,7 @@ public class Board {
 			e.setCoord(new Coord(x, y));
 			
 			if(matrix[x][y]!=null && matrix[x][y].canContain()) {
+				System.out.println(e.getClass() + " : " + x + "," + y);
 				((UnmovableEntity)matrix[x][y]).setEntity((MovableEntity)e);
 			}
 			else {

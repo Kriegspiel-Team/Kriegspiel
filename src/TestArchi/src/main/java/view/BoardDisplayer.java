@@ -37,6 +37,8 @@ public class BoardDisplayer extends JFrame {
 	private JPanel squares[][];
 	private Coord selectedSquare = null;
 	
+	private JPanel boardPanel;
+	
 	private boolean p0Coms = true;
 	private boolean p1Coms = true;
 	
@@ -90,6 +92,39 @@ public class BoardDisplayer extends JFrame {
 		displayMode = mode;
 	}
 	
+	public Board getBoard(){
+		return board;
+	}
+	
+	public void setMatrix(Entity[][] e) {
+		this.matrix = e;
+	}
+	
+	public void drawEntities(){
+		this.matrix = this.board.getMatrix();
+		
+		boardPanel.removeAll();
+		for(int j=0 ; j<Board.HEIGHT ; j++)
+		{
+			for(int i=0 ; i<Board.WIDTH ; i++)
+			{
+				squares[i][j] = new JPanel();
+				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
+				
+				squares[i][j].removeAll();
+				
+				if (matrix[i][j] instanceof MovableEntity || matrix[i][j] instanceof Fortress || matrix[i][j] instanceof Arsenal)
+					squares[i][j].addMouseListener(new CellMouseListener(i, j));
+				
+				if (!board.emptySquare(i, j) && board.canContain(i, j)){
+					squares[i][j].setBorder(BorderFactory.createDashedBorder(Color.BLACK, 3.0f, 3.0f, 1.0f, false));
+				}
+				
+				boardPanel.add(squares[i][j]);
+			}
+		}
+	}
+	
 	public void initGUI()
 	{
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -104,7 +139,7 @@ public class BoardDisplayer extends JFrame {
 
 		Container content = this.getContentPane();		
 		
-		JPanel boardPanel = new JPanel();
+		boardPanel = new JPanel();
 		boardPanel.setLayout(new GridLayout(Board.HEIGHT, Board.WIDTH, windowHeight/500, windowHeight/500));
 		JPanel menuPanel = new MenuDisplayer(this);
 		content.setLayout(new BorderLayout());
@@ -114,24 +149,8 @@ public class BoardDisplayer extends JFrame {
 		
 		boardPanel.setBackground(new Color(0, 0, 0));			
 		
-		squares = new JPanel[Board.WIDTH][Board.HEIGHT];
-		for(int j=0 ; j<Board.HEIGHT ; j++)
-		{
-			for(int i=0 ; i<Board.WIDTH ; i++)
-			{
-				squares[i][j] = new JPanel();
-				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
-				
-				if (board.isMovableEntity(i,j) || board.isFortress(i,j) || board.isMountainPass(i,j) || matrix[i][j] instanceof Arsenal)
-					squares[i][j].addMouseListener(new CellMouseListener(i, j));
-				
-				if (!board.emptySquare(i, j) && board.canContain(i, j) && !board.isMountainPass(i, j)){
-					squares[i][j].setBorder(BorderFactory.createDashedBorder(Color.BLACK, 3.0f, 3.0f, 1.0f, false));
-				}
-				
-				boardPanel.add(squares[i][j]);
-			}
-		}
+		squares = new JPanel[Board.WIDTH][Board.HEIGHT];		
+		drawEntities();
 	}
 		
 	private void clearPossibleMovement(){
@@ -191,7 +210,9 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	public void displayGUI(){		
+	public void displayGUI(){	
+		
+		
 		for(int j=0 ; j<Board.HEIGHT ; j++)
 		{
 			for(int i=0 ; i<Board.WIDTH ; i++)
@@ -203,7 +224,7 @@ public class BoardDisplayer extends JFrame {
 				if(currentEntity == null)
 					currentSquare.setBackground(COLOR_EMPTY);
 				else
-				{					
+				{				
 					switch(displayMode)
 					{
 						case DISPLAY_UNITS: 
