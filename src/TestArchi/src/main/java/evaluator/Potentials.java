@@ -1,8 +1,6 @@
 package evaluator;
 import main.Board;
 import model.Cavalry;
-import model.Entity;
-import model.Fortress;
 import model.MovableEntity;
 
 public class Potentials {

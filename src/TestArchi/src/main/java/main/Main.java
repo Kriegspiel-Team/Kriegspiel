@@ -13,7 +13,7 @@ public class Main {
     	
     	final Board b = new Board();
     	
-    	IEngine e = new Engine(b);
+    	Engine e = new Engine(b);
     	e.placeFixedEntities();
     	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
     	e.computeCommunications();
