@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import model.Cavalry;
 import model.Entity;
+import model.Fortress;
 import model.Mountain;
+import model.MountainPass;
 import model.MovableEntity;
 import model.Relay;
 import model.SwiftRelay;
@@ -100,6 +103,18 @@ public class Board {
 	
 	public boolean isMountain(int x, int y) {
 		return matrix[x][y] instanceof Mountain;
+	}
+	
+	public boolean isMountainPass(int x, int y) {
+		return matrix[x][y] instanceof MountainPass;
+	}
+	
+	public boolean isFortress(int x, int y) {
+		return matrix[x][y] instanceof Fortress;
+	}
+	
+	public boolean isCavalry(int x, int y) {
+		return matrix[x][y] instanceof Cavalry;
 	}
 	
 	public boolean isRelay(int x, int y) {

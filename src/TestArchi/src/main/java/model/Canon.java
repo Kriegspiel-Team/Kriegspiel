@@ -10,6 +10,8 @@ public class Canon extends MovableEntity {
 		range = 3;
 		attack = 5;
 		defence = 8;
+		enemyAttack = 0;
+		allyDefence = 0;
 		speedLeft = speed;
 		this.owner = owner;
 	}

@@ -1,0 +1,38 @@
+package model
+
+import model.MovableEntity;
+import model.Cavalry;
+import model.Fortress;
+
+rule "outOfCom"
+	agenda-group "DefenceBonuses"
+	when
+		$m : MovableEntity(isConnected() == false) 
+	then
+		$m.setAttack(0);
+		$m.setAllyDefence(0);
+		$m.setDefence(0);
+end
+
+rule "bonusFortress"
+	agenda-group "DefenceBonuses"
+	when
+		$b : Board()
+		$m : MovableEntity(isConnected() == true, $coord : coord)
+	then
+		if($b.isFortress($coord.x, $coord.y) && !($m instanceof Cavalry))
+			$m.setDefence($m.getDefence() + Fortress.FORTRESS_BONUS);
+		
+end
+
+rule "bonusMountainPass"
+	agenda-group "DefenceBonuses"
+	when
+		$b : Board()
+		$m : MovableEntity(isConnected() == true, $coord : coord)
+	then
+		if($b.isMountainPass($coord.x, $coord.y) && !($m instanceof Cavalry))
+			$m.setDefence($m.getDefence() + MountainPass.MOUNTAIN_PASS_BONUS);
+		
+end
+
