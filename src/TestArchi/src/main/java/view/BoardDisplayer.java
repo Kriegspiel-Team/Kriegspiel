@@ -29,7 +29,6 @@ import model.Entity;
 import model.Fortress;
 import model.Mountain;
 import model.MovableEntity;
-import model.UnmovableEntity;
 
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
