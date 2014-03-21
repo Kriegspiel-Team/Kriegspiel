@@ -10,8 +10,6 @@ import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashSet;
@@ -29,7 +27,6 @@ import model.Entity;
 import model.Fortress;
 import model.Mountain;
 import model.MovableEntity;
-import model.UnmovableEntity;
 
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
@@ -43,9 +40,9 @@ public class BoardDisplayer extends JFrame {
 	private boolean p0Coms = true;
 	private boolean p1Coms = true;
 	
-	private static final int DISPLAY_UNITS = 0;
-	private static final int DISPLAY_ATTACK = 1;
-	private static final int DISPLAY_DEFENCE = 2;
+	public static final int DISPLAY_UNITS = 0;
+	public static final int DISPLAY_ATTACK = 1;
+	public static final int DISPLAY_DEFENCE = 2;
 	
 	private int displayMode = DISPLAY_UNITS;
 	
@@ -71,6 +68,18 @@ public class BoardDisplayer extends JFrame {
 	
 	public void setP1Coms(boolean b){
 		p1Coms = b;
+	}
+	
+	public void switchPOComs(){
+		p0Coms = !p0Coms;
+	}
+	
+	public void switchP1Coms(){
+		p1Coms = !p1Coms;
+	}
+	
+	public void setDisplayMode(int mode){
+		displayMode = mode;
 	}
 	
 	public void initGUI()
@@ -115,36 +124,6 @@ public class BoardDisplayer extends JFrame {
 				boardPanel.add(squares[i][j]);
 			}
 		}
-		this.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {}
-			public void keyPressed(KeyEvent e) {}
-			public void keyReleased(KeyEvent e) {
-				switch(e.getKeyCode())
-				{
-					case KeyEvent.VK_NUMPAD0:
-						p0Coms = !p0Coms;
-						displayGUI();
-						break;
-					case KeyEvent.VK_NUMPAD1:
-						p1Coms = !p1Coms;
-						displayGUI();
-						break;
-					case KeyEvent.VK_U:
-						displayMode = DISPLAY_UNITS;
-						displayGUI();
-						break;
-					case KeyEvent.VK_A:
-						displayMode = DISPLAY_ATTACK;
-						displayGUI();
-						break;
-					case KeyEvent.VK_D:
-						displayMode = DISPLAY_DEFENCE;
-						displayGUI();
-						break;
-				}
-			}
-
-		});
 	}
 		
 	private void clearPossibleMovement(){
