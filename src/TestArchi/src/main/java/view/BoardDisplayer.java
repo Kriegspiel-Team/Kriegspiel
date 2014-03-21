@@ -282,7 +282,7 @@ public class BoardDisplayer extends JFrame {
 			if(unit != null)
 			{
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
-				JLabel tmp = new JLabel(Integer.toString(unit.getAttack()), JLabel.RIGHT);
+				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), JLabel.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
 			}
@@ -297,7 +297,7 @@ public class BoardDisplayer extends JFrame {
 			if(unit != null)
 			{
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
-				JLabel tmp = new JLabel(Integer.toString(unit.getDefence()), JLabel.RIGHT);
+				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), JLabel.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
 			}
