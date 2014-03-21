@@ -94,6 +94,10 @@ public class Board {
 		return true;
 	}
 	
+	public boolean isMovableEntity(int x, int y) {
+		return matrix[x][y] instanceof MovableEntity;
+	}
+	
 	public boolean isMountain(int x, int y) {
 		return matrix[x][y] instanceof Mountain;
 	}

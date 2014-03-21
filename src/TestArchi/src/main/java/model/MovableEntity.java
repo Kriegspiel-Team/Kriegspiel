@@ -76,6 +76,14 @@ public class MovableEntity extends Entity {
 		return defence;
 	}
 	
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
+
+	public void setDefence(int defence) {
+		this.defence = defence;
+	}
+
 	public int getRange() {
 		return range;
 	}
