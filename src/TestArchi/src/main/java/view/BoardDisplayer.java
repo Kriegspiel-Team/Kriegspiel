@@ -41,14 +41,20 @@ public class BoardDisplayer extends JFrame{
 	private boolean p0coms = true;
 	private boolean p1coms = true;
 	
-	public static Color COLOR_PLAYER0 = new Color(100,150,255);
-	public static Color COLOR_COM_PLAYER0 = new Color(50,100,200);
-	public static Color COLOR_PLAYER1 = new Color(255,100,100);
-	public static Color COLOR_COM_PLAYER1 = new Color(200,50,50);
-	public static Color COLOR_COM_INTERSECT = new Color(200,50,200);
-	public static Color COLOR_MOUTAIN = new Color(200,200,200);
-	public static Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
-	public static Color COLOR_EMPTY = new Color(255,255,255);
+	private static final int DISPLAY_UNITS = 0;
+	private static final int DISPLAY_ATTACK = 1;
+	private static final int DISPLAY_DEFENCE = 2;
+	
+	private int displayMode = DISPLAY_UNITS;
+	
+	private static final Color COLOR_PLAYER0 = new Color(100,150,255);
+	private static final Color COLOR_COM_PLAYER0 = new Color(50,100,200);
+	private static final Color COLOR_PLAYER1 = new Color(255,100,100);
+	private static final Color COLOR_COM_PLAYER1 = new Color(200,50,50);
+	private static final Color COLOR_COM_INTERSECT = new Color(200,50,200);
+	private static final Color COLOR_MOUTAIN = new Color(200,200,200);
+	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
+	private static final Color COLOR_EMPTY = new Color(255,255,255);
 	
 	public BoardDisplayer(Board board)
 	{
@@ -111,6 +117,18 @@ public class BoardDisplayer extends JFrame{
 						break;
 					case KeyEvent.VK_NUMPAD1:
 						p1coms = !p1coms;
+						displayGUI();
+						break;
+					case KeyEvent.VK_U:
+						displayMode = DISPLAY_UNITS;
+						displayGUI();
+						break;
+					case KeyEvent.VK_A:
+						displayMode = DISPLAY_ATTACK;
+						displayGUI();
+						break;
+					case KeyEvent.VK_D:
+						displayMode = DISPLAY_DEFENCE;
 						displayGUI();
 						break;
 				}
@@ -189,13 +207,21 @@ public class BoardDisplayer extends JFrame{
 				if(currentEntity == null)
 					currentSquare.setBackground(COLOR_EMPTY);
 				else
-				{
-					JLabel tmp = new JLabel(Character.toString(currentEntity.getSymbol()));
-					tmp.setFont(new Font("Serif", Font.PLAIN, windowHeight/40));
-					currentSquare.add(tmp);
+				{					
+					switch(displayMode)
+					{
+						case DISPLAY_UNITS: 
+							displayUnit(i, j);
+							break;
+						case DISPLAY_ATTACK:
+							displayAttackPotential(i, j);
+							break;
+						case DISPLAY_DEFENCE:
+							displayDefencePotential(i, j);
+							break;
+					}
 					if(currentEntity instanceof Mountain)
-						currentSquare.setBackground(COLOR_MOUTAIN);
-					
+						currentSquare.setBackground(COLOR_MOUTAIN);				
 					colorSquareByOwner(i, j);
 				}
 				
@@ -252,6 +278,35 @@ public class BoardDisplayer extends JFrame{
 				}
 			}
 		}
+	}
+	
+	public void displayAttackPotential(int x, int y)
+	{
+		if(matrix[x][y] != null && matrix[x][y] instanceof MovableEntity)
+		{
+			Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+			JLabel tmp = new JLabel(Integer.toString(((MovableEntity)matrix[x][y]).getAttack()), JLabel.RIGHT);
+			tmp.setFont(fnt);
+			squares[x][y].add(tmp);
+		}
+	}
+	
+	public void displayDefencePotential(int x, int y)
+	{
+		if(matrix[x][y] != null && matrix[x][y] instanceof MovableEntity)
+		{
+			Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
+			JLabel tmp = new JLabel(Integer.toString(((MovableEntity)matrix[x][y]).getDefence()), JLabel.RIGHT);
+			tmp.setFont(fnt);
+			squares[x][y].add(tmp);
+		}
+	}
+	
+	private void displayUnit(int x, int y)
+	{
+		JLabel tmp = new JLabel(Character.toString(matrix[x][y].getSymbol()));
+		tmp.setFont(new Font("Serif", Font.PLAIN, windowHeight/40));
+		squares[x][y].add(tmp);
 	}
 	
 	/*public void displayASCII(int x, int y){
