@@ -149,8 +149,7 @@ public class BoardDisplayer extends JFrame {
 		
 		boardPanel.setBackground(new Color(0, 0, 0));			
 		
-		squares = new JPanel[Board.WIDTH][Board.HEIGHT];
-		
+		squares = new JPanel[Board.WIDTH][Board.HEIGHT];		
 		drawEntities();
 	}
 		
@@ -174,7 +173,7 @@ public class BoardDisplayer extends JFrame {
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
 		
-		if(currentEntity instanceof Fortress && board.getUnit(x, y) != null)
+		if((board.isFortress(x, y) || board.isMountainPass(x, y)) && board.getUnit(x, y) != null)
 			currentEntity = board.getUnit(x, y);
 		
 		int owner = currentEntity.getOwner();
