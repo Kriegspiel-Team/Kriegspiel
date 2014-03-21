@@ -7,6 +7,8 @@ import main.Coord;
 
 public class MovableEntity extends Entity {
 	
+	protected boolean canBeKilled;
+	protected boolean mustRetreat;
 	protected int speed;
 	protected int range;
 	protected int attack;
@@ -21,6 +23,8 @@ public class MovableEntity extends Entity {
 		possibleMovement = new HashSet<Coord>();
 		counterDirectionRule = 0;
 		canContain = false;
+		canBeKilled = false;
+		mustRetreat = false;
 	}
 
 	public int getSpeed() {
@@ -104,5 +108,20 @@ public class MovableEntity extends Entity {
 		this.allyDefence = allyDefence;
 	}
 
+	public boolean isCanBeKilled() {
+		return canBeKilled;
+	}
+
+	public void setCanBeKilled(boolean canBeKilled) {
+		this.canBeKilled = canBeKilled;
+	}
+
+	public boolean isMustRetreat() {
+		return mustRetreat;
+	}
+
+	public void setMustRetreat(boolean mustRetreat) {
+		this.mustRetreat = mustRetreat;
+	}
 
 }
