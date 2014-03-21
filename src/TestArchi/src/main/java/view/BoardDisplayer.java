@@ -122,10 +122,10 @@ public class BoardDisplayer extends JFrame {
 				squares[i][j] = new JPanel();
 				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
 				
-				if (matrix[i][j] instanceof MovableEntity || matrix[i][j] instanceof Fortress || matrix[i][j] instanceof Arsenal)
+				if (board.isMovableEntity(i,j) || board.isFortress(i,j) || board.isMountainPass(i,j) || matrix[i][j] instanceof Arsenal)
 					squares[i][j].addMouseListener(new CellMouseListener(i, j));
 				
-				if (!board.emptySquare(i, j) && board.canContain(i, j)){
+				if (!board.emptySquare(i, j) && board.canContain(i, j) && !board.isMountainPass(i, j)){
 					squares[i][j].setBorder(BorderFactory.createDashedBorder(Color.BLACK, 3.0f, 3.0f, 1.0f, false));
 				}
 				
@@ -154,7 +154,7 @@ public class BoardDisplayer extends JFrame {
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
 		
-		if(currentEntity instanceof Fortress && board.getUnit(x, y) != null)
+		if((board.isFortress(x, y) || board.isMountainPass(x, y)) && board.getUnit(x, y) != null)
 			currentEntity = board.getUnit(x, y);
 		
 		int owner = currentEntity.getOwner();
