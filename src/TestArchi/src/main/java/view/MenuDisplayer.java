@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -31,9 +32,10 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	
 	public MenuDisplayer(BoardDisplayer b){
 		boardDisplayer = b;
+		initKeyBinding();
 		
 		initUI();
-		initKeyBinding();
+		
 	}
 
 	
@@ -45,22 +47,28 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	private void initUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		/*this.addKeyListener(this);
-		this.setFocusable(true);*/
-		
 		displayCom0 = new JCheckBox("Communication blue player", true);
+		
+		displayCom0.setFocusable(false);
 		displayCom1 = new JCheckBox("Communication red player", true);
+		displayCom1.setFocusable(false);
+		displayCom0.setAlignmentX(Component.CENTER_ALIGNMENT);
+		displayCom1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		displayCom0.addItemListener(this);
 		displayCom1.addItemListener(this);
 		
 		JPanel displayModePanel = new JPanel();
+
 		displayModePanel.setLayout(new GridLayout(3, 1));
 		displayModePanel.setBorder(BorderFactory.createTitledBorder("Display mode"));
 		
 		displayUnitBtn = new JButton("Unit");
+		displayUnitBtn.setFocusable(false);
 		displayAttackBtn = new JButton("Attack");
+		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
+		displayDefenceBtn.setFocusable(false);
 		
 		displayUnitBtn.addMouseListener(this);
 		displayAttackBtn.addMouseListener(this);
@@ -69,9 +77,6 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayModePanel.add(displayUnitBtn);
 		displayModePanel.add(displayAttackBtn);
 		displayModePanel.add(displayDefenceBtn);
-		
-		
-		
 		
 		this.add(displayCom0);
 		this.add(displayCom1);
