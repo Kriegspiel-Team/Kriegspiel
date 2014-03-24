@@ -235,6 +235,18 @@ public class BoardDisplayer extends JFrame {
 					if(currentEntity instanceof Mountain)
 						currentSquare.setBackground(COLOR_MOUTAIN);				
 					colorSquareByOwner(i, j);
+					if(currentEntity instanceof MovableEntity)
+					{
+						MovableEntity currentMovable = ((MovableEntity)currentEntity);
+						if(currentMovable.canBeKilled())
+						{
+							((JLabel)currentSquare.getComponent(0)).setText("("+((JLabel)currentSquare.getComponent(0)).getText()+")");
+						}
+						if(currentMovable.mustRetreat())
+						{
+							((JLabel)currentSquare.getComponent(0)).setText("["+((JLabel)currentSquare.getComponent(0)).getText()+"]");
+						}
+					}
 				}
 				
 			}
@@ -318,6 +330,7 @@ public class BoardDisplayer extends JFrame {
 			MovableEntity unit = board.getUnit(x, y);
 			if(unit != null) {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+
 				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), JLabel.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
@@ -331,6 +344,7 @@ public class BoardDisplayer extends JFrame {
 			MovableEntity unit = board.getUnit(x, y);
 			if(unit != null) {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+
 				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), JLabel.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);

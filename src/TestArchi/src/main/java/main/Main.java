@@ -22,6 +22,8 @@ public class Main {
       	
       	final Potentials p = new Potentials(b);
       	p.UnityPotentials();
+      	
+      	e.computeDeath();
     	
     	SwingUtilities.invokeLater(new Runnable() {
             @Override

@@ -108,7 +108,7 @@ public class MovableEntity extends Entity {
 		this.allyDefence = allyDefence;
 	}
 
-	public boolean isCanBeKilled() {
+	public boolean canBeKilled() {
 		return canBeKilled;
 	}
 
@@ -116,7 +116,7 @@ public class MovableEntity extends Entity {
 		this.canBeKilled = canBeKilled;
 	}
 
-	public boolean isMustRetreat() {
+	public boolean mustRetreat() {
 		return mustRetreat;
 	}
 
