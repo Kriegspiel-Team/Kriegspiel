@@ -24,7 +24,6 @@ import main.Board;
 import main.Coord;
 import model.Arsenal;
 import model.Entity;
-import model.Fortress;
 import model.Mountain;
 import model.MovableEntity;
 
@@ -109,10 +108,10 @@ public class BoardDisplayer extends JFrame {
 				
 				squares[i][j].removeAll();
 				
-				if (matrix[i][j] instanceof MovableEntity || matrix[i][j] instanceof Fortress || matrix[i][j] instanceof Arsenal)
+				if (board.isMovableEntity(i,j) || board.isFortress(i,j) || board.isArsenal(i,j) || board.isMountainPass(i,j))
 					squares[i][j].addMouseListener(new CellMouseListener(i, j));
 				
-				if (!board.emptySquare(i, j) && board.canContain(i, j)){
+				if (!board.emptySquare(i, j) && (board.isFortress(i,j) || board.isArsenal(i,j))){
 					squares[i][j].setBorder(BorderFactory.createDashedBorder(Color.BLACK, 3.0f, 3.0f, 1.0f, false));
 				}
 				
@@ -176,13 +175,13 @@ public class BoardDisplayer extends JFrame {
 		
 		switch(owner) {
 			case 0:
-				if(currentEntity.isConnected() || currentEntity instanceof Arsenal)
+				if(currentEntity.isConnected() || board.isArsenal(x,y))
 					currentSquare.setBackground(COLOR_COM_PLAYER0);
 				else
 					currentSquare.setBackground(COLOR_PLAYER0);
 				break;
 			case 1:
-				if(currentEntity.isConnected() || currentEntity instanceof Arsenal)
+				if(currentEntity.isConnected() || board.isArsenal(x,y))
 					currentSquare.setBackground(COLOR_COM_PLAYER1);
 				else
 					currentSquare.setBackground(COLOR_PLAYER1);
