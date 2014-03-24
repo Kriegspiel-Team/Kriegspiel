@@ -208,6 +208,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
               	
               	Potentials p = new Potentials(b);
               	p.UnityPotentials();
+              	engine.computeDeath();
               	
               	boardDisplayer.drawEntities();
               	

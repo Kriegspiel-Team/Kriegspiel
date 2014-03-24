@@ -59,4 +59,10 @@ public class Engine implements IEngine{
 		kSession.getAgenda().getAgendaGroup( "Battle" ).setFocus();
 		kSession.fireAllRules();
 	}
+	
+	public void computeDeath()
+	{
+		kSession.getAgenda().getAgendaGroup( "DeathRule" ).setFocus();
+		kSession.fireAllRules();
+	}
 }

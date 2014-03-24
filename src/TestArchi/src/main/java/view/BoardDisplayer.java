@@ -236,6 +236,26 @@ public class BoardDisplayer extends JFrame {
 					if(currentEntity instanceof Mountain)
 						currentSquare.setBackground(COLOR_MOUTAIN);				
 					colorSquareByOwner(i, j);
+					if(currentEntity instanceof MovableEntity)
+					{
+						MovableEntity currentMovable = ((MovableEntity)currentEntity);
+						if(currentMovable.canBeKilled())
+						{
+							Font fnt = new Font("Serif", Font.BOLD, windowHeight/50);
+							JLabel label = new JLabel("!");
+							label.setFont(fnt);
+							label.setForeground(new Color(255,0,0));
+							currentSquare.add(label);
+						}
+						if(currentMovable.mustRetreat())
+						{
+							Font fnt = new Font("Serif", Font.BOLD, windowHeight/50);
+							JLabel label = new JLabel("!");
+							label.setFont(fnt);
+							label.setForeground(new Color(255,255,0));
+							currentSquare.add(label);
+						}
+					}
 				}
 				
 			}
@@ -306,7 +326,7 @@ public class BoardDisplayer extends JFrame {
 			MovableEntity unit = board.getUnit(x, y);
 			if(unit != null)
 			{
-				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
 				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), JLabel.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
@@ -321,7 +341,7 @@ public class BoardDisplayer extends JFrame {
 			MovableEntity unit = board.getUnit(x, y);
 			if(unit != null)
 			{
-				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
 				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), JLabel.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);

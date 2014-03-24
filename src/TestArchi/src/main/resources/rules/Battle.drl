@@ -36,13 +36,3 @@ rule "bonusMountainPass"
 		
 end
 
-rule "canBeKilled"
-	agenda-group "Battle"
-	when 
-		$m : MovableEntity($coord : coord)
-	then
-		if($m.getAllyDefence() < $m.getEnemyAttack())
-			$m.setCanBeKilled(true);
-		if($m.getAllyDefence() == $m.getEnemyAttack())
-			$m.setMustRetreat(true);
-end
