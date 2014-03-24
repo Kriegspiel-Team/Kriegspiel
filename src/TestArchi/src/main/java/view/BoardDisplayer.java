@@ -240,19 +240,11 @@ public class BoardDisplayer extends JFrame {
 						MovableEntity currentMovable = ((MovableEntity)currentEntity);
 						if(currentMovable.canBeKilled())
 						{
-							Font fnt = new Font("Serif", Font.BOLD, windowHeight/50);
-							JLabel label = new JLabel("!");
-							label.setFont(fnt);
-							label.setForeground(new Color(255,0,0));
-							currentSquare.add(label);
+							((JLabel)currentSquare.getComponent(0)).setText("("+((JLabel)currentSquare.getComponent(0)).getText()+")");
 						}
 						if(currentMovable.mustRetreat())
 						{
-							Font fnt = new Font("Serif", Font.BOLD, windowHeight/50);
-							JLabel label = new JLabel("!");
-							label.setFont(fnt);
-							label.setForeground(new Color(255,255,0));
-							currentSquare.add(label);
+							((JLabel)currentSquare.getComponent(0)).setText("["+((JLabel)currentSquare.getComponent(0)).getText()+"]");
 						}
 					}
 				}
