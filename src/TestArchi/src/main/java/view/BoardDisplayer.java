@@ -20,9 +20,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import evaluator.Potentials;
 import main.Board;
 import main.Coord;
-import model.Arsenal;
 import model.Entity;
 import model.Mountain;
 import model.MovableEntity;
@@ -30,6 +30,8 @@ import model.MovableEntity;
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
 	private Board board;
+	private Potentials potential;
+	
 	private Entity[][] matrix;
 	private int windowHeight;
 	private int windowWidth;
@@ -44,6 +46,7 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_UNITS = 0;
 	public static final int DISPLAY_ATTACK = 1;
 	public static final int DISPLAY_DEFENCE = 2;
+	public static final int DISPLAY_PREVAILING = 3;
 	
 	private int displayMode = DISPLAY_UNITS;
 	
@@ -56,9 +59,10 @@ public class BoardDisplayer extends JFrame {
 	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
 	private static final Color COLOR_EMPTY = new Color(255,255,255);
 	
-	public BoardDisplayer(Board board)
+	public BoardDisplayer(Board board, Potentials potential)
 	{
 		this.board = board;
+		this.potential = potential;
 		this.matrix = this.board.getMatrix();
 		initGUI();			
 	}
@@ -208,20 +212,16 @@ public class BoardDisplayer extends JFrame {
 	public void displayGUI(){	
 		
 		
-		for(int j=0 ; j<Board.HEIGHT ; j++)
-		{
-			for(int i=0 ; i<Board.WIDTH ; i++)
-			{
+		for(int j=0 ; j<Board.HEIGHT ; j++) {
+			for(int i=0 ; i<Board.WIDTH ; i++) {
 				JPanel currentSquare = squares[i][j];
 				Entity currentEntity = matrix[i][j];
 				//squares[i][j].setBackground(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)));
 				currentSquare.removeAll();
 				if(currentEntity == null)
 					currentSquare.setBackground(COLOR_EMPTY);
-				else
-				{				
-					switch(displayMode)
-					{
+				else {				
+					switch(displayMode) {
 						case DISPLAY_UNITS: 
 							displayUnit(i, j);
 							break;
@@ -245,12 +245,13 @@ public class BoardDisplayer extends JFrame {
 		else
 			drawCommunications();
 		
-		
+		if (displayMode == DISPLAY_PREVAILING) 
+			displayPrevailing();
 		
 		this.repaint();
 		this.setVisible(true);
 	}
-	
+
 	private void drawCommunications()
 	{
 		/*List<Coord> com = board.getCommunications(0);
@@ -274,21 +275,17 @@ public class BoardDisplayer extends JFrame {
 			com = board.getCommunications(0);
 						
 			for (Coord c : com)
-				if(matrix[c.x][c.y] == null)
-				{
+				if(matrix[c.x][c.y] == null) {
 					JLabel tmp = new JLabel("o", JLabel.CENTER);
 					tmp.setFont(fnt);
 					tmp.setForeground(COLOR_COM_PLAYER0);
 					squares[c.x][c.y].add(tmp);
 				}
 		}
-		if(p1Coms)
-		{
+		if(p1Coms) {
 			com = board.getCommunications(1);
-			for (Coord c : com)
-			{
-				if(matrix[c.x][c.y] == null)
-				{
+			for (Coord c : com) {
+				if(matrix[c.x][c.y] == null) {
 					JLabel tmp = new JLabel("o", JLabel.CENTER);
 					tmp.setFont(fnt);
 					tmp.setForeground(COLOR_COM_PLAYER1);
@@ -298,13 +295,28 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
+	private void displayPrevailing() {
+		
+		Integer[][] matrix = this.potential.prevailing.get(0);
+		
+		for(int y = 0 ; y < Board.HEIGHT ; y++) {
+			for(int x = 0 ; x < Board.WIDTH ; x++) {
+				int attack = matrix[x][y];
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+				JLabel tmp = new JLabel(Integer.toString(attack), JLabel.RIGHT);
+				tmp.setFont(fnt);
+				squares[x][y].add(tmp);
+				squares[x][y].setBackground(new Color(255, Math.max(0, 255 - 7*attack), Math.max(0, 255 - 7*attack)));
+			}
+		}
+		
+	}
+	
 	public void displayAttackPotential(int x, int y)
 	{
-		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain))
-		{
+		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
-			if(unit != null)
-			{
+			if(unit != null) {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
 				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), JLabel.RIGHT);
 				tmp.setFont(fnt);
@@ -315,11 +327,9 @@ public class BoardDisplayer extends JFrame {
 	
 	public void displayDefencePotential(int x, int y)
 	{
-		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain))
-		{
+		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
-			if(unit != null)
-			{
+			if(unit != null) {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
 				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), JLabel.RIGHT);
 				tmp.setFont(fnt);

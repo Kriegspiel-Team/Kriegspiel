@@ -39,6 +39,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	private JButton displayUnitBtn;
 	private JButton displayAttackBtn;
 	private JButton displayDefenceBtn;
+	private JButton displayPrevailingBtn;
 	
 	public MenuDisplayer(BoardDisplayer b){
 		boardDisplayer = b;
@@ -80,14 +81,18 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
 		displayDefenceBtn.setFocusable(false);
+		displayPrevailingBtn = new JButton("Prevailing");
+		displayPrevailingBtn.setFocusable(false);
 				
 		displayUnitBtn.addMouseListener(this);
 		displayAttackBtn.addMouseListener(this);
 		displayDefenceBtn.addMouseListener(this);
+		displayPrevailingBtn.addMouseListener(this);
 		
 		displayModePanel.add(displayUnitBtn);
 		displayModePanel.add(displayAttackBtn);
 		displayModePanel.add(displayDefenceBtn);
+		displayModePanel.add(displayPrevailingBtn);
 		
 		this.add(loadBoardBtn);
 		this.add(displayCom0);
@@ -180,16 +185,19 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	public void mouseClicked(MouseEvent e) {
 		Object source = e.getSource();
 		
-		if (source == displayUnitBtn){
+		if (source == displayUnitBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_UNITS);
 			boardDisplayer.displayGUI();
-		}else if (source == displayAttackBtn){
+		}else if (source == displayAttackBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK);
 			boardDisplayer.displayGUI();
-		}else if (source == displayDefenceBtn){
+		}else if (source == displayDefenceBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 			boardDisplayer.displayGUI();
-		}else if (source == loadBoardBtn){
+		}else if (source == displayPrevailingBtn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING);
+			boardDisplayer.displayGUI();
+		}else if (source == loadBoardBtn) {
 			int returnVal = fileChooser.showOpenDialog(MenuDisplayer.this);
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION) {

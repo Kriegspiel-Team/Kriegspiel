@@ -29,27 +29,6 @@ rule "RelayComm"
 		}
 end
 
-/*
-rule "RelayComm"
-	agenda-group "Communication"
-	when
-		$b : Board()
-		$r : Relay( onCommunications == false, $team : owner, $coord : coord)
-	then
-		if($b.isOnCommunications($coord, $team))
-			modify($r) { setOnCommunications(true); }
-end
-
-rule "RelayComm"
-	agenda-group "Communication"
-	when
-		$b : Board()
-		$r : Relay( onCommunications == true, $team : owner, $coord : coord)
-	then
-		$b.computeCommunications($coord.x, $coord.y, $team);
-end
-	*/	
-
 rule "SwiftRelayComm"
 	agenda-group "Communication"
 	when

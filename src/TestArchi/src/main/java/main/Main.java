@@ -20,13 +20,13 @@ public class Main {
       	e.computePossibleMoves();
       	e.computeAttackDefence();
       	
-      	Potentials p = new Potentials(b);
+      	final Potentials p = new Potentials(b);
       	p.UnityPotentials();
     	
     	SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	BoardDisplayer bd = new BoardDisplayer(b);
+            	BoardDisplayer bd = new BoardDisplayer(b,p);
                 bd.displayGUI();
             }
         });
