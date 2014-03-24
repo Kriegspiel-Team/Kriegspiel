@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import model.Arsenal;
 import model.Cavalry;
 import model.Entity;
 import model.Fortress;
@@ -110,6 +111,10 @@ public class Board {
 	
 	public boolean isMountain(int x, int y) {
 		return matrix[x][y] instanceof Mountain;
+	}
+	
+	public boolean isArsenal(int x, int y) {
+		return matrix[x][y] instanceof Arsenal;
 	}
 	
 	public boolean isMountainPass(int x, int y) {
