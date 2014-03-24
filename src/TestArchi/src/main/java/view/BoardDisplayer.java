@@ -46,7 +46,8 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_UNITS = 0;
 	public static final int DISPLAY_ATTACK = 1;
 	public static final int DISPLAY_DEFENCE = 2;
-	public static final int DISPLAY_PREVAILING = 3;
+	public static final int DISPLAY_PREVAILING1 = 3;
+	public static final int DISPLAY_PREVAILING2 = 4;
 	
 	private int displayMode = DISPLAY_UNITS;
 	
@@ -97,6 +98,10 @@ public class BoardDisplayer extends JFrame {
 	
 	public Board getBoard(){
 		return board;
+	}
+	
+	public void setPotential(Potentials p) {
+		this.potential = p;
 	}
 		
 	public void drawEntities(){
@@ -235,7 +240,7 @@ public class BoardDisplayer extends JFrame {
 					if(currentEntity instanceof Mountain)
 						currentSquare.setBackground(COLOR_MOUTAIN);				
 					colorSquareByOwner(i, j);
-					if(currentEntity instanceof MovableEntity)
+					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING1 && displayMode != DISPLAY_PREVAILING2)
 					{
 						MovableEntity currentMovable = ((MovableEntity)currentEntity);
 						if(currentMovable.canBeKilled())
@@ -257,8 +262,10 @@ public class BoardDisplayer extends JFrame {
 		else
 			drawCommunications();
 		
-		if (displayMode == DISPLAY_PREVAILING) 
-			displayPrevailing();
+		if (displayMode == DISPLAY_PREVAILING1) 
+			displayPrevailing(0);
+		if (displayMode == DISPLAY_PREVAILING2) 
+			displayPrevailing(1);
 		
 		this.repaint();
 		this.setVisible(true);
@@ -307,9 +314,9 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	private void displayPrevailing() {
+	private void displayPrevailing(int team) {
 		
-		Integer[][] matrix = this.potential.prevailing.get(0);
+		Integer[][] matrix = this.potential.prevailing.get(team);
 		
 		for(int y = 0 ; y < Board.HEIGHT ; y++) {
 			for(int x = 0 ; x < Board.WIDTH ; x++) {
@@ -318,7 +325,7 @@ public class BoardDisplayer extends JFrame {
 				JLabel tmp = new JLabel(Integer.toString(attack), JLabel.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
-				squares[x][y].setBackground(new Color(255, Math.max(0, 255 - 7*attack), Math.max(0, 255 - 7*attack)));
+				squares[x][y].setBackground(new Color(255, Math.min(255, Math.max(0, 255 - 7*attack)), Math.min(255, Math.max(0, 255 - 7*attack))));
 			}
 		}
 		
