@@ -223,7 +223,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
               	engine.computeAttackDefence();
               	
               	Potentials p = new Potentials(b);
-              	p.UnityPotentials();
+              	p.ComputePotentials();
               	engine.computeDeath();
               	
               	boardDisplayer.setPotential(p);
