@@ -10,7 +10,7 @@ public class InfluenceArea {
 		this.board = board;
 	}
 	
-	public void ComputeInfluenceArea() {
+	public void computeInfluenceArea() {
 		// Remplacera les règles Drools de Communications.drl"
 	}
 	

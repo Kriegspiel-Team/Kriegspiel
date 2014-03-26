@@ -18,7 +18,7 @@ public class Potentials {
 		this.prevailing.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
 	}
 	
-	public void ComputePotentials()
+	public void computePotentials()
 	{
 		for(int team = 0; team < 2; team++) {
 			for(int y = 0; y < Board.HEIGHT; y++) {
@@ -26,8 +26,8 @@ public class Potentials {
 					
 					MovableEntity e = board.getUnit(x, y);
 					
-					int attack = ComputeAttack(x,y,team);
-					int defence = ComputeDefence(x,y,team);
+					int attack = computeAttack(x,y,team);
+					int defence = computeDefence(x,y,team);
 					
 					if(e!=null && e.getOwner()==team) {
 						e.setEnemyAttack(attack);
@@ -40,7 +40,7 @@ public class Potentials {
 		}
 	}
 	
-	public int ComputeAttack(int xi, int yi, int owner) {
+	public int computeAttack(int xi, int yi, int owner) {
 		int maxRange = 4;
 		
 		int attack = 0;
@@ -85,7 +85,7 @@ public class Potentials {
 		return attack;
 	}
 	
-	public int ComputeDefence(int xi, int yi, int owner) {
+	public int computeDefence(int xi, int yi, int owner) {
 		int maxRange = 3;
 
 		int defence = 0;
