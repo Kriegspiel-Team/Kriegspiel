@@ -21,7 +21,7 @@ public class Main {
       	e.computeAttackDefence();
       	
       	final Potentials p = new Potentials(b);
-      	p.UnityPotentials();
+      	p.ComputePotentials();
       	
       	e.computeDeath();
     	
