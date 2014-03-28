@@ -21,14 +21,14 @@ public class EntityLoader {
 	private Board board;
 	private String filename;
 	
-	public EntityLoader(Board board, String filename){
-		this.board = board;
+	public EntityLoader(String filename) throws BoardFileFormatException{
+		this.board = new Board();
 		this.filename = filename;
 		
 		readFile();
 	}
 	
-	private void readFile(){
+	private void readFile() throws BoardFileFormatException{
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(filename));
@@ -40,8 +40,8 @@ public class EntityLoader {
 				
 				cpt++;
 				
-				if (st.length != 4)
-					throw new Exception("Invalid file format at line " + cpt);
+				if (!isValidFormat(st))
+					throw new BoardFileFormatException(cpt);
 				
 				int x = Integer.parseInt(st[2]);
 				int y = Integer.parseInt(st[3]);
@@ -66,7 +66,7 @@ public class EntityLoader {
 				}
 				
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
 			try {
@@ -76,7 +76,29 @@ public class EntityLoader {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private boolean isValidFormat(String[] data) {
 		
+		if (data.length != 4)
+			return false;
 		
+		if (!data[0].equals("Infantry") && !data[0].equals("Cavalry") && !data[0].equals("Canon") && !data[0].equals("SwiftCanon") && !data[0].equals("Relay") && !data[0].equals("SwiftRelay"))
+			return false;
+		
+		if (!data[1].equals("0") && !data[1].equals("1"))
+			return false;
+		
+		if (Integer.parseInt(data[2]) < 0 || Integer.parseInt(data[2]) > Board.WIDTH)
+			return false;
+		
+		if (Integer.parseInt(data[3]) < 0 || Integer.parseInt(data[3]) > Board.HEIGHT)
+			return false;
+
+		return true;	
+	}
+	
+	public Board getBoard() {
+		return this.board;
 	}
 }

@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -341,11 +342,19 @@ public class BoardDisplayer extends JFrame {
 		squares[x][y].add(tmp);
 	}
 	
+	public void displayPopup(String text, String title, int logo) {
+		JOptionPane.showMessageDialog(this, text, title, logo);
+	}
+	
 
 	private Set<Coord> getPossibleMoves(int x, int y) {
 		if(board.getUnit(x, y) instanceof MovableEntity)
 			return board.getUnit(x,y).getPossibleMovement();
 		return new HashSet<Coord>();
+	}
+	
+	public void resetSelectedSquare(){
+		selectedSquare = null;
 	}
 
 	private class CellMouseListener implements MouseListener {
@@ -375,4 +384,5 @@ public class BoardDisplayer extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent e) {}	
 	}
+	
 }

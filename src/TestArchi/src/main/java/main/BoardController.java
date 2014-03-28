@@ -2,6 +2,9 @@ package main;
 
 import java.nio.file.Paths;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 import view.BoardDisplayer;
 import evaluator.InfluenceArea;
 import evaluator.Potentials;
@@ -19,13 +22,24 @@ public class BoardController {
 		potentials = new Potentials(board);
 	}
 	
+	/*
+	 * Tries to load a board and if successful,
+	 * initializes the rules engine and
+	 * computes everything
+	 */
 	private void loadBoard(String file) {
+		
+		if (!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString())) {
+			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
+			
+			return;
+		}
+		
+		boardDisplayer.resetSelectedSquare();
+		
 		engine.initSession();
-		
 		engine.placeFixedEntities();
-		
-		board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString());
-		
+				
 		engine.computeCommunications();
 		
       	//engine.computePossibleMoves();
@@ -42,16 +56,16 @@ public class BoardController {
 		loadBoard("src/main/resources/board/Sample3.txt");
 	}
 	
-	public void loadNewBoard(String file) {
-		board.resetBoard();
-				
-		loadBoard(file);
-		
-		boardDisplayer.drawEntities();
-		boardDisplayer.displayGUI();	
+	public void loadNewBoard(String file) {				
+		loadBoard(file);	
+    	
+	SwingUtilities.invokeLater(new Runnable() {
+	    @Override
+	    public void run() {
+			boardDisplayer.drawEntities();
+			boardDisplayer.displayGUI();	
+	    }});
 	}
-	
-	
 	
 	public Board getBoard() {
 		return board;

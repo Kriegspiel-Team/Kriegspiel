@@ -12,12 +12,13 @@ import model.SwiftRelay;
 public class InfluenceArea {
 	
 	public static void runInfluenceArea(Board board) {
-		List<MovableEntity> listMov = board.getMovableEntity();
+		List<MovableEntity> listMov = board.getMovableEntities();
 		
 		for(MovableEntity m : listMov)
 			computeInfluenceAreas(board, m.getCoord().x, m.getCoord().y, m.getSpeed(), m);
 	}
 	
+
 	public static void computeInfluenceAreas(Board board, int x, int y, int speedLeft, MovableEntity m) {
 		
 		
@@ -29,5 +30,5 @@ public class InfluenceArea {
 						computeInfluenceAreas(board, x + i, y + j, speedLeft - 1, m);
 					}
 	}
-	
+
 }

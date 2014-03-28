@@ -36,8 +36,18 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
-	public void loadBoardWithFile(String filename) {
-		new EntityLoader(this, filename);
+	public boolean loadBoardWithFile(String filename) {
+		EntityLoader loader;
+		
+		try {
+			loader = new EntityLoader(filename);
+		} catch (BoardFileFormatException e) {
+			return false;
+		}
+		
+		resetBoard();
+		this.matrix = loader.getBoard().matrix;
+		return true;
 	}
 	
 	public void resetBoard(){
@@ -80,19 +90,19 @@ public class Board {
 		return getCommunications(team).contains(coord);
 	}
 	
-	public List<MovableEntity> getMovableEntity() {
-		List<MovableEntity> movableEntity = new ArrayList<MovableEntity>();
+	public List<MovableEntity> getMovableEntities() {
+		List<MovableEntity> movableEntities = new ArrayList<MovableEntity>();
 		
 		for(int j=0; j<HEIGHT; j++) {
 			for(int i=0; i<WIDTH; i++) {
 				if (matrix[i][j] instanceof MovableEntity)
-					movableEntity.add((MovableEntity)matrix[i][j]);
+					movableEntities.add((MovableEntity)matrix[i][j]);
 				else if (matrix[i][j] != null && matrix[i][j].canContain() && !((UnmovableEntity)matrix[i][j]).isEmpty())
-					movableEntity.add(((UnmovableEntity)matrix[i][j]).getEntity());
+					movableEntities.add(((UnmovableEntity)matrix[i][j]).getEntity());
 			}
 		}
 		
-		return movableEntity;
+		return movableEntities;
 	}
 	
 	public boolean isValidSquare(int x, int y) {
@@ -174,6 +184,7 @@ public class Board {
 	}
 	
 	public ArrayList<Fighter> getNeighboursMovableEntity(int x, int y, int team) {
+
 		
 		ArrayList<Fighter> listNeighbours = new ArrayList<Fighter>();
 		
@@ -197,7 +208,8 @@ public class Board {
 		return false;
 	}
 	
-	public void calculateArsenalsCommunications() {
+	public void computeArsenalsCommunications() {
+
 		int team;
 		
 		for(Coord c : coord_arsenals) {

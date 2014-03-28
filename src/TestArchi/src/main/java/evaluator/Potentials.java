@@ -18,7 +18,7 @@ public class Potentials {
 	}
 	
 	public void computePotentials() {
-		System.out.println(board.toString());
+
 		for(int team = 0; team < 2; team++) {
 			for(int y = 0; y < Board.HEIGHT; y++) {
 				for(int x = 0; x < Board.WIDTH; x++) {
