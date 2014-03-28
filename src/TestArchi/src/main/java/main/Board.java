@@ -8,6 +8,7 @@ import java.util.List;
 import model.Arsenal;
 import model.Cavalry;
 import model.Entity;
+import model.Fighter;
 import model.Fortress;
 import model.Mountain;
 import model.MountainPass;
@@ -48,7 +49,6 @@ public class Board {
 	
 	public void saveArsenalPlacement(int x, int y) {
 		coord_arsenals.add(new Coord(x,y));
-		
 	}
 	
 	public void placeEntity(int x, int y, Entity e) {
@@ -109,6 +109,12 @@ public class Board {
 		return matrix[x][y] instanceof MovableEntity;
 	}
 	
+	public boolean isFighter(int x, int y) {
+		if(canContain(x,y))
+			return getUnit(x,y) instanceof Fighter;
+		return matrix[x][y] instanceof Fighter;
+	}
+	
 	public boolean isMountain(int x, int y) {
 		return matrix[x][y] instanceof Mountain;
 	}
@@ -137,8 +143,7 @@ public class Board {
 		return (x<WIDTH && y<HEIGHT && x>=0 && y>=0);
 	}
 	
-	public boolean emptySquare(int x, int y)
-	{
+	public boolean emptySquare(int x, int y) {
 		return matrix[x][y] == null;
 	}
 	
@@ -150,18 +155,15 @@ public class Board {
 		return canContain(x,y) && ((UnmovableEntity)matrix[x][y]).isEmpty();
 	}
 	
-	public boolean containsFriendlyUnit(int x, int y, int team)
-	{
+	public boolean containsFriendlyUnit(int x, int y, int team) {
 		return ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
 	}
 	
-	public boolean isFriendlyUnit(int x, int y, int team)
-	{
+	public boolean isFriendlyUnit(int x, int y, int team) {
 		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containsFriendlyUnit(x,y,team));
 	}
 	
-	public MovableEntity getUnit(int x, int y)
-	{
+	public MovableEntity getUnit(int x, int y) {
 		if(canContain(x,y))
 			return ((UnmovableEntity)matrix[x][y]).getEntity();
 		
@@ -171,19 +173,28 @@ public class Board {
 		return (MovableEntity)matrix[x][y];
 	}
 	
-	public ArrayList<MovableEntity> getNeighboursMovableEntity(int x, int y, int team) {
+	public ArrayList<Fighter> getNeighboursMovableEntity(int x, int y, int team) {
 		
-		ArrayList<MovableEntity> listNeighbours = new ArrayList<MovableEntity>();
+		ArrayList<Fighter> listNeighbours = new ArrayList<Fighter>();
 		
 		for(int i = -1 ; i <= 1 ; i++) {
 			for(int j = -1 ; j <= 1 ; j++) {
-				if(inBoard(x+i,y+j) && !emptySquare(x+i,y+j) && isFriendlyUnit(x+i,y+j,team)) {
-					listNeighbours.add(getUnit(x+i,y+j));
-				}
+				if(i != 0 || j != 0)
+					if(inBoard(x+i,y+j) && getUnit(x,y) instanceof Fighter && isFriendlyUnit(x+i,y+j,team))
+						listNeighbours.add((Fighter)getUnit(x+i,y+j));
 			}	
 		}
-		
 		return listNeighbours;
+	}
+	
+	public boolean hasConnectedNeighbour(Fighter f) {
+		
+		ArrayList<Fighter> lf = getNeighboursMovableEntity(f.getCoord().x, f.getCoord().y, f.getOwner());
+		
+		for(Fighter fn : lf)
+			if(fn.isConnected())
+				return true;
+		return false;
 	}
 	
 	public void calculateArsenalsCommunications() {

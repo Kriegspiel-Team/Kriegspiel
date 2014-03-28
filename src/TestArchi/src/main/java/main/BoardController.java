@@ -3,6 +3,7 @@ package main;
 import java.nio.file.Paths;
 
 import view.BoardDisplayer;
+import evaluator.InfluenceArea;
 import evaluator.Potentials;
 
 public class BoardController {
@@ -26,7 +27,10 @@ public class BoardController {
 		board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString());
 		
 		engine.computeCommunications();
-      	engine.computePossibleMoves();
+		
+      	//engine.computePossibleMoves();
+		InfluenceArea.runInfluenceArea(board);
+		
       	engine.computeAttackDefence();
       	
       	potentials.computePotentials();
@@ -35,7 +39,7 @@ public class BoardController {
 	}
 	
 	public void loadDefaultBoard() {
-		loadBoard("src/main/resources/board/Sample1.txt");
+		loadBoard("src/main/resources/board/Sample3.txt");
 	}
 	
 	public void loadNewBoard(String file) {

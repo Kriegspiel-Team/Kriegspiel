@@ -28,6 +28,7 @@ import main.Coord;
 import model.Entity;
 import model.Mountain;
 import model.MovableEntity;
+import model.Fighter;
 
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
@@ -177,18 +178,21 @@ public class BoardDisplayer extends JFrame {
 		
 		int owner = currentEntity.getOwner();
 		
+		if(currentEntity instanceof Fighter)
+			System.out.println("(" + x + "," + y + ") - " + ((Fighter)currentEntity).isConnected());
+		
 		switch(owner) {
 			case 0:
-				if(currentEntity.isConnected() || board.isArsenal(x,y))
-					currentSquare.setBackground(COLOR_COM_PLAYER0);
-				else
+				if(!board.isArsenal(x, y) && (board.isFighter(x, y) && !((Fighter)currentEntity).isConnected()))
 					currentSquare.setBackground(COLOR_PLAYER0);
+				else
+					currentSquare.setBackground(COLOR_COM_PLAYER0);
 				break;
 			case 1:
-				if(currentEntity.isConnected() || board.isArsenal(x,y))
-					currentSquare.setBackground(COLOR_COM_PLAYER1);
-				else
+				if(!board.isArsenal(x, y) && (board.isFighter(x, y) && !((Fighter)currentEntity).isConnected()))
 					currentSquare.setBackground(COLOR_PLAYER1);
+				else
+					currentSquare.setBackground(COLOR_COM_PLAYER1);
 				break;
 		}
 	}

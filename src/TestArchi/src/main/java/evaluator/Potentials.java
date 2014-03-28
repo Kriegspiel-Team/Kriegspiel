@@ -10,29 +10,27 @@ public class Potentials {
 	public Board board;
 	public HashMap<Integer, Integer[][]> prevailing;
 	
-	public Potentials(Board board)
-	{
+	public Potentials(Board board) {
 		this.board = board;
 		this.prevailing = new HashMap<Integer, Integer[][]>();
 		this.prevailing.put(0, new Integer[Board.WIDTH][Board.HEIGHT]);
 		this.prevailing.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
 	}
 	
-	public void computePotentials()
-	{
+	public void computePotentials() {
 		System.out.println(board.toString());
 		for(int team = 0; team < 2; team++) {
 			for(int y = 0; y < Board.HEIGHT; y++) {
 				for(int x = 0; x < Board.WIDTH; x++) {
 					
-					MovableEntity e = board.getUnit(x, y);
+					MovableEntity m = board.getUnit(x, y);
 					
 					int attack = computeAttack(x,y,team);
 					int defence = computeDefence(x,y,team);
 					
-					if(e!=null && e.getOwner()==team) {
-						e.setEnemyAttack(attack);
-						e.setAllyDefence(defence);
+					if(m!=null && m.getOwner()==team) {
+						m.setEnemyAttack(attack);
+						m.setAllyDefence(defence);
 					}
 					
 					prevailing.get(team)[x][y] = attack;

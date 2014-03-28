@@ -1,7 +1,7 @@
 package model;
 
 
-public class Infantry extends MovableEntity {
+public class Infantry extends Fighter {
 	
 	public Infantry(int owner)
 	{
@@ -13,7 +13,6 @@ public class Infantry extends MovableEntity {
 		defence = 6;
 		enemyAttack = 0;
 		allyDefence = 0;
-		speedLeft = speed;
 		this.owner = owner;
 	}
 }

@@ -14,7 +14,6 @@ public class Relay extends MovableEntity {
 		defence = 1;
 		enemyAttack = 0;
 		allyDefence = 0;
-		speedLeft = speed;
 		onCommunications = false;
 		this.owner = owner;
 	}

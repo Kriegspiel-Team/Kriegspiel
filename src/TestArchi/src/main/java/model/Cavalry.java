@@ -1,6 +1,6 @@
 package model;
 
-public class Cavalry extends MovableEntity {
+public class Cavalry extends Fighter {
 	
 	private int attackCharge;
 	
@@ -15,7 +15,6 @@ public class Cavalry extends MovableEntity {
 		defence = 5;
 		enemyAttack = 0;
 		allyDefence = 0;
-		speedLeft = speed;
 		this.owner = owner;
 	}
 

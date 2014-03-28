@@ -1,6 +1,6 @@
 package model;
 
-public class SwiftCanon extends MovableEntity {
+public class SwiftCanon extends Fighter {
 	
 	public SwiftCanon(int owner)
 	{
@@ -12,7 +12,6 @@ public class SwiftCanon extends MovableEntity {
 		defence = 8;
 		enemyAttack = 0;
 		allyDefence = 0;
-		speedLeft = speed;
 		this.owner = owner;
 	}
 }
