@@ -5,4 +5,5 @@ public interface IEngine {
 	public void computePossibleMoves();
 	public void computeCommunications();
 	public void computeAttackDefence();
+	public void computeDeath();
 }

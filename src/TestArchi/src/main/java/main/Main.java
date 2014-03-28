@@ -1,20 +1,34 @@
 package main;
 
-import java.nio.file.Paths;
-
 import javax.swing.SwingUtilities;
-
-import evaluator.Potentials;
 import view.BoardDisplayer;
 
 public class Main {
 
 	public static void main(String[] args) {
+		
+		final BoardController controller = new BoardController();
+		controller.loadDefaultBoard();
     	
-    	final Board b = new Board();
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+            	BoardDisplayer bd = new BoardDisplayer(controller);
+                bd.displayGUI();
+                controller.setBoardDisplayer(bd);
+            }
+        });
+		
+		//OLD
+    	/*final Board b = new Board();
     	
     	Engine e = new Engine(b);
+    	
+    	
     	e.placeFixedEntities();
+    	
+    	
+    	
     	b.loadBoardWithFile(Paths.get("src/main/resources/board/Sample1.txt").toAbsolutePath().toString());
     	e.computeCommunications();
       	e.computePossibleMoves();
@@ -28,10 +42,10 @@ public class Main {
     	SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	BoardDisplayer bd = new BoardDisplayer(b,p);
+            	BoardDisplayer bd = new BoardDisplayer(b, p);
                 bd.displayGUI();
             }
-        });
+        });*/
     	
 	}
 }

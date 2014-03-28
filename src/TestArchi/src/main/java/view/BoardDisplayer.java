@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 
 import evaluator.Potentials;
 import main.Board;
+import main.BoardController;
 import main.Coord;
 import model.Entity;
 import model.Mountain;
@@ -31,6 +32,8 @@ import model.MovableEntity;
 public class BoardDisplayer extends JFrame {
 	private Board board;
 	private Potentials potential;
+	
+	private BoardController controller;
 	
 	private Entity[][] matrix;
 	private int windowHeight;
@@ -60,10 +63,17 @@ public class BoardDisplayer extends JFrame {
 	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
 	private static final Color COLOR_EMPTY = new Color(255,255,255);
 	
-	public BoardDisplayer(Board board, Potentials potential)
-	{
+	public BoardDisplayer(Board board, Potentials potential) {
 		this.board = board;
 		this.potential = potential;
+		this.matrix = this.board.getMatrix();
+		initGUI();			
+	}
+	
+	public BoardDisplayer(BoardController controller) {
+		this.controller = controller;
+		this.board = controller.getBoard();
+		this.potential = controller.getPotentials();
 		this.matrix = this.board.getMatrix();
 		initGUI();			
 	}
@@ -145,7 +155,7 @@ public class BoardDisplayer extends JFrame {
 		
 		boardPanel = new JPanel();
 		boardPanel.setLayout(new GridLayout(Board.HEIGHT, Board.WIDTH, windowHeight/500, windowHeight/500));
-		JPanel menuPanel = new MenuDisplayer(this);
+		JPanel menuPanel = new MenuDisplayer(this, controller);
 		content.setLayout(new BorderLayout());
 		
 		this.add(boardPanel, BorderLayout.CENTER);

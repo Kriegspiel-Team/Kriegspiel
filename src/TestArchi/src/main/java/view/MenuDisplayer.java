@@ -23,10 +23,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import evaluator.Potentials;
 import main.Board;
+import main.BoardController;
 import main.Engine;
 
 @SuppressWarnings("serial")
 public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {
+	
+	private BoardController controller;
 
 	private BoardDisplayer boardDisplayer;
 	
@@ -42,7 +45,8 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	private JButton displayPrevailing1Btn;
 	private JButton displayPrevailing2Btn;
 	
-	public MenuDisplayer(BoardDisplayer b){
+	public MenuDisplayer(BoardDisplayer b, BoardController controller){
+		this.controller = controller;
 		boardDisplayer = b;
 		
 		initUI();
@@ -211,6 +215,8 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 
+                controller.loadNewBoard(file.getAbsolutePath());
+                /*
                 Board b = boardDisplayer.getBoard();
                 b.resetBoard();
                 
@@ -230,7 +236,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
               	
               	boardDisplayer.drawEntities();
               	
-              	boardDisplayer.displayGUI();
+              	boardDisplayer.displayGUI();*/
             }
 			 
 		}
