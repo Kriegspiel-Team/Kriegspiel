@@ -2,6 +2,8 @@ package main;
 
 import java.nio.file.Paths;
 
+import javax.swing.JOptionPane;
+
 import view.BoardDisplayer;
 import evaluator.Potentials;
 
@@ -20,11 +22,12 @@ public class BoardController {
 	
 	private void loadBoard(String file) {
 		
-		if(!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString()))
-		{
-			System.out.println("Board loading failed :(");
+		if (!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString())) {
+			boardDisplayer.displayPopup("The file format is incorrect !", "An error occured", JOptionPane.ERROR_MESSAGE);
+			
 			return;
 		}
+		
 		engine.initSession();
 		engine.placeFixedEntities();
 				
@@ -46,8 +49,6 @@ public class BoardController {
 		boardDisplayer.drawEntities();
 		boardDisplayer.displayGUI();	
 	}
-	
-	
 	
 	public Board getBoard() {
 		return board;

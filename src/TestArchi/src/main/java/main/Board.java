@@ -37,15 +37,13 @@ public class Board {
 	
 	public boolean loadBoardWithFile(String filename) {
 		EntityLoader loader;
-		try
-		{
+		
+		try {
 			loader = new EntityLoader(filename);
-		}
-		catch(BoardFileFormatException e)
-		{
-			System.out.println("lowlfaifazafzoifhzafzoihfazoaizfh");
+		} catch (BoardFileFormatException e) {
 			return false;
 		}
+		
 		resetBoard();
 		this.matrix = loader.getBoard().matrix;
 		return true;
