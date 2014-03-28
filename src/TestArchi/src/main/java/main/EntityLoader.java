@@ -21,8 +21,8 @@ public class EntityLoader {
 	private Board board;
 	private String filename;
 	
-	public EntityLoader(String filename) throws BoardFileFormatException{
-		this.board = new Board();
+	public EntityLoader(Board board, String filename) throws BoardFileFormatException{
+		this.board = board;
 		this.filename = filename;
 		
 		readFile();

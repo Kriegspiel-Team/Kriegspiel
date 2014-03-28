@@ -18,7 +18,7 @@ import model.SwiftRelay;
 import model.UnmovableEntity;
 
 public class Board {
-	private Entity matrix[][];
+	public Entity matrix[][];
 	
 	public static int WIDTH = 25;
 	public static int HEIGHT = 20;
@@ -36,17 +36,19 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
-	public boolean loadBoardWithFile(String filename) {
-		EntityLoader loader;
+	public Entity getEntity(int x,int y){
+		return matrix[x][y];
+	}
 		
+	public boolean loadBoardWithFile(String filename) {		
 		try {
-			loader = new EntityLoader(filename);
+			new EntityLoader(this, filename);
 		} catch (BoardFileFormatException e) {
 			return false;
 		}
 		
-		resetBoard();
-		this.matrix = loader.getBoard().matrix;
+		//resetBoard();
+		//this.matrix = loader.getBoard().getMatrix();
 		return true;
 	}
 	
