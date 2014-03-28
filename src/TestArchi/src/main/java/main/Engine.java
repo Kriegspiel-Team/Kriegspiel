@@ -15,18 +15,24 @@ public class Engine implements IEngine{
 	private KieContainer kContainer;
 	private KieSession kSession;
 
-    public Engine(Board b){	
-    	this.board = b;
-    	
-        try{
+    public Engine(){	
+    	try{
             // load up the knowledge base
 	        ks = KieServices.Factory.get();
     	    kContainer = ks.getKieClasspathContainer();
-        	kSession = kContainer.newKieSession("kriegspiel-knowledge");
+    	    kSession = null;
         }
         catch (Throwable t){
             t.printStackTrace();
         }
+    }
+    
+    public void initSession(Board b)
+    {
+    	if(kSession != null)
+    		kSession.destroy();
+    	this.board = b;
+    	kSession = kContainer.newKieSession("kriegspiel-knowledge");
     }
     
     public void placeFixedEntities(){
@@ -42,7 +48,7 @@ public class Engine implements IEngine{
         kSession.fireAllRules();
     }
 
-	public void computeCommunications() {
+	public void computeCommunications(){
 	
 		List<MovableEntity> movableEntity = board.getMovableEntity();
     	    	

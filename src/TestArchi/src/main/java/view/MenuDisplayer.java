@@ -226,7 +226,8 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
                 Board b = boardDisplayer.getBoard();
                 b.resetBoard();
                 
-                Engine engine = new Engine(b);
+                Engine engine = new Engine();
+                engine.initSession(b);
                 
             	engine.placeFixedEntities();
             	b.loadBoardWithFile(file.getAbsolutePath());
