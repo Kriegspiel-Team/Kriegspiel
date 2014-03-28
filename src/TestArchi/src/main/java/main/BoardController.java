@@ -53,17 +53,17 @@ public class BoardController {
 	}
 	
 	public void loadDefaultBoard() {
-		loadBoard("src/main/resources/board/Sample3.txt");
+		loadNewBoard("src/main/resources/board/Sample3.txt");
 	}
 	
 	public void loadNewBoard(String file) {				
 		loadBoard(file);	
     	
-	SwingUtilities.invokeLater(new Runnable() {
-	    @Override
-	    public void run() {
-			boardDisplayer.drawEntities();
-			boardDisplayer.displayGUI();	
+		SwingUtilities.invokeLater(new Runnable() {
+		    @Override
+		    public void run() {
+				boardDisplayer.drawEntities();
+				boardDisplayer.displayGUI();	
 	    }});
 	}
 	
