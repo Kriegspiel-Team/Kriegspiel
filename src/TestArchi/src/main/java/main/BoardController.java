@@ -23,7 +23,7 @@ public class BoardController {
 	private void loadBoard(String file) {
 		
 		if (!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString())) {
-			boardDisplayer.displayPopup("The file format is incorrect !", "An error occured", JOptionPane.ERROR_MESSAGE);
+			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
 			
 			return;
 		}
