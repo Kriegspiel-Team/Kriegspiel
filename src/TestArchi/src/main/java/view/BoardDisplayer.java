@@ -179,9 +179,6 @@ public class BoardDisplayer extends JFrame {
 		
 		int owner = currentEntity.getOwner();
 		
-		if(currentEntity instanceof Fighter)
-			System.out.println("(" + x + "," + y + ") - " + ((Fighter)currentEntity).isConnected());
-		
 		switch(owner) {
 			case 0:
 				if(!board.isArsenal(x, y) && (board.isFighter(x, y) && !((Fighter)currentEntity).isConnected()))

@@ -10,11 +10,10 @@ public class Fighter extends MovableEntity {
 	}
 	
 	public boolean isConnected() {
-		return isConnected;
+		return this.isConnected;
 	}
 	
 	public void setConnected(boolean isConnected) {
 		this.isConnected = isConnected;
 	}
-
 }

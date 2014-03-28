@@ -42,7 +42,6 @@ public class BoardController {
 				
 		engine.computeCommunications();
 		
-      	//engine.computePossibleMoves();
 		InfluenceArea.runInfluenceArea(board);
 		
       	engine.computeAttackDefence();

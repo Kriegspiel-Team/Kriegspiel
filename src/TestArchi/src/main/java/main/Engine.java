@@ -2,6 +2,7 @@ package main;
 
 import java.util.List;
 
+import model.Fighter;
 import model.MovableEntity;
 
 import org.kie.api.KieServices;
@@ -57,7 +58,10 @@ public class Engine implements IEngine {
 		List<MovableEntity> movableEntity = board.getMovableEntities();
     	    	
     	for (MovableEntity entity : movableEntity){
-    		kSession.insert(entity);
+    		if(entity instanceof Fighter)
+    			kSession.insert((Fighter)entity);
+    		else 
+    			kSession.insert(entity);
     	}            
 		
         kSession.getAgenda().getAgendaGroup( "Communication" ).setFocus();

@@ -191,7 +191,7 @@ public class Board {
 		for(int i = -1 ; i <= 1 ; i++) {
 			for(int j = -1 ; j <= 1 ; j++) {
 				if(i != 0 || j != 0)
-					if(inBoard(x+i,y+j) && getUnit(x,y) instanceof Fighter && isFriendlyUnit(x+i,y+j,team))
+					if(inBoard(x+i,y+j) && getUnit(x+i,y+j) instanceof Fighter && isFriendlyUnit(x+i,y+j,team))
 						listNeighbours.add((Fighter)getUnit(x+i,y+j));
 			}	
 		}
