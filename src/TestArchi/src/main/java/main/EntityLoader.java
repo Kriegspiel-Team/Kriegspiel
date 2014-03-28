@@ -21,14 +21,14 @@ public class EntityLoader {
 	private Board board;
 	private String filename;
 	
-	public EntityLoader(Board board, String filename){
-		this.board = board;
+	public EntityLoader(String filename) throws BoardFileFormatException{
+		this.board = new Board();
 		this.filename = filename;
 		
 		readFile();
 	}
 	
-	private void readFile(){
+	private void readFile() throws BoardFileFormatException{
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(filename));
@@ -41,7 +41,7 @@ public class EntityLoader {
 				cpt++;
 				
 				if (st.length != 4)
-					throw new Exception("Invalid file format at line " + cpt);
+					throw new BoardFileFormatException(cpt);
 				
 				int x = Integer.parseInt(st[2]);
 				int y = Integer.parseInt(st[3]);
@@ -66,7 +66,7 @@ public class EntityLoader {
 				}
 				
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
 			try {
@@ -78,5 +78,9 @@ public class EntityLoader {
 		}
 		
 		
+	}
+	public Board getBoard()
+	{
+		return this.board;
 	}
 }
