@@ -11,7 +11,7 @@ public class InfluenceArea {
 	}
 	
 	public void computeInfluenceArea() {
-		// Remplacera les règles Drools de Communications.drl"
+		// Remplacera les règles Drools de Communications.drl
 	}
 	
 }
