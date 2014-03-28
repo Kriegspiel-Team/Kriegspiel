@@ -54,7 +54,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		fileChooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.txt", "txt", "text");
 		fileChooser.setFileFilter(filter);
 		
 		loadBoardBtn = new JButton("Load a board...");
