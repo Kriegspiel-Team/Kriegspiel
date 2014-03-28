@@ -1,0 +1,70 @@
+package model
+ 
+import main.Board;
+import model.MovableEntity;
+import main.Coord;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashSet
+
+rule "initArsenalsCommunications"
+	agenda-group "Communication"
+	no-loop
+    when
+        $b : Board( myBoard : matrix )
+    then
+    	$b.calculateArsenalsCommunications();
+end
+
+rule "RelayComm"
+	agenda-group "Communication"
+	when
+		$b : Board()
+		$r : Relay( onCommunications == false, $team : owner, $coord : coord)
+	then
+			
+		if($b.isOnCommunications($coord, $team)) {
+			$b.computeCommunications($coord.x, $coord.y, $team);
+			modify($r) { setOnCommunications(true); }
+		}
+end
+
+rule "SwiftRelayComm"
+	agenda-group "Communication"
+	when
+		$b : Board()
+		$sr : SwiftRelay( onCommunications == false, $team : owner, $coord : coord)
+	then
+		
+		if($b.isOnCommunications($coord, $team)) {
+			$b.computeCommunications($coord.x, $coord.y, $team);
+			modify($sr) { setOnCommunications(true); }
+		}
+end
+
+rule "isConnected"
+	agenda-group "Communication"
+	when
+		$b : Board()
+		$m : MovableEntity( isConnected() == false, $team : owner, $coord : coord )
+	then
+    	
+		ArrayList listNeighbours = new ArrayList<MovableEntity>();
+		listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);
+		
+		for(MovableEntity neighbour : (ArrayList<MovableEntity>)listNeighbours) {
+			if(neighbour.isConnected()) {
+					$m.setConnected(true);
+			}
+		}
+		
+		if(!$m.isConnected()) { 
+			if($b.isOnCommunications($coord, $team))
+				$m.setConnected(true);
+		}
+		
+		if($m.isConnected()) {			
+			for(MovableEntity neighbour : (ArrayList<MovableEntity>)listNeighbours)
+				modify(neighbour) { }
+		}
+end
