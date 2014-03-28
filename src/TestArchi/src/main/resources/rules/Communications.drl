@@ -49,14 +49,17 @@ rule "isConnectedByCom"
 		$f : Fighter( isConnected() == false, $team : owner, $coord : coord )
 	then
 	
-		if($b.isOnCommunications($coord, $team))
-			$f.setConnected(true);
+		if($b.isOnCommunications($coord, $team)){
+			modify($f){
+				setConnected(true);
+			}
+		}
 		
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();
 			listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);	
 			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours) {
-				System.out.println("Modify neighbour de (" + $coord.x + "," + $coord.y + ") ==> (" + neighbour.getCoord().x + "," + neighbour.getCoord().y + ")");
+				//System.out.println("Modify neighbour de (" + $coord.x + "," + $coord.y + ") ==> (" + neighbour.getCoord().x + "," + neighbour.getCoord().y + ")");
 				modify(neighbour) { }
 			}
 		}
@@ -69,14 +72,17 @@ rule "isConnectedByNeighbour"
 		$f : Fighter( isConnected() == false, $team : owner, $coord : coord )
 	then
 	
-		if($b.hasConnectedNeighbour($f))
-			$f.setConnected(true);
+		if($b.hasConnectedNeighbour($f)){
+			modify($f){
+				setConnected(true);
+			}
+		}
 		
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();
 			listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);	
 			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours) {
-				System.out.println("Modify neighbour de (" + $coord.x + "," + $coord.y + ") ==> (" + neighbour.getCoord().x + "," + neighbour.getCoord().y + ")");
+				//System.out.println("Modify neighbour de (" + $coord.x + "," + $coord.y + ") ==> (" + neighbour.getCoord().x + "," + neighbour.getCoord().y + ")");
 				modify(neighbour) { }
 			}
 		}

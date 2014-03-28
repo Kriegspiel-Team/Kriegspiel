@@ -8,7 +8,7 @@ import model.Fortress;
 rule "outOfCom"
 	agenda-group "Battle"
 	when
-		$f : Fighter(isConnected() == false) 
+		$f : Fighter(isConnected() == false, $coord : coord) 
 	then
 		$f.setAttack(0);
 		$f.setAllyDefence(0);
