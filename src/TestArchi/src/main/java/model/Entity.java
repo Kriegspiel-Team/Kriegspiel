@@ -7,7 +7,6 @@ public class Entity {
 	protected int owner = -1;
 	protected Coord coord;
 	protected Boolean canContain = false;
-	protected boolean isConnected;
 	
 	public Boolean canContain() {
 		return canContain;
@@ -28,9 +27,5 @@ public class Entity {
 	public int getOwner()
 	{
 		return this.owner;
-	}
-	
-	public boolean isConnected() {
-		return isConnected;
 	}
 }

@@ -18,18 +18,26 @@ import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
+import evaluator.Potentials;
 import main.Board;
+import main.BoardController;
 import main.Coord;
-import model.Arsenal;
 import model.Entity;
 import model.Mountain;
 import model.MovableEntity;
+import model.Fighter;
 
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
 	private Board board;
+	private Potentials potential;
+	
+	private BoardController controller;
+	
 	private Entity[][] matrix;
 	private int windowHeight;
 	private int windowWidth;
@@ -44,6 +52,8 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_UNITS = 0;
 	public static final int DISPLAY_ATTACK = 1;
 	public static final int DISPLAY_DEFENCE = 2;
+	public static final int DISPLAY_PREVAILING0 = 3;
+	public static final int DISPLAY_PREVAILING1 = 4;
 	
 	private int displayMode = DISPLAY_UNITS;
 	
@@ -55,10 +65,11 @@ public class BoardDisplayer extends JFrame {
 	private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
 	private static final Color COLOR_EMPTY = new Color(255,255,255);
-	
-	public BoardDisplayer(Board board)
-	{
-		this.board = board;
+		
+	public BoardDisplayer(BoardController controller) {
+		this.controller = controller;
+		this.board = controller.getBoard();
+		this.potential = controller.getPotentials();
 		this.matrix = this.board.getMatrix();
 		initGUI();			
 	}
@@ -90,10 +101,6 @@ public class BoardDisplayer extends JFrame {
 	public void setDisplayMode(int mode){
 		displayMode = mode;
 	}
-	
-	public Board getBoard(){
-		return board;
-	}
 		
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
@@ -120,8 +127,7 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	public void initGUI()
-	{
+	public void initGUI() {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
 		DisplayMode dm = gs[0].getDisplayMode();
@@ -136,7 +142,7 @@ public class BoardDisplayer extends JFrame {
 		
 		boardPanel = new JPanel();
 		boardPanel.setLayout(new GridLayout(Board.HEIGHT, Board.WIDTH, windowHeight/500, windowHeight/500));
-		JPanel menuPanel = new MenuDisplayer(this);
+		JPanel menuPanel = new MenuDisplayer(this, controller);
 		content.setLayout(new BorderLayout());
 		
 		this.add(boardPanel, BorderLayout.CENTER);
@@ -148,7 +154,7 @@ public class BoardDisplayer extends JFrame {
 		drawEntities();
 	}
 		
-	private void clearPossibleMovement(){
+	private void clearPossibleMovement() {
 		if (selectedSquare == null)
 			return;
 
@@ -164,7 +170,7 @@ public class BoardDisplayer extends JFrame {
 		selectedSquare = null;
 	}
 	
-	private void colorSquareByOwner(int x, int y){
+	private void colorSquareByOwner(int x, int y) {
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
 		
@@ -175,26 +181,26 @@ public class BoardDisplayer extends JFrame {
 		
 		switch(owner) {
 			case 0:
-				if(currentEntity.isConnected() || board.isArsenal(x,y))
-					currentSquare.setBackground(COLOR_COM_PLAYER0);
-				else
+				if(!board.isArsenal(x, y) && (board.isFighter(x, y) && !((Fighter)currentEntity).isConnected()))
 					currentSquare.setBackground(COLOR_PLAYER0);
+				else
+					currentSquare.setBackground(COLOR_COM_PLAYER0);
 				break;
 			case 1:
-				if(currentEntity.isConnected() || board.isArsenal(x,y))
-					currentSquare.setBackground(COLOR_COM_PLAYER1);
-				else
+				if(!board.isArsenal(x, y) && (board.isFighter(x, y) && !((Fighter)currentEntity).isConnected()))
 					currentSquare.setBackground(COLOR_PLAYER1);
+				else
+					currentSquare.setBackground(COLOR_COM_PLAYER1);
 				break;
 		}
 	}
 	
-	private void drawPossibleMovement(int x, int y){		
+	private void drawPossibleMovement(int x, int y) {		
 		if(x >= 0 && y >= 0 && x < Board.WIDTH && y < Board.HEIGHT){
 			clearPossibleMovement();
 			
 			Set<Coord> possibleMoves = getPossibleMoves(x, y);
-			for(Coord c : possibleMoves){
+			for(Coord c : possibleMoves) {
 				squares[c.x][c.y].setBackground(COLOR_POSSIBLEMOVE);
 			}
 			
@@ -205,23 +211,17 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	public void displayGUI(){	
-		
-		
-		for(int j=0 ; j<Board.HEIGHT ; j++)
-		{
-			for(int i=0 ; i<Board.WIDTH ; i++)
-			{
+	public void displayGUI() {			
+		for(int j=0 ; j<Board.HEIGHT ; j++) {
+			for(int i=0 ; i<Board.WIDTH ; i++) {
 				JPanel currentSquare = squares[i][j];
 				Entity currentEntity = matrix[i][j];
 				//squares[i][j].setBackground(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)));
 				currentSquare.removeAll();
 				if(currentEntity == null)
 					currentSquare.setBackground(COLOR_EMPTY);
-				else
-				{				
-					switch(displayMode)
-					{
+				else {				
+					switch(displayMode) {
 						case DISPLAY_UNITS: 
 							displayUnit(i, j);
 							break;
@@ -235,6 +235,15 @@ public class BoardDisplayer extends JFrame {
 					if(currentEntity instanceof Mountain)
 						currentSquare.setBackground(COLOR_MOUTAIN);				
 					colorSquareByOwner(i, j);
+					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING0 && displayMode != DISPLAY_PREVAILING1) {
+						MovableEntity currentMovable = ((MovableEntity)currentEntity);
+						if(currentMovable.canBeKilled()) {
+							((JLabel)currentSquare.getComponent(0)).setText("("+((JLabel)currentSquare.getComponent(0)).getText()+")");
+						}
+						if(currentMovable.mustRetreat()) {
+							((JLabel)currentSquare.getComponent(0)).setText("["+((JLabel)currentSquare.getComponent(0)).getText()+"]");
+						}
+					}
 				}
 				
 			}
@@ -245,51 +254,34 @@ public class BoardDisplayer extends JFrame {
 		else
 			drawCommunications();
 		
-		
+		if (displayMode == DISPLAY_PREVAILING0) 
+			displayPrevailing(0);
+		if (displayMode == DISPLAY_PREVAILING1) 
+			displayPrevailing(1);
 		
 		this.repaint();
 		this.setVisible(true);
 	}
-	
-	private void drawCommunications()
-	{
-		/*List<Coord> com = board.getCommunications(0);
-		for (Coord c : com)
-			if(matrix[c.x][c.y] == null)
-				squares[c.x][c.y].setBackground(COLOR_COM_PLAYER0);
-		com = board.getCommunications(1);
-		for (Coord c : com)
-			if(matrix[c.x][c.y] == null)
-			{
-				if(squares[c.x][c.y].getBackground()==COLOR_COM_PLAYER0)
-					squares[c.x][c.y].setBackground(COLOR_COM_INTERSECT);
-				else
-					squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
-			}*/
-		
+
+	private void drawCommunications() {		
 		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
 		Set<Coord> com;
-		if(p0Coms)
-		{
+		if(p0Coms) {
 			com = board.getCommunications(0);
 						
 			for (Coord c : com)
-				if(matrix[c.x][c.y] == null)
-				{
-					JLabel tmp = new JLabel("o", JLabel.CENTER);
+				if(matrix[c.x][c.y] == null) {
+					JLabel tmp = new JLabel("o", SwingConstants.CENTER);
 					tmp.setFont(fnt);
 					tmp.setForeground(COLOR_COM_PLAYER0);
 					squares[c.x][c.y].add(tmp);
 				}
 		}
-		if(p1Coms)
-		{
+		if(p1Coms) {
 			com = board.getCommunications(1);
-			for (Coord c : com)
-			{
-				if(matrix[c.x][c.y] == null)
-				{
-					JLabel tmp = new JLabel("o", JLabel.CENTER);
+			for (Coord c : com) {
+				if(matrix[c.x][c.y] == null) {
+					JLabel tmp = new JLabel("o", SwingConstants.CENTER);
 					tmp.setFont(fnt);
 					tmp.setForeground(COLOR_COM_PLAYER1);
 					squares[c.x][c.y].add(tmp);
@@ -298,87 +290,76 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	public void displayAttackPotential(int x, int y)
-	{
-		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain))
-		{
-			MovableEntity unit = board.getUnit(x, y);
-			if(unit != null)
-			{
+	private void displayPrevailing(int team) {
+		
+		Integer[][] matrix = this.potential.prevailing.get(team);
+		
+		for(int y = 0 ; y < Board.HEIGHT ; y++) {
+			for(int x = 0 ; x < Board.WIDTH ; x++) {
+				int attack = matrix[x][y];
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
-				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), JLabel.RIGHT);
+				JLabel tmp = new JLabel(Integer.toString(attack), SwingConstants.RIGHT);
+				tmp.setFont(fnt);
+				squares[x][y].add(tmp);
+				squares[x][y].setBackground(new Color(255, Math.min(255, Math.max(0, 255 - 7*attack)), Math.min(255, Math.max(0, 255 - 7*attack))));
+			}
+		}
+		
+	}
+	
+	public void displayAttackPotential(int x, int y) {
+		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
+			MovableEntity unit = board.getUnit(x, y);
+			if(unit != null) {
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+
+				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), SwingConstants.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
 			}
 		}
 	}
 	
-	public void displayDefencePotential(int x, int y)
-	{
-		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain))
-		{
+	public void displayDefencePotential(int x, int y) {
+		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
-			if(unit != null)
-			{
+			if(unit != null) {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
-				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), JLabel.RIGHT);
+
+				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), SwingConstants.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
 			}
 		}
 	}
 	
-	private void displayUnit(int x, int y)
-	{
+	private void displayUnit(int x, int y) {
 		JLabel tmp = new JLabel(Character.toString(matrix[x][y].getSymbol()));
 		tmp.setFont(new Font("Serif", Font.PLAIN, windowHeight/40));
 		squares[x][y].add(tmp);
 	}
 	
-	/*public void displayASCII(int x, int y){
-		List<Coord> possibleMoves = getPossibleMoves(x, y);
-		System.out.println(" -----------------------------------------------------------------------------------------------------");
-		for(int i=0; i<Board.HEIGHT; i++){
-			for(int j=0; j<Board.WIDTH; j++){
-				System.out.print(" | ");
-				
-				Coord currentCoord = new Coord(i,j);
-				Boolean isPossibleMovement = false;
-				for(Coord c : possibleMoves){
-					if (c.equals(currentCoord)){
-						isPossibleMovement = true;
-						break;
-					}
-				}
-				
-				
-				if (isPossibleMovement)
-					System.out.print("*");
-				else{
-				
-					if (matrix[i][j] == null)
-						System.out.print(" ");
-					else
-						System.out.print(matrix[i][j].getSymbol());
-				}
-			}
-			System.out.println(" | ");
-			System.out.println(" -----------------------------------------------------------------------------------------------------");
-		}
-	}*/
+	public void displayPopup(String text, String title, int logo) {
+		JOptionPane.showMessageDialog(this, text, title, logo);
+	}
+	
 
-	private Set<Coord> getPossibleMoves(int x, int y){
+	private Set<Coord> getPossibleMoves(int x, int y) {
 		if(board.getUnit(x, y) instanceof MovableEntity)
 			return board.getUnit(x,y).getPossibleMovement();
 		return new HashSet<Coord>();
 	}
+	
+	public void resetSelectedSquare(){
+		selectedSquare = null;
+	}
 
-	private class CellMouseListener implements MouseListener{
+	private class CellMouseListener implements MouseListener {
 	
 		private int x;
 		private int y;
 		
-		public CellMouseListener(int x, int y){
+		public CellMouseListener(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -391,9 +372,14 @@ public class BoardDisplayer extends JFrame {
 				clearPossibleMovement();
 		}
 	
+		@Override
 		public void mousePressed(MouseEvent e) {}
+		@Override
 		public void mouseReleased(MouseEvent e) {}
+		@Override
 		public void mouseEntered(MouseEvent e) {}
+		@Override
 		public void mouseExited(MouseEvent e) {}	
 	}
+	
 }

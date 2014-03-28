@@ -21,12 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import evaluator.Potentials;
-import main.Board;
-import main.Engine;
+import main.BoardController;
 
 @SuppressWarnings("serial")
 public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {
+	
+	private BoardController controller;
 
 	private BoardDisplayer boardDisplayer;
 	
@@ -39,8 +39,11 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	private JButton displayUnitBtn;
 	private JButton displayAttackBtn;
 	private JButton displayDefenceBtn;
+	private JButton displayPrevailing0Btn;
+	private JButton displayPrevailing1Btn;
 	
-	public MenuDisplayer(BoardDisplayer b){
+	public MenuDisplayer(BoardDisplayer b, BoardController controller){
+		this.controller = controller;
 		boardDisplayer = b;
 		
 		initUI();
@@ -51,7 +54,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		fileChooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.txt", "txt", "text");
 		fileChooser.setFileFilter(filter);
 		
 		loadBoardBtn = new JButton("Load a board...");
@@ -80,14 +83,22 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
 		displayDefenceBtn.setFocusable(false);
+		displayPrevailing0Btn = new JButton("Prevailing team blue");
+		displayPrevailing0Btn.setFocusable(false);
+		displayPrevailing1Btn = new JButton("Prevailing team red");
+		displayPrevailing1Btn.setFocusable(false);
 				
 		displayUnitBtn.addMouseListener(this);
 		displayAttackBtn.addMouseListener(this);
 		displayDefenceBtn.addMouseListener(this);
+		displayPrevailing0Btn.addMouseListener(this);
+		displayPrevailing1Btn.addMouseListener(this);
 		
 		displayModePanel.add(displayUnitBtn);
 		displayModePanel.add(displayAttackBtn);
 		displayModePanel.add(displayDefenceBtn);
+		displayModePanel.add(displayPrevailing0Btn);
+		displayModePanel.add(displayPrevailing1Btn);
 		
 		this.add(loadBoardBtn);
 		this.add(displayCom0);
@@ -104,12 +115,14 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		this.getInputMap().put(KeyStroke.getKeyStroke("D"), "DisplayDefence");
 		
 		Action doQuit = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(1);
 		    }
 		};
 		
 		Action doDisplayCom0 = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.switchPOComs();
 				displayCom0.setSelected(boardDisplayer.getP0Coms());
@@ -118,6 +131,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayCom1 = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.switchP1Coms();
 				displayCom1.setSelected(boardDisplayer.getP1Coms());
@@ -126,6 +140,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayUnits = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_UNITS);
 				boardDisplayer.displayGUI();
@@ -133,6 +148,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayAttack = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK);
 				boardDisplayer.displayGUI();
@@ -140,6 +156,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayDefence = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 				boardDisplayer.displayGUI();
@@ -180,45 +197,51 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	public void mouseClicked(MouseEvent e) {
 		Object source = e.getSource();
 		
-		if (source == displayUnitBtn){
+		if (source == displayUnitBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_UNITS);
 			boardDisplayer.displayGUI();
-		}else if (source == displayAttackBtn){
+		}else if (source == displayAttackBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK);
 			boardDisplayer.displayGUI();
-		}else if (source == displayDefenceBtn){
+		}else if (source == displayDefenceBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 			boardDisplayer.displayGUI();
-		}else if (source == loadBoardBtn){
+		}else if (source == displayPrevailing0Btn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING0);
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
+			boardDisplayer.displayGUI();
+		}else if (source == displayPrevailing1Btn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING1);
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
+			boardDisplayer.displayGUI();
+		}else if (source == loadBoardBtn) {
 			int returnVal = fileChooser.showOpenDialog(MenuDisplayer.this);
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 
-                Board b = boardDisplayer.getBoard();
-                b.resetBoard();
-                
-                Engine engine = new Engine(b);
-                
-            	engine.placeFixedEntities();
-            	b.loadBoardWithFile(file.getAbsolutePath());
-            	engine.computeCommunications();
-              	engine.computePossibleMoves();
-              	engine.computeAttackDefence();
-              	
-              	Potentials p = new Potentials(b);
-              	p.UnityPotentials();
-              	
-              	boardDisplayer.drawEntities();
-              	
-              	boardDisplayer.displayGUI();
+                controller.loadNewBoard(file.getAbsolutePath());
             }
 			 
 		}
 	}
 
+	@Override
 	public void mousePressed(MouseEvent e) {}
+	@Override
 	public void mouseReleased(MouseEvent e) {}
+	@Override
 	public void mouseEntered(MouseEvent e) {}
+	@Override
 	public void mouseExited(MouseEvent e){}
 }

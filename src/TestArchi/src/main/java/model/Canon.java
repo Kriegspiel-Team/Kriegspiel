@@ -1,6 +1,6 @@
 package model;
 
-public class Canon extends MovableEntity {
+public class Canon extends Fighter {
 	
 	public Canon(int owner)
 	{
@@ -12,7 +12,6 @@ public class Canon extends MovableEntity {
 		defence = 8;
 		enemyAttack = 0;
 		allyDefence = 0;
-		speedLeft = speed;
 		this.owner = owner;
 	}
 }

@@ -15,13 +15,10 @@ public class MovableEntity extends Entity {
 	protected int defence;
 	protected int enemyAttack;
 	protected int allyDefence;
-	protected int speedLeft;
-	protected int counterDirectionRule;
 	protected Set<Coord> possibleMovement;
 	
 	public MovableEntity() {
 		possibleMovement = new HashSet<Coord>();
-		counterDirectionRule = 0;
 		canContain = false;
 		canBeKilled = false;
 		mustRetreat = false;
@@ -42,34 +39,6 @@ public class MovableEntity extends Entity {
 
 	public Set<Coord> getPossibleMovement() {
 		return possibleMovement;
-	}
-
-	public int getSpeedLeft() {
-		return speedLeft;
-	}
-	
-	public void setSpeedLeft(int speedLeft) {
-		this.speedLeft = speedLeft;
-	}
-	
-	public void decreaseSpeedLeft() {
-		speedLeft--;
-	}
-	
-	public int getCounterDirectionRule() {
-		return counterDirectionRule;
-	}
-	
-	public void setCounterDirectionRule(int n) {
-		this.counterDirectionRule = n;
-	}
-
-	public void decrCounterDirectionRule() {
-		this.counterDirectionRule -= 1;
-	}
-
-	public void setConnected(boolean isConnected) {
-		this.isConnected = isConnected;
 	}
 	
 	public int getAttack() {
@@ -108,7 +77,7 @@ public class MovableEntity extends Entity {
 		this.allyDefence = allyDefence;
 	}
 
-	public boolean isCanBeKilled() {
+	public boolean canBeKilled() {
 		return canBeKilled;
 	}
 
@@ -116,7 +85,7 @@ public class MovableEntity extends Entity {
 		this.canBeKilled = canBeKilled;
 	}
 
-	public boolean isMustRetreat() {
+	public boolean mustRetreat() {
 		return mustRetreat;
 	}
 

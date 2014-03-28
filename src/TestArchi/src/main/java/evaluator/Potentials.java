@@ -1,4 +1,6 @@
 package evaluator;
+import java.util.HashMap;
+
 import main.Board;
 import model.Cavalry;
 import model.MovableEntity;
@@ -6,22 +8,41 @@ import model.MovableEntity;
 public class Potentials {
 
 	public Board board;
+	public HashMap<Integer, Integer[][]> prevailing;
 	
-	public Potentials(Board board)
-	{
+	public Potentials(Board board) {
 		this.board = board;
+		this.prevailing = new HashMap<Integer, Integer[][]>();
+		this.prevailing.put(0, new Integer[Board.WIDTH][Board.HEIGHT]);
+		this.prevailing.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
 	}
 	
-	public void UnityPotentials()
-	{
-		for(MovableEntity e : board.getMovableEntity()) {
-			CalculAttack(e);
-			CalculDefence(e);
+	public void computePotentials() {
+
+		for(int team = 0; team < 2; team++) {
+			for(int y = 0; y < Board.HEIGHT; y++) {
+				for(int x = 0; x < Board.WIDTH; x++) {
+					
+					MovableEntity m = board.getUnit(x, y);
+					
+					int attack = computeAttack(x,y,team);
+					int defence = computeDefence(x,y,team);
+					
+					if(m!=null && m.getOwner()==team) {
+						m.setEnemyAttack(attack);
+						m.setAllyDefence(defence);
+					}
+					
+					prevailing.get(team)[x][y] = attack;
+				}
+			}
 		}
 	}
 	
-	public void CalculAttack(MovableEntity e) {
+	public int computeAttack(int xi, int yi, int owner) {
 		int maxRange = 4;
+		
+		int attack = 0;
 		
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
@@ -33,22 +54,22 @@ public class Potentials {
 					
 					if((i != 0 || j != 0) && !obstacle) {
 						
-						int x = e.getCoord().x + i*r;
-						int y = e.getCoord().y + j*r;
+						int x = xi + i*r;
+						int y = yi + j*r;
 					
 						if(board.inBoard(x, y)) {
 						
 							MovableEntity unit = board.getUnit(x, y);
-							if(unit != null && !board.isFriendlyUnit(x, y, e.getOwner())) {
+							if(unit != null && !board.isFriendlyUnit(x, y, owner)) {
 								
 								if(unit instanceof Cavalry && !board.isFortress(x,y) && charge) {
-									e.setEnemyAttack(e.getEnemyAttack()+((Cavalry)unit).getAttackCharge());
+									attack += ((Cavalry)unit).getAttackCharge();
 								} else {
 							
 									charge = false;
 							
 									if(r <= unit.getRange())
-										e.setEnemyAttack(e.getEnemyAttack()+unit.getAttack());
+										attack += unit.getAttack();
 								}
 							} else {
 								if(board.isMountain(x, y))
@@ -60,12 +81,16 @@ public class Potentials {
 				}
 			}
 		}
+		return attack;
 	}
 	
-	public void CalculDefence(MovableEntity e) {
+	public int computeDefence(int xi, int yi, int owner) {
 		int maxRange = 3;
-		
-		e.setAllyDefence(e.getDefence());
+
+		int defence = 0;
+		MovableEntity e = board.getUnit(xi, yi);
+		if(e!=null && e.getOwner()==owner)
+			defence += e.getDefence();
 		
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
@@ -76,17 +101,17 @@ public class Potentials {
 					
 					if((i != 0 || j != 0) && !obstacle) {
 						
-						int x = e.getCoord().x + i*r;
-						int y = e.getCoord().y + j*r;
+						int x = xi + i*r;
+						int y = yi + j*r;
 						
 						if(board.inBoard(x, y)) {
 						
 							MovableEntity unit = board.getUnit(x, y);
 					
-							if(unit != null && board.isFriendlyUnit(x, y, e.getOwner())) {
+							if(unit != null && board.isFriendlyUnit(x, y, owner)) {
 						
 								if(r <= unit.getRange())
-									e.setAllyDefence(e.getAllyDefence()+unit.getDefence());
+									defence += unit.getDefence();
 								
 							} else if(board.isMountain(x, y))
 								obstacle = true;
@@ -95,5 +120,7 @@ public class Potentials {
 				}
 			}
 		}
+		
+		return defence;
 	}
 }

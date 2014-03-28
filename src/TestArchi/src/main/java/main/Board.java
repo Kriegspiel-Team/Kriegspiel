@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.Cavalry;
 import model.Entity;
+import model.Fighter;
 import model.Fortress;
 import model.Mountain;
 import model.MountainPass;
@@ -34,13 +35,22 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
-	public void loadBoardWithFile(String filename) {
-		new EntityLoader(this, filename);
+	public boolean loadBoardWithFile(String filename) {
+		EntityLoader loader;
+		
+		try {
+			loader = new EntityLoader(filename);
+		} catch (BoardFileFormatException e) {
+			return false;
+		}
+		
+		resetBoard();
+		this.matrix = loader.getBoard().matrix;
+		return true;
 	}
 	
 	public void saveArsenalPlacement(int x, int y) {
 		coord_arsenals.add(new Coord(x,y));
-		
 	}
 	
 	public void placeEntity(int x, int y, Entity e) {
@@ -72,19 +82,19 @@ public class Board {
 		return getCommunications(team).contains(coord);
 	}
 	
-	public List<MovableEntity> getMovableEntity() {
-		List<MovableEntity> movableEntity = new ArrayList<MovableEntity>();
+	public List<MovableEntity> getMovableEntities() {
+		List<MovableEntity> movableEntities = new ArrayList<MovableEntity>();
 		
 		for(int j=0; j<HEIGHT; j++) {
 			for(int i=0; i<WIDTH; i++) {
 				if (matrix[i][j] instanceof MovableEntity)
-					movableEntity.add((MovableEntity)matrix[i][j]);
+					movableEntities.add((MovableEntity)matrix[i][j]);
 				else if (matrix[i][j] != null && matrix[i][j].canContain() && !((UnmovableEntity)matrix[i][j]).isEmpty())
-					movableEntity.add(((UnmovableEntity)matrix[i][j]).getEntity());
+					movableEntities.add(((UnmovableEntity)matrix[i][j]).getEntity());
 			}
 		}
 		
-		return movableEntity;
+		return movableEntities;
 	}
 	
 	public boolean isValidSquare(int x, int y) {
@@ -99,6 +109,12 @@ public class Board {
 	
 	public boolean isMovableEntity(int x, int y) {
 		return matrix[x][y] instanceof MovableEntity;
+	}
+	
+	public boolean isFighter(int x, int y) {
+		if(canContain(x,y))
+			return getUnit(x,y) instanceof Fighter;
+		return matrix[x][y] instanceof Fighter;
 	}
 	
 	public boolean isMountain(int x, int y) {
@@ -125,8 +141,7 @@ public class Board {
 		return (x<WIDTH && y<HEIGHT && x>=0 && y>=0);
 	}
 	
-	public boolean emptySquare(int x, int y)
-	{
+	public boolean emptySquare(int x, int y) {
 		return matrix[x][y] == null;
 	}
 	
@@ -138,18 +153,15 @@ public class Board {
 		return canContain(x,y) && ((UnmovableEntity)matrix[x][y]).isEmpty();
 	}
 	
-	public boolean containsFriendlyUnit(int x, int y, int team)
-	{
+	public boolean containsFriendlyUnit(int x, int y, int team) {
 		return ((UnmovableEntity)matrix[x][y]).getEntity().getOwner() == team;
 	}
 	
-	public boolean isFriendlyUnit(int x, int y, int team)
-	{
+	public boolean isFriendlyUnit(int x, int y, int team) {
 		return (matrix[x][y] instanceof MovableEntity && matrix[x][y].getOwner() == team) || (canContain(x,y) && containsFriendlyUnit(x,y,team));
 	}
 	
-	public MovableEntity getUnit(int x, int y)
-	{
+	public MovableEntity getUnit(int x, int y) {
 		if(canContain(x,y))
 			return ((UnmovableEntity)matrix[x][y]).getEntity();
 		
@@ -159,22 +171,33 @@ public class Board {
 		return (MovableEntity)matrix[x][y];
 	}
 	
-	public ArrayList<MovableEntity> getNeighboursMovableEntity(int x, int y, int team) {
+	public ArrayList<Fighter> getNeighboursMovableEntity(int x, int y, int team) {
+
 		
-		ArrayList<MovableEntity> listNeighbours = new ArrayList<MovableEntity>();
+		ArrayList<Fighter> listNeighbours = new ArrayList<Fighter>();
 		
 		for(int i = -1 ; i <= 1 ; i++) {
 			for(int j = -1 ; j <= 1 ; j++) {
-				if(inBoard(x+i,y+j) && !emptySquare(x+i,y+j) && isFriendlyUnit(x+i,y+j,team)) {
-					listNeighbours.add(getUnit(x+i,y+j));
-				}
+				if(i != 0 || j != 0)
+					if(inBoard(x+i,y+j) && getUnit(x+i,y+j) instanceof Fighter && isFriendlyUnit(x+i,y+j,team))
+						listNeighbours.add((Fighter)getUnit(x+i,y+j));
 			}	
 		}
-		
 		return listNeighbours;
 	}
 	
-	public void calculateArsenalsCommunications() {
+	public boolean hasConnectedNeighbour(Fighter f) {
+		
+		ArrayList<Fighter> lf = getNeighboursMovableEntity(f.getCoord().x, f.getCoord().y, f.getOwner());
+		
+		for(Fighter fn : lf)
+			if(fn.isConnected())
+				return true;
+		return false;
+	}
+	
+	public void computeArsenalsCommunications() {
+
 		int team;
 		
 		for(Coord c : coord_arsenals) {

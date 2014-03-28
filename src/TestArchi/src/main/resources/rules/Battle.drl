@@ -1,27 +1,28 @@
 package model
 
 import model.MovableEntity;
+import model.Fighter;
 import model.Cavalry;
 import model.Fortress;
 
 rule "outOfCom"
 	agenda-group "Battle"
 	when
-		$m : MovableEntity(isConnected() == false) 
+		$f : Fighter(isConnected() == false, $coord : coord) 
 	then
-		$m.setAttack(0);
-		$m.setAllyDefence(0);
-		$m.setDefence(0);
+		$f.setAttack(0);
+		$f.setAllyDefence(0);
+		$f.setDefence(0);
 end
 
 rule "bonusFortress"
 	agenda-group "Battle"
 	when
 		$b : Board()
-		$m : MovableEntity(isConnected() == true, $coord : coord)
+		$f : Fighter(isConnected() == true, $coord : coord)
 	then
-		if($b.isFortress($coord.x, $coord.y) && !($m instanceof Cavalry))
-			$m.setDefence($m.getDefence() + Fortress.FORTRESS_BONUS);
+		if($b.isFortress($coord.x, $coord.y) && !($f instanceof Cavalry))
+			$f.setDefence($f.getDefence() + Fortress.FORTRESS_BONUS);
 		
 end
 
@@ -29,20 +30,10 @@ rule "bonusMountainPass"
 	agenda-group "Battle"
 	when
 		$b : Board()
-		$m : MovableEntity(isConnected() == true, $coord : coord)
+		$f : Fighter(isConnected() == true, $coord : coord)
 	then
-		if($b.isMountainPass($coord.x, $coord.y) && !($m instanceof Cavalry))
-			$m.setDefence($m.getDefence() + MountainPass.MOUNTAIN_PASS_BONUS);
+		if($b.isMountainPass($coord.x, $coord.y) && !($f instanceof Cavalry))
+			$f.setDefence($f.getDefence() + MountainPass.MOUNTAIN_PASS_BONUS);
 		
 end
 
-rule "canBeKilled"
-	agenda-group "Battle"
-	when 
-		$m : MovableEntity($coord : coord)
-	then
-		if($m.getAllyDefence() < $m.getEnemyAttack())
-			$m.setCanBeKilled(true);
-		if($m.getAllyDefence() == $m.getEnemyAttack())
-			$m.setMustRetreat(true);
-end
