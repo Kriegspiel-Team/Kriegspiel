@@ -46,8 +46,8 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_UNITS = 0;
 	public static final int DISPLAY_ATTACK = 1;
 	public static final int DISPLAY_DEFENCE = 2;
-	public static final int DISPLAY_PREVAILING1 = 3;
-	public static final int DISPLAY_PREVAILING2 = 4;
+	public static final int DISPLAY_PREVAILING0 = 3;
+	public static final int DISPLAY_PREVAILING1 = 4;
 	
 	private int displayMode = DISPLAY_UNITS;
 	
@@ -240,7 +240,7 @@ public class BoardDisplayer extends JFrame {
 					if(currentEntity instanceof Mountain)
 						currentSquare.setBackground(COLOR_MOUTAIN);				
 					colorSquareByOwner(i, j);
-					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING1 && displayMode != DISPLAY_PREVAILING2)
+					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING0 && displayMode != DISPLAY_PREVAILING1)
 					{
 						MovableEntity currentMovable = ((MovableEntity)currentEntity);
 						if(currentMovable.canBeKilled())
@@ -262,9 +262,9 @@ public class BoardDisplayer extends JFrame {
 		else
 			drawCommunications();
 		
-		if (displayMode == DISPLAY_PREVAILING1) 
+		if (displayMode == DISPLAY_PREVAILING0) 
 			displayPrevailing(0);
-		if (displayMode == DISPLAY_PREVAILING2) 
+		if (displayMode == DISPLAY_PREVAILING1) 
 			displayPrevailing(1);
 		
 		this.repaint();
