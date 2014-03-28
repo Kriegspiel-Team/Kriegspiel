@@ -49,8 +49,8 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_UNITS = 0;
 	public static final int DISPLAY_ATTACK = 1;
 	public static final int DISPLAY_DEFENCE = 2;
-	public static final int DISPLAY_PREVAILING1 = 3;
-	public static final int DISPLAY_PREVAILING2 = 4;
+	public static final int DISPLAY_PREVAILING0 = 3;
+	public static final int DISPLAY_PREVAILING1 = 4;
 	
 	private int displayMode = DISPLAY_UNITS;
 	
@@ -62,14 +62,7 @@ public class BoardDisplayer extends JFrame {
 	private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
 	private static final Color COLOR_EMPTY = new Color(255,255,255);
-	
-	public BoardDisplayer(Board board, Potentials potential) {
-		this.board = board;
-		this.potential = potential;
-		this.matrix = this.board.getMatrix();
-		initGUI();			
-	}
-	
+		
 	public BoardDisplayer(BoardController controller) {
 		this.controller = controller;
 		this.board = controller.getBoard();
@@ -105,14 +98,6 @@ public class BoardDisplayer extends JFrame {
 	public void setDisplayMode(int mode){
 		displayMode = mode;
 	}
-	
-	public Board getBoard(){
-		return board;
-	}
-	
-	public void setPotential(Potentials p) {
-		this.potential = p;
-	}
 		
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
@@ -139,8 +124,7 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	public void initGUI()
-	{
+	public void initGUI() {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
 		DisplayMode dm = gs[0].getDisplayMode();
@@ -167,7 +151,7 @@ public class BoardDisplayer extends JFrame {
 		drawEntities();
 	}
 		
-	private void clearPossibleMovement(){
+	private void clearPossibleMovement() {
 		if (selectedSquare == null)
 			return;
 
@@ -183,7 +167,7 @@ public class BoardDisplayer extends JFrame {
 		selectedSquare = null;
 	}
 	
-	private void colorSquareByOwner(int x, int y){
+	private void colorSquareByOwner(int x, int y) {
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
 		
@@ -208,12 +192,12 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	private void drawPossibleMovement(int x, int y){		
+	private void drawPossibleMovement(int x, int y) {		
 		if(x >= 0 && y >= 0 && x < Board.WIDTH && y < Board.HEIGHT){
 			clearPossibleMovement();
 			
 			Set<Coord> possibleMoves = getPossibleMoves(x, y);
-			for(Coord c : possibleMoves){
+			for(Coord c : possibleMoves) {
 				squares[c.x][c.y].setBackground(COLOR_POSSIBLEMOVE);
 			}
 			
@@ -224,9 +208,7 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	public void displayGUI(){	
-		
-		
+	public void displayGUI() {			
 		for(int j=0 ; j<Board.HEIGHT ; j++) {
 			for(int i=0 ; i<Board.WIDTH ; i++) {
 				JPanel currentSquare = squares[i][j];
@@ -250,15 +232,12 @@ public class BoardDisplayer extends JFrame {
 					if(currentEntity instanceof Mountain)
 						currentSquare.setBackground(COLOR_MOUTAIN);				
 					colorSquareByOwner(i, j);
-					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING1 && displayMode != DISPLAY_PREVAILING2)
-					{
+					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING0 && displayMode != DISPLAY_PREVAILING1) {
 						MovableEntity currentMovable = ((MovableEntity)currentEntity);
-						if(currentMovable.canBeKilled())
-						{
+						if(currentMovable.canBeKilled()) {
 							((JLabel)currentSquare.getComponent(0)).setText("("+((JLabel)currentSquare.getComponent(0)).getText()+")");
 						}
-						if(currentMovable.mustRetreat())
-						{
+						if(currentMovable.mustRetreat()) {
 							((JLabel)currentSquare.getComponent(0)).setText("["+((JLabel)currentSquare.getComponent(0)).getText()+"]");
 						}
 					}
@@ -272,35 +251,19 @@ public class BoardDisplayer extends JFrame {
 		else
 			drawCommunications();
 		
-		if (displayMode == DISPLAY_PREVAILING1) 
+		if (displayMode == DISPLAY_PREVAILING0) 
 			displayPrevailing(0);
-		if (displayMode == DISPLAY_PREVAILING2) 
+		if (displayMode == DISPLAY_PREVAILING1) 
 			displayPrevailing(1);
 		
 		this.repaint();
 		this.setVisible(true);
 	}
 
-	private void drawCommunications()
-	{
-		/*List<Coord> com = board.getCommunications(0);
-		for (Coord c : com)
-			if(matrix[c.x][c.y] == null)
-				squares[c.x][c.y].setBackground(COLOR_COM_PLAYER0);
-		com = board.getCommunications(1);
-		for (Coord c : com)
-			if(matrix[c.x][c.y] == null)
-			{
-				if(squares[c.x][c.y].getBackground()==COLOR_COM_PLAYER0)
-					squares[c.x][c.y].setBackground(COLOR_COM_INTERSECT);
-				else
-					squares[c.x][c.y].setBackground(COLOR_COM_PLAYER1);
-			}*/
-		
+	private void drawCommunications() {		
 		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
 		Set<Coord> com;
-		if(p0Coms)
-		{
+		if(p0Coms) {
 			com = board.getCommunications(0);
 						
 			for (Coord c : com)
@@ -341,8 +304,7 @@ public class BoardDisplayer extends JFrame {
 		
 	}
 	
-	public void displayAttackPotential(int x, int y)
-	{
+	public void displayAttackPotential(int x, int y) {
 		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
 			if(unit != null) {
@@ -355,8 +317,7 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	public void displayDefencePotential(int x, int y)
-	{
+	public void displayDefencePotential(int x, int y) {
 		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
 			if(unit != null) {
@@ -369,57 +330,25 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
-	private void displayUnit(int x, int y)
-	{
+	private void displayUnit(int x, int y) {
 		JLabel tmp = new JLabel(Character.toString(matrix[x][y].getSymbol()));
 		tmp.setFont(new Font("Serif", Font.PLAIN, windowHeight/40));
 		squares[x][y].add(tmp);
 	}
 	
-	/*public void displayASCII(int x, int y){
-		List<Coord> possibleMoves = getPossibleMoves(x, y);
-		System.out.println(" -----------------------------------------------------------------------------------------------------");
-		for(int i=0; i<Board.HEIGHT; i++){
-			for(int j=0; j<Board.WIDTH; j++){
-				System.out.print(" | ");
-				
-				Coord currentCoord = new Coord(i,j);
-				Boolean isPossibleMovement = false;
-				for(Coord c : possibleMoves){
-					if (c.equals(currentCoord)){
-						isPossibleMovement = true;
-						break;
-					}
-				}
-				
-				
-				if (isPossibleMovement)
-					System.out.print("*");
-				else{
-				
-					if (matrix[i][j] == null)
-						System.out.print(" ");
-					else
-						System.out.print(matrix[i][j].getSymbol());
-				}
-			}
-			System.out.println(" | ");
-			System.out.println(" -----------------------------------------------------------------------------------------------------");
-		}
-	}*/
 
-	private Set<Coord> getPossibleMoves(int x, int y){
+	private Set<Coord> getPossibleMoves(int x, int y) {
 		if(board.getUnit(x, y) instanceof MovableEntity)
 			return board.getUnit(x,y).getPossibleMovement();
 		return new HashSet<Coord>();
 	}
 
-	private class CellMouseListener implements MouseListener{
+	private class CellMouseListener implements MouseListener {
 	
 		private int x;
 		private int y;
 		
-		public CellMouseListener(int x, int y){
+		public CellMouseListener(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}

@@ -21,10 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import evaluator.Potentials;
-import main.Board;
 import main.BoardController;
-import main.Engine;
 
 @SuppressWarnings("serial")
 public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {
@@ -42,8 +39,8 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	private JButton displayUnitBtn;
 	private JButton displayAttackBtn;
 	private JButton displayDefenceBtn;
+	private JButton displayPrevailing0Btn;
 	private JButton displayPrevailing1Btn;
-	private JButton displayPrevailing2Btn;
 	
 	public MenuDisplayer(BoardDisplayer b, BoardController controller){
 		this.controller = controller;
@@ -86,22 +83,22 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
 		displayDefenceBtn.setFocusable(false);
-		displayPrevailing1Btn = new JButton("Prevailing team blue");
+		displayPrevailing0Btn = new JButton("Prevailing team blue");
+		displayPrevailing0Btn.setFocusable(false);
+		displayPrevailing1Btn = new JButton("Prevailing team red");
 		displayPrevailing1Btn.setFocusable(false);
-		displayPrevailing2Btn = new JButton("Prevailing team red");
-		displayPrevailing2Btn.setFocusable(false);
 				
 		displayUnitBtn.addMouseListener(this);
 		displayAttackBtn.addMouseListener(this);
 		displayDefenceBtn.addMouseListener(this);
+		displayPrevailing0Btn.addMouseListener(this);
 		displayPrevailing1Btn.addMouseListener(this);
-		displayPrevailing2Btn.addMouseListener(this);
 		
 		displayModePanel.add(displayUnitBtn);
 		displayModePanel.add(displayAttackBtn);
 		displayModePanel.add(displayDefenceBtn);
+		displayModePanel.add(displayPrevailing0Btn);
 		displayModePanel.add(displayPrevailing1Btn);
-		displayModePanel.add(displayPrevailing2Btn);
 		
 		this.add(loadBoardBtn);
 		this.add(displayCom0);
@@ -203,11 +200,23 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		}else if (source == displayDefenceBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 			boardDisplayer.displayGUI();
+		}else if (source == displayPrevailing0Btn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING0);
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
+			boardDisplayer.displayGUI();
 		}else if (source == displayPrevailing1Btn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING1);
-			boardDisplayer.displayGUI();
-		}else if (source == displayPrevailing2Btn) {
-			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING2);
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
 			boardDisplayer.displayGUI();
 		}else if (source == loadBoardBtn) {
 			int returnVal = fileChooser.showOpenDialog(MenuDisplayer.this);
@@ -216,27 +225,6 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
                 File file = fileChooser.getSelectedFile();
                 
                 controller.loadNewBoard(file.getAbsolutePath());
-                /*
-                Board b = boardDisplayer.getBoard();
-                b.resetBoard();
-                
-                Engine engine = new Engine(b);
-                
-            	engine.placeFixedEntities();
-            	b.loadBoardWithFile(file.getAbsolutePath());
-            	engine.computeCommunications();
-              	engine.computePossibleMoves();
-              	engine.computeAttackDefence();
-              	
-              	Potentials p = new Potentials(b);
-              	p.computePotentials();
-              	engine.computeDeath();
-              	
-              	boardDisplayer.setPotential(p);
-              	
-              	boardDisplayer.drawEntities();
-              	
-              	boardDisplayer.displayGUI();*/
             }
 			 
 		}
