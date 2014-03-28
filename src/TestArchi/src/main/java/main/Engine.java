@@ -54,7 +54,7 @@ public class Engine implements IEngine {
 	@Override
 	public void computeCommunications() {
 	
-		List<MovableEntity> movableEntity = board.getMovableEntity();
+		List<MovableEntity> movableEntity = board.getMovableEntities();
     	    	
     	for (MovableEntity entity : movableEntity){
     		kSession.insert(entity);
