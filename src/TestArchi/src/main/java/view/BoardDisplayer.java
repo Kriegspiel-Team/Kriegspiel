@@ -101,10 +101,10 @@ public class BoardDisplayer extends JFrame {
 	public void setDisplayMode(int mode){
 		displayMode = mode;
 	}
-		
+			
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
-		
+					
 		boardPanel.removeAll();
 		for(int j=0 ; j<Board.HEIGHT ; j++)
 		{
@@ -173,7 +173,7 @@ public class BoardDisplayer extends JFrame {
 	private void colorSquareByOwner(int x, int y) {
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
-		
+				
 		if((board.isFortress(x, y) || board.isMountainPass(x, y)) && board.getUnit(x, y) != null)
 			currentEntity = board.getUnit(x, y);
 		

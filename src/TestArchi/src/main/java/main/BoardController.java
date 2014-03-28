@@ -29,16 +29,22 @@ public class BoardController {
 	 */
 	private void loadBoard(String file) {
 		
-		if (!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString())) {
-			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
-			
-			return;
-		}
+		/*
+		 * BUG If we load a new file with incorrect format
+		 * Faire une premier passe pour checker si le fichier est correct
+		 * Deuxieme passe pour placer les entities
+		 */
 		
 		boardDisplayer.resetSelectedSquare();
 		
 		engine.initSession();
 		engine.placeFixedEntities();
+		
+		if (!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString())) {
+			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
+			
+			return;
+		}
 				
 		engine.computeCommunications();
 		
@@ -52,10 +58,20 @@ public class BoardController {
 	}
 	
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/Sample1.txt");
+		loadBoard("src/main/resources/board/Sample3.txt");
+		
+		SwingUtilities.invokeLater(new Runnable() {
+		    @Override
+		    public void run() {
+				boardDisplayer.drawEntities();
+				boardDisplayer.displayGUI();	
+		    }
+	    });
 	}
 	
-	public void loadNewBoard(String file) {
+	public void loadNewBoard(String file) {	
+		board.resetBoard();
+		
 		loadBoard(file);	
     	
 		SwingUtilities.invokeLater(new Runnable() {
@@ -64,7 +80,7 @@ public class BoardController {
 				boardDisplayer.drawEntities();
 				boardDisplayer.displayGUI();	
 		    }
-		});
+	    });
 	}
 	
 	public Board getBoard() {
