@@ -1,7 +1,6 @@
 package model
  
 import main.Board;
-import model.MovableEntity;
 import model.Fighter;
 import main.Coord;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ rule "initArsenalsCommunications"
     when
         $b : Board( myBoard : matrix )
     then
-    	$b.calculateArsenalsCommunications();
+    	$b.computeArsenalsCommunications();
 end
 
 rule "RelayComm"
