@@ -19,12 +19,15 @@ public class BoardController {
 	}
 	
 	private void loadBoard(String file) {
+		
+		if(!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString()))
+		{
+			System.out.println("Board loading failed :(");
+			return;
+		}
 		engine.initSession();
-		
 		engine.placeFixedEntities();
-		
-		board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString());
-		
+				
 		engine.computeCommunications();
       	engine.computePossibleMoves();
       	engine.computeAttackDefence();
@@ -38,11 +41,8 @@ public class BoardController {
 		loadBoard("src/main/resources/board/Sample1.txt");
 	}
 	
-	public void loadNewBoard(String file) {
-		board.resetBoard();
-				
-		loadBoard(file);
-		
+	public void loadNewBoard(String file) {				
+		loadBoard(file);		
 		boardDisplayer.drawEntities();
 		boardDisplayer.displayGUI();	
 	}

@@ -35,8 +35,20 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
-	public void loadBoardWithFile(String filename) {
-		new EntityLoader(this, filename);
+	public boolean loadBoardWithFile(String filename) {
+		EntityLoader loader;
+		try
+		{
+			loader = new EntityLoader(filename);
+		}
+		catch(BoardFileFormatException e)
+		{
+			System.out.println("lowlfaifazafzoifhzafzoihfazoaizfh");
+			return false;
+		}
+		resetBoard();
+		this.matrix = loader.getBoard().matrix;
+		return true;
 	}
 	
 	public void resetBoard(){
