@@ -10,16 +10,14 @@ public class Potentials {
 	public Board board;
 	public HashMap<Integer, Integer[][]> prevailing;
 	
-	public Potentials(Board board)
-	{
+	public Potentials(Board board) {
 		this.board = board;
 		this.prevailing = new HashMap<Integer, Integer[][]>();
 		this.prevailing.put(0, new Integer[Board.WIDTH][Board.HEIGHT]);
 		this.prevailing.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
 	}
 	
-	public void computePotentials()
-	{
+	public void computePotentials() {
 		for(int team = 0; team < 2; team++) {
 			for(int y = 0; y < Board.HEIGHT; y++) {
 				for(int x = 0; x < Board.WIDTH; x++) {
