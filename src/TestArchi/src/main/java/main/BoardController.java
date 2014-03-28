@@ -52,10 +52,10 @@ public class BoardController {
 	}
 	
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/Sample3.txt");
+		loadNewBoard("src/main/resources/board/Sample1.txt");
 	}
 	
-	public void loadNewBoard(String file) {				
+	public void loadNewBoard(String file) {
 		loadBoard(file);	
     	
 		SwingUtilities.invokeLater(new Runnable() {
@@ -63,7 +63,8 @@ public class BoardController {
 		    public void run() {
 				boardDisplayer.drawEntities();
 				boardDisplayer.displayGUI();	
-	    }});
+		    }
+		});
 	}
 	
 	public Board getBoard() {

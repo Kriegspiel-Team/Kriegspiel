@@ -48,9 +48,12 @@ rule "isConnectedByCom"
 		$b : Board()
 		$f : Fighter(isConnected() == false, $team : owner, $coord : coord )
 	then
-		if($b.isOnCommunications($coord, $team)) {
-			$f.setConnected(true);
-		}
+	
+		if($b.isOnCommunications($coord, $team))
+			modify($f){
+				setConnected(true);
+			}
+
 		
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();
@@ -66,14 +69,16 @@ rule "isConnectedByNeighbour"
 		$b : Board()
 		$f : Fighter(isConnected() == false, $team : owner, $coord : coord )
 	then
-		if($b.hasConnectedNeighbour($f)) {
-			$f.setConnected(true);
-		}
+	
+		if($b.hasConnectedNeighbour($f))
+			modify($f){
+				setConnected(true);
+			}
 		
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();
 			listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);	
-			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours)
+			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours) 
 				modify(neighbour) { }
 		}
 end
