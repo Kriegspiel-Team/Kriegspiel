@@ -13,7 +13,7 @@ rule "initArsenalsCommunications"
     when
         $b : Board( myBoard : matrix )
     then
-    	$b.calculateArsenalsCommunications();
+    	$b.computeArsenalsCommunications();
 end
 
 rule "RelayComm"
@@ -50,7 +50,7 @@ rule "isConnected"
 	then
     	
 		ArrayList listNeighbours = new ArrayList<MovableEntity>();
-		listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);
+		listNeighbours = $b.getNeighboursMovableEntities($coord.x, $coord.y, $team);
 		
 		for(MovableEntity neighbour : (ArrayList<MovableEntity>)listNeighbours) {
 			if(neighbour.isConnected()) {

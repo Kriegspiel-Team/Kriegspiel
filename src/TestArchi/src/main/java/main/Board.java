@@ -35,6 +35,12 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
+	
+	/*
+	 * Tries to parse a file and fill the board with the data in it
+	 * If it fails, the board is not modified
+	 * Returns : Whether it has succeeded
+	 */
 	public boolean loadBoardWithFile(String filename) {
 		EntityLoader loader;
 		
@@ -49,6 +55,9 @@ public class Board {
 		return true;
 	}
 	
+	/*
+	 * Clears all the board data
+	 */
 	public void resetBoard(){
 		matrix = new Entity[WIDTH][HEIGHT];
 		coord_arsenals.clear();
@@ -58,9 +67,12 @@ public class Board {
 	
 	public void saveArsenalPlacement(int x, int y) {
 		coord_arsenals.add(new Coord(x,y));
-		
 	}
 	
+	/*
+	 * Puts the Entity e at (x,y) or in the Container
+	 * already present at (x,y) if appropriate
+	 */
 	public void placeEntity(int x, int y, Entity e) {
 		if (isValidSquare(x, y)){
 			e.setCoord(new Coord(x, y));
@@ -90,21 +102,29 @@ public class Board {
 		return getCommunications(team).contains(coord);
 	}
 	
-	public List<MovableEntity> getMovableEntity() {
-		List<MovableEntity> movableEntity = new ArrayList<MovableEntity>();
+	/*
+	 * Builds a list containing all the MovableEntities
+	 * on the board and returns it
+	 */
+	public List<MovableEntity> getMovableEntities() {
+		List<MovableEntity> movableEntities = new ArrayList<MovableEntity>();
 		
 		for(int j=0; j<HEIGHT; j++) {
 			for(int i=0; i<WIDTH; i++) {
 				if (matrix[i][j] instanceof MovableEntity)
-					movableEntity.add((MovableEntity)matrix[i][j]);
+					movableEntities.add((MovableEntity)matrix[i][j]);
 				else if (matrix[i][j] != null && matrix[i][j].canContain() && !((UnmovableEntity)matrix[i][j]).isEmpty())
-					movableEntity.add(((UnmovableEntity)matrix[i][j]).getEntity());
+					movableEntities.add(((UnmovableEntity)matrix[i][j]).getEntity());
 			}
 		}
 		
-		return movableEntity;
+		return movableEntities;
 	}
 	
+	
+	/*
+	 * Tells whether a square is a playable move
+	 */
 	public boolean isValidSquare(int x, int y) {
 		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return false;
@@ -181,7 +201,10 @@ public class Board {
 		return (MovableEntity)matrix[x][y];
 	}
 	
-	public ArrayList<MovableEntity> getNeighboursMovableEntity(int x, int y, int team) {
+	/*
+	 * Returns a list of the friendly neighbour entities
+	 */
+	public ArrayList<MovableEntity> getNeighboursMovableEntities(int x, int y, int team) {
 		
 		ArrayList<MovableEntity> listNeighbours = new ArrayList<MovableEntity>();
 		
@@ -196,7 +219,7 @@ public class Board {
 		return listNeighbours;
 	}
 	
-	public void calculateArsenalsCommunications() {
+	public void computeArsenalsCommunications() {
 		int team;
 		
 		for(Coord c : coord_arsenals) {

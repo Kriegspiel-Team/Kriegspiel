@@ -348,6 +348,10 @@ public class BoardDisplayer extends JFrame {
 			return board.getUnit(x,y).getPossibleMovement();
 		return new HashSet<Coord>();
 	}
+	
+	public void resetSelectedSquare(){
+		selectedSquare = null;
+	}
 
 	private class CellMouseListener implements MouseListener {
 	
@@ -376,4 +380,5 @@ public class BoardDisplayer extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent e) {}	
 	}
+	
 }
