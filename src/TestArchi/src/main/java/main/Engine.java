@@ -36,19 +36,22 @@ public class Engine implements IEngine {
     	kSession = kContainer.newKieSession("kriegspiel-knowledge");
     }
     
-    public void placeFixedEntities() {
+    @Override
+	public void placeFixedEntities() {
     	kSession.insert(board);
     	
     	kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
         kSession.fireAllRules();
     }
     
-    public void computePossibleMoves() {        	
+    @Override
+	public void computePossibleMoves() {        	
     	
         kSession.getAgenda().getAgendaGroup( "Movement" ).setFocus();
         kSession.fireAllRules();
     }
 
+	@Override
 	public void computeCommunications() {
 	
 		List<MovableEntity> movableEntity = board.getMovableEntity();
@@ -61,12 +64,14 @@ public class Engine implements IEngine {
         kSession.fireAllRules();
 	}
 	
+	@Override
 	public void computeAttackDefence() {        	
 	    	
 		kSession.getAgenda().getAgendaGroup( "Battle" ).setFocus();
 		kSession.fireAllRules();
 	}
 	
+	@Override
 	public void computeDeath() {
 		kSession.getAgenda().getAgendaGroup( "DeathRule" ).setFocus();
 		kSession.fireAllRules();

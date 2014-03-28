@@ -115,12 +115,14 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		this.getInputMap().put(KeyStroke.getKeyStroke("D"), "DisplayDefence");
 		
 		Action doQuit = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(1);
 		    }
 		};
 		
 		Action doDisplayCom0 = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.switchPOComs();
 				displayCom0.setSelected(boardDisplayer.getP0Coms());
@@ -129,6 +131,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayCom1 = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.switchP1Coms();
 				displayCom1.setSelected(boardDisplayer.getP1Coms());
@@ -137,6 +140,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayUnits = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_UNITS);
 				boardDisplayer.displayGUI();
@@ -144,6 +148,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayAttack = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK);
 				boardDisplayer.displayGUI();
@@ -151,6 +156,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		};
 		
 		Action doDisplayDefence = new AbstractAction(){
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 				boardDisplayer.displayGUI();
@@ -230,8 +236,12 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		}
 	}
 
+	@Override
 	public void mousePressed(MouseEvent e) {}
+	@Override
 	public void mouseReleased(MouseEvent e) {}
+	@Override
 	public void mouseEntered(MouseEvent e) {}
+	@Override
 	public void mouseExited(MouseEvent e){}
 }

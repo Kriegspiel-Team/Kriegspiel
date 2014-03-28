@@ -19,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import evaluator.Potentials;
 import main.Board;
@@ -268,7 +269,7 @@ public class BoardDisplayer extends JFrame {
 						
 			for (Coord c : com)
 				if(matrix[c.x][c.y] == null) {
-					JLabel tmp = new JLabel("o", JLabel.CENTER);
+					JLabel tmp = new JLabel("o", SwingConstants.CENTER);
 					tmp.setFont(fnt);
 					tmp.setForeground(COLOR_COM_PLAYER0);
 					squares[c.x][c.y].add(tmp);
@@ -278,7 +279,7 @@ public class BoardDisplayer extends JFrame {
 			com = board.getCommunications(1);
 			for (Coord c : com) {
 				if(matrix[c.x][c.y] == null) {
-					JLabel tmp = new JLabel("o", JLabel.CENTER);
+					JLabel tmp = new JLabel("o", SwingConstants.CENTER);
 					tmp.setFont(fnt);
 					tmp.setForeground(COLOR_COM_PLAYER1);
 					squares[c.x][c.y].add(tmp);
@@ -295,7 +296,7 @@ public class BoardDisplayer extends JFrame {
 			for(int x = 0 ; x < Board.WIDTH ; x++) {
 				int attack = matrix[x][y];
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
-				JLabel tmp = new JLabel(Integer.toString(attack), JLabel.RIGHT);
+				JLabel tmp = new JLabel(Integer.toString(attack), SwingConstants.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
 				squares[x][y].setBackground(new Color(255, Math.min(255, Math.max(0, 255 - 7*attack)), Math.min(255, Math.max(0, 255 - 7*attack))));
@@ -310,7 +311,7 @@ public class BoardDisplayer extends JFrame {
 			if(unit != null) {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
 
-				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), JLabel.RIGHT);
+				JLabel tmp = new JLabel(Integer.toString(unit.getEnemyAttack()), SwingConstants.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
 			}
@@ -323,7 +324,7 @@ public class BoardDisplayer extends JFrame {
 			if(unit != null) {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
 
-				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), JLabel.RIGHT);
+				JLabel tmp = new JLabel(Integer.toString(unit.getAllyDefence()), SwingConstants.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
 			}
@@ -361,9 +362,13 @@ public class BoardDisplayer extends JFrame {
 				clearPossibleMovement();
 		}
 	
+		@Override
 		public void mousePressed(MouseEvent e) {}
+		@Override
 		public void mouseReleased(MouseEvent e) {}
+		@Override
 		public void mouseEntered(MouseEvent e) {}
+		@Override
 		public void mouseExited(MouseEvent e) {}	
 	}
 }
