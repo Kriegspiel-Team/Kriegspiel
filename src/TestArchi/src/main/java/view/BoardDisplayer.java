@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -335,6 +336,10 @@ public class BoardDisplayer extends JFrame {
 		JLabel tmp = new JLabel(Character.toString(matrix[x][y].getSymbol()));
 		tmp.setFont(new Font("Serif", Font.PLAIN, windowHeight/40));
 		squares[x][y].add(tmp);
+	}
+	
+	public void displayPopup(String text, String title, int logo) {
+		JOptionPane.showMessageDialog(this, text, title, logo);
 	}
 	
 
