@@ -201,9 +201,21 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 			boardDisplayer.displayGUI();
 		}else if (source == displayPrevailing1Btn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING1);
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
 			boardDisplayer.displayGUI();
 		}else if (source == displayPrevailing2Btn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING2);
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
 			boardDisplayer.displayGUI();
 		}else if (source == loadBoardBtn) {
 			int returnVal = fileChooser.showOpenDialog(MenuDisplayer.this);
