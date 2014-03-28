@@ -40,7 +40,7 @@ public class EntityLoader {
 				
 				cpt++;
 				
-				if (st.length != 4)
+				if (!isValidFormat(st))
 					throw new BoardFileFormatException(cpt);
 				
 				int x = Integer.parseInt(st[2]);
@@ -76,11 +76,29 @@ public class EntityLoader {
 				e.printStackTrace();
 			}
 		}
-		
-		
 	}
-	public Board getBoard()
-	{
+	
+	private boolean isValidFormat(String[] data) {
+		
+		if (data.length != 4)
+			return false;
+		
+		if (!data[0].equals("Infantry") && !data[0].equals("Cavalry") && !data[0].equals("Canon") && !data[0].equals("SwiftCanon") && !data[0].equals("Relay") && !data[0].equals("SwiftRelay"))
+			return false;
+		
+		if (!data[1].equals("0") && !data[1].equals("1"))
+			return false;
+		
+		if (Integer.parseInt(data[2]) < 0 || Integer.parseInt(data[2]) > Board.WIDTH)
+			return false;
+		
+		if (Integer.parseInt(data[3]) < 0 || Integer.parseInt(data[3]) > Board.HEIGHT)
+			return false;
+
+		return true;	
+	}
+	
+	public Board getBoard() {
 		return this.board;
 	}
 }
