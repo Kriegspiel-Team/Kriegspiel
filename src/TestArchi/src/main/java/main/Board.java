@@ -20,6 +20,8 @@ import model.UnmovableEntity;
 public class Board {
 	private Entity matrix[][];
 	
+	private int isWin = 0;
+
 	public static int WIDTH = 25;
 	public static int HEIGHT = 20;
 	
@@ -34,6 +36,14 @@ public class Board {
 		communications = new HashMap<Integer,HashSet<Coord>>();
 		communications.put(0, new HashSet<Coord>());
 		communications.put(1, new HashSet<Coord>());
+	}
+	
+	public int getIsWin() {
+		return isWin;
+	}
+
+	public void setIsWin(int isWin) {
+		this.isWin = isWin;
 	}
 	
 	public Entity getEntity(int x,int y){

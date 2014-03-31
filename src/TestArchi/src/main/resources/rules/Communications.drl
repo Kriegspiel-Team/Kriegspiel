@@ -14,8 +14,20 @@ rule "DestroyArsenals"
         $b : Board( myBoard : matrix )
         $a : Arsenal( $c : coord )
     then
-    	if($b.arsenalIsAttacked($a))
+    	if($b.arsenalIsAttacked($a)) {
     		$b.destroyArsenal($c.x, $c.y, $a);
+    		retract($a);
+    	}
+end
+
+rule "Arsenals"
+	agenda-group "Communication"
+	no-loop
+    when
+        $b : Board( myBoard : matrix )
+        $a : Arsenal( $team : owner )
+    then
+    	$b.setIsWin($b.getIsWin() + ($team > 0 ? -1 : +1) );
 end
 
 rule "initArsenalsCommunications"
