@@ -114,7 +114,7 @@ public class BoardDisplayer extends JFrame {
 				squares[i][j].setLayout(new FlowLayout(FlowLayout.CENTER));
 				
 				squares[i][j].removeAll();
-				
+								
 				if (board.isMovableEntity(i,j) || board.isFortress(i,j) || board.isArsenal(i,j) || board.isMountainPass(i,j))
 					squares[i][j].addMouseListener(new CellMouseListener(i, j));
 				
@@ -151,7 +151,6 @@ public class BoardDisplayer extends JFrame {
 		boardPanel.setBackground(new Color(0, 0, 0));			
 		
 		squares = new JPanel[Board.WIDTH][Board.HEIGHT];		
-		drawEntities();
 	}
 		
 	private void clearPossibleMovement() {
