@@ -31,41 +31,89 @@ import model.Mountain;
 import model.MovableEntity;
 import model.Fighter;
 
+/**
+ * The Class BoardDisplayer.
+ */
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
+	
+	/** The board. */
 	private Board board;
+	
+	/** The potential. */
 	private Potentials potential;
 	
+	/** The controller. */
 	private BoardController controller;
 	
+	/** The matrix. */
 	private Entity[][] matrix;
+	
+	/** The window height. */
 	private int windowHeight;
+	
+	/** The window width. */
 	private int windowWidth;
+	
+	/** The squares. */
 	private JPanel squares[][];
+	
+	/** The selected square. */
 	private Coord selectedSquare = null;
 	
+	/** The board panel. */
 	private JPanel boardPanel;
 	
+	/** The player0 com lines state. */
 	private boolean p0Coms = true;
+	
+	/** The player1 com lines state. */
 	private boolean p1Coms = true;
 	
+	/** The Display mode DISPLAY_UNITS. */
 	public static final int DISPLAY_UNITS = 0;
+	
+	/** The Display mode DISPLAY_ATTACK. */
 	public static final int DISPLAY_ATTACK = 1;
+	
+	/** The Display mode DISPLAY_DEFENCE. */
 	public static final int DISPLAY_DEFENCE = 2;
+	
+	/** The Display mode DISPLAY_PREVAILING0. */
 	public static final int DISPLAY_PREVAILING0 = 3;
+	
+	/** The Display mode DISPLAY_PREVAILING1. */
 	public static final int DISPLAY_PREVAILING1 = 4;
 	
+	/** The current display mode. */
 	private int displayMode = DISPLAY_UNITS;
 	
+	/** Player0's units' color while disconnected. */
 	private static final Color COLOR_PLAYER0 = new Color(100,150,255);
+	
+	/** Player0's units' color while connected to the com network. */
 	private static final Color COLOR_COM_PLAYER0 = new Color(50,100,200);
+	
+	/** Player1's units' color while disconnected. */
 	private static final Color COLOR_PLAYER1 = new Color(255,100,100);
+	
+	/** Player1's units' color while connected to the com network. */
 	private static final Color COLOR_COM_PLAYER1 = new Color(200,50,50);
 //	private static final Color COLOR_COM_INTERSECT = new Color(200,50,200);
-	private static final Color COLOR_MOUTAIN = new Color(200,200,200);
+	/** The mountains' color */
+private static final Color COLOR_MOUTAIN = new Color(200,200,200);
+	
+	/** The color to use to display possible moves. */
 	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
+	
+	/** The color of empty squares. */
 	private static final Color COLOR_EMPTY = new Color(255,255,255);
 		
+	/**
+	 * Instantiates a new board displayer.
+	 *
+	 * @param controller the controller
+	 */
 	public BoardDisplayer(BoardController controller) {
 		this.controller = controller;
 		this.board = controller.getBoard();
@@ -74,34 +122,68 @@ public class BoardDisplayer extends JFrame {
 		initGUI();			
 	}
 	
+	/**
+	 * Sets whether to display player0's com lines.
+	 *
+	 * @param b whether to display player0's com lines
+	 */
 	public void setP0Coms(boolean b){
 		p0Coms = b;
 	}
 	
+	/**
+	 * Sets whether to display player1's com lines.
+	 *
+	 * @param b whether to display player1's com lines
+	 */
 	public void setP1Coms(boolean b){
 		p1Coms = b;
 	}
 	
+	/**
+	 * Gets whether to display player0's com lines.
+	 *
+	 * @return whether to display player0's com lines
+	 */
 	public boolean getP0Coms(){
 		return p0Coms;
 	}
 	
+	/**
+	 * Gets whether to display player1's com lines.
+	 *
+	 * @return whether to display player1's com lines
+	 */
 	public boolean getP1Coms(){
 		return p1Coms;
 	}
 	
+	/**
+	 * Switch player0 com lines display state.
+	 */
 	public void switchPOComs(){
 		p0Coms = !p0Coms;
 	}
 	
+	/**
+	 * Switch player1 com lines display state.
+	 */
 	public void switchP1Coms(){
 		p1Coms = !p1Coms;
 	}
 	
+	/**
+	 * Sets the display mode.
+	 *
+	 * @param mode the new display mode
+	 */
 	public void setDisplayMode(int mode){
 		displayMode = mode;
 	}
 			
+	/**
+	 * Draw entities.
+	 */
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
 					
@@ -127,6 +209,9 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
+	/**
+	 * Initializes the GUI.
+	 */
 	public void initGUI() {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
@@ -154,6 +239,9 @@ public class BoardDisplayer extends JFrame {
 		drawEntities();
 	}
 		
+	/**
+	 * Clear possible movement display.
+	 */
 	private void clearPossibleMovement() {
 		if (selectedSquare == null)
 			return;
@@ -170,6 +258,12 @@ public class BoardDisplayer extends JFrame {
 		selectedSquare = null;
 	}
 	
+	/**
+	 * Color square by owner.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void colorSquareByOwner(int x, int y) {
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
@@ -195,6 +289,12 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
+	/**
+	 * Draw possible movement.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void drawPossibleMovement(int x, int y) {		
 		if(x >= 0 && y >= 0 && x < Board.WIDTH && y < Board.HEIGHT){
 			clearPossibleMovement();
@@ -211,6 +311,9 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
+	/**
+	 * Display the GUI.
+	 */
 	public void displayGUI() {			
 		for(int j=0 ; j<Board.HEIGHT ; j++) {
 			for(int i=0 ; i<Board.WIDTH ; i++) {
@@ -263,6 +366,9 @@ public class BoardDisplayer extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Draw the communication lines.
+	 */
 	private void drawCommunications() {		
 		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
 		Set<Coord> com;
@@ -290,6 +396,11 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
+	/**
+	 * Display the prevailing matrix of a team.
+	 *
+	 * @param team the team
+	 */
 	private void displayPrevailing(int team) {
 		
 		Integer[][] matrix = this.potential.prevailing.get(team);
@@ -307,6 +418,12 @@ public class BoardDisplayer extends JFrame {
 		
 	}
 	
+	/**
+	 * Display attack potential on a square.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void displayAttackPotential(int x, int y) {
 		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
@@ -320,6 +437,12 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
+	/**
+	 * Display defence potential on a square.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void displayDefencePotential(int x, int y) {
 		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
@@ -333,37 +456,83 @@ public class BoardDisplayer extends JFrame {
 		}
 	}
 	
+	/**
+	 * Display unit.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void displayUnit(int x, int y) {
 		JLabel tmp = new JLabel(Character.toString(matrix[x][y].getSymbol()));
 		tmp.setFont(new Font("Serif", Font.PLAIN, windowHeight/40));
 		squares[x][y].add(tmp);
 	}
 	
+	/**
+	 * Display a popup.
+	 *
+	 * @param text the text
+	 * @param title the title
+	 * @param logo the logo
+	 */
 	public void displayPopup(String text, String title, int logo) {
 		JOptionPane.showMessageDialog(this, text, title, logo);
 	}
 	
 
+	/**
+	 * Gets the possible moves of the unit at (x,y).
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the possible moves
+	 */
 	private Set<Coord> getPossibleMoves(int x, int y) {
 		if(board.getUnit(x, y) instanceof MovableEntity)
 			return board.getUnit(x,y).getPossibleMovement();
 		return new HashSet<Coord>();
 	}
 	
+	/**
+	 * Reset selected square.
+	 */
 	public void resetSelectedSquare(){
 		selectedSquare = null;
 	}
 
+	/**
+	 * The listener interface for receiving cellMouse events.
+	 * The class that is interested in processing a cellMouse
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addCellMouseListener<code> method. When
+	 * the cellMouse event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see CellMouseEvent
+	 */
 	private class CellMouseListener implements MouseListener {
 	
+		/** The x. */
 		private int x;
+		
+		/** The y. */
 		private int y;
 		
+		/**
+		 * Instantiates a new cell mouse listener.
+		 *
+		 * @param x the x
+		 * @param y the y
+		 */
 		public CellMouseListener(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if(e.getButton() == MouseEvent.BUTTON1)
@@ -372,12 +541,27 @@ public class BoardDisplayer extends JFrame {
 				clearPossibleMovement();
 		}
 	
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mousePressed(MouseEvent e) {}
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseReleased(MouseEvent e) {}
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseEntered(MouseEvent e) {}
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseExited(MouseEvent e) {}	
 	}

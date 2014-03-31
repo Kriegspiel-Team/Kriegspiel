@@ -9,8 +9,16 @@ import model.MovableEntity;
 import model.Relay;
 import model.SwiftRelay;
 
+/**
+ * The Class InfluenceArea.
+ */
 public class InfluenceArea {
 	
+	/**
+	 * Run influence area.
+	 *
+	 * @param board the board
+	 */
 	public static void runInfluenceArea(Board board) {
 		List<MovableEntity> listMov = board.getMovableEntities();
 		
@@ -19,6 +27,15 @@ public class InfluenceArea {
 	}
 	
 
+	/**
+	 * Compute influence areas.
+	 *
+	 * @param board the board
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @param speedLeft the recursive counter of remaining moves
+	 * @param m the entity to be checked
+	 */
 	public static void computeInfluenceAreas(Board board, int x, int y, int speedLeft, MovableEntity m) {
 		
 		

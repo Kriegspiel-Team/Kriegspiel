@@ -1,9 +1,18 @@
 package model;
 
+/**
+ * The Class Cavalry.
+ */
 public class Cavalry extends Fighter {
 	
+	/** The attack charge. */
 	private int attackCharge;
 	
+	/**
+	 * Instantiates a new cavalry.
+	 *
+	 * @param owner the owner
+	 */
 	public Cavalry(int owner)
 	{
 		super();
@@ -18,6 +27,11 @@ public class Cavalry extends Fighter {
 		this.owner = owner;
 	}
 
+	/**
+	 * Gets the charge attack value.
+	 *
+	 * @return the charge attack value
+	 */
 	public int getAttackCharge() {
 		return attackCharge;
 	}

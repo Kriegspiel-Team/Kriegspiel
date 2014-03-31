@@ -1,8 +1,15 @@
 package model;
 
-
+/**
+ * The Class Infantry.
+ */
 public class Infantry extends Fighter {
 	
+	/**
+	 * Instantiates a new infantry.
+	 *
+	 * @param owner the owner
+	 */
 	public Infantry(int owner)
 	{
 		super();

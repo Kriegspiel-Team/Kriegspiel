@@ -23,25 +23,51 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import main.BoardController;
 
+/**
+ * The Class MenuDisplayer.
+ */
 @SuppressWarnings("serial")
 public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {
 	
+	/** The controller. */
 	private BoardController controller;
 
+	/** The board displayer. */
 	private BoardDisplayer boardDisplayer;
 	
+	/** The checkbox to choose whether to display com lines for player 0 or not. */
 	private JCheckBox displayCom0;
+	
+	/** The checkbox to choose whether to display com lines for player 0 or not. */
 	private JCheckBox displayCom1;
 	
+	/** The file chooser. */
 	private JFileChooser fileChooser;
+	
+	/** The load board button. */
 	private JButton loadBoardBtn;
 	
+	/** The display unit button. */
 	private JButton displayUnitBtn;
+	
+	/** The display attack button. */
 	private JButton displayAttackBtn;
+	
+	/** The display defence button. */
 	private JButton displayDefenceBtn;
+	
+	/** The display prevailing0 button. */
 	private JButton displayPrevailing0Btn;
+	
+	/** The display prevailing1 button. */
 	private JButton displayPrevailing1Btn;
 	
+	/**
+	 * Instantiates a new menu displayer.
+	 *
+	 * @param b the BoardDisplayer to attach to
+	 * @param controller the controller
+	 */
 	public MenuDisplayer(BoardDisplayer b, BoardController controller){
 		this.controller = controller;
 		boardDisplayer = b;
@@ -50,6 +76,9 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		initKeyBinding();		
 	}
 
+	/**
+	 * Initializes the UI.
+	 */
 	private void initUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -106,6 +135,9 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		this.add(displayModePanel);
 	}
 	
+	/**
+	 * Inits the key bindings.
+	 */
 	private void initKeyBinding(){
 		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Quit");
 		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), "DisplayCom0");
@@ -172,6 +204,9 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		
@@ -193,6 +228,9 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object source = e.getSource();
@@ -236,12 +274,27 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseExited(MouseEvent e){}
 }
