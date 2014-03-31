@@ -11,6 +11,9 @@ import model.Relay;
 import model.SwiftCanon;
 import model.SwiftRelay;
 
+/**
+ * The Class EntityLoader.
+ */
 public class EntityLoader {
 	
 	/*
@@ -18,17 +21,64 @@ public class EntityLoader {
 	 * Piece;Owner;X;Y
 	 */
 	
+	/** The board. */
 	private Board board;
+	
+	/** The filename. */
 	private String filename;
 	
-	public EntityLoader(Board board, String filename) throws BoardFileFormatException{
+	/**
+	 * Instantiates a new entity loader.
+	 *
+	 * @param board the board
+	 * @param filename the path to the file from which to load the data
+	 */
+	public EntityLoader(Board board, String filename){
 		this.board = board;
 		this.filename = filename;
-		
-		readFile();
 	}
 	
-	private void readFile() throws BoardFileFormatException{
+	/**
+	 * Checks if file is formatted correctly.
+	 *
+	 * @return true, if file is formatted correctly
+	 */
+	public boolean isValidFormat(){
+		boolean valid = true;
+		
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(filename));
+			
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] st = line.split(";");
+								
+				if (!isValidFormat(st)){
+					valid = false;
+					break;
+				}				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return valid;
+	}
+	
+	/**
+	 * Load file.
+	 *
+	 * @throws BoardFileFormatException the board file format exception
+	 */
+	public void loadFile() throws BoardFileFormatException{
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(filename));
@@ -78,6 +128,12 @@ public class EntityLoader {
 		}
 	}
 	
+	/**
+	 * Checks if a string is correctly formatted.
+	 *
+	 * @param data the data
+	 * @return true, if the string is correctly formatted
+	 */
 	private boolean isValidFormat(String[] data) {
 		
 		if (data.length != 4)
@@ -98,6 +154,11 @@ public class EntityLoader {
 		return true;	
 	}
 	
+	/**
+	 * Gets the board.
+	 *
+	 * @return the board
+	 */
 	public Board getBoard() {
 		return this.board;
 	}

@@ -1,9 +1,18 @@
 package model;
 
+/**
+ * The Class Relay.
+ */
 public class Relay extends MovableEntity {
 	
+	/** Whether it is on communications. */
 	private boolean onCommunications;
 
+	/**
+	 * Instantiates a new relay.
+	 *
+	 * @param owner the owner
+	 */
 	public Relay(int owner)
 	{
 		super();
@@ -18,10 +27,20 @@ public class Relay extends MovableEntity {
 		this.owner = owner;
 	}
 	
+	/**
+	 * Checks if is on communications.
+	 *
+	 * @return true, if is on communications
+	 */
 	public boolean isOnCommunications() {
 		return onCommunications;
 	}
 
+	/**
+	 * Sets the onCommunications.
+	 *
+	 * @param onCommunications the new value of onCommunications
+	 */
 	public void setOnCommunications(boolean onCommunications) {
 		this.onCommunications = onCommunications;
 	}
