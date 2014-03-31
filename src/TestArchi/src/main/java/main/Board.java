@@ -61,13 +61,16 @@ public class Board {
 	
 	public boolean arsenalIsAttacked(Arsenal a) {
 		if(!a.isEmpty() && a.getEntity().getOwner() != a.getOwner())
-			if(a.getEntity() instanceof Relay || a.getEntity() instanceof SwiftRelay)
+			if(!(a.getEntity() instanceof Relay) || !(a.getEntity() instanceof SwiftRelay))
 				return true;
 		return false;
 	}
 	
 	public void destroyArsenal(int x, int y, Arsenal a) {
+		System.out.println(matrix[x][y].getClass());
 		matrix[x][y] = a.getEntity();
+		coord_arsenals.remove(a.getCoord());
+		System.out.println(matrix[x][y].getClass());
 	}
 	
 	public void placeEntity(int x, int y, Entity e) {

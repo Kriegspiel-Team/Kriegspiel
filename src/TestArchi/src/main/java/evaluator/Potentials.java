@@ -63,18 +63,16 @@ public class Potentials {
 							MovableEntity unit = board.getUnit(x, y);
 							if(unit != null && !board.isFriendlyUnit(x, y, owner)) {
 								
-								if(unit instanceof Cavalry && !board.isFortress(x,y) && charge) {
+								if(unit instanceof Cavalry && !board.isFortress(x,y) && charge)
 									attack += ((Cavalry)unit).getAttackCharge();
-									System.out.println("Unite (" + x + "," + y + ") ajoute " + ((Cavalry)unit).getAttackCharge() + " Atq à Unite (" + xi + "," + yi + ")");
-								} else {
+								else {
 							
 									charge = false;
 							
-									if(r <= unit.getRange()) {
+									if(r <= unit.getRange())
 										attack += unit.getAttack();
-										System.out.println("Unite (" + x + "," + y + ") ajoute " + unit.getAttack() + " Atq à Unite (" + xi + "," + yi + ")");
-									}
 								}
+									
 							} else {
 								if(board.isMountain(x, y))
 									obstacle = true;
