@@ -26,14 +26,7 @@ public class BoardController {
 	 * initializes the rules engine and
 	 * computes everything
 	 */
-	private void loadBoard(String file) {
-		
-		/*
-		 * BUG If we load a new file with incorrect format
-		 * Faire une premier passe pour checker si le fichier est correct
-		 * Deuxieme passe pour placer les entities
-		 */
-		
+	private void loadBoard(String file) {		
 		EntityLoader loader = new EntityLoader(board, file);
 		
 		if (!loader.isValidFormat()){
@@ -63,19 +56,10 @@ public class BoardController {
 	}
 	
 	public void loadDefaultBoard() {
-		loadBoard("src/main/resources/board/Sample3.txt");
-		
-		SwingUtilities.invokeLater(new Runnable() {
-		    @Override
-		    public void run() {
-				boardDisplayer.drawEntities();
-				boardDisplayer.displayGUI();	
-		    }
-	    });
+		loadNewBoard("src/main/resources/board/Sample3.txt");
 	}
 	
 	public void loadNewBoard(String file) {	
-		
 		loadBoard(file);	
     	
 		SwingUtilities.invokeLater(new Runnable() {
