@@ -88,6 +88,7 @@ public class Board {
 		coord_arsenals.clear();
 		communications.get(0).clear();
 		communications.get(1).clear();
+		isWin = 0;
 	}
 		
 	/**
