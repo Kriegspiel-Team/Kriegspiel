@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import model.Arsenal;
 import model.Cavalry;
 import model.Entity;
 import model.Fighter;
@@ -17,7 +18,7 @@ import model.SwiftRelay;
 import model.UnmovableEntity;
 
 public class Board {
-	public Entity matrix[][];
+	private Entity matrix[][];
 	
 	public static int WIDTH = 25;
 	public static int HEIGHT = 20;
@@ -55,6 +56,17 @@ public class Board {
 		coord_arsenals.add(new Coord(x,y));
 	}
 	
+	public boolean arsenalIsAttacked(Arsenal a) {
+		if(a.getEntity().getOwner() != a.getOwner())
+			if(a.getEntity() instanceof Relay || a.getEntity() instanceof SwiftRelay)
+				return true;
+		return false;
+	}
+	
+	public void destroyArsenal(int x, int y, Arsenal a) {
+		matrix[x][y] = a.getEntity();
+	}
+	
 	public void placeEntity(int x, int y, Entity e) {
 		if (isValidSquare(x, y)){
 			e.setCoord(new Coord(x, y));
@@ -74,6 +86,10 @@ public class Board {
 	
 	public void setMatrix(Entity[][] board) {
 		this.matrix = board;
+	}
+	
+	public ArrayList<Coord> getCoord_arsenals() {
+		return coord_arsenals;
 	}
 	
 	public HashSet<Coord> getCommunications(int team) {

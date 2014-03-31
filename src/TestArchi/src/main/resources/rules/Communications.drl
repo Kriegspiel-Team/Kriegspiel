@@ -7,6 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet
 
+rule "DestroyArsenals"
+	agenda-group "Communication"
+	no-loop
+    when
+        $b : Board( myBoard : matrix )
+        $a : Arsenal( $c : coord )
+    then
+    	if($b.arsenalIsAttacked($a))
+    		$b.destroyArsenal($c.x, $c.y, $a);
+end
+
 rule "initArsenalsCommunications"
 	agenda-group "Communication"
 	no-loop
@@ -74,7 +85,7 @@ rule "isConnectedByNeighbour"
 			modify($f){
 				setConnected(true);
 			}
-		
+			
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();
 			listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);	
