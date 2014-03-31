@@ -39,6 +39,7 @@ public class Potentials {
 					
 					MovableEntity m = board.getUnit(x, y);
 					
+					
 					int attack = computeAttack(x,y,team);
 					int defence = computeDefence(x,y,team);
 					
@@ -84,15 +85,16 @@ public class Potentials {
 							MovableEntity unit = board.getUnit(x, y);
 							if(unit != null && !board.isFriendlyUnit(x, y, owner)) {
 								
-								if(unit instanceof Cavalry && !board.isFortress(x,y) && charge) {
+								if(unit instanceof Cavalry && !board.isFortress(x,y) && charge)
 									attack += ((Cavalry)unit).getAttackCharge();
-								} else {
+								else {
 							
 									charge = false;
 							
 									if(r <= unit.getRange())
 										attack += unit.getAttack();
 								}
+									
 							} else {
 								if(board.isMountain(x, y))
 									obstacle = true;

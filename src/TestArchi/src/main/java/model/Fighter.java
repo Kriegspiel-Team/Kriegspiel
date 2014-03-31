@@ -22,7 +22,7 @@ public class Fighter extends MovableEntity {
 	 * @return true, if is connected
 	 */
 	public boolean isConnected() {
-		return isConnected;
+		return this.isConnected;
 	}
 	
 	/**
@@ -33,5 +33,4 @@ public class Fighter extends MovableEntity {
 	public void setConnected(boolean isConnected) {
 		this.isConnected = isConnected;
 	}
-
 }

@@ -95,6 +95,7 @@ public class Board {
 		coord_arsenals.add(new Coord(x,y));
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * Place entity.
 	 *
@@ -102,6 +103,22 @@ public class Board {
 	 * @param y the y
 	 * @param e the entity to place at (x,y)
 	 */
+=======
+	public boolean arsenalIsAttacked(Arsenal a) {
+		if(!a.isEmpty() && a.getEntity().getOwner() != a.getOwner())
+			if(!(a.getEntity() instanceof Relay) || !(a.getEntity() instanceof SwiftRelay))
+				return true;
+		return false;
+	}
+	
+	public void destroyArsenal(int x, int y, Arsenal a) {
+		System.out.println(matrix[x][y].getClass());
+		matrix[x][y] = a.getEntity();
+		coord_arsenals.remove(a.getCoord());
+		System.out.println(matrix[x][y].getClass());
+	}
+	
+>>>>>>> 52699e1f63762bdf1588f6b0d08d3dd0717c5a05
 	public void placeEntity(int x, int y, Entity e) {
 		if (isValidSquare(x, y)){
 			e.setCoord(new Coord(x, y));
@@ -133,12 +150,19 @@ public class Board {
 		this.matrix = matrix;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * Gets the communications.
 	 *
 	 * @param team the team
 	 * @return the communications
 	 */
+=======
+	public ArrayList<Coord> getCoord_arsenals() {
+		return coord_arsenals;
+	}
+	
+>>>>>>> 52699e1f63762bdf1588f6b0d08d3dd0717c5a05
 	public HashSet<Coord> getCommunications(int team) {
 		return communications.get(team);
 	}

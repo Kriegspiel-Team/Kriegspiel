@@ -7,6 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet
 
+rule "DestroyArsenals"
+	agenda-group "Communication"
+	no-loop
+    when
+        $b : Board( myBoard : matrix )
+        $a : Arsenal( $c : coord )
+    then
+    	if($b.arsenalIsAttacked($a))
+    		$b.destroyArsenal($c.x, $c.y, $a);
+end
+
 rule "initArsenalsCommunications"
 	agenda-group "Communication"
 	no-loop
@@ -46,22 +57,20 @@ rule "isConnectedByCom"
 	agenda-group "Communication"
 	when
 		$b : Board()
-		$f : Fighter( isConnected() == false, $team : owner, $coord : coord )
+		$f : Fighter(isConnected() == false, $team : owner, $coord : coord )
 	then
 	
-		if($b.isOnCommunications($coord, $team)){
+		if($b.isOnCommunications($coord, $team))
 			modify($f){
 				setConnected(true);
 			}
-		}
+
 		
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();
 			listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);	
-			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours) {
-				//System.out.println("Modify neighbour de (" + $coord.x + "," + $coord.y + ") ==> (" + neighbour.getCoord().x + "," + neighbour.getCoord().y + ")");
+			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours)
 				modify(neighbour) { }
-			}
 		}
 end
 
@@ -69,21 +78,18 @@ rule "isConnectedByNeighbour"
 	agenda-group "Communication"
 	when
 		$b : Board()
-		$f : Fighter( isConnected() == false, $team : owner, $coord : coord )
+		$f : Fighter(isConnected() == false, $team : owner, $coord : coord )
 	then
 	
-		if($b.hasConnectedNeighbour($f)){
+		if($b.hasConnectedNeighbour($f))
 			modify($f){
 				setConnected(true);
 			}
-		}
-		
+			
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();
 			listNeighbours = $b.getNeighboursMovableEntity($coord.x, $coord.y, $team);	
-			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours) {
-				//System.out.println("Modify neighbour de (" + $coord.x + "," + $coord.y + ") ==> (" + neighbour.getCoord().x + "," + neighbour.getCoord().y + ")");
+			for(Fighter neighbour : (ArrayList<Fighter>)listNeighbours) 
 				modify(neighbour) { }
-			}
 		}
 end

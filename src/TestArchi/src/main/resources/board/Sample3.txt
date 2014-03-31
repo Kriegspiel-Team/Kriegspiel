@@ -8,14 +8,14 @@ Infantry;0;13;6
 Infantry;0;11;7
 Infantry;0;11;8
 Cavalry;0;6;3
-Cavalry;0;7;3
+Cavalry;1;7;3
 Cavalry;0;8;4
 Cavalry;0;9;5
 Canon;0;11;4
 SwiftCanon;0;3;5
 Relay;0;3;3
 SwiftRelay;0;17;1
-Infantry;1;5;3
+Infantry;1;14;1
 Infantry;1;6;6
 Infantry;1;6;7
 Infantry;1;7;7
@@ -30,5 +30,5 @@ Cavalry;1;12;8
 Cavalry;1;12;9
 Canon;1;10;7
 SwiftCanon;1;8;7
-Relay;1;5;16
+Relay;1;2;1
 SwiftRelay;1;10;11
