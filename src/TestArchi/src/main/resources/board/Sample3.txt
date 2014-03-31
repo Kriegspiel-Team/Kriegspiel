@@ -8,7 +8,7 @@ Infantry;0;13;6
 Infantry;0;11;7
 Infantry;0;11;8
 Cavalry;0;6;3
-Cavalry;0;7;3
+Cavalry;1;7;3
 Cavalry;0;8;4
 Cavalry;0;9;5
 Canon;0;11;4

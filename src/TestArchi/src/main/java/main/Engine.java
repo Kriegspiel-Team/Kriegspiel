@@ -1,7 +1,10 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import model.Arsenal;
+import model.Fighter;
 import model.MovableEntity;
 
 import org.kie.api.KieServices;
@@ -55,9 +58,17 @@ public class Engine implements IEngine {
 	public void computeCommunications() {
 	
 		List<MovableEntity> movableEntity = board.getMovableEntities();
-    	    	
+		
+		ArrayList<Coord> coord_arsenals = board.getCoord_arsenals();
+    	
+		for (Coord c : coord_arsenals)
+			kSession.insert((Arsenal)board.getMatrix()[c.x][c.y]);
+		
     	for (MovableEntity entity : movableEntity){
-    		kSession.insert(entity);
+    		if(entity instanceof Fighter)
+    			kSession.insert((Fighter)entity);
+    		else 
+    			kSession.insert(entity);
     	}            
 		
         kSession.getAgenda().getAgendaGroup( "Communication" ).setFocus();

@@ -10,6 +10,7 @@ rule "outOfCom"
 	when
 		$f : Fighter(isConnected() == false, $coord : coord) 
 	then
+		System.out.println("Je fais setAttack(0) sur (" + $coord.x + "," + $coord.y + ") : isConnected ==> " + $f.isConnected());
 		$f.setAttack(0);
 		$f.setAllyDefence(0);
 		$f.setDefence(0);
