@@ -63,6 +63,10 @@ public class Board {
 		this.isWin = isWin;
 	}
 	
+	public int getWinner(){
+		return isWin;
+	}
+	
 
 	/**
 	 * Gets the entity.
@@ -125,10 +129,8 @@ public class Board {
 	}
 	
 	public void destroyArsenal(int x, int y, Arsenal a) {
-		System.out.println(matrix[x][y].getClass());
 		matrix[x][y] = a.getEntity();
 		coord_arsenals.remove(a.getCoord());
-		System.out.println(matrix[x][y].getClass());
 	}
 	
 	public void placeEntity(int x, int y, Entity e) {

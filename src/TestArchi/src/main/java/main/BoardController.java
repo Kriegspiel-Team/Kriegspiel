@@ -69,6 +69,14 @@ public class BoardController {
       	engine.computeDeath();
 	}
 	
+	private void checkWinner() {
+		if (board.getWinner() == 2) {
+			boardDisplayer.displayPopup("Blue player win", "There is a winner!", JOptionPane.DEFAULT_OPTION);
+		} else if (board.getWinner() == -2) {
+			boardDisplayer.displayPopup("Red player win", "There is a winner!", JOptionPane.DEFAULT_OPTION);
+		}
+	}
+	
 	/**
 	 * Load default board.
 	 */
@@ -89,6 +97,7 @@ public class BoardController {
 		    public void run() {
 				boardDisplayer.drawEntities();
 				boardDisplayer.displayGUI();	
+				checkWinner();
 		    }
 	    });
 	}
