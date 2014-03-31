@@ -5,11 +5,22 @@ import main.Board;
 import model.Cavalry;
 import model.MovableEntity;
 
+/**
+ * The Class Potentials.
+ */
 public class Potentials {
 
+	/** The board. */
 	public Board board;
+	
+	/** The prevailing matrices. */
 	public HashMap<Integer, Integer[][]> prevailing;
 	
+	/**
+	 * Instantiates a new potentials.
+	 *
+	 * @param board the board
+	 */
 	public Potentials(Board board) {
 		this.board = board;
 		this.prevailing = new HashMap<Integer, Integer[][]>();
@@ -17,6 +28,9 @@ public class Potentials {
 		this.prevailing.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
 	}
 	
+	/**
+	 * Compute potentials.
+	 */
 	public void computePotentials() {
 
 		for(int team = 0; team < 2; team++) {
@@ -40,6 +54,14 @@ public class Potentials {
 		}
 	}
 	
+	/**
+	 * Compute attack.
+	 *
+	 * @param xi the x coord
+	 * @param yi the y coord
+	 * @param owner the owner of the unit on the square
+	 * @return the total potential attack by the enemy team on this square.
+	 */
 	public int computeAttack(int xi, int yi, int owner) {
 		int maxRange = 4;
 		
@@ -86,6 +108,14 @@ public class Potentials {
 		return attack;
 	}
 	
+	/**
+	 * Compute defence.
+	 *
+	 * @param xi the x coordinate
+	 * @param yi the y coordinate
+	 * @param owner the owner of the unit on the square
+	 * @return the total defence provided by this team on this square
+	 */
 	public int computeDefence(int xi, int yi, int owner) {
 		int maxRange = 3;
 

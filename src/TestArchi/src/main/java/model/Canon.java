@@ -1,7 +1,15 @@
 package model;
 
+/**
+ * The Class Canon.
+ */
 public class Canon extends Fighter {
 	
+	/**
+	 * Instantiates a new canon.
+	 *
+	 * @param owner the owner
+	 */
 	public Canon(int owner)
 	{
 		super();

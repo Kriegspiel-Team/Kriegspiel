@@ -11,13 +11,28 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+/**
+ * The Class Engine.
+ */
 public class Engine implements IEngine {
 	
+	/** The board. */
 	private Board board;
+	
+	/** The ks. */
 	private KieServices ks;
+	
+	/** The k container. */
 	private KieContainer kContainer;
+	
+	/** The k session. */
 	private KieSession kSession;
 
+    /**
+     * Instantiates a new engine.
+     *
+     * @param b the board
+     */
     public Engine(Board b){	
     	board = b;
     	
@@ -32,6 +47,9 @@ public class Engine implements IEngine {
         }
     }
     
+    /**
+     * Initializes the session.
+     */
     public void initSession() {
     	if(kSession != null)
     		kSession.destroy();
@@ -39,6 +57,9 @@ public class Engine implements IEngine {
     	kSession = kContainer.newKieSession("kriegspiel-knowledge");
     }
     
+    /* (non-Javadoc)
+     * @see main.IEngine#placeFixedEntities()
+     */
     @Override
 	public void placeFixedEntities() {
     	kSession.insert(board);
@@ -47,6 +68,9 @@ public class Engine implements IEngine {
         kSession.fireAllRules();
     }
     
+    /* (non-Javadoc)
+     * @see main.IEngine#computePossibleMoves()
+     */
     @Override
 	public void computePossibleMoves() {        	
     	
@@ -54,6 +78,9 @@ public class Engine implements IEngine {
         kSession.fireAllRules();
     }
 
+	/* (non-Javadoc)
+	 * @see main.IEngine#computeCommunications()
+	 */
 	@Override
 	public void computeCommunications() {
 	
@@ -75,6 +102,9 @@ public class Engine implements IEngine {
         kSession.fireAllRules();
 	}
 	
+	/* (non-Javadoc)
+	 * @see main.IEngine#computeAttackDefence()
+	 */
 	@Override
 	public void computeAttackDefence() {        	
 	    	
@@ -82,6 +112,9 @@ public class Engine implements IEngine {
 		kSession.fireAllRules();
 	}
 	
+	/* (non-Javadoc)
+	 * @see main.IEngine#computeDeath()
+	 */
 	@Override
 	public void computeDeath() {
 		kSession.getAgenda().getAgendaGroup( "DeathRule" ).setFocus();
