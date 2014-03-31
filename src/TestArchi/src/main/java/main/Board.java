@@ -39,17 +39,20 @@ public class Board {
 	public Entity getEntity(int x,int y){
 		return matrix[x][y];
 	}
+	
+	public void resetBoard(){
+		matrix = new Entity[WIDTH][HEIGHT];
+		coord_arsenals.clear();
+		communications.get(0).clear();
+		communications.get(1).clear();
+	}
 		
-	public boolean loadBoardWithFile(String filename) {		
+	public void loadBoardWithFile(EntityLoader loader) {
 		try {
-			new EntityLoader(this, filename);
+			loader.loadFile();
 		} catch (BoardFileFormatException e) {
-			return false;
+			e.printStackTrace();
 		}
-		
-		//resetBoard();
-		//this.matrix = loader.getBoard().getMatrix();
-		return true;
 	}
 	
 	public void saveArsenalPlacement(int x, int y) {
@@ -137,6 +140,10 @@ public class Board {
 	
 	public boolean isMountain(int x, int y) {
 		return matrix[x][y] instanceof Mountain;
+	}
+	
+	public boolean isArsenal(int x, int y) {
+		return matrix[x][y] instanceof Arsenal;
 	}
 	
 	public boolean isMountainPass(int x, int y) {
@@ -233,9 +240,7 @@ public class Board {
 	}
 	
 	public void computeCommunications(int x, int y, int team) {
-		
-		System.out.println(team);
-		
+				
 		int i = 0;
 		boolean north = true, south = true, east = true, west = true, northest = true, northwest = true, southeast = true, southwest = true;
 				

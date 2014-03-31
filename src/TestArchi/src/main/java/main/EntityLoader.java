@@ -21,14 +21,42 @@ public class EntityLoader {
 	private Board board;
 	private String filename;
 	
-	public EntityLoader(Board board, String filename) throws BoardFileFormatException{
+	public EntityLoader(Board board, String filename){
 		this.board = board;
 		this.filename = filename;
-		
-		readFile();
 	}
 	
-	private void readFile() throws BoardFileFormatException{
+	public boolean isValidFormat(){
+		boolean valid = true;
+		
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(filename));
+			
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] st = line.split(";");
+								
+				if (!isValidFormat(st)){
+					valid = false;
+					break;
+				}				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return valid;
+	}
+	
+	public void loadFile() throws BoardFileFormatException{
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(filename));

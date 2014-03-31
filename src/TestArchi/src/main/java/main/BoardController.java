@@ -1,6 +1,5 @@
 package main;
 
-import java.nio.file.Paths;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -35,17 +34,22 @@ public class BoardController {
 		 * Deuxieme passe pour placer les entities
 		 */
 		
+		EntityLoader loader = new EntityLoader(board, file);
+		
+		if (!loader.isValidFormat()){
+			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		board.resetBoard();
+		
 		boardDisplayer.resetSelectedSquare();
 		
 		engine.initSession();
 		engine.placeFixedEntities();
 		
-		if (!board.loadBoardWithFile(Paths.get(file).toAbsolutePath().toString())) {
-			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
-			
-			return;
-		}
-				
+		board.loadBoardWithFile(loader);
+						
 		engine.computeCommunications();
 		
 		InfluenceArea.runInfluenceArea(board);
@@ -70,7 +74,6 @@ public class BoardController {
 	}
 	
 	public void loadNewBoard(String file) {	
-		board.resetBoard();
 		
 		loadBoard(file);	
     	
