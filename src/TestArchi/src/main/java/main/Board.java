@@ -23,7 +23,10 @@ import model.UnmovableEntity;
 public class Board {
 	
 
-	private int isWin = 0;
+	private int winner = -1;
+	
+	/** The arsenals' coordinates. */
+	private ArrayList<Coord> coord_arsenals;
 
 	/** The matrix. */
 	public Entity matrix[][];
@@ -35,9 +38,6 @@ public class Board {
 	/** The number of squares on the Y axis. */
 	public static int HEIGHT = 20;
 	
-	/** The arsenals' coordinates. */
-	private ArrayList<Coord> coord_arsenals;
-	
 	/** The communications. */
 	private HashMap<Integer,HashSet<Coord>> communications;
 	
@@ -47,6 +47,7 @@ public class Board {
 	 */
 	public Board() {
 		matrix = new Entity[WIDTH][HEIGHT];
+		
 		coord_arsenals = new ArrayList<Coord>();
 		
 		communications = new HashMap<Integer,HashSet<Coord>>();
@@ -54,20 +55,24 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
-
-	public int getIsWin() {
-		return isWin;
-	}
-
-	public void setIsWin(int isWin) {
-		this.isWin = isWin;
+	public void setWinner(int team) {
+		this.winner = team;
 	}
 	
-	public int getWinner(){
-		return isWin;
+	public int getWinner() {
+		return winner;
+	}
+
+	public int getNbrInstances(Class<Entity> c, int team) {
+		int n = 0;
+		for(int y = 0; y < HEIGHT; y++)
+			for(int x = 0; x < WIDTH; x++)
+				if(matrix[x][y] != null && matrix[x][y].getClass() == c && matrix[x][y].getOwner() == team)
+					n++;
+		System.out.println("Nombre de " + c.getName() + " pour team " + team + " : " + n);
+		return n;
 	}
 	
-
 	/**
 	 * Gets the entity.
 	 *
@@ -88,7 +93,7 @@ public class Board {
 		coord_arsenals.clear();
 		communications.get(0).clear();
 		communications.get(1).clear();
-		isWin = 0;
+		winner = -1;
 	}
 		
 	/**

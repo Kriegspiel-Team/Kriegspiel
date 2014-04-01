@@ -67,12 +67,14 @@ public class BoardController {
       	potentials.computePotentials();
       	
       	engine.computeDeath();
+      	
+      	engine.computeWin();
 	}
 	
 	private void checkWinner() {
-		if (board.getWinner() == 2) {
+		if (board.getWinner() == 1) {
 			boardDisplayer.displayPopup("Blue player win", "There is a winner!", JOptionPane.DEFAULT_OPTION);
-		} else if (board.getWinner() == -2) {
+		} else if (board.getWinner() == 0) {
 			boardDisplayer.displayPopup("Red player win", "There is a winner!", JOptionPane.DEFAULT_OPTION);
 		}
 	}

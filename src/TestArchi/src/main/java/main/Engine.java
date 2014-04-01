@@ -120,4 +120,15 @@ public class Engine implements IEngine {
 		kSession.getAgenda().getAgendaGroup( "DeathRule" ).setFocus();
 		kSession.fireAllRules();
 	}
+	
+	/* (non-Javadoc)
+	 * @see main.IEngine#computeWin()
+	 */
+	@Override
+	public void computeWin() {
+		kSession.insert(board);
+		
+		kSession.getAgenda().getAgendaGroup( "Win" ).setFocus();
+		kSession.fireAllRules();
+	}
 }

@@ -29,4 +29,6 @@ public interface IEngine {
 	 * Compute death.
 	 */
 	public void computeDeath();
+	
+	public void computeWin();
 }
