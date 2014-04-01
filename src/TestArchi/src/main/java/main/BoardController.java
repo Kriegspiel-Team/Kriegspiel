@@ -100,6 +100,7 @@ public class BoardController {
 				checkWinner();
 		    }
 	    });
+		
 	}
 	
 	/**
