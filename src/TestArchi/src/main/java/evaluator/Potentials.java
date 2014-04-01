@@ -6,7 +6,8 @@ import model.Cavalry;
 import model.MovableEntity;
 
 /**
- * The Class Potentials.
+ * This class is used to compute and store the total potential attack and defence
+ * towards each Entity.
  */
 public class Potentials {
 

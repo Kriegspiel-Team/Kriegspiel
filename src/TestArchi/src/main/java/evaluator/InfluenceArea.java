@@ -10,7 +10,7 @@ import model.Relay;
 import model.SwiftRelay;
 
 /**
- * The Class InfluenceArea.
+ * This class is used  to compute and store the influence areas of each Entity.
  */
 public class InfluenceArea {
 	

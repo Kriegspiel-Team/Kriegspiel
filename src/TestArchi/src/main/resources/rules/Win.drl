@@ -1,0 +1,65 @@
+package model
+
+import main.Board;
+import model.Arsenal;
+import model.Fighter;
+import model.Relay;
+import model.SwiftRelay;
+
+
+// Deplacer les getNbrInstances dans les then
+rule "Team0WithoutArsenal"
+	agenda-group "Win"
+	no-loop
+    when
+    	$b : Board( getNbrInstances(Arsenal.class, 0) == 0, myBoard : matrix )
+    then
+    	$b.setWinner(1);
+end
+
+rule "Team1WithoutArsenal"
+	agenda-group "Win"
+	no-loop
+    when
+    	$b : Board( getNbrInstances(Arsenal.class, 1) == 0, myBoard : matrix )
+    then
+    	$b.setWinner(0);
+end
+ 
+rule "Team0WithoutFighter"
+	agenda-group "Win"
+	no-loop
+    when
+    	$b : Board( getNbrInstances(Fighter.class, 0) == 0, myBoard : matrix )
+    then
+    	$b.setWinner(1);
+end
+
+rule "Team1WithoutFighter"
+	agenda-group "Win"
+	no-loop
+    when
+    	$b : Board( getNbrInstances(Fighter.class, 1) == 0, myBoard : matrix )
+    then
+    	$b.setWinner(0);
+end
+
+rule "Team0WithoutRelay"
+	agenda-group "Win"
+	no-loop
+    when
+    	$b : Board( getNbrInstances(Relay.class, 0) == 0, myBoard : matrix )
+    then
+    
+end
+
+rule "Team1WithoutRelay"
+	agenda-group "Win"
+	no-loop
+    when
+    	$b : Board( getNbrInstances(Relay.class, 1) == 0, myBoard : matrix )
+    then
+    
+end
+ 
+

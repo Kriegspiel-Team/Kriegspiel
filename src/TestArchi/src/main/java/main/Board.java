@@ -18,7 +18,7 @@ import model.SwiftRelay;
 import model.UnmovableEntity;
 
 /**
- * The Class Board.
+ * This class represents all the game data.
  */
 public class Board {
 	
@@ -28,17 +28,16 @@ public class Board {
 	/** The arsenals' coordinates. */
 	private ArrayList<Coord> coord_arsenals;
 
-	/** The matrix. */
+	/** The matrix contains the entities. */
 	public Entity matrix[][];
 	
 	/** The number of squares on the X axis. */
-
 	public static int WIDTH = 25;
 	
 	/** The number of squares on the Y axis. */
 	public static int HEIGHT = 20;
 	
-	/** The communications. */
+	/** This contains the squares that directly form the communication lines. */
 	private HashMap<Integer,HashSet<Coord>> communications;
 	
 
@@ -102,11 +101,11 @@ public class Board {
 	 * @param loader the loader
 	 */
 	public void loadBoardWithFile(EntityLoader loader) {
-		try {
+		/*try {
 			loader.loadFile();
 		} catch (BoardFileFormatException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	/**
@@ -121,11 +120,10 @@ public class Board {
 	
 
 	/**
-	 * Place entity.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param e the entity to place at (x,y)
+	 * Checks whether an Arsenal is under attack.
+	 * 
+	 * @param a the Arsenal to check
+	 * @return whether a is under attack
 	 */
 	public boolean arsenalIsAttacked(Arsenal a) {
 		if(!a.isEmpty() && a.getEntity().getOwner() != a.getOwner())
@@ -134,11 +132,25 @@ public class Board {
 		return false;
 	}
 	
+	/**
+	 * Removes an Arsenal from both the matrix and the list
+	 * 
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @param a the Arsenal
+	 */
 	public void destroyArsenal(int x, int y, Arsenal a) {
 		matrix[x][y] = a.getEntity();
 		coord_arsenals.remove(a.getCoord());
 	}
 	
+	/**
+	 * Place entity.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param e the entity to place at (x,y)
+	 */
 	public void placeEntity(int x, int y, Entity e) {
 		if (isValidSquare(x, y)){
 			e.setCoord(new Coord(x, y));
@@ -172,15 +184,20 @@ public class Board {
 	
 
 	/**
-	 * Gets the communications.
-	 *
-	 * @param team the team
-	 * @return the communications
+	 * Gets the list of coordinates of Arsenals.
+	 * 
+	 * @return coord_arsenals
 	 */
 	public ArrayList<Coord> getCoord_arsenals() {
 		return coord_arsenals;
 	}
 	
+	/**
+	 * Gets the communications.
+	 *
+	 * @param team the team
+	 * @return the communications
+	 */
 	public HashSet<Coord> getCommunications(int team) {
 		return communications.get(team);
 	}
