@@ -10,7 +10,7 @@ rule "outOfCom"
 	when
 		$f : Fighter(isConnected() == false, $coord : coord) 
 	then
-		$f.setAttack(0);
+		$f.setAttackNull();
 		$f.setAllyDefence(0);
 		$f.setDefence(0);
 end

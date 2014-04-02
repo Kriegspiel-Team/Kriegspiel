@@ -35,4 +35,9 @@ public class Cavalry extends Fighter {
 	public int getAttackCharge() {
 		return attackCharge;
 	}
+	
+	public void setAttackNull() {
+		attack = 0;
+		attackCharge = 0;
+	}
 }

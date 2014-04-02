@@ -316,10 +316,12 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	public void displayGUI() {			
 		for(int j=0 ; j<Board.HEIGHT ; j++) {
 			for(int i=0 ; i<Board.WIDTH ; i++) {
+				
 				JPanel currentSquare = squares[i][j];
 				Entity currentEntity = matrix[i][j];
 				//squares[i][j].setBackground(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)));
 				currentSquare.removeAll();
+				
 				if(currentEntity == null)
 					currentSquare.setBackground(COLOR_EMPTY);
 				else {				
@@ -334,8 +336,13 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 							displayDefencePotential(i, j);
 							break;
 					}
+					
 					if(currentEntity instanceof Mountain)
-						currentSquare.setBackground(COLOR_MOUTAIN);				
+						currentSquare.setBackground(COLOR_MOUTAIN);
+					
+					if(currentEntity.canContain())
+						currentEntity = board.getUnit(i,j);
+					
 					colorSquareByOwner(i, j);
 					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING0 && displayMode != DISPLAY_PREVAILING1) {
 						MovableEntity currentMovable = ((MovableEntity)currentEntity);
