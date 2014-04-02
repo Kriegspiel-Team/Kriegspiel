@@ -112,11 +112,12 @@ public class Board {
 	 * @param loader the loader
 	 */
 	public void loadBoardWithFile(EntityLoader loader) {
+		//* TEST MODE
 		try {
 			loader.loadFile();
 		} catch (BoardFileFormatException e) {
 			e.printStackTrace();
-		}
+		}//*/
 	}
 	
 	/**
