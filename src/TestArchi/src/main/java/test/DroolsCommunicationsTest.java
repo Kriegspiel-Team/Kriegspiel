@@ -5,19 +5,13 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import main.Board;
-import main.BoardFileFormatException;
 import main.Coord;
 import main.Engine;
-import main.EntityLoader;
 import model.Arsenal;
 import model.Infantry;
-import model.Mountain;
 import model.Relay;
-import model.UnmovableEntity;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
 
 public class DroolsCommunicationsTest {
 	

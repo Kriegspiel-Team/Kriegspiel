@@ -3,15 +3,12 @@ package test;
 import org.junit.Test;
 
 import main.Board;
-import main.BoardFileFormatException;
 import main.Engine;
-import main.EntityLoader;
 import model.Arsenal;
 import model.Infantry;
 import model.Mountain;
 import model.UnmovableEntity;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class DroolsPlaceEntityTest {
 	
