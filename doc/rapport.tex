@@ -59,6 +59,11 @@
 	En d'autres termes, nous devrons extraire en prenant compte des règles du jeu des informations utiles d'une situation 
 	spécifique dans le but futur de pouvoir prendre une décision acceptable même si non optimisée.
 	
+	\paragraph{}
+	Nous expliquerons dans ce rapport quelle a été notre approche pour venir à bout de ce projet et détaillerons par ailleurs notre architecture et nos
+	choix d'implémentation. Nous présenterons également le rendu obtenu en détaillant le travail qui a été effectué et les options manquantes, puis
+	nous nous pencherons sur les tests qui ont été faits pour vérifier le bon fonctionnement de notre projet.
+	
 	\clearpage
 	
 	\section{Règles du jeu}    
@@ -66,17 +71,16 @@
 		\subsection{A. Apprendre à jouer}
 		
 		Le jeu de la guerre est un jeu de type tour par tour se jouant sur un plateau de 500 cases. (25 * 20)
-		Le but de celui-ci est de détruire l'armée adverses en prenant ses arsenaux ou en détruisant toutes les unités. (Voir rubrique comment gagner)
+		Le but de celui-ci est de détruire l'armée adverse en prenant ses arsenaux ou en détruisant toutes les unités. (Voir les conditions de victoire)
 		Vous disposerez de plusieurs types d'unités ayant des caractéristiques différentes (attaque, défense, portée, vitesse) que vous devrez déplacer 
 		en prenant en compte les lignes de communication.
-		Si vos unités sortent des lignes de communication, celles-ci ne pourront alors plus bouger et pourront être détruites facilement.
+		En effet, si vos unités sortent des lignes de communication, celles-ci ne pourront alors plus bouger et pourront être détruites facilement.
 		Pour accéder aux règles complètes, (caractéristiques des unités, explications plus détaillées) rendez-vous sur [Intégrer RSG biblio]
 		
 		\subsection{B. Règles à implémenter}
-		Pour toute situation de jeu donnée, voici l'ensemble de règles qu'il faudra prendre en compte.
-		Ce sont ces règles que nous allons devoir implémenter dans notre moteur de règles.
+		Pour toute situation de jeu donnée, voici la liste des règles qui devront être prises en compte par notre moteur.
 
-		\paragraph{Comment gagner}
+		\paragraph{Conditions de victoire}
 		\begin{enumerate}
 		\item Détruire tous les arsenaux adverses.
 		\item Détruire toutes les unités de combat adverses.
@@ -86,18 +90,20 @@
 		\paragraph{Lignes de communications}
 		\begin{enumerate}
 		\item Les arsenaux propagent des lignes de communication.
+		\item Un arsenal détruit ne propage plus de lignes de communication.
 		\item Un relais transmet les lignes de communications si il se trouve lui même sur une ligne de communication alliée.
 		\item Une unité est connectée si elle se trouve sur une ligne de communication.
 		\item Une unité est connectée si elle se trouve à proximité d'une unité alliée connectée.
 		\item Une unité déconnectée ne peut pas bouger.
 		\item L'attaque et la défense d'une unité déconnectée est égale à 0.
-		\item Un arsenal détruit ne propage plus de lignes de communication.
 		\end{enumerate}
 		
 		\paragraph{Calcul des potentiels}
 		\begin{enumerate}
+		\item Chaque type d'unité movible a une valeur d'attaque/défense/portée qui lui est spécifique. (voir règles précises)
 		\item L'attaque subie par une unité se calcule en additionnant toutes les attaques des unités adverses à portée.
-		\item Le potentiel défensif se calcule en additionnant toutes les défenses des unités alliées à portée.
+		\item Le potentiel défensif d'une unité se calcule en additionnant toutes les défenses des unités alliées à portée.
+		\item Même si une unité est à portée d'une autre, sa valeur d'attaque/défense n'est pas ajouté lors des calculs si un obstacle (unité adverse ou montagne) se trouve entre les deux.
 		\end{enumerate}
 		
 		\paragraph{Bonus défensifs et offensifs}
@@ -409,6 +415,22 @@
 				différentes données calculées par le StaticEvaluator.
 
 		\clearpage
+		
+	\section{Présentation du rendu}    
+
+		\subsection{ A. gna gna}
+		
+		Ceci est du texte
+		
+		\subsection{ B. gna gna}
+		
+		Ceci est du texte
+		
+		\subsection{ C. gna gna}
+		
+		Ceci est du texte
+		
+		\clearpage	
 		
 	\section{Choix algorithmiques}    
 
