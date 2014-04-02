@@ -14,10 +14,8 @@ rule "Team0WithoutArsenal"
     when
     	$b : Board()
     then
-    	if ($b.getNbrInstances(Arsenal.class, 0) == 0){
-    		System.out.println("Winner 1 / Team0WithoutArsenal");
+    	if ($b.getNbrInstances(Arsenal.class, 0) == 0)
     		$b.setWinner(1);
-    	}
 end
 
 rule "Team1WithoutArsenal"
@@ -26,10 +24,8 @@ rule "Team1WithoutArsenal"
     when
     	$b : Board()
     then
-    	if ($b.getNbrInstances(Arsenal.class, 1) == 0){
-    		System.out.println("Winner 0 / Team1WithoutArsenal");
+    	if ($b.getNbrInstances(Arsenal.class, 1) == 0)
     		$b.setWinner(0);
-    	}
 end
  
 rule "Team0WithoutFighter"
@@ -38,10 +34,8 @@ rule "Team0WithoutFighter"
     when
     	$b : Board()
     then
-    	if ($b.getNbrInstances(Fighter.class, 0) == 0) {
-    		System.out.println("Winner 1 / Team0WithoutFigther");
+    	if ($b.getNbrInstances(Fighter.class, 0) == 0)
     		$b.setWinner(1);
-    	}
 end
 
 rule "Team1WithoutFighter"
@@ -50,10 +44,8 @@ rule "Team1WithoutFighter"
     when
     	$b : Board()
     then
-    	if ($b.getNbrInstances(Fighter.class, 1) == 0) {
+    	if ($b.getNbrInstances(Fighter.class, 1) == 0)
     		$b.setWinner(0);
-    		System.out.println("Winner 0 / Team1WithoutFigther");
-    	}
 end
 
 rule "Team0WithoutRelay"
@@ -62,10 +54,8 @@ rule "Team0WithoutRelay"
     when
     	$b : Board()
     then
-    	if ($b.getNbFighterConnected(0) == 0 && $b.getNbrInstances(Relay.class, 0) == 0 && $b.getNbrInstances(SwiftRelay.class, 0) == 0) {
+    	if ($b.getNbFighterConnected(0) == 0 && $b.getNbrInstances(Relay.class, 0) == 0 && $b.getNbrInstances(SwiftRelay.class, 0) == 0)
     		$b.setWinner(1);
-    		System.out.println("Winner 1 / Team0WithoutRelay");
-    	}
 end
 
 rule "Team1WithoutRelay"
@@ -74,10 +64,8 @@ rule "Team1WithoutRelay"
     when
     	$b : Board()
     then
-   		if ($b.getNbFighterConnected(1) == 0 && $b.getNbrInstances(Relay.class, 1) == 0 && $b.getNbrInstances(SwiftRelay.class, 1) == 0 ) { 
+   		if ($b.getNbFighterConnected(1) == 0 && $b.getNbrInstances(Relay.class, 1) == 0 && $b.getNbrInstances(SwiftRelay.class, 1) == 0 )
    			$b.setWinner(0);
-   			System.out.println("Winner 0 / Team1WithoutRelay");
-   		}
 end
  
 
