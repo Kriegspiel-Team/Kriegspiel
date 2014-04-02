@@ -5,19 +5,13 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import main.Board;
-import main.BoardFileFormatException;
 import main.Coord;
 import main.Engine;
-import main.EntityLoader;
 import model.Arsenal;
 import model.Infantry;
-import model.Mountain;
 import model.Relay;
-import model.UnmovableEntity;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
 
 public class DroolsCommunicationsTest {
 	
@@ -39,7 +33,6 @@ public class DroolsCommunicationsTest {
 		Board b = new Board();
 		Engine e = new Engine(b);
 		e.initSession();
-		//e.placeFixedEntities();
 		
 		b.placeEntity(14, 1, new Arsenal(0));
 		b.saveArsenalPlacement(14, 1);
@@ -51,7 +44,7 @@ public class DroolsCommunicationsTest {
 		HashSet<Coord> comPlayer0 = b.getCommunications(0);
 		
 		assertTrue("Communication @ (14,3) for player 0", comPlayer0.contains(new Coord(14, 3)));
-		assertFalse("No communication @ (14,4) for player 0", comPlayer0.contains(new Coord(14, 6)));
+		assertFalse("No communication @ (14,6) for player 0", comPlayer0.contains(new Coord(14, 6)));
 	}
 	
 	@Test

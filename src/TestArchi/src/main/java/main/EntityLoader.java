@@ -52,6 +52,9 @@ public class EntityLoader {
 			
 			String line;
 			while ((line = br.readLine()) != null) {
+				if (line.startsWith("//"))
+					continue;
+				
 				String[] st = line.split(";");
 								
 				if (!isValidFormat(st)){
@@ -86,6 +89,9 @@ public class EntityLoader {
 			int cpt = 0;
 			String line;
 			while ((line = br.readLine()) != null) {
+				if (line.startsWith("//"))
+					continue;
+				
 				String[] st = line.split(";");
 				
 				cpt++;

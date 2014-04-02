@@ -63,24 +63,38 @@ public class Board {
 	}
 
 	public int getNbrInstances(Class<? extends Entity> c, int team) {
+		
 		int n = 0;
-		for(int y = 0; y < HEIGHT; y++)
+		for(int y = 0; y < HEIGHT; y++){
 			for(int x = 0; x < WIDTH; x++){
 				
-				
-				
-				if (getUnit(x, y) != null && (getUnit(x, y).getClass() == c || getUnit(x, y).getClass().getSuperclass() == c) && getUnit(x, y).getOwner() == team)
+				MovableEntity e = getUnit(x,y);
+				if (e != null && e.getClass().getSuperclass() == c && e.getOwner() == team)
 					n++;
 				else if (matrix[x][y] != null && matrix[x][y].getClass() == c && matrix[x][y].getOwner() == team)
 					n++;
-
 			}
-		System.out.println("Nombre de " + c.getName() + " pour team " + team + " : " + n);
+		}
+		
 		return n;
 	}
 	
 	public int getNbFighterConnected(int team) {
-		return 1;
+		
+		Class<? extends Entity> c = Fighter.class;
+		
+		int n = 0;
+		for(int y = 0; y < HEIGHT; y++){
+			for(int x = 0; x < WIDTH; x++){
+				
+				MovableEntity e = getUnit(x,y);
+				if (e != null && e.getClass().getSuperclass() == c && e.getOwner() == team)
+					if(((Fighter)e).isConnected())
+						n++;
+			}
+		}
+			
+		return n;
 	}
 	
 	/**
@@ -112,12 +126,11 @@ public class Board {
 	 * @param loader the loader
 	 */
 	public void loadBoardWithFile(EntityLoader loader) {
-		//* TEST MODE
 		try {
 			loader.loadFile();
 		} catch (BoardFileFormatException e) {
 			e.printStackTrace();
-		}//*/
+		}
 	}
 	
 	/**
