@@ -55,9 +55,8 @@
 	\paragraph{}
 	Réaliser un joueur automatique pour ce jeu est une tâche conséquente nécessitant un travail important en amont pour préparer la prise de décision.
 	Dans le cadre de ces PDP, c'est ce travail de préparation à la prise de décision que nous efectuerons, plutôt que la prise de décision elle même.
-	Notre projet consiste ainsi à pouvoir évaluer de façon statique une situation de jeu en prenant en compte toutes les règles qui s'appliquent via le moteur de règle.
-	En d'autres termes, nous devrons extraire en prenant compte des règles du jeu des informations utiles d'une situation 
-	spécifique dans le but futur de pouvoir prendre une décision acceptable même si non optimisée.
+	Notre projet consiste ainsi à pouvoir évaluer de façon statique une situation de jeu en prenant en compte toutes les règles qui s'appliquent via le moteur de règles.
+	En d'autres termes, nous devrons extraire des informations utiles d'une situation spécifique en prenant en compte les règles du jeu dans le but futur de pouvoir prendre une décision acceptable même si non optimisée.
 	
 	\paragraph{}
 	Nous expliquerons dans ce rapport quelle a été notre approche pour venir à bout de ce projet et détaillerons par ailleurs notre architecture et nos
@@ -103,7 +102,7 @@
 		\item Chaque type d'unité movible a une valeur d'attaque/défense/portée qui lui est spécifique. (voir règles précises)
 		\item L'attaque subie par une unité se calcule en additionnant toutes les attaques des unités adverses à portée.
 		\item Le potentiel défensif d'une unité se calcule en additionnant toutes les défenses des unités alliées à portée.
-		\item Même si une unité est à portée d'une autre, sa valeur d'attaque/défense n'est pas ajouté lors des calculs si un obstacle (unité adverse ou montagne) se trouve entre les deux.
+		\item Même si une unité est à portée d'une autre, sa valeur d'attaque/défense n'est pas ajoutée lors des calculs si un obstacle (unité adverse ou montagne) se trouve entre les deux.
 		\end{enumerate}
 		
 		\paragraph{Bonus défensifs et offensifs}
@@ -125,7 +124,7 @@
 	\section{Analyse de l'existant}    
 
 		\paragraph{}
-		Le jeu de la guerre appelé aussi "Kriegspiel" est parfois considéré comme l'évolution du jeu d'échecs.
+		Le jeu de la guerre appelé aussi "Kriegspiel" est parfois considéré comme une évolution du jeu d'échecs.
 		Le modèle qui nous intéresse et sur lequel nous nous baserons dans le cadre de ce projet est celui de Guy Debord qui l'a breveté en 1965.
 		Une application permettant de jouer au jeu a été développée par Radical Software Group (RSG), un collectif de développeurs et d'artistes 
 		créé en 2000 dont le but est de travailler sur des programmes expérimentaux.
@@ -175,7 +174,7 @@
 				Tests : Pour tester notre moteur de règles, nous pouvons utiliser la partie commentée du livre de Guy Debord. Nous pouvons 
 				vérifier que les coups qui sont effectués dans cette partie soient bien affichés parmis les coups valides proposés par notre 
 				moteur de règles. Cela ne nous garantira pas un fonctionnement parfait du moteur de règles néanmoins ce test pourrait nous 
-				aider à trouver des disfonctionnements. 
+				aider à trouver des dysfonctionnements. 
 				\\[0.7\baselineskip]
 				
 			\end{enumerate}
