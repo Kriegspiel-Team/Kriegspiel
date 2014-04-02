@@ -57,10 +57,15 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	private JButton displayDefenceBtn;
 	
 	/** The display prevailing0 button. */
-	private JButton displayPrevailing0Btn;
+	private JButton displayAttackEvaluator0Btn;
 	
 	/** The display prevailing1 button. */
-	private JButton displayPrevailing1Btn;
+	private JButton displayAttackEvaluator1Btn;
+	
+	private JButton displayDefenceEvaluator0Btn;
+	
+	private JButton displayDefenceEvaluator1Btn;
+	
 	
 	/**
 	 * Instantiates a new menu displayer.
@@ -112,22 +117,31 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
 		displayDefenceBtn.setFocusable(false);
-		displayPrevailing0Btn = new JButton("Prevailing team blue");
-		displayPrevailing0Btn.setFocusable(false);
-		displayPrevailing1Btn = new JButton("Prevailing team red");
-		displayPrevailing1Btn.setFocusable(false);
+		displayAttackEvaluator0Btn = new JButton("Dangerous zone for red team");
+		displayAttackEvaluator0Btn.setFocusable(false);
+		displayAttackEvaluator1Btn = new JButton("Dangerous zone for blue team");
+		displayAttackEvaluator1Btn.setFocusable(false);
+		
+		displayDefenceEvaluator0Btn = new JButton("Safe zone for blue team");
+		displayDefenceEvaluator0Btn.setFocusable(false);
+		displayDefenceEvaluator1Btn = new JButton("Safe zone for red team");
+		displayDefenceEvaluator1Btn.setFocusable(false);
 				
 		displayUnitBtn.addMouseListener(this);
 		displayAttackBtn.addMouseListener(this);
 		displayDefenceBtn.addMouseListener(this);
-		displayPrevailing0Btn.addMouseListener(this);
-		displayPrevailing1Btn.addMouseListener(this);
+		displayAttackEvaluator0Btn.addMouseListener(this);
+		displayAttackEvaluator1Btn.addMouseListener(this);
+		displayDefenceEvaluator0Btn.addMouseListener(this);
+		displayDefenceEvaluator1Btn.addMouseListener(this);
 		
 		displayModePanel.add(displayUnitBtn);
 		displayModePanel.add(displayAttackBtn);
 		displayModePanel.add(displayDefenceBtn);
-		displayModePanel.add(displayPrevailing0Btn);
-		displayModePanel.add(displayPrevailing1Btn);
+		displayModePanel.add(displayAttackEvaluator0Btn);
+		displayModePanel.add(displayDefenceEvaluator1Btn);
+		displayModePanel.add(displayAttackEvaluator1Btn);
+		displayModePanel.add(displayDefenceEvaluator0Btn);
 		
 		this.add(loadBoardBtn);
 		this.add(displayCom0);
@@ -244,21 +258,51 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		}else if (source == displayDefenceBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 			boardDisplayer.displayGUI();
-		}else if (source == displayPrevailing0Btn) {
-			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING0);
+		}else if (source == displayAttackEvaluator0Btn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK_EVAL_TEAM0);
+			
 			if(boardDisplayer.getP0Coms())
 				boardDisplayer.switchPOComs();
+			
 			if(boardDisplayer.getP1Coms())
 				boardDisplayer.switchP1Coms();
+			
 			displayCom0.setSelected(false);
 			displayCom1.setSelected(false);
 			boardDisplayer.displayGUI();
-		}else if (source == displayPrevailing1Btn) {
-			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_PREVAILING1);
+		}else if (source == displayAttackEvaluator1Btn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK_EVAL_TEAM1);
+			
 			if(boardDisplayer.getP0Coms())
 				boardDisplayer.switchPOComs();
+			
 			if(boardDisplayer.getP1Coms())
 				boardDisplayer.switchP1Coms();
+			
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
+			boardDisplayer.displayGUI();
+		}else if (source == displayDefenceEvaluator0Btn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_EVAL_TEAM0);
+			
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
+			boardDisplayer.displayGUI();
+		}else if (source == displayDefenceEvaluator1Btn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_EVAL_TEAM1);
+			
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			
 			displayCom0.setSelected(false);
 			displayCom1.setSelected(false);
 			boardDisplayer.displayGUI();

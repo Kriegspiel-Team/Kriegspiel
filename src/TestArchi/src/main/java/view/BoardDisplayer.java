@@ -80,10 +80,15 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_DEFENCE = 2;
 	
 	/** The Display mode DISPLAY_PREVAILING0. */
-	public static final int DISPLAY_PREVAILING0 = 3;
+	public static final int DISPLAY_ATTACK_EVAL_TEAM0 = 3;
 	
 	/** The Display mode DISPLAY_PREVAILING1. */
-	public static final int DISPLAY_PREVAILING1 = 4;
+	public static final int DISPLAY_ATTACK_EVAL_TEAM1 = 4;
+	
+	public static final int DISPLAY_DEFENCE_EVAL_TEAM0 = 5;
+	
+	public static final int DISPLAY_DEFENCE_EVAL_TEAM1 = 6;
+	
 	
 	/** The current display mode. */
 	private int displayMode = DISPLAY_UNITS;
@@ -344,7 +349,8 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 						currentEntity = board.getUnit(i,j);
 					
 					colorSquareByOwner(i, j);
-					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_PREVAILING0 && displayMode != DISPLAY_PREVAILING1) {
+					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_ATTACK_EVAL_TEAM0 && displayMode != DISPLAY_ATTACK_EVAL_TEAM1 
+							&& displayMode != DISPLAY_DEFENCE_EVAL_TEAM0 && displayMode != DISPLAY_DEFENCE_EVAL_TEAM1) {
 						MovableEntity currentMovable = ((MovableEntity)currentEntity);
 						if(currentMovable.canBeKilled()) {
 							((JLabel)currentSquare.getComponent(0)).setText("("+((JLabel)currentSquare.getComponent(0)).getText()+")");
@@ -363,10 +369,15 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 		else
 			drawCommunications();
 		
-		if (displayMode == DISPLAY_PREVAILING0) 
-			displayPrevailing(0);
-		if (displayMode == DISPLAY_PREVAILING1) 
-			displayPrevailing(1);
+		if (displayMode == DISPLAY_ATTACK_EVAL_TEAM0) 
+			displayAttackEvaluator(0);
+		if (displayMode == DISPLAY_ATTACK_EVAL_TEAM1) 
+			displayAttackEvaluator(1);
+		
+		if (displayMode == DISPLAY_DEFENCE_EVAL_TEAM0) 
+			displayDefenceEvaluator(0);
+		if (displayMode == DISPLAY_DEFENCE_EVAL_TEAM1) 
+			displayDefenceEvaluator(1);
 		
 		this.repaint();
 		this.setVisible(true);
@@ -407,9 +418,9 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	 *
 	 * @param team the team
 	 */
-	private void displayPrevailing(int team) {
+	private void displayAttackEvaluator(int team) {
 		
-		Integer[][] matrix = this.potential.prevailing_attack.get(team);
+		Integer[][] matrix = this.potential.matrix_attack.get(team);
 		
 		for(int y = 0 ; y < Board.HEIGHT ; y++) {
 			for(int x = 0 ; x < Board.WIDTH ; x++) {
@@ -425,6 +436,24 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 					attack = - attack;
 					squares[x][y].setBackground(new Color(Math.min(255, Math.max(0, 255 - 7*attack)), 255, Math.min(255, Math.max(0, 255 - 7*attack))));
 				}
+			}
+		}
+		
+	}
+	
+	private void displayDefenceEvaluator(int team) {
+		
+		Integer[][] matrix = this.potential.matrix_defence.get(team);
+		
+		for(int y = 0 ; y < Board.HEIGHT ; y++) {
+			for(int x = 0 ; x < Board.WIDTH ; x++) {
+				int defence = matrix[x][y];
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+				JLabel tmp = new JLabel(Integer.toString(defence), SwingConstants.RIGHT);
+				tmp.setFont(fnt);
+				squares[x][y].add(tmp);
+				
+				squares[x][y].setBackground(new Color(Math.min(255, Math.max(0, 255 - 6*defence)), 255, Math.min(255, Math.max(0, 255 - 6*defence))));
 			}
 		}
 		
@@ -547,9 +576,9 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if(e.getButton() == MouseEvent.BUTTON1)
+			if(e.getButton() == MouseEvent.BUTTON1 && displayMode == DISPLAY_UNITS)
 				drawPossibleMovement(x, y);
-			if(e.getButton() == MouseEvent.BUTTON3)
+			if(e.getButton() == MouseEvent.BUTTON3 && displayMode == DISPLAY_UNITS)
 				clearPossibleMovement();
 		}
 	

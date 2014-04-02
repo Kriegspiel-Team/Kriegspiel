@@ -55,7 +55,7 @@ public class Potentials {
 						m.setAllyDefence(defence);
 					}
 					
-					matrix_attack.get(team)[x][y] = attack;
+					matrix_attack.get((team+1)%2)[x][y] = attack;
 					matrix_defence.get(team)[x][y] = defence;
 				}
 			}
