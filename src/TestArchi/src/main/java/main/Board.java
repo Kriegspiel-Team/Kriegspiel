@@ -76,7 +76,6 @@ public class Board {
 			}
 		}
 		
-		System.out.println("Nombre de " + c.getName() + " pour team " + team + " : " + n);
 		return n;
 	}
 	
@@ -95,7 +94,6 @@ public class Board {
 			}
 		}
 			
-		System.out.println("Nombre de " + c.getName() + " en comm pour team " + team + " : " + n);
 		return n;
 	}
 	
@@ -128,12 +126,11 @@ public class Board {
 	 * @param loader the loader
 	 */
 	public void loadBoardWithFile(EntityLoader loader) {
-		//* TEST MODE
 		try {
 			loader.loadFile();
 		} catch (BoardFileFormatException e) {
 			e.printStackTrace();
-		}//*/
+		}
 	}
 	
 	/**
