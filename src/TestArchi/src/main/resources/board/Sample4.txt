@@ -1,3 +1,4 @@
+//1 arsenal, no relay & no unit connected for player 0 => player 1 win
 Infantry;0;6;5
 Infantry;0;7;5
 Infantry;0;8;5
