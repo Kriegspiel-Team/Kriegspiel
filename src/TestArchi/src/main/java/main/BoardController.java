@@ -83,7 +83,7 @@ public class BoardController {
 	 * Load default board.
 	 */
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/Sample1.txt");
+		loadNewBoard("src/main/resources/board/Sample4.txt");
 	}
 	
 	/**
