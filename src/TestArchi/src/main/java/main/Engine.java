@@ -55,15 +55,15 @@ public class Engine implements IEngine {
     		kSession.destroy();
 
     	kSession = kContainer.newKieSession("kriegspiel-knowledge");
+    	
+    	kSession.insert(board);
     }
     
     /* (non-Javadoc)
      * @see main.IEngine#placeFixedEntities()
      */
     @Override
-	public void placeFixedEntities() {
-    	kSession.insert(board);
-    	
+	public void placeFixedEntities() {    	
     	kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
         kSession.fireAllRules();
     }

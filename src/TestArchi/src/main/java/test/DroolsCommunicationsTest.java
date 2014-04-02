@@ -39,7 +39,6 @@ public class DroolsCommunicationsTest {
 		Board b = new Board();
 		Engine e = new Engine(b);
 		e.initSession();
-		//e.placeFixedEntities();
 		
 		b.placeEntity(14, 1, new Arsenal(0));
 		b.saveArsenalPlacement(14, 1);
@@ -51,7 +50,7 @@ public class DroolsCommunicationsTest {
 		HashSet<Coord> comPlayer0 = b.getCommunications(0);
 		
 		assertTrue("Communication @ (14,3) for player 0", comPlayer0.contains(new Coord(14, 3)));
-		assertFalse("No communication @ (14,4) for player 0", comPlayer0.contains(new Coord(14, 6)));
+		assertFalse("No communication @ (14,6) for player 0", comPlayer0.contains(new Coord(14, 6)));
 	}
 	
 	@Test

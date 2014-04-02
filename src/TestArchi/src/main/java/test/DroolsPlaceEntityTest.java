@@ -11,6 +11,7 @@ import model.Infantry;
 import model.Mountain;
 import model.UnmovableEntity;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class DroolsPlaceEntityTest {
 	
@@ -31,6 +32,21 @@ public class DroolsPlaceEntityTest {
 		assertEquals("Arsenal @ (2,19) [player 1]", 1, b.getMatrix()[2][19].getOwner());
 		assertEquals("Arsenal @ (22,19)", Arsenal.class, b.getMatrix()[22][19].getClass());
 		assertEquals("Arsenal @ (22,19) [player 1]", 1, b.getMatrix()[22][19].getOwner());
+	}
+	
+	@Test
+	public void testPlaceEntityOutOfBoard() {
+		Board b = new Board();
+		Engine e = new Engine(b);
+		e.initSession();
+		
+		int sizeBefore = b.getMatrix().length;
+		
+		b.placeEntity(-2, -5, new Infantry(0));
+		
+		int sizeAfter = b.getMatrix().length;
+		
+		assertEquals(sizeBefore, sizeAfter);
 	}
 	
 	@Test
