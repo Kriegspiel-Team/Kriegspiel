@@ -1,8 +1,9 @@
-//1 arsenal, no relay & no unit connected for player 0 => player 1 win
+//No arsenal for player 0 => Player 1 win
 Infantry;0;6;5
 Infantry;0;7;5
 Infantry;0;8;5
 Infantry;0;8;6
+Infantry;0;10;5
 Infantry;0;12;5
 Infantry;0;13;6
 Infantry;0;11;7
@@ -11,11 +12,19 @@ Cavalry;0;6;3
 Cavalry;1;7;3
 Cavalry;0;8;4
 Cavalry;0;9;5
+Canon;0;11;4
 SwiftCanon;0;3;5
+Relay;0;3;3
+SwiftRelay;0;17;1
+Infantry;1;14;1
 Infantry;1;6;6
 Infantry;1;6;7
 Infantry;1;7;7
 Infantry;1;10;6
+Infantry;1;10;8
+Infantry;1;20;13
+Infantry;1;22;14
+Infantry;1;15;14
 Cavalry;1;12;6
 Cavalry;1;12;7
 Cavalry;1;12;8
