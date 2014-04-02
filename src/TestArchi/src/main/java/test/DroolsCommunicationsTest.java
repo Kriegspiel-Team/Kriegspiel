@@ -39,7 +39,10 @@ public class DroolsCommunicationsTest {
 		Board b = new Board();
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
+		//e.placeFixedEntities();
+		
+		b.placeEntity(14, 1, new Arsenal(0));
+		b.saveArsenalPlacement(14, 1);
 		
 		b.placeEntity(14, 4, new Infantry(1));
 		
