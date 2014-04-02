@@ -409,7 +409,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	 */
 	private void displayPrevailing(int team) {
 		
-		Integer[][] matrix = this.potential.prevailing.get(team);
+		Integer[][] matrix = this.potential.prevailing_attack.get(team);
 		
 		for(int y = 0 ; y < Board.HEIGHT ; y++) {
 			for(int x = 0 ; x < Board.WIDTH ; x++) {
@@ -418,7 +418,13 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 				JLabel tmp = new JLabel(Integer.toString(attack), SwingConstants.RIGHT);
 				tmp.setFont(fnt);
 				squares[x][y].add(tmp);
-				squares[x][y].setBackground(new Color(255, Math.min(255, Math.max(0, 255 - 7*attack)), Math.min(255, Math.max(0, 255 - 7*attack))));
+				
+				if(attack>0)
+					squares[x][y].setBackground(new Color(255, Math.min(255, Math.max(0, 255 - 7*attack)), Math.min(255, Math.max(0, 255 - 7*attack))));
+				else {
+					attack = - attack;
+					squares[x][y].setBackground(new Color(Math.min(255, Math.max(0, 255 - 7*attack)), 255, Math.min(255, Math.max(0, 255 - 7*attack))));
+				}
 			}
 		}
 		

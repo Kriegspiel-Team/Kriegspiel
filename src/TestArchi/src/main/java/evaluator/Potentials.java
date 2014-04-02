@@ -15,7 +15,8 @@ public class Potentials {
 	public Board board;
 	
 	/** The prevailing matrices. */
-	public HashMap<Integer, Integer[][]> prevailing;
+	public HashMap<Integer, Integer[][]> matrix_attack;
+	public HashMap<Integer, Integer[][]> matrix_defence;
 	
 	/**
 	 * Instantiates a new potentials.
@@ -24,9 +25,14 @@ public class Potentials {
 	 */
 	public Potentials(Board board) {
 		this.board = board;
-		this.prevailing = new HashMap<Integer, Integer[][]>();
-		this.prevailing.put(0, new Integer[Board.WIDTH][Board.HEIGHT]);
-		this.prevailing.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
+		
+		this.matrix_attack = new HashMap<Integer, Integer[][]>();
+		this.matrix_attack.put(0, new Integer[Board.WIDTH][Board.HEIGHT]);
+		this.matrix_attack.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
+		
+		this.matrix_defence = new HashMap<Integer, Integer[][]>();
+		this.matrix_defence.put(0, new Integer[Board.WIDTH][Board.HEIGHT]);
+		this.matrix_defence.put(1, new Integer[Board.WIDTH][Board.HEIGHT]);
 	}
 	
 	/**
@@ -49,7 +55,8 @@ public class Potentials {
 						m.setAllyDefence(defence);
 					}
 					
-					prevailing.get(team)[x][y] = attack;
+					matrix_attack.get(team)[x][y] = attack;
+					matrix_defence.get(team)[x][y] = defence;
 				}
 			}
 		}
