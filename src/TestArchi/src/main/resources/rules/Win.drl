@@ -12,54 +12,68 @@ rule "Team0WithoutArsenal"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board( getNbrInstances(Arsenal.class, 0) == 0, myBoard : matrix )
+    	$b : Board()
     then
-    	$b.setWinner(1);
+    	if ($b.getNbrInstances(Arsenal.class, 0) == 0){
+    		System.out.println("Winner 1 / Team0WithoutArsenal");
+    		$b.setWinner(1);
+    	}
 end
 
 rule "Team1WithoutArsenal"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board( getNbrInstances(Arsenal.class, 1) == 0, myBoard : matrix )
+    	$b : Board()
     then
-    	$b.setWinner(0);
+    	if ($b.getNbrInstances(Arsenal.class, 1) == 0){
+    		System.out.println("Winner 0 / Team1WithoutArsenal");
+    		$b.setWinner(0);
+    	}
 end
  
 rule "Team0WithoutFighter"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board( getNbrInstances(Fighter.class, 0) == 0, myBoard : matrix )
+    	$b : Board()
     then
-    	$b.setWinner(1);
+    	if ($b.getNbrInstances(Fighter.class, 0) == 0) {
+    		System.out.println("Winner 1 / Team0WithoutFigther");
+    		$b.setWinner(1);
+    	}
 end
 
 rule "Team1WithoutFighter"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board( getNbrInstances(Fighter.class, 1) == 0, myBoard : matrix )
+    	$b : Board()
     then
-    	$b.setWinner(0);
+    	if ($b.getNbrInstances(Fighter.class, 1) == 0) {
+    		$b.setWinner(0);
+    		System.out.println("Winner 0 / Team1WithoutFigther");
+    	}
 end
 
 rule "Team0WithoutRelay"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board( getNbrInstances(Relay.class, 0) == 0, myBoard : matrix )
+    	$b : Board()
     then
-    
+    	if ($b.getNbrInstances(Relay.class, 0) == 0 && $b.getNbrInstances(SwiftRelay.class, 0) == 0 && $b.getNbFighterConnected(0) == 0)
+    		System.out.println("COUCOU");
 end
 
 rule "Team1WithoutRelay"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board( getNbrInstances(Relay.class, 1) == 0, myBoard : matrix )
+    	$b : Board()
     then
-    
+   		if ($b.getNbrInstances(Relay.class, 1) == 0 && $b.getNbrInstances(SwiftRelay.class, 1) == 0 && $b.getNbFighterConnected(1) == 0 ) 
+   			System.out.println("COUCOU2");
 end
  
 
