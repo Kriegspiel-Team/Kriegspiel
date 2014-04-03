@@ -17,7 +17,7 @@ public class DroolsWinTest {
 		e.initSession();
 		e.placeFixedEntities();
 		
-		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/NoArsenalForPlayer0.txt");
+		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/NoArsenalForPlayer0.txt", "src/main/resources/board/Map1.txt");
 		b.loadBoardWithFile(loader);
 		
 		e.computeCommunications();

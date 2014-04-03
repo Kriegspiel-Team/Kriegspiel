@@ -127,7 +127,7 @@ public class Board {
 	 */
 	public void loadBoardWithFile(EntityLoader loader) {
 		try {
-			loader.loadFile();
+			loader.loadMovableEntities();
 		} catch (BoardFileFormatException e) {
 			e.printStackTrace();
 		}

@@ -15,18 +15,18 @@ public class LoaderTest {
 	@Test(expected = BoardFileFormatException.class)
 	public void testExceptionIsThrown() throws BoardFileFormatException {
 		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/ErrSample.txt");
+		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/ErrSample.txt", "src/main/resources/board/Map1.txt");
 		b.loadBoardWithFile(loader);
-		loader.loadFile();
+		loader.loadMovableEntities();
 	}
 	
 	@Test
 	public void testEntityPlacement() {
 		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/SingleInfantry.txt");
+		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/SingleInfantry.txt", "src/main/resources/board/Map1.txt");
 		b.loadBoardWithFile(loader);
 		try {
-			loader.loadFile();
+			loader.loadMovableEntities();
 		} catch (BoardFileFormatException e) {
 			e.printStackTrace();
 		}

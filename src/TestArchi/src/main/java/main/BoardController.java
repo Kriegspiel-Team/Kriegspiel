@@ -25,6 +25,8 @@ public class BoardController {
 	/** The board displayer. */
 	private BoardDisplayer boardDisplayer;
 	
+	private EntityLoader loader;
+	
 	/**
 	 * Instantiates a new board controller.
 	 */
@@ -32,6 +34,8 @@ public class BoardController {
 		board = new Board();
 		engine = new Engine(board);
 		potentials = new Potentials(board);
+		loader = new EntityLoader(board);
+		loader.setMapFilename("src/main/resources/board/Map1.txt");
 	}
 	
 	/**
@@ -41,8 +45,8 @@ public class BoardController {
 	 *
 	 * @param file the file
 	 */
-	private void loadBoard(String file) {		
-		EntityLoader loader = new EntityLoader(board, file);
+	private void loadBoard() {		
+		//EntityLoader loader = new EntityLoader(board, file, mapFile);
 		
 		if (!loader.isValidFormat()){
 			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
@@ -54,7 +58,9 @@ public class BoardController {
 		boardDisplayer.resetSelectedSquare();
 		
 		engine.initSession();
-		engine.placeFixedEntities();
+		
+		//engine.placeFixedEntities();
+		loader.loadMap();
 		
 		board.loadBoardWithFile(loader);
 						
@@ -92,7 +98,9 @@ public class BoardController {
 	 * @param file the file from which to load the board data
 	 */
 	public void loadNewBoard(String file) {	
-		loadBoard(file);	
+		loader.setMovableEntityFilename(file);
+		
+		loadBoard();	
     	
 		SwingUtilities.invokeLater(new Runnable() {
 		    @Override
