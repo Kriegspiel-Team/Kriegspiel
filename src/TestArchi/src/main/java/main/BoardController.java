@@ -35,7 +35,7 @@ public class BoardController {
 		engine = new Engine(board);
 		potentials = new Potentials(board);
 		loader = new EntityLoader(board);
-		loader.setMapFilename("src/main/resources/board/Map1.txt");
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class BoardController {
 	 * Load default board.
 	 */
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/Sample1.txt");
+		loadNewBoard("src/main/resources/board/Sample1.ksv");
 	}
 	
 	/**
@@ -99,6 +99,27 @@ public class BoardController {
 	 */
 	public void loadNewBoard(String file) {	
 		loader.setMovableEntityFilename(file);
+		
+		loadBoard();	
+    	
+		SwingUtilities.invokeLater(new Runnable() {
+		    @Override
+		    public void run() {
+				boardDisplayer.drawEntities();
+				boardDisplayer.displayGUI();	
+				checkWinner();
+		    }
+	    });
+		
+	}
+	
+	/**
+	 * Load new map.
+	 *
+	 * @param file the file from which to load the map data
+	 */
+	public void loadNewMap(String file) {	
+		loader.setMapFilename(file);
 		
 		loadBoard();	
     	
