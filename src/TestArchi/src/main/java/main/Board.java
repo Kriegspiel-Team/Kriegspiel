@@ -76,7 +76,6 @@ public class Board {
 	}
 
 	public int getNbrInstances(Class<? extends Entity> c, int team) {
-		
 		int n = 0;
 		for(int y = 0; y < HEIGHT; y++){
 			for(int x = 0; x < WIDTH; x++){
@@ -131,6 +130,7 @@ public class Board {
 		communications.get(0).clear();
 		communications.get(1).clear();
 		winner = -1;
+		mapLoaded = false;
 	}
 	
 	/**
