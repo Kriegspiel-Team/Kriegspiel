@@ -4,12 +4,12 @@ package main;
 import view.BoardDisplayer;
 
 /**
- * The Class Main.
+ * The Main Class.
  */
 public class Main {
 
 	/**
-	 * The main method.
+	 * The program's entry point.
 	 */
 	public static void main(String[] args) {
 		
