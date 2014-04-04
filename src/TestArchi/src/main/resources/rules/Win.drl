@@ -12,9 +12,10 @@ rule "Team0WithoutArsenal"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board()
+    	$b : Board( isMapLoaded(), getNbrInstances(Arsenal.class, 0) == 0 )
     then
-    	if ($b.getNbrInstances(Arsenal.class, 0) == 0)
+    	System.out.println("Win because : Team0WithoutArsenal");
+    	//if ($b.getNbrInstances(Arsenal.class, 0) == 0)
     		$b.setWinner(1);
 end
 
@@ -22,9 +23,10 @@ rule "Team1WithoutArsenal"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board()
+    	$b : Board( isMapLoaded(), getNbrInstances(Arsenal.class, 1) == 0 )
     then
-    	if ($b.getNbrInstances(Arsenal.class, 1) == 0)
+    	System.out.println("Win because : Team1WithoutArsenal");
+    	//if ($b.getNbrInstances(Arsenal.class, 1) == 0)
     		$b.setWinner(0);
 end
  
@@ -32,9 +34,10 @@ rule "Team0WithoutFighter"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board()
+    	$b : Board( isMapLoaded(), getNbrInstances(Fighter.class, 0) == 0 )
     then
-    	if ($b.getNbrInstances(Fighter.class, 0) == 0)
+    	System.out.println("Win because : Team0WithoutFighter");
+    	//if ($b.getNbrInstances(Fighter.class, 0) == 0)
     		$b.setWinner(1);
 end
 
@@ -42,9 +45,10 @@ rule "Team1WithoutFighter"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board()
+    	$b : Board( isMapLoaded(), getNbrInstances(Fighter.class, 1) == 0 )
     then
-    	if ($b.getNbrInstances(Fighter.class, 1) == 0)
+    	System.out.println("Win because : Team1WithoutFighter");
+    	//if ($b.getNbrInstances(Fighter.class, 1) == 0)
     		$b.setWinner(0);
 end
 
@@ -52,9 +56,10 @@ rule "Team0WithoutRelay"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board()
+    	$b : Board( isMapLoaded(), getNbFighterConnected(0) == 0 && getNbrInstances(Relay.class, 0) == 0 && getNbrInstances(SwiftRelay.class, 0) == 0 )
     then
-    	if ($b.getNbFighterConnected(0) == 0 && $b.getNbrInstances(Relay.class, 0) == 0 && $b.getNbrInstances(SwiftRelay.class, 0) == 0)
+    	System.out.println("Win because : Team0WithoutRelay");
+    	//if ($b.getNbFighterConnected(0) == 0 && $b.getNbrInstances(Relay.class, 0) == 0 && $b.getNbrInstances(SwiftRelay.class, 0) == 0)
     		$b.setWinner(1);
 end
 
@@ -62,9 +67,10 @@ rule "Team1WithoutRelay"
 	agenda-group "Win"
 	no-loop
     when
-    	$b : Board()
+    	$b : Board( isMapLoaded(), getNbFighterConnected(1) == 0 && getNbrInstances(Relay.class, 1) == 0 && getNbrInstances(SwiftRelay.class, 1) == 0 )
     then
-   		if ($b.getNbFighterConnected(1) == 0 && $b.getNbrInstances(Relay.class, 1) == 0 && $b.getNbrInstances(SwiftRelay.class, 1) == 0 )
+    	System.out.println("Win because : Team1WithoutRelay");
+   		//if ($b.getNbFighterConnected(1) == 0 && $b.getNbrInstances(Relay.class, 1) == 0 && $b.getNbrInstances(SwiftRelay.class, 1) == 0 )
    			$b.setWinner(0);
 end
  
