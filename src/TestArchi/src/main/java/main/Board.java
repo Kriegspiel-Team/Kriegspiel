@@ -76,7 +76,6 @@ public class Board {
 	}
 
 	public int getNbrInstances(Class<? extends Entity> c, int team) {
-		
 		int n = 0;
 		for(int y = 0; y < HEIGHT; y++){
 			for(int x = 0; x < WIDTH; x++){
@@ -106,7 +105,7 @@ public class Board {
 						n++;
 			}
 		}
-			
+		
 		return n;
 	}
 	
@@ -131,6 +130,7 @@ public class Board {
 		communications.get(0).clear();
 		communications.get(1).clear();
 		winner = -1;
+		mapLoaded = false;
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class Board {
 	 */
 	public boolean arsenalIsAttacked(Arsenal a) {
 		if(!a.isEmpty() && a.getEntity().getOwner() != a.getOwner())
-			if(!(a.getEntity() instanceof Relay) || !(a.getEntity() instanceof SwiftRelay))
+			if(!(a.getEntity() instanceof Relay) && !(a.getEntity() instanceof SwiftRelay))
 				return true;
 		return false;
 	}
