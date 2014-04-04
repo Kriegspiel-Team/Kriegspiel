@@ -1,8 +1,10 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}  
-\usepackage[francais]{babel}  
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}  
 \usepackage{graphicx}
 \usepackage{url}
+\usepackage{ulem}
 \usepackage[hidelinks,breaklinks]{hyperref}
 \usepackage{breakurl}
 
@@ -20,12 +22,8 @@
 		Hubert Mondon
 	}                       
 	\date{}
-	\maketitle{}                
+	\maketitle{}                          
 
-	\let\thefootnote\relax
-	\footnotetext{Revision~\GITAbrHash, \GITAuthorDate.}             
-
-	\clearpage
 	\clearpage
 	
 	\section*{Resume}
@@ -38,36 +36,45 @@
 	L'objectif de ce projet est donc de créer une base solide qui permettra par la suite d'implémenter un moteur 
 	décisionnel qui se base sur nos données statiques pour ses divers calculs.
 	
-	
+	\let\thefootnote\relax
+	\footnotetext{Revision~\GITAbrHash, \GITAuthorDate.}  
+
 	\clearpage
 	
 	\tableofcontents
 	
 	\clearpage
 
-	\section{Introduction}
-	
-	\paragraph{}
-	Le jeu de la guerre a été inventé par Guy Debord en 1965 dans le but de faire apparaître les différentes stratégies de la guerre sur un jeu de plateau. 
-	Les règles y sont donc nombreuses et le jeu est assez complexe ce qui permet la mise en application de stratégies très variées.
-	En raison de ces nombreuses règles et de sa complexité notoire, il n'existe à ce jour aucun joueur contrôlé par ordinateur permettant de jouer à ce jeu.
-	
-	\paragraph{}
-	Réaliser un joueur automatique pour ce jeu est une tâche conséquente nécessitant un travail important en amont pour préparer la prise de décision.
-	Dans le cadre de ces PDP, c'est ce travail de préparation à la prise de décision que nous efectuerons, plutôt que la prise de décision elle même.
-	Notre projet consiste ainsi à pouvoir évaluer de façon statique une situation de jeu en prenant en compte toutes les règles qui s'appliquent via le moteur de règles.
-	En d'autres termes, nous devrons extraire des informations utiles d'une situation spécifique en prenant en compte les règles du jeu dans le but futur de pouvoir prendre une décision acceptable même si non optimisée.
-	
-	\paragraph{}
-	Nous expliquerons dans ce rapport quelle a été notre approche pour venir à bout de ce projet et détaillerons par ailleurs notre architecture et nos
-	choix d'implémentation. Nous présenterons également le rendu obtenu en détaillant le travail qui a été effectué et les options manquantes, puis
-	nous nous pencherons sur les tests qui ont été faits pour vérifier le bon fonctionnement de notre projet.
-	
-	\clearpage
-	
-	\section{Règles du jeu}    
+	%\section{Introduction}
 
-		\subsection{A. Apprendre à jouer}
+	\chapter{Introduction}
+	\markboth{\MakeUppercase{Introduction}}{}
+	
+
+		\paragraph{}
+		Le jeu de la guerre a été inventé par Guy Debord en 1965 dans le but de faire apparaître les différentes stratégies de la guerre sur un jeu de plateau. 
+		Les règles y sont donc nombreuses et le jeu est assez complexe ce qui permet la mise en application de stratégies très variées.
+		En raison de ces nombreuses règles et de sa complexité notoire, il n'existe à ce jour aucun joueur contrôlé par ordinateur permettant de jouer à ce jeu.
+		
+		\paragraph{}
+		Réaliser un joueur automatique pour ce jeu est une tâche conséquente nécessitant un travail important en amont pour préparer la prise de décision.
+		Dans le cadre de ces PDP, c'est ce travail de préparation à la prise de décision que nous efectuerons, plutôt que la prise de décision elle même.
+		Notre projet consiste ainsi à pouvoir évaluer de façon statique une situation de jeu en prenant en compte toutes les règles qui s'appliquent via le moteur de règles.
+		En d'autres termes, nous devrons extraire des informations utiles d'une situation spécifique en prenant en compte les règles du jeu dans le but futur de pouvoir prendre une décision acceptable même si non optimisée.
+		
+		\paragraph{}
+		Nous expliquerons dans ce rapport quelle a été notre approche pour venir à bout de ce projet et détaillerons par ailleurs notre architecture et nos
+		choix d'implémentation. Nous présenterons également le rendu obtenu en détaillant le travail qui a été effectué et les options manquantes, puis
+		nous nous pencherons sur les tests qui ont été faits pour vérifier le bon fonctionnement de notre projet.
+		
+		\clearpage
+
+	%\section{Règles du jeu}  
+
+	\chapter{Règles du jeu}
+	\markboth{\MakeUppercase{Règles du jeu}}{}
+
+		\section{Apprendre à jouer}
 		
 		Le jeu de la guerre est un jeu de type tour par tour se jouant sur un plateau de 500 cases. (25 * 20)
 		Le but de celui-ci est de détruire l'armée adverse en prenant ses arsenaux ou en détruisant toutes les unités. (Voir les conditions de victoire)
@@ -76,7 +83,7 @@
 		En effet, si vos unités sortent des lignes de communication, celles-ci ne pourront alors plus bouger et pourront être détruites facilement.
 		Pour accéder aux règles complètes, (caractéristiques des unités, explications plus détaillées) rendez-vous sur [Intégrer RSG biblio]
 		
-		\subsection{B. Règles à implémenter}
+		\section{Règles à implémenter}
 		Pour toute situation de jeu donnée, voici la liste des règles qui devront être prises en compte par notre moteur.
 
 		\paragraph{Conditions de victoire}
@@ -121,7 +128,10 @@
 		\end{enumerate}
 		\clearpage
 
-	\section{Analyse de l'existant}    
+	%\section{Analyse de l'existant}  
+
+	\chapter{Analyse de l'existant}
+	\markboth{\MakeUppercase{Analyse de l'existant}}{} 
 
 		\paragraph{}
 		Le jeu de la guerre appelé aussi "Kriegspiel" est parfois considéré comme une évolution du jeu d'échecs.
@@ -155,9 +165,12 @@
 		
 		\clearpage
 
-	\section{Etude des besoins}    
+	%\section{Etude des besoins}   
 
-		\subsection{Réalisation d'un moteur de règles}
+	\chapter{Etude des besoins}
+	\markboth{\MakeUppercase{Etude des besoins}}{}
+
+		\section{Réalisation d'un moteur de règles}
 
 			Notre moteur de règles est un système qui doit posséder l'ensemble des règles du jeu afin de pouvoir les appliquer à une situation de jeu.
 
@@ -179,7 +192,7 @@
 				
 			\end{enumerate}
 
-		\subsection{Interface graphique}
+		\section{Interface graphique}
 
 			\begin{enumerate}
 
@@ -206,7 +219,7 @@
 				
 			\end{enumerate}
 
-		\subsection{Représentation d'une situation de jeu}
+		\section{Représentation d'une situation de jeu}
 
 			\begin{enumerate}
 
@@ -223,7 +236,7 @@
 				
 			\end{enumerate}
 
-		\subsection{Evaluation statique des positions}
+		\section{Evaluation statique des positions}
 
 			\begin{enumerate}
 
@@ -266,7 +279,7 @@
 				
 			\end{enumerate}
 
-		\subsection{Evaluation dynamique des positions}
+		\section{Evaluation dynamique des positions}
 
 			\begin{enumerate}
 
@@ -285,7 +298,7 @@
 				
 			\end{enumerate}
 
-		\subsection{Moteur tactique}
+		\section{Moteur tactique}
 
 			\begin{enumerate}
 
@@ -300,17 +313,20 @@
 		
 		\clearpage
 
-	\section{Architecture du projet}    
+	%\section{Architecture du projet}    
 
-		\subsection{Schéma UML}
+	\chapter{Architecture du projet}
+	\markboth{\MakeUppercase{Architecture du projet}}{}
+
+		\section{Schéma UML}
 
 			\includegraphics[scale=0.4]{images/diag_classes.eps}
 
 			\clearpage
 
-		\subsection{Description des classes}
+		\section{Description des classes}
 
-			\subsubsection{Board}
+			\subsection{Board}
 			
 				\paragraph{Définition :}
 				Le Board est une matrice de taille fixe représentant une situation de jeu.
@@ -318,7 +334,7 @@
 				Certaines cases du Board contiendront des objets de type Entity.
 				
 
-			\subsubsection{EntityLoader}
+			\subsection{EntityLoader}
 
 				\paragraph{Définition :}
 				Classe permettant de charger une partie à partir d'un fichier. Elle transcrira les informations brute du 
@@ -326,14 +342,14 @@
 				\paragraph{Interaction :}
 				L'EntityLoader interagira avec le Board puisque sa fonction consiste à modifier celui-ci.
 
-			\subsubsection{Entity}
+			\subsection{Entity}
 
 				\paragraph{Définition :}
 				Les Entity représentent les éléments de jeu (les unités ainsi que les batiments et obstacles).
 				\paragraph{Interaction :}
 				Toutes les Entity seront disposées à l'intérieur d'une matrice dans la classe Board.
 
-			\subsubsection{MovableEntity}
+			\subsection{MovableEntity}
 
 				\paragraph{Définition :}
 				Les MovableEntity sont les unités movibles telles que les infanteries, les cavaliers, les canons ou toute autre unité 
@@ -341,7 +357,7 @@
 				\paragraph{Interaction :}
 				Les MovableEntity seront disposées à l'intérieur d'une matrice dans la classe Plateau.
 
-			\subsubsection{UnmovableEntity}
+			\subsection{UnmovableEntity}
 
 				\paragraph{Définition :}
 				Les UnmovableEntity sont des entités présentes sur le plateau mais que les règles ne permettent pas de déplacer. 
@@ -350,7 +366,7 @@
 				Les UnmovableEntity seront disposées à l'intérieur d'une matrice dans la classe Board. 
 				Certaines UnmovableEntity pourront par ailleurs contenir des MovableEntity. (exemple : les forts)
 
-			\subsubsection{Engine}
+			\subsection{Engine}
 
 				!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 				\paragraph{Définition :}
@@ -359,7 +375,7 @@
 				\paragraph{Interaction :}
 				L'Engine intéragira avec .....
 
-			\subsubsection{Rule}
+			\subsection{Rule}
 
 				!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 				\paragraph{Définition :}
@@ -368,7 +384,7 @@
 				\paragraph{Interaction :}
 				Les règles seront envoyées à l'Engine qui devra se charger de les appliquer.
 
-			\subsubsection{InfluenceArea}
+			\subsection{InfluenceArea}
 
 				\paragraph{Définition :}
 				Cette classe permettra de calculer les zones d'influence des unités, c'est à dire l'ensemble des cases sur lesquelles 
@@ -377,7 +393,7 @@
 				La classe InfluenceArea aura besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans 
 				les entités elles-mêmes.
 
-			\subsubsection{Potential}
+			\subsection{Potential}
 
 				\paragraph{Définition :}
 				Cette classe permettra de calculer les potentiels offensifs et défensifs des unités en fonction de leur configuration spatiale.
@@ -385,7 +401,7 @@
 				La classe Potential aura besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans les 
 				entités elles-mêmes.
 
-			\subsubsection{DangerousnessMatrix}
+			\subsection{DangerousnessMatrix}
 
 				!!!!!!!!!!!! A COMPLETER - Ne va même pas exister ? !!!!!!!!!!!!
 				\paragraph{Définition :}
@@ -393,7 +409,7 @@
 				\paragraph{Interaction :}
 				La classe DangerousnessMatrix ...
 
-			\subsubsection{StaticEvaluator}
+			\subsection{StaticEvaluator}
 
 				!!!!!!!!!!!! A COMPLETER - Ne va même pas exister ? !!!!!!!!!!!!
 				\paragraph{Définition :}
@@ -404,7 +420,7 @@
 				de les mettre à jour. Le moteur décisionnel aura quant à lui accès à l'évaluateur pour pouvoir prendre des décisions en fonction 
 				des résultats trouvés par l'évaluateur.
 
-			\subsubsection{DecisionnalEngine}
+			\subsection{DecisionnalEngine}
 
 				\paragraph{Définition :}
 				Le DecisionnalEngine se charge de choisir le coup à jouer en fonction d'une situation de jeu donnée et des résultats 
@@ -413,7 +429,7 @@
 				Le DecisionnalEngine interagira avec le Board pour connaître la situation de jeu et les Entity pour connaître les 
 				différentes données calculées par le StaticEvaluator.
 
-			\subsubsection{BoardDisplayer}
+			\subsection{BoardDisplayer}
 
 				\paragraph{Définition :}
 				Ceci est la classe principale de l'interface graphique. Elle se charge d'afficher les données (Entités et valeurs calculées)
@@ -422,7 +438,7 @@
 				Le BoardDisplayer récupère les données contenues dans le Board afin de pouvoir les afficher, il récupère également des données qui sont calculées
 				par le moteur de règles pour chaque entité et stockées dans les entités.
 
-			\subsubsection{MenuDisplayer}
+			\subsection{MenuDisplayer}
 
 				\paragraph{Définition :}
 				C'est la deuxième classe formant l'interface graphique. Elle contient les boutons et checkboxes qui permettent
@@ -432,11 +448,14 @@
 				sur les éléments du menu ou utilise des raccourcis clavier.
 
 
-		\clearpage
 		
-	\section{Présentation du rendu}    
+		
+	%\section{Présentation du rendu}
 
-		\subsection{ Aspect général}
+	\chapter{Présentation du rendu}
+	\markboth{\MakeUppercase{Présentation du rendu}}{}     
+
+		\section{ Aspect général}
 
 			\includegraphics[scale=0.4]{images/screen1.eps}
 			\paragraph{Le plateau :}
@@ -456,180 +475,197 @@
 			- Les checkboxes permettent d'activer ou de désactiver les communications
 			- Les grands boutons permettent de changer le mode d'affichage
 
-		\subsection{ Les modes d'affichage}
+		\section{ Les modes d'affichage}
 
-			\subsubsection{ Mode unités}
+			\subsection{ Mode unités}
 			\includegraphics[scale=0.4]{images/screen1.eps}
 			C'est le mode d'affichage principal, les symboles des unités sont affichés.
 
 			\clearpage
 
-			\subsubsection{ Modes attaque/défense}
+			\subsection{ Modes attaque/défense}
 			\includegraphics[scale=0.4]{images/screen2.eps}
 			Dans le mode attaque, le total d'attaque potentiel est affiché sur chaque unité.
 			Dans le mode défense, le total de défense de l'unité est affiché.
 		
 			\clearpage	
 
-			\subsubsection{ Mode prédominance}
+			\subsection{ Mode prédominance}
 			\includegraphics[scale=0.4]{images/screen3.eps}
 			Dans le mode prédominance, la matrice de prédominance du joueur choisi est affichée.
 
 			\clearpage
 
-		\subsection{ Autres fonctionnalités }
+		\section{ Autres fonctionnalités }
 
-			\subsubsection{ Lignes de communication }
+			\subsection{ Lignes de communication }
 			\includegraphics[scale=0.4]{images/screen4.eps}
 			Les lignes de communication sont représentées par des cercles de la couleur de l'équipe.
 			Les unités déconnectées ont une teinte plus claire que les unités connectées.
 			On peut remarquer que les unités adverses bloquent les communications et que les relais alliés les propagent.
 			\clearpage
 		
-	\section{Choix algorithmiques}    
+	%\section{Choix algorithmiques} 
 
-		\subsection{A. Calcul des zones d'influence}
+	\chapter{Choix algorithmiques}
+	\markboth{\MakeUppercase{Choix algorithmiques}}{}  
+
+		\section{A. Calcul des zones d'influence}
 		
-		\paragraph{}
-		Le calcul des zones d'influence est découpé en 2 fonctions distinctes :
+			\paragraph{}
+			Le calcul des zones d'influence est découpé en 2 fonctions distinctes :
+			
+			\paragraph{1. runInfluenceArea : }
+			Cette fonction se charge de récupérer toutes les unités mobiles d'un Board qui lui est passé en paramètre.
+			Elle lance ensuite computeInfluenceAreas sur chacune de ces unités.
+			[Code de la fonction]
+			
+			\paragraph{2. computeInfluenceAreas : }
+			Cette fonction récursive calcule la zone d'influence pour une unité donnée à partir d'une case et d'une variable speedLeft. 
+			(qui correspond à la capacité de déplacement restante de l'unité)
+			Si la capacité de déplacement restante d'une unité n'est pas nulle (speedLeft\textgreater0), alors on parcoure toutes les cases 
+			qui sont autour de la case passée en paramètre. 
+			Au premier appel de cette fonction, cette case sera la case sur laquelle se situe l'entité pour laquelle on calcule la zone d'influence.
+			Si une ou plusieurs de ces cases sont libres, on modifie l'entité en ajoutant ces cases dans la liste de ses mouvements possibles, 
+			puis on rappelle computeInfluenceAreas sur celles-ci en décrémentant le speedLeft de 1.
+			Ainsi La zone d'influence ne pourra pas s'étendre à travers les unités ou les montagnes.
+			[Code de la fonction]
 		
-		\paragraph{1. runInfluenceArea : }
-		Cette fonction se charge de récupérer toutes les unités mobiles d'un Board qui lui est passé en paramètre.
-		Elle lance ensuite computeInfluenceAreas sur chacune de ces unités.
-		[Code de la fonction]
+		\section{B. Calcul des communications}
 		
-		\paragraph{2. computeInfluenceAreas : }
-		Cette fonction récursive calcule la zone d'influence pour une unité donnée à partir d'une case et d'une variable speedLeft. 
-		(qui correspond à la capacité de déplacement restante de l'unité)
-		Si la capacité de déplacement restante d'une unité n'est pas nulle (speedLeft\textgreater0), alors on parcoure toutes les cases 
-		qui sont autour de la case passée en paramètre. 
-		Au premier appel de cette fonction, cette case sera la case sur laquelle se situe l'entité pour laquelle on calcule la zone d'influence.
-		Si une ou plusieurs de ces cases sont libres, on modifie l'entité en ajoutant ces cases dans la liste de ses mouvements possibles, 
-		puis on rappelle computeInfluenceAreas sur celles-ci en décrémentant le speedLeft de 1.
-		Ainsi La zone d'influence ne pourra pas s'étendre à travers les unités ou les montagnes.
-		[Code de la fonction]
+			La propagation des communications est découpés en 2 fonctions distinctes :
+			
+			\paragraph{1. computeArsenalsCommunications : }
+			Cette fonction se charge de calculer les communications pour l'ensemble des arsenaux se trouvant sur le Board.
+			Elle récupère donc l'ensemble des arsenaux sur le plateau et appelle la fonction computeCommunications sur chacun d'entre eux.
+			
+			\paragraph{2. computeCommunications : }
+			Chaque fois qu'une entité propageant des communications est trouvée, (donc arsenal ou relais en communication) cette fonction est appelée
+			avec les coordonnées x et y de l'unité en question.
+			N'importe quelle unité propageant les lignes de communication le fait dans 8 directions. (nord, nord-est, est, etc)
+			Nous parcourons donc ces 8 lignes une à une, case par case et ajoutons toutes les cases libre à la liste des communications jusqu'à
+			la rencontre d'un obstacle. (Montagne, unités adverse ou bien fin du plateau)
+			Par la suite, si Drools détecte qu'un nouveau relais est connecté suite à la propagation de lignes de communications, computeCommunications
+			sera ré-appelée sur ces relais nouvellement connectés.
 		
-		\subsection{B. Calcul des communications}
+		\section{C. Calcul des potentiels}
 		
-		La propagation des communications est découpés en 2 fonctions distinctes :
-		
-		\paragraph{1. computeArsenalsCommunications : }
-		Cette fonction se charge de calculer les communications pour l'ensemble des arsenaux se trouvant sur le Board.
-		Elle récupère donc l'ensemble des arsenaux sur le plateau et appelle la fonction computeCommunications sur chacun d'entre eux.
-		
-		\paragraph{2. computeCommunications : }
-		Chaque fois qu'une entité propageant des communications est trouvée, (donc arsenal ou relais en communication) cette fonction est appelée
-		avec les coordonnées x et y de l'unité en question.
-		N'importe quelle unité propageant les lignes de communication le fait dans 8 directions. (nord, nord-est, est, etc)
-		Nous parcourons donc ces 8 lignes une à une, case par case et ajoutons toutes les cases libre à la liste des communications jusqu'à
-		la rencontre d'un obstacle. (Montagne, unités adverse ou bien fin du plateau)
-		Par la suite, si Drools détecte qu'un nouveau relais est connecté suite à la propagation de lignes de communications, computeCommunications
-		sera ré-appelée sur ces relais nouvellement connectés.
-		
-		\subsection{C. Calcul des potentiels}
-		
-		\paragraph{}
-		Le calcul des potentiels est découpé en 3 fonctions distinctes :
-		
-		\paragraph{1. computePotentials : }
-		Cette fonction se charge de remplir la matrice des potentiels pour chaque équipe.
-		Elle parcoure le board dans son intégralité (une fois pour chaque équipe), appelle sur chaque case les fonctions computeAttack et 
-		computeDefence, puis enregistre les valeurs dans une matrice.
-		
-		\paragraph{2. computeDefence : }
-		Cette fonction calcule la défense pour une case et une équipe donnée.
-		Après avoir initialisé la defense à 0, nous parcourons une à une les lignes pouvant avoir un impact sur la défense d'une unité.
-		Il y a donc 8 lignes distinctes. (ligne au nord de l'unité, ligne au nord-est, ligne à l'est, etc)
-		Pour chaque ligne, nous parcourons ensuite chaque case de la plus proche à la plus lointaine.
-		Si une de ces cases contient une unité alliée à portée, nous ajoutons la défense de cette unité à la défense de cette case, 
-		sauf dans le cas ou nous avons rencontré un obstacle.
-		Pour savoir si nous avons rencontré un obstacle, nous mettons simplement le booléen obstacle à true si une des cases de la 
-		ligne contient une unité ennemie ou une montagne.
-		
-		\paragraph{3. computeAttack : }
-		Cette fonction calcule l'attaque subie pour une case et une équipe donnée.
-		Elle a un fonctionnement très similaire à computeDefence, excepté que nous avons du ici prendre en compte la charge pour les cavaleries. 
-		(qui est d'ailleurs annulée dés lors qu'un cavalier se situe sur un fort)
-		Pour prendre en compte ceci, nous avons rajouté un booléen charge qui est passé à false quand on rencontre un obstacle 
-		ou un fort sur la ligne analysée.
-		La valeur d'attaque varie suivant si le cavalier est en charge ou non donc nous ajoutons attackCharge si le booléen charge est 
-		à true ou attack si le booléen est à false.
-		
+			\paragraph{}
+			Le calcul des potentiels est découpé en 3 fonctions distinctes :
+			
+			\paragraph{1. computePotentials : }
+			Cette fonction se charge de remplir la matrice des potentiels pour chaque équipe.
+			Elle parcoure le board dans son intégralité (une fois pour chaque équipe), appelle sur chaque case les fonctions computeAttack et 
+			computeDefence, puis enregistre les valeurs dans une matrice.
+			
+			\paragraph{2. computeDefence : }
+			Cette fonction calcule la défense pour une case et une équipe donnée.
+			Après avoir initialisé la defense à 0, nous parcourons une à une les lignes pouvant avoir un impact sur la défense d'une unité.
+			Il y a donc 8 lignes distinctes. (ligne au nord de l'unité, ligne au nord-est, ligne à l'est, etc)
+			Pour chaque ligne, nous parcourons ensuite chaque case de la plus proche à la plus lointaine.
+			Si une de ces cases contient une unité alliée à portée, nous ajoutons la défense de cette unité à la défense de cette case, 
+			sauf dans le cas ou nous avons rencontré un obstacle.
+			Pour savoir si nous avons rencontré un obstacle, nous mettons simplement le booléen obstacle à true si une des cases de la 
+			ligne contient une unité ennemie ou une montagne.
+			
+			\paragraph{3. computeAttack : }
+			Cette fonction calcule l'attaque subie pour une case et une équipe donnée.
+			Elle a un fonctionnement très similaire à computeDefence, excepté que nous avons du ici prendre en compte la charge pour les cavaleries. 
+			(qui est d'ailleurs annulée dés lors qu'un cavalier se situe sur un fort)
+			Pour prendre en compte ceci, nous avons rajouté un booléen charge qui est passé à false quand on rencontre un obstacle 
+			ou un fort sur la ligne analysée.
+			La valeur d'attaque varie suivant si le cavalier est en charge ou non donc nous ajoutons attackCharge si le booléen charge est 
+			à true ou attack si le booléen est à false.
+			
 		\clearpage
 		
-	\section{Tests réalisés}    
+	%\section{Tests réalisés}    
 
-		\subsection{ A. gna gna}
-		
-		Ceci est du texte
-		
-		\subsection{ B. gna gna}
-		
-		Ceci est du texte
-		
-		\subsection{ C. gna gna}
-		
-		Ceci est du texte
-		
-		\clearpage
-		
-	\section{Difficultés rencontrées}    
+	\chapter{Tests réalisés}
+	\markboth{\MakeUppercase{Tests réalisés}}{}
 
-		\subsection{ A. gna gna}
+		\section{Tests de non-régression}
+		
+		Afin d'éviter la régression lors de l'évolution du projet nous avons utilisé la librairie JUnit pour faciliter la gestion des tests. 
+		Nous avons généré des classes de tests afin de valider le bon fonctionnement de l'ensemble des méthodes pour une classe donnée.
+		Par soucis de temps, nous n'avons pas pu réaliser les tests pour chaque classes du projet, nous avons donc décidé de ne faire ces tests que sur les classes les plus « critiques ».
+		Parmis ces classes dites « critiques » nous avons la classe EntityLoader qui est garante du bon placement des unités ainsi que la classe Board qui contient les données du jeu
+		ainsi que certains algorithmes principaux.
+		
+		\section{Tests unitaires}
 		
 		Ceci est du texte
 		
-		\subsection{ B. gna gna}
-		
-		Ceci est du texte
-		
-		\subsection{ C. gna gna}
+		\section{Tests fonctionnels}
 		
 		Ceci est du texte
 		
 		\clearpage
+		
+	\chapter{Bilan}
+	\markboth{\MakeUppercase{Bilan}}{}	
 
-	\section{Conclusion}
+		\section{Difficultés rencontrées}   
+
+
+			\subsection{ A. gna gna}
+			
+			Ceci est du texte
+			
+			\subsection{ B. gna gna}
+			
+			Ceci est du texte
+			
+			\subsection{ C. gna gna}
+			
+			Ceci est du texte
+			
+			\clearpage
+
+		\section{Conclusion}
+		
+			Importer la biblio à la fin car chiant à générer sous latex.
+			
+			\clearpage
+
+	%\section{Elements bibliographiques}
+
+	\chapter{Elements bibliographiques}
+	\markboth{\MakeUppercase{Elements bibliographiques}}{}	
 	
-		Importer la biblio à la fin car chiant à générer sous latex.
-		
-		\clearpage
-
-	\section{Elements bibliographiques}
+	\begin{itemize}
 	
-		\begin{itemize}
-		
-		\item Le livre~\cite{ref1} présente une partie commentée du jeu de la guerre accompagnée de schémas illustrés. 
-		De plus on peut trouver les règles officielles proposées par Guy Debord à partir de la page 131.
-		\\[0.7\baselineskip]
-		
-		\item Le livre Artificial Intelligence for Games~\cite{ref2} aborde dans son 5\up{ème} chapitre la prise de décision d'un point de vue technique. 
-		On y trouve le principe de fonctionnement et un exemple d'implémentation de diverses structures de données (arbre de décision, machine à état, 
-		arbre de comportement, moteur de règles).
-		\\[0.7\baselineskip]
-
-		\item Ce site~\cite{ref3} regroupe l'ensemble des règles du jeu de la guerre et propose une version jouable. Cette version jouable permettra 
-		de bien comprendre les règles du jeu et de vérifier que notre jeu a bien le même comportement.
-		\\[0.7\baselineskip]
+	\item Le livre~\cite{ref1} présente une partie commentée du jeu de la guerre accompagnée de schémas illustrés. 
+	De plus on peut trouver les règles officielles proposées par Guy Debord à partir de la page 131.
+	\\[0.7\baselineskip]
 	
-		\item Cet ouvrage~\cite{ref4} concernant l'intelligence artificielle propose une grande variété d'idées sur les programmes heuristiques. 
-		Il explique comment gérer la prise de décision acceptable mais non optimale, dans les cas où la prise de décision optimale nécessite trop de ressources.
-		\\[0.7\baselineskip]
+	\item Le livre Artificial Intelligence for Games~\cite{ref2} aborde dans son 5\up{ème} chapitre la prise de décision d'un point de vue technique. 
+	On y trouve le principe de fonctionnement et un exemple d'implémentation de diverses structures de données (arbre de décision, machine à état, 
+	arbre de comportement, moteur de règles).
+	\\[0.7\baselineskip]
+
+	\item Ce site~\cite{ref3} regroupe l'ensemble des règles du jeu de la guerre et propose une version jouable. Cette version jouable permettra 
+	de bien comprendre les règles du jeu et de vérifier que notre jeu a bien le même comportement.
+	\\[0.7\baselineskip]
+
+	\item Cet ouvrage~\cite{ref4} concernant l'intelligence artificielle propose une grande variété d'idées sur les programmes heuristiques. 
+	Il explique comment gérer la prise de décision acceptable mais non optimale, dans les cas où la prise de décision optimale nécessite trop de ressources.
+	\\[0.7\baselineskip]
+	
+	\item Cette page~\cite{ref5} propose des explications d'algorithmes utilisables dans le cas de jeu se jouant à deux, tour par tour et 
+	pour lequel chaque joueur connait la position de son adversaire.
+	\\[0.7\baselineskip]
+	
+	\item Cette page~\cite{ref6} propose un tutoriel très complet sur l'utilisation de Jboss drools, outil qui nous permettra de concevoir notre moteur de règles.
+	\\[0.7\baselineskip]
+	
+	\item Ce tutoriel~\cite{ref7} sur la bibliothèque Swing pourra nous servir pour la conception de l'interface graphique. Cette bibliothèque 
+	permettra par exemple d'afficher le plateau et d'interagir avec au besoin.
+	\\[0.7\baselineskip]
+	
+	\end{itemize}
 		
-		\item Cette page~\cite{ref5} propose des explications d'algorithmes utilisables dans le cas de jeu se jouant à deux, tour par tour et 
-		pour lequel chaque joueur connait la position de son adversaire.
-		\\[0.7\baselineskip]
-		
-		\item Cette page~\cite{ref6} propose un tutoriel très complet sur l'utilisation de Jboss drools, outil qui nous permettra de concevoir notre moteur de règles.
-		\\[0.7\baselineskip]
-		
-		\item Ce tutoriel~\cite{ref7} sur la bibliothèque Swing pourra nous servir pour la conception de l'interface graphique. Cette bibliothèque 
-		permettra par exemple d'afficher le plateau et d'interagir avec au besoin.
-		\\[0.7\baselineskip]
-		
-		\end{itemize}
-		
-		\bibliographystyle{unsrt}
-		\bibliography{ref.bib}{}
+	\bibliographystyle{unsrt}
+	\bibliography{ref.bib}{}
 
 \end{document}                                 
