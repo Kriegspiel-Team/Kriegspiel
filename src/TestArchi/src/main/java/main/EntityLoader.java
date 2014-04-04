@@ -66,7 +66,7 @@ public class EntityLoader {
 	 *
 	 * @return true, if file is formatted correctly
 	 */
-	public boolean isValidFileFormat(String filename){
+	private boolean isValidFileFormat(String filename){
 		boolean valid = true;
 		
 		BufferedReader br = null;
@@ -112,7 +112,7 @@ public class EntityLoader {
 	 *
 	 * @throws BoardFileFormatException the board file format exception
 	 */
-	public void readFile(String filename) throws BoardFileFormatException{
+	private void readFile(String filename) throws BoardFileFormatException{
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(filename));
@@ -203,14 +203,5 @@ public class EntityLoader {
 			return false;
 
 		return true;	
-	}
-	
-	/**
-	 * Gets the board.
-	 *
-	 * @return the board
-	 */
-	public Board getBoard() {
-		return this.board;
 	}
 }
