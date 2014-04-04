@@ -68,7 +68,7 @@ public class BoardController {
 		
 		engine.computeCommunications();
 		
-		InfluenceArea.runInfluenceArea(board);
+		InfluenceArea.computeAllInfluenceAreas(board);
 		
       	engine.computeAttackDefence();
       	
@@ -91,7 +91,7 @@ public class BoardController {
 	 * Load default board.
 	 */
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/NoArsenalForPlayer0.ksv");
+		loadNewBoard("src/main/resources/board/livre.ksv");
 	}
 	
 	/**

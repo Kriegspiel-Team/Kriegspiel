@@ -9,14 +9,14 @@ import main.BoardFileFormatException;
 import main.Engine;
 import main.EntityLoader;
 import model.Arsenal;
-import model.Canon;
+import model.Cannon;
 import model.Cavalry;
 import model.Fighter;
 import model.Infantry;
 import model.Mountain;
 import model.MovableEntity;
 import model.Relay;
-import model.SwiftCanon;
+import model.SwiftCannon;
 import model.SwiftRelay;
 
 public class BoardTest 
@@ -28,16 +28,16 @@ public class BoardTest
 		Engine e = new Engine(b);
 		e.initSession();
 		
-		assertTrue("Error when computing fighter number without loaded board", b.getNbrInstances(Fighter.class,1)==0);
-		assertTrue("Error when computing relay number without loaded board", b.getNbrInstances(Relay.class,0)==0);
-		assertTrue("Error when computing cavalry number without loaded board", b.getNbrInstances(Cavalry.class,1)==0);
+		assertTrue("Error when computing fighter number without loaded board", b.getNbInstances(Fighter.class,1)==0);
+		assertTrue("Error when computing relay number without loaded board", b.getNbInstances(Relay.class,0)==0);
+		assertTrue("Error when computing cavalry number without loaded board", b.getNbInstances(Cavalry.class,1)==0);
 		
 		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/Sample1.ksv", "src/main/resources/board/Map1.txt");
 		loader.loadMovableEntities();
 		
-		assertTrue("Error when computing fighter number", b.getNbrInstances(Fighter.class,1)==15);
-		assertTrue("Error when computing relay number", b.getNbrInstances(Relay.class,0)==1);
-		assertTrue("Error when computing cavalry number", b.getNbrInstances(Cavalry.class,1)==4);
+		assertTrue("Error when computing fighter number", b.getNbInstances(Fighter.class,1)==15);
+		assertTrue("Error when computing relay number", b.getNbInstances(Relay.class,0)==1);
+		assertTrue("Error when computing cavalry number", b.getNbInstances(Cavalry.class,1)==4);
 	}
 	
 	@Test
@@ -153,9 +153,9 @@ public class BoardTest
 				nb_infantry++;
 			if(m instanceof Cavalry)
 				nb_cavalry++;
-			if(m instanceof Canon)
+			if(m instanceof Cannon)
 				nb_canon++;
-			if(m instanceof SwiftCanon)
+			if(m instanceof SwiftCannon)
 				nb_swiftcanon++;
 			if(m instanceof Relay)
 				nb_relay++;
@@ -182,13 +182,13 @@ public class BoardTest
 		loader.loadMap();
 		loader.loadMovableEntities();
 		
-		assertTrue("Error with empty square", b.isValidSquare(0,0) == true);
-		assertTrue("Error with unit", b.isValidSquare(2,1) == false);
-		assertTrue("Error with empty fortress", b.isValidSquare(7,1) == true);
-		assertTrue("Error with full arsenal", b.isValidSquare(7,3) == false);
-		assertTrue("Error with mountain", b.isValidSquare(9,8) == false);
-		assertTrue("Error with negative value", b.isValidSquare(-5, -3) == false);
-		assertTrue("Error with a square out of board", b.isValidSquare(50,50) == false);
+		assertTrue("Error with empty square", b.isValidDestination(0,0) == true);
+		assertTrue("Error with unit", b.isValidDestination(2,1) == false);
+		assertTrue("Error with empty fortress", b.isValidDestination(7,1) == true);
+		assertTrue("Error with full arsenal", b.isValidDestination(7,3) == false);
+		assertTrue("Error with mountain", b.isValidDestination(9,8) == false);
+		assertTrue("Error with negative value", b.isValidDestination(-5, -3) == false);
+		assertTrue("Error with a square out of board", b.isValidDestination(50,50) == false);
 	}
 	
 	

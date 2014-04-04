@@ -1,20 +1,20 @@
 package model;
 
 /**
- * The Class Canon.
+ * The Class SwiftCanon.
  */
-public class Canon extends Fighter {
+public class SwiftCannon extends Fighter {
 	
 	/**
-	 * Instantiates a new canon.
+	 * Instantiates a new swift canon.
 	 *
 	 * @param owner the owner
 	 */
-	public Canon(int owner)
+	public SwiftCannon(int owner)
 	{
 		super();
-		symbol = 'c';
-		speed = 1;
+		symbol = 'C';
+		speed = 2;
 		range = 3;
 		attack = 5;
 		defence = 8;

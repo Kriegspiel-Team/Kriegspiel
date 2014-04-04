@@ -1,0 +1,57 @@
+%\section{Règles du jeu}  
+\chapter{Règles du jeu}
+	\markboth{\MakeUppercase{Règles du jeu}}{}
+
+		\section{Apprendre à jouer}
+		
+		Le jeu de la guerre est un jeu de type tour par tour se jouant sur un plateau de 500 cases. (25 * 20)
+		Le but de celui-ci est de détruire l'armée adverse en prenant ses arsenaux ou en détruisant toutes les unités. (Voir les conditions de victoire)
+		Vous disposerez de plusieurs types d'unités ayant des caractéristiques différentes (attaque, défense, portée, vitesse) que vous devrez déplacer 
+		en prenant en compte les lignes de communication.
+		En effet, si vos unités sortent des lignes de communication, celles-ci ne pourront alors plus bouger et pourront être détruites facilement.
+		Pour accéder aux règles complètes, (caractéristiques des unités, explications plus détaillées) rendez-vous sur [Intégrer RSG biblio]
+		
+		\section{Règles à implémenter}
+		Pour toute situation de jeu donnée, voici la liste des règles qui devront être prises en compte par notre moteur.
+
+		\paragraph{Conditions de victoire}
+		\begin{enumerate}
+		\item Détruire tous les arsenaux adverses.
+		\item Détruire toutes les unités de combat adverses.
+		\item Détruire les relais et couper toutes les communications des unités adverses.
+		\end{enumerate}
+		
+		\paragraph{Lignes de communications}
+		\begin{enumerate}
+		\item Les arsenaux propagent des lignes de communication.
+		\item Un arsenal détruit ne propage plus de lignes de communication.
+		\item Un relais transmet les lignes de communications si il se trouve lui même sur une ligne de communication alliée.
+		\item Une unité est connectée si elle se trouve sur une ligne de communication.
+		\item Une unité est connectée si elle se trouve à proximité d'une unité alliée connectée.
+		\item Une unité déconnectée ne peut pas bouger.
+		\item L'attaque et la défense d'une unité déconnectée est égale à 0.
+		\end{enumerate}
+		
+		\paragraph{Calcul des potentiels}
+		\begin{enumerate}
+		\item Chaque type d'unité movible a une valeur d'attaque/défense/portée qui lui est spécifique. (voir règles précises)
+		\item L'attaque subie par une unité se calcule en additionnant toutes les attaques des unités adverses à portée.
+		\item Le potentiel défensif d'une unité se calcule en additionnant toutes les défenses des unités alliées à portée.
+		\item Même si une unité est à portée d'une autre, sa valeur d'attaque/défense n'est pas ajoutée lors des calculs si un obstacle (unité adverse ou montagne) se trouve entre les deux.
+		\end{enumerate}
+		
+		\paragraph{Bonus défensifs et offensifs}
+		\begin{enumerate}
+		\item Les cols octroient un bonus défensif de ... aux ...
+		\item Les forteresses octroient un bonus défensif de ... aux ...
+		\item Si plusieurs cavaliers sont alignés face à une unité adverse, ils bénéficient d'un bonus d'attaque de 3 et peuvent tous attaquer même si ils sont hors de portée.
+		\end{enumerate}
+		
+		\paragraph{Autres règles}
+		\begin{enumerate}
+		\item Un cavalier ne peut pas charger dans une forteresse.
+		\item Une unité peut être détruite si l'attaque subie par celle-ci est supérieur à son potentiel défensif.
+		\item Une unité doit battre en retraite si l'attaque subie par celle-ci est égale à son potentiel défensif.
+		\item Une unité ne peut pas traverser les montagnes ou les autres unités.
+		\end{enumerate}
+		\clearpage

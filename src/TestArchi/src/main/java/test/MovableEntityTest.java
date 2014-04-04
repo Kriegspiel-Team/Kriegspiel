@@ -6,11 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import main.Coord;
-import model.Canon;
+import model.Cannon;
 import model.Cavalry;
 import model.Infantry;
 import model.Relay;
-import model.SwiftCanon;
+import model.SwiftCannon;
 import model.SwiftRelay;
 
 import org.junit.Test;
@@ -68,8 +68,8 @@ public class MovableEntityTest {
 
 	@Test
 	public void testGetAttack() {
-		Canon c = new Canon(0);
-		SwiftCanon sc = new SwiftCanon(0);
+		Cannon c = new Cannon(0);
+		SwiftCannon sc = new SwiftCannon(0);
 		Cavalry ca = new Cavalry(0);
 		Infantry i = new Infantry(0);
 		Relay r = new Relay(0);
@@ -85,8 +85,8 @@ public class MovableEntityTest {
 
 	@Test
 	public void testGetDefence() {
-		Canon c = new Canon(0);
-		SwiftCanon sc = new SwiftCanon(0);
+		Cannon c = new Cannon(0);
+		SwiftCannon sc = new SwiftCannon(0);
 		Cavalry ca = new Cavalry(0);
 		Infantry i = new Infantry(0);
 		Relay r = new Relay(0);
@@ -116,8 +116,8 @@ public class MovableEntityTest {
 
 	@Test
 	public void testGetRange() {
-		Canon c = new Canon(0);
-		SwiftCanon sc = new SwiftCanon(0);
+		Cannon c = new Cannon(0);
+		SwiftCannon sc = new SwiftCannon(0);
 		Cavalry ca = new Cavalry(0);
 		Infantry i = new Infantry(0);
 		Relay r = new Relay(0);

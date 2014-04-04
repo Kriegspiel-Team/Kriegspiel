@@ -15,15 +15,15 @@ import model.SwiftRelay;
 public class InfluenceArea {
 	
 	/**
-	 * Run influence area.
+	 * Compute all the influence areas
 	 *
 	 * @param board the board
 	 */
-	public static void runInfluenceArea(Board board) {
+	public static void computeAllInfluenceAreas(Board board) {
 		List<MovableEntity> listMov = board.getMovableEntities();
 		
 		for(MovableEntity m : listMov)
-			computeInfluenceAreas(board, m.getCoord().x, m.getCoord().y, m.getSpeed(), m);
+			computeInfluenceArea(board, m.getCoord().x, m.getCoord().y, m.getSpeed(), m);
 	}
 	
 
@@ -36,15 +36,15 @@ public class InfluenceArea {
 	 * @param speedLeft the recursive counter of remaining moves
 	 * @param m the entity to be checked
 	 */
-	public static void computeInfluenceAreas(Board board, int x, int y, int speedLeft, MovableEntity m) {
+	public static void computeInfluenceArea(Board board, int x, int y, int speedLeft, MovableEntity m) {
 		
 		
 		if(speedLeft > 0 && ((m instanceof Fighter && ((Fighter)m).isConnected()) || m instanceof Relay || m instanceof SwiftRelay))
 			for(int i = -1; i <= 1; i++)
 				for(int j = -1; j <= 1; j++)
-					if(board.isValidSquare(x + i, y + j)) {
+					if(board.isValidDestination(x + i, y + j)) {
 						m.addPossibleMovement(new Coord(x + i, y + j));
-						computeInfluenceAreas(board, x + i, y + j, speedLeft - 1, m);
+						computeInfluenceArea(board, x + i, y + j, speedLeft - 1, m);
 					}
 	}
 
