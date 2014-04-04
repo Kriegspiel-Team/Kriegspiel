@@ -60,9 +60,12 @@ public class BoardController {
 		engine.initSession();
 		
 		//engine.placeFixedEntities();
-		loader.loadMap();
-		
-		board.loadBoardWithFile(loader);
+		try {
+			loader.loadMap();
+			loader.loadMovableEntities();
+		} catch (BoardFileFormatException e) {
+			e.printStackTrace();
+		}		
 						
 		engine.computeCommunications();
 		

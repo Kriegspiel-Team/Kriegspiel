@@ -99,12 +99,8 @@ public class EntityLoader {
 		return valid;
 	}
 	
-	public void loadMap() {
-		try {
-			readFile(mapFilename);
-		} catch (BoardFileFormatException e) {
-			e.printStackTrace();
-		}
+	public void loadMap() throws BoardFileFormatException{
+		readFile(mapFilename);
 	}
 	
 	public void loadMovableEntities() throws BoardFileFormatException {

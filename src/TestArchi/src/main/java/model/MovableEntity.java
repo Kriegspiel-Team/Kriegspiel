@@ -101,9 +101,8 @@ public class MovableEntity extends Entity {
 	}
 	
 	/**
-	 * Sets the attack.
-	 *
-	 * @param attack the new attack
+	 * Resets the attack.
+	 * 
 	 */
 	public void setAttackNull() {
 		this.attack = 0;
