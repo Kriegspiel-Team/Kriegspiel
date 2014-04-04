@@ -45,9 +45,7 @@ public class BoardController {
 	 *
 	 * @param file the file
 	 */
-	private void loadBoard() {		
-		//EntityLoader loader = new EntityLoader(board, file, mapFile);
-		
+	private void loadBoard() {				
 		if (!loader.isValidFormat()){
 			boardDisplayer.displayPopup("Board loading failed :(", "An error occured", JOptionPane.ERROR_MESSAGE);
 			return;
@@ -59,17 +57,16 @@ public class BoardController {
 		
 		engine.initSession();
 		
-		//engine.placeFixedEntities();
 		try {
 			loader.loadMap();
 			loader.loadMovableEntities();
 		} catch (BoardFileFormatException e) {
 			e.printStackTrace();
 		}		
-						
-		engine.computeCommunications();
 		
 		board.setMapLoaded(true);
+		
+		engine.computeCommunications();
 		
 		InfluenceArea.runInfluenceArea(board);
 		
@@ -94,7 +91,7 @@ public class BoardController {
 	 * Load default board.
 	 */
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/Sample1.ksv");
+		loadNewBoard("src/main/resources/board/NoArsenalForPlayer0.ksv");
 	}
 	
 	/**

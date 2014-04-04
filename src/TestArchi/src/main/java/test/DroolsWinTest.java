@@ -9,26 +9,34 @@ import main.EntityLoader;
 import org.junit.Test;
 
 
-
 public class DroolsWinTest {
 	
 	@Test
-	public void testWinWhenNoArsenal() {
+	public void testWinWhenNoArsenal() throws BoardFileFormatException {
 		Board b = new Board();
 		Engine e = new Engine(b);
+		
+		EntityLoader loader = new EntityLoader(b);
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
+		loader.setMovableEntityFilename("src/main/resources/board/NoArsenalForPlayer0.ksv");
+		
 		e.initSession();
-		e.placeFixedEntities();
 		
-		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/NoArsenalForPlayer0.txt", "src/main/resources/board/Map1.txt");
-		try {
-			loader.loadMovableEntities();
-		} catch (BoardFileFormatException e1) {
-			e1.printStackTrace();
-		}
+		loader.loadMap();
+				
+		loader.loadMovableEntities();
 		
-		e.computeCommunications();
+		b.setMapLoaded(true);
+		
+		e.computeCommunications();	
+		
+		e.computeAttackDefence();
+		
+		e.computeDeath();
 		
 		e.computeWin();
+		
+		System.out.println(b.getWinner());
 		
 		assertEquals(b.getWinner(), 1);
 	}

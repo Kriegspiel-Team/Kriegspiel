@@ -5,8 +5,10 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import main.Board;
+import main.BoardFileFormatException;
 import main.Coord;
 import main.Engine;
+import main.EntityLoader;
 import model.Arsenal;
 import model.Infantry;
 import model.Relay;
@@ -16,11 +18,13 @@ import static org.junit.Assert.assertTrue;
 public class DroolsCommunicationsTest {
 	
 	@Test
-	public void testMoutainBlocking() {
+	public void testMoutainBlocking() throws BoardFileFormatException {
 		Board b = new Board();
+		EntityLoader loader = new EntityLoader(b);
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
+		loader.loadMap();
 		e.computeCommunications();
 		
 		HashSet<Coord> comPlayer0 = b.getCommunications(0);
@@ -48,11 +52,13 @@ public class DroolsCommunicationsTest {
 	}
 	
 	@Test
-	public void testSpreadCommunication() {
+	public void testSpreadCommunication() throws BoardFileFormatException {
 		Board b = new Board();
+		EntityLoader loader = new EntityLoader(b);
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
+		loader.loadMap();
 		e.computeCommunications();
 		
 		HashSet<Coord> comPlayer0 = b.getCommunications(0);
@@ -63,11 +69,13 @@ public class DroolsCommunicationsTest {
 	}
 	
 	@Test
-	public void testRelayReflectCommunication() {
+	public void testRelayReflectCommunication() throws BoardFileFormatException {
 		Board b = new Board();
+		EntityLoader loader = new EntityLoader(b);
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
+		loader.loadMap();
 		b.placeEntity(14, 5, new Relay(0));
 		e.computeCommunications();
 		

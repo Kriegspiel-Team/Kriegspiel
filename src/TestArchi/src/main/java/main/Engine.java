@@ -58,16 +58,7 @@ public class Engine implements IEngine {
     	
     	kSession.insert(board);
     }
-    
-    /* (non-Javadoc)
-     * @see main.IEngine#placeFixedEntities()
-     */
-    @Override
-	public void placeFixedEntities() {    	
-    	kSession.getAgenda().getAgendaGroup( "PlaceEntity" ).setFocus();
-        kSession.fireAllRules();
-    }
-    
+        
     /* (non-Javadoc)
      * @see main.IEngine#computePossibleMoves()
      */
@@ -125,9 +116,7 @@ public class Engine implements IEngine {
 	 * @see main.IEngine#computeWin()
 	 */
 	@Override
-	public void computeWin() {
-		kSession.insert(board);
-		
+	public void computeWin() {		
 		kSession.getAgenda().getAgendaGroup( "Win" ).setFocus();
 		kSession.fireAllRules();
 	}

@@ -3,7 +3,9 @@ package test;
 import org.junit.Test;
 
 import main.Board;
+import main.BoardFileFormatException;
 import main.Engine;
+import main.EntityLoader;
 import model.Arsenal;
 import model.Infantry;
 import model.Mountain;
@@ -13,11 +15,13 @@ import static org.junit.Assert.assertEquals;
 public class DroolsPlaceEntityTest {
 	
 	@Test
-	public void testArsenalPlacement() {
+	public void testArsenalPlacement() throws BoardFileFormatException {
 		Board b = new Board();
+		EntityLoader loader = new EntityLoader(b);
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
+		loader.loadMap();
 		
 		
 		assertEquals("Arsenal @ (14,1)", Arsenal.class, b.getMatrix()[14][1].getClass());
@@ -47,11 +51,13 @@ public class DroolsPlaceEntityTest {
 	}
 	
 	@Test
-	public void testPlaceEntityOnMontain() {
+	public void testPlaceEntityOnMontain() throws BoardFileFormatException {
 		Board b = new Board();
+		EntityLoader loader = new EntityLoader(b);
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
+		loader.loadMap();
 		
 		b.placeEntity(9, 2, new Infantry(0));
 		
@@ -59,11 +65,13 @@ public class DroolsPlaceEntityTest {
 	}
 	
 	@Test
-	public void testPlaceEntityInFortress() {
+	public void testPlaceEntityInFortress() throws BoardFileFormatException {
 		Board b = new Board();
+		EntityLoader loader = new EntityLoader(b);
+		loader.setMapFilename("src/main/resources/board/Map1.kmp");
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
+		loader.loadMap();
 		
 		b.placeEntity(2, 12, new Infantry(0));
 				
