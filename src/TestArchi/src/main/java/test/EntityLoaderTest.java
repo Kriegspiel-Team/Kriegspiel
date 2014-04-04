@@ -10,27 +10,40 @@ import main.Board;
 import main.BoardFileFormatException;
 import main.EntityLoader;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class EntityLoaderTest {
+public class EntityLoaderTest  {
+	
+	private Board board;
+	private EntityLoader loader;
+	
+	@Before
+	public void setUp() throws Exception {
+		board = new Board();
+		loader = new EntityLoader(board);
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		loader = null;
+		board = null;
+	}
 	
 	@Test
 	public void testEntityLoaderBoard() {
-		Board b = new Board();
-		
 		try {
-			new EntityLoader(b);
+			new EntityLoader(board);
 	    } catch (Exception e) {
 	    	fail(e.getMessage());
 	    }
 	}
 
 	@Test
-	public void testEntityLoaderBoardStringString() {
-		Board b = new Board();
-		
+	public void testEntityLoaderBoardStringString() {		
 		try {
-			new EntityLoader(b, "movableEntityFilename", "mapFilename");
+			new EntityLoader(board, "movableEntityFilename", "mapFilename");
 	    } catch (Exception e) {
 	    	fail(e.getMessage());
 	    }
@@ -38,8 +51,6 @@ public class EntityLoaderTest {
 
 	@Test
 	public void testSetMovableEntityFilename() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
-		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b);
 		loader.setMovableEntityFilename("test");
 		
 		Field f = loader.getClass().getDeclaredField("movableEntityFilename");
@@ -50,8 +61,6 @@ public class EntityLoaderTest {
 
 	@Test
 	public void testSetMapFilename() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b);
 		loader.setMapFilename("testMapFilename");
 		
 		Field f = loader.getClass().getDeclaredField("mapFilename");
@@ -62,10 +71,7 @@ public class EntityLoaderTest {
 	}
 
 	@Test
-	public void testIsValidFormat() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b);
-		
+	public void testIsValidFormat() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {		
 		Method method = loader.getClass().getDeclaredMethod("isValidFormat", new Class[]{String[].class});
 		method.setAccessible(true);
 		
@@ -79,10 +85,7 @@ public class EntityLoaderTest {
 	}
 
 	@Test
-	public void testIsValidFileFormat() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b);
-		
+	public void testIsValidFileFormat() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {		
 		Method method = loader.getClass().getDeclaredMethod("isValidFileFormat", new Class[]{String.class});
 		method.setAccessible(true);
 		
@@ -94,19 +97,15 @@ public class EntityLoaderTest {
 		
 		assertTrue("Valid file format", (Boolean) method.invoke(loader, (Object)paramFileOK));
 	}
-
+	
 	@Test(expected = BoardFileFormatException.class)
 	public void testReadFileException() throws BoardFileFormatException {
-		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b);
 		loader.setMovableEntityFilename("src/main/resources/board/ErrSample.ksv");
 		loader.loadMovableEntities();
 	}
 	
 	@Test
 	public void testReadFile() {
-		Board b = new Board();
-		EntityLoader loader = new EntityLoader(b);
 		loader.setMovableEntityFilename("src/main/resources/board/Sample1.ksv");
 		try {
 			loader.loadMovableEntities();
