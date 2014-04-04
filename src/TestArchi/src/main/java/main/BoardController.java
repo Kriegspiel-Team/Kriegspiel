@@ -68,7 +68,7 @@ public class BoardController {
 		
 		engine.computeCommunications();
 		
-		InfluenceArea.runInfluenceArea(board);
+		InfluenceArea.computeAllInfluenceAreas(board);
 		
       	engine.computeAttackDefence();
       	

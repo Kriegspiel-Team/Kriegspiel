@@ -2,8 +2,13 @@ package evaluator;
 import java.util.HashMap;
 
 import main.Board;
+import model.Cannon;
 import model.Cavalry;
+import model.Infantry;
 import model.MovableEntity;
+import model.Relay;
+import model.SwiftCannon;
+import model.SwiftRelay;
 
 /**
  * This class is used to compute and store the total potential attack and defence
@@ -36,7 +41,7 @@ public class Potentials {
 	}
 	
 	/**
-	 * Compute potentials.
+	 * Compute potentials and build 4 potentiel matrices
 	 */
 	public void computePotentials() {
 
@@ -47,8 +52,8 @@ public class Potentials {
 					MovableEntity m = board.getUnit(x, y);
 					
 					
-					int attack = computeAttack(x,y,team);
-					int defence = computeDefence(x,y,team);
+					int attack = computeEnnemyAttack(x,y,team);
+					int defence = computeAllyDefence(x,y,team);
 					
 					if(m!=null && m.getOwner()==team) {
 						m.setEnemyAttack(attack);
@@ -63,15 +68,33 @@ public class Potentials {
 	}
 	
 	/**
-	 * Compute attack.
+	 * Compute ennemy attack received by a unit
 	 *
 	 * @param xi the x coord
 	 * @param yi the y coord
 	 * @param owner the owner of the unit on the square
 	 * @return the total potential attack by the enemy team on this square.
 	 */
-	public int computeAttack(int xi, int yi, int owner) {
-		int maxRange = 4;
+	
+	public int computeMaxUnitRange()
+	{
+		int maxUnitRange = Math.max(new Infantry(0).getRange(),new Cavalry(0).getRange());
+		maxUnitRange = Math.max(maxUnitRange,new Cannon(0).getRange());
+		maxUnitRange = Math.max(maxUnitRange,new SwiftCannon(0).getRange());
+		maxUnitRange = Math.max(maxUnitRange,new Relay(0).getRange());
+		maxUnitRange = Math.max(maxUnitRange,new SwiftRelay(0).getRange());
+		
+		return maxUnitRange;
+	}
+	
+	public int computeEnnemyAttack(int xi, int yi, int owner) {
+		
+		int nbCavalry = 0;
+		for(MovableEntity m : board.getMovableEntities())
+			if(m instanceof Cavalry)
+				nbCavalry++;
+
+		int maxRange = Math.max(computeMaxUnitRange(), nbCavalry);
 		
 		int attack = 0;
 		
@@ -117,15 +140,15 @@ public class Potentials {
 	}
 	
 	/**
-	 * Compute defence.
+	 * Compute ally defence received by a unit
 	 *
 	 * @param xi the x coordinate
 	 * @param yi the y coordinate
 	 * @param owner the owner of the unit on the square
 	 * @return the total defence provided by this team on this square
 	 */
-	public int computeDefence(int xi, int yi, int owner) {
-		int maxRange = 3;
+	public int computeAllyDefence(int xi, int yi, int owner) {
+		int maxRange = computeMaxUnitRange();
 
 		int defence = 0;
 		MovableEntity e = board.getUnit(xi, yi);

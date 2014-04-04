@@ -5,14 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import model.Arsenal;
-import model.Canon;
+import model.Cannon;
 import model.Cavalry;
 import model.Fortress;
 import model.Infantry;
 import model.Mountain;
 import model.MountainPass;
 import model.Relay;
-import model.SwiftCanon;
+import model.SwiftCannon;
 import model.SwiftRelay;
 
 /**
@@ -140,10 +140,10 @@ public class EntityLoader {
 					board.placeEntity(x, y, new Cavalry(Integer.parseInt(st[1])));
 				}
 				else if (st[0].equals("Canon")) {
-					board.placeEntity(x, y, new Canon(Integer.parseInt(st[1])));
+					board.placeEntity(x, y, new Cannon(Integer.parseInt(st[1])));
 				}
 				else if (st[0].equals("SwiftCanon")) {
-					board.placeEntity(x, y, new SwiftCanon(Integer.parseInt(st[1])));
+					board.placeEntity(x, y, new SwiftCannon(Integer.parseInt(st[1])));
 				}
 				else if (st[0].equals("Relay")) {
 					board.placeEntity(x, y, new Relay(Integer.parseInt(st[1])));
