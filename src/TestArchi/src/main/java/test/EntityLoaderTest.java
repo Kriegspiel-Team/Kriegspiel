@@ -86,11 +86,11 @@ public class EntityLoaderTest {
 		Method method = loader.getClass().getDeclaredMethod("isValidFileFormat", new Class[]{String.class});
 		method.setAccessible(true);
 		
-		String paramFileErr = "src/main/resources/board/ErrSample.txt";
+		String paramFileErr = "src/main/resources/board/ErrSample.ksv";
 		
 		assertFalse("Invalid file format", (Boolean) method.invoke(loader, (Object)paramFileErr));
 		
-		String paramFileOK = "src/main/resources/board/Sample1.txt";
+		String paramFileOK = "src/main/resources/board/Sample1.ksv";
 		
 		assertTrue("Valid file format", (Boolean) method.invoke(loader, (Object)paramFileOK));
 	}
@@ -99,7 +99,7 @@ public class EntityLoaderTest {
 	public void testReadFileException() throws BoardFileFormatException {
 		Board b = new Board();
 		EntityLoader loader = new EntityLoader(b);
-		loader.setMovableEntityFilename("src/main/resources/board/ErrSample.txt");
+		loader.setMovableEntityFilename("src/main/resources/board/ErrSample.ksv");
 		loader.loadMovableEntities();
 	}
 	
@@ -107,7 +107,7 @@ public class EntityLoaderTest {
 	public void testReadFile() {
 		Board b = new Board();
 		EntityLoader loader = new EntityLoader(b);
-		loader.setMovableEntityFilename("src/main/resources/board/Sample1.txt");
+		loader.setMovableEntityFilename("src/main/resources/board/Sample1.ksv");
 		try {
 			loader.loadMovableEntities();
 		} catch (BoardFileFormatException e) {
