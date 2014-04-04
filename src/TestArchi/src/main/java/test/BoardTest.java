@@ -27,7 +27,6 @@ public class BoardTest
 		Board b = new Board();
 		Engine e = new Engine(b);
 		e.initSession();
-		e.placeFixedEntities();
 		
 		assertTrue("Error when computing fighter number without loaded board", b.getNbrInstances(Fighter.class,1)==0);
 		assertTrue("Error when computing relay number without loaded board", b.getNbrInstances(Relay.class,0)==0);
