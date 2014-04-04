@@ -12,4 +12,8 @@ public class Mountain extends UnmovableEntity {
 		symbol = '^';
 		canContain = false;
 	}
+	
+	public void setEntity(Entity e) {
+		
+	}
 }

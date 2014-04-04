@@ -1,24 +1,24 @@
 package test;
 
 import static org.junit.Assert.*;
+import model.Infantry;
 
 import org.junit.Test;
 
 public class FighterTest {
 
 	@Test
-	public void testFighter() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testIsConnected() {
-		fail("Not yet implemented");
+		Infantry i = new Infantry(0);
+		i.setConnected(true);
+		assertTrue(i.isConnected());
 	}
 
 	@Test
 	public void testSetConnected() {
-		fail("Not yet implemented");
+		Infantry i = new Infantry(0);
+		i.setConnected(true);
+		assertTrue(i.isConnected());
 	}
 
 }

@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+import model.Relay;
 
 import org.junit.Test;
 
@@ -8,17 +9,25 @@ public class RelayTest {
 
 	@Test
 	public void testRelay() {
-		fail("Not yet implemented");
+		try {
+			new Relay(0);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
 	public void testIsOnCommunications() {
-		fail("Not yet implemented");
+		Relay r = new Relay(0);
+		r.setOnCommunications(true);
+		assertTrue(r.isOnCommunications());
 	}
 
 	@Test
 	public void testSetOnCommunications() {
-		fail("Not yet implemented");
+		Relay r = new Relay(0);
+		r.setOnCommunications(true);
+		assertTrue(r.isOnCommunications());
 	}
 
 }

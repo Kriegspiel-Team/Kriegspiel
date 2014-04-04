@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+import model.SwiftRelay;
 
 import org.junit.Test;
 
@@ -8,17 +9,25 @@ public class SwiftRelayTest {
 
 	@Test
 	public void testSwiftRelay() {
-		fail("Not yet implemented");
+		try {
+			new SwiftRelay(0);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
 	public void testIsOnCommunications() {
-		fail("Not yet implemented");
+		SwiftRelay r = new SwiftRelay(0);
+		r.setOnCommunications(true);
+		assertTrue(r.isOnCommunications());
 	}
 
 	@Test
 	public void testSetOnCommunications() {
-		fail("Not yet implemented");
+		SwiftRelay r = new SwiftRelay(0);
+		r.setOnCommunications(true);
+		assertTrue(r.isOnCommunications());
 	}
 
 }
