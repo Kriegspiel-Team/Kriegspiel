@@ -5,7 +5,7 @@ import main.Coord;
 /**
  * The Class Entity.
  */
-public class Entity {
+public abstract class Entity {
 	
 	/** The symbol. */
 	protected char symbol;

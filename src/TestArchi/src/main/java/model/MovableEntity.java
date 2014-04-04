@@ -8,7 +8,7 @@ import main.Coord;
 /**
  * The Class MovableEntity.
  */
-public class MovableEntity extends Entity {
+public abstract class MovableEntity extends Entity {
 	
 	/** Whether the unit can be killed. */
 	protected boolean canBeKilled;

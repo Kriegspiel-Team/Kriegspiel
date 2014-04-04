@@ -3,7 +3,7 @@ package model;
 /**
  * The Class Fighter.
  */
-public class Fighter extends MovableEntity {
+public abstract class Fighter extends MovableEntity {
 	
 	/** Whether it is connected to the com network. */
 	protected boolean isConnected;

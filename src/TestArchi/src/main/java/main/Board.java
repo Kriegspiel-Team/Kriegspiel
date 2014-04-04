@@ -105,7 +105,7 @@ public class Board {
 						n++;
 			}
 		}
-			
+		
 		return n;
 	}
 	
@@ -152,7 +152,7 @@ public class Board {
 	 */
 	public boolean arsenalIsAttacked(Arsenal a) {
 		if(!a.isEmpty() && a.getEntity().getOwner() != a.getOwner())
-			if(!(a.getEntity() instanceof Relay) || !(a.getEntity() instanceof SwiftRelay))
+			if(!(a.getEntity() instanceof Relay) && !(a.getEntity() instanceof SwiftRelay))
 				return true;
 		return false;
 	}

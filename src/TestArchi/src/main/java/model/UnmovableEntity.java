@@ -3,7 +3,7 @@ package model;
 /**
  * The Class UnmovableEntity.
  */
-public class UnmovableEntity extends Entity {
+public abstract class UnmovableEntity extends Entity {
 
 	/** The entity. */
 	private MovableEntity entity;
