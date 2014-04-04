@@ -55,6 +55,10 @@ public class Board {
 		communications.put(1, new HashSet<Coord>());
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isMapLoaded() {
 		return mapLoaded;
 	}
@@ -127,19 +131,6 @@ public class Board {
 		communications.get(0).clear();
 		communications.get(1).clear();
 		winner = -1;
-	}
-		
-	/**
-	 * Load board with file.
-	 *
-	 * @param loader the loader
-	 */
-	public void loadBoardWithFile(EntityLoader loader) {
-		try {
-			loader.loadMovableEntities();
-		} catch (BoardFileFormatException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**
