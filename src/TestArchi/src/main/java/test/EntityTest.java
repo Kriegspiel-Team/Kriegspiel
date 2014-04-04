@@ -23,8 +23,8 @@ public class EntityTest {
 		Fortress f = new Fortress();
 		Mountain m = new Mountain();
 		MountainPass mp = new MountainPass();
-		Canon c = new Canon(0);
-		SwiftCanon sc = new SwiftCanon(0);
+		Cannon c = new Cannon(0);
+		SwiftCannon sc = new SwiftCannon(0);
 		Cavalry ca = new Cavalry(0);
 		Infantry i = new Infantry(0);
 		Relay r = new Relay(0);

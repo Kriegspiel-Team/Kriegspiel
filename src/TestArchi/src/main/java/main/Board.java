@@ -75,7 +75,14 @@ public class Board {
 		return winner;
 	}
 
-	public int getNbrInstances(Class<? extends Entity> c, int team) {
+	/**
+	 * Gets the number of instances in the board
+	 *
+	 * @param c the class of the instance we are searching in the board
+	 * @param team the team
+	 * @return the number of instance of c
+	 */
+	public int getNbInstances(Class<? extends Entity> c, int team) {
 		int n = 0;
 		for(int y = 0; y < HEIGHT; y++){
 			for(int x = 0; x < WIDTH; x++){
@@ -91,6 +98,12 @@ public class Board {
 		return n;
 	}
 	
+	/**
+	 * Gets the number of connected fighters
+	 *
+	 * @param team the team
+	 * @return the number of connected fighters
+	 */
 	public int getNbFighterConnected(int team) {
 		
 		Class<? extends Entity> c = Fighter.class;
@@ -110,13 +123,13 @@ public class Board {
 	}
 	
 	/**
-	 * Gets the entity.
+	 * Gets the entity at (x,y)
 	 *
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 * @return the entity at (x,y)
 	 */
-	public Entity getEntity(int x,int y){
+	public Entity getEntity(int x,int y) {
 		return matrix[x][y];
 	}
 	
@@ -124,7 +137,7 @@ public class Board {
 	 * Reset board.
 	 * Clears the units, arsenals and communication lines.
 	 */
-	public void resetBoard(){
+	public void resetBoard() {
 		matrix = new Entity[WIDTH][HEIGHT];
 		coord_arsenals.clear();
 		communications.get(0).clear();
@@ -177,7 +190,7 @@ public class Board {
 	 * @param e the entity to place at (x,y)
 	 */
 	public void placeEntity(int x, int y, Entity e) {
-		if (isValidSquare(x, y)){
+		if (isValidDestination(x, y)){
 			e.setCoord(new Coord(x, y));
 			
 			if(matrix[x][y]!=null && matrix[x][y].canContain()) {
@@ -259,13 +272,13 @@ public class Board {
 	}
 	
 	/**
-	 * Checks if is valid square.
+	 * Checks if is valid destination.
 	 *
 	 * @param x the x
 	 * @param y the y
 	 * @return true, if (x,y) is a valid destination
 	 */
-	public boolean isValidSquare(int x, int y) {
+	public boolean isValidDestination(int x, int y) {
 		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return false;
 		
@@ -434,7 +447,7 @@ public class Board {
 	}
 	
 	/**
-	 * Gets the unit.
+	 * Gets the unit at (x,y) even if it is in a container
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -458,7 +471,7 @@ public class Board {
 	 * @param team the team
 	 * @return the list of all movable entities neighbouring (x,y)
 	 */
-	public ArrayList<Fighter> getNeighboursMovableEntity(int x, int y, int team) {
+	public ArrayList<Fighter> getNeighbours(int x, int y, int team) {
 
 		
 		ArrayList<Fighter> listNeighbours = new ArrayList<Fighter>();
@@ -481,7 +494,7 @@ public class Board {
 	 */
 	public boolean hasConnectedNeighbour(Fighter f) {
 		
-		ArrayList<Fighter> lf = getNeighboursMovableEntity(f.getCoord().x, f.getCoord().y, f.getOwner());
+		ArrayList<Fighter> lf = getNeighbours(f.getCoord().x, f.getCoord().y, f.getOwner());
 		
 		for(Fighter fn : lf)
 			if(fn.isConnected())
