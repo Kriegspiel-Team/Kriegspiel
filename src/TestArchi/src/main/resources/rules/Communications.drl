@@ -15,7 +15,8 @@ rule "DestroyArsenals"
         $a : Arsenal( $c : coord )
     then
     	if($b.arsenalIsAttacked($a)) {
-    		$b.destroyArsenal($c.x, $c.y, $a);
+    		modify($b) { destroyArsenal($c.x, $c.y, $a) }
+    		//$b.destroyArsenal($c.x, $c.y, $a);
     		retract($a);
     	}
 end
@@ -26,7 +27,8 @@ rule "initArsenalsCommunications"
     when
         $b : Board( myBoard : matrix )
     then
-    	$b.computeArsenalsCommunications();
+    	modify($b) { computeArsenalsCommunications() }
+    	//$b.computeArsenalsCommunications();
 end
 
 rule "RelayComm"
@@ -37,7 +39,8 @@ rule "RelayComm"
 	then
 			
 		if($b.isOnCommunications($coord, $team)) {
-			$b.computeCommunications($coord.x, $coord.y, $team);
+			modify($b) { computeCommunications($coord.x, $coord.y, $team) }
+			//$b.computeCommunications($coord.x, $coord.y, $team);
 			modify($r) { setOnCommunications(true); }
 		}
 end
@@ -50,7 +53,8 @@ rule "SwiftRelayComm"
 	then
 		
 		if($b.isOnCommunications($coord, $team)) {
-			$b.computeCommunications($coord.x, $coord.y, $team);
+			modify($b) { computeCommunications($coord.x, $coord.y, $team) }
+			//$b.computeCommunications($coord.x, $coord.y, $team);
 			modify($sr) { setOnCommunications(true); }
 		}
 end
@@ -62,10 +66,10 @@ rule "isConnectedByCom"
 		$f : Fighter(isConnected() == false, $team : owner, $coord : coord )
 	then
 	
-		if($b.isOnCommunications($coord, $team))
-			modify($f){
-				setConnected(true);
-			}
+		if($b.isOnCommunications($coord, $team)) {
+			modify($f){ setConnected(true) }
+			modify($b) { }
+		}
 
 		
 		if($f.isConnected()) {
@@ -83,10 +87,10 @@ rule "isConnectedByNeighbour"
 		$f : Fighter(isConnected() == false, $team : owner, $coord : coord )
 	then
 	
-		if($b.hasConnectedNeighbour($f))
-			modify($f){
-				setConnected(true);
-			}
+		if($b.hasConnectedNeighbour($f)) {
+			modify($f){ setConnected(true) }
+			modify($b) { }
+		}	
 			
 		if($f.isConnected()) {
 			ArrayList listNeighbours = new ArrayList<Fighter>();

@@ -88,7 +88,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		fileChooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.txt", "txt", "text");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Maps and Units", "kmp", "ksv");
 		fileChooser.setFileFilter(filter);
 		
 		loadBoardBtn = new JButton("Load a board...");
@@ -311,8 +311,17 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                
-                controller.loadNewBoard(file.getAbsolutePath());
+                String extension = "";
+                String fileName = file.getPath();
+                int i = fileName.lastIndexOf('.');
+                if (i > 0) {
+                    extension = fileName.substring(i+1);
+                }
+                if(extension.equals("ksv"))
+                	controller.loadNewBoard(file.getAbsolutePath());
+                else
+                	if(extension.equals("kmp"))
+                		controller.loadNewMap(file.getAbsolutePath());
             }
 			 
 		}

@@ -272,9 +272,18 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 		JPanel currentSquare = squares[x][y];
 		Entity currentEntity = matrix[x][y];
 				
-		if((board.isFortress(x, y) || board.isMountainPass(x, y)) && board.getUnit(x, y) != null)
-			currentEntity = board.getUnit(x, y);
-		
+		if(board.isFortress(x, y) || board.isMountainPass(x, y))
+		{
+			if(board.getUnit(x, y) == null)
+			{
+				currentSquare.setBackground(COLOR_EMPTY);
+				return;
+			}
+			else
+			{
+				currentEntity = board.getUnit(x, y);
+			}
+		}
 		int owner = currentEntity.getOwner();
 		
 		switch(owner) {
@@ -498,7 +507,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display unit.
+	 * Display entity symbol in its square.
 	 *
 	 * @param x the x
 	 * @param y the y

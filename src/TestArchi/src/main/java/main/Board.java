@@ -22,6 +22,7 @@ import model.UnmovableEntity;
  */
 public class Board {
 	
+	private boolean mapLoaded = false;
 
 	private int winner = -1;
 	
@@ -52,6 +53,14 @@ public class Board {
 		communications = new HashMap<Integer,HashSet<Coord>>();
 		communications.put(0, new HashSet<Coord>());
 		communications.put(1, new HashSet<Coord>());
+	}
+	
+	public boolean isMapLoaded() {
+		return mapLoaded;
+	}
+
+	public void setMapLoaded(boolean mapLoaded) {
+		this.mapLoaded = mapLoaded;
 	}
 	
 	public void setWinner(int team) {
