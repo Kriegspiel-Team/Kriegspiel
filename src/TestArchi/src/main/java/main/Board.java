@@ -93,7 +93,7 @@ public class Board {
 						n++;
 			}
 		}
-			
+		
 		return n;
 	}
 	
