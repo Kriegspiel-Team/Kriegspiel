@@ -1,0 +1,149 @@
+%\section{Etude des besoins}   
+\chapter{Etude des besoins}
+\markboth{\MakeUppercase{Etude des besoins}}{}
+
+	\section{Besoins fonctionnels}
+
+		\subsection{Réalisation d'un moteur de règles}
+
+			Notre moteur de règles est un système qui doit posséder l'ensemble des règles du jeu afin de pouvoir les appliquer à une situation de jeu.
+
+			\begin{enumerate}
+
+				\item \textbf{Transcrire les règles sous forme logique et les incorporer au moteur.} 
+				\\[0.7\baselineskip]
+				Priorité : Forte 
+				\\[0.7\baselineskip]
+				Description : Nous devons transcrire les règles du jeu de façon à ce que le système puisse les comprendre c'est à dire que ces 
+				règles doivent être codées à l'aide de conditions logiques. Etant donné une situation de jeu, le moteur de règles doit pouvoir 
+				propager les lignes de communications, octroyer les bonus défensifs pour les unités sur les forts, etc.
+				\\[0.7\baselineskip]
+				Tests : Pour tester notre moteur de règles, nous pouvons utiliser la partie commentée du livre de Guy Debord. Nous pouvons 
+				vérifier que les coups qui sont effectués dans cette partie soient bien affichés parmis les coups valides proposés par notre 
+				moteur de règles. Cela ne nous garantira pas un fonctionnement parfait du moteur de règles néanmoins ce test pourrait nous 
+				aider à trouver des dysfonctionnements. 
+				\\[0.7\baselineskip]
+				
+			\end{enumerate}
+
+		\subsection{Interface graphique}
+
+			\begin{enumerate}
+
+				\item \textbf{Créer une interface de jeu minimale} 
+				\\[0.7\baselineskip]
+				Priorité : Forte 
+				\\[0.7\baselineskip]
+				Description : Nous devons créer une interface permettant de représenter de manière très minimaliste le plateau de jeu (position des unités, 
+				montagnes, lignes de communication). 
+				\\[0.7\baselineskip]
+				Tests : On vérifiera l'exactitude du plateau et la cohérence des informations affichées par rapport au modèle interne. 
+				\\[0.7\baselineskip]
+
+				\item \textbf{Représentation graphique de la situation} 
+				\\[0.7\baselineskip]
+				Priorité : Forte 
+				\\[0.7\baselineskip]
+				Description : Cette interface devra également permettre de visualiser l'analyse effectuée par l'évaluateur de situation. 
+				\\[0.7\baselineskip]
+				Tests : Bien que cette fonctionnalité sera en elle-même un test de l'évaluateur, son fonctionnement pourra être vérifié par exemple en 
+				le faisant cohabiter avec des affichages en console. 
+				\\[0.7\baselineskip]
+
+				
+			\end{enumerate}
+
+		\subsection{Représentation d'une situation de jeu}
+
+			\begin{enumerate}
+
+				\item \textbf{Créer un système basique de chargement d'une situation de jeu} 
+				\\[0.7\baselineskip]
+				Priorité : Forte 
+				\\[0.7\baselineskip]
+				Description : Afin de pouvoir tester les algorithmes du moteur de règles et de l'évaluateur de position plus efficacement, nous aurons besoin 
+				d'un système permettant de charger des situations de jeu directement depuis un fichier texte, par exemple en ASCII ou autre format simple. 
+				Ce fichier devra simplement contenir les coordonnées de tout les pions sur le plateau de jeu. 
+				\\[0.7\baselineskip]
+				Tests : Il s'agira simplement de comparer les données du fichier de chargement avec celles du plateau de jeu. 
+				\\[0.7\baselineskip]
+				
+			\end{enumerate}
+
+		\subsection{Evaluation statique des positions}
+
+			\begin{enumerate}
+
+				\item \textbf{Déterminer la zone d'influence des unités} 
+				\\[0.7\baselineskip]
+				Priorité : Moyenne 
+				\\[0.7\baselineskip]
+				Description : Pour chaque unité, il sera nécessaire de déterminer en fonction des règles incorporées au moteur sa zone d'influence exacte, 
+				c'est à dire toutes les cases sur lesquelles l'unité en question pourra se déplacer ou attaquer au tour suivant. Cela permettra de déterminer 
+				l'ensemble des coups jouables pour chaque unité. 
+				\\[0.7\baselineskip]
+				Tests : Placer une cavalerie près d'une ligne de montagnes en présence d'autres unités et vérifier qu'il peut se déplacer normalement sans traverser 
+				les différents obstacles. 
+				\\[0.7\baselineskip]
+
+				\item \textbf{Calculer les potentiels offensifs et défensifs des unités} 
+				\\[0.7\baselineskip]
+				Priorité : Moyenne 
+				\\[0.7\baselineskip]
+				Description : Chaque unité possède d'après les règles ses propres caractéristiques (attaque, défense...) mais le potentiel offensif et défensif 
+				d'une unité peut être modifié si d'autres sont en présence directe. Il sera donc nécessaire de calculer ces potentiels pour chaque unité pour en déduire 
+				par la suite les zones fortes ou faibles. 
+				\\[0.7\baselineskip]
+				Tests : Prévoir différentes situations radicalement différentes et noter les potentiels calculés par le jeu disponible sur r-s-g.org. Vérifier ensuite 
+				que nous avons les mêmes valeurs pour toutes les situations testées. 
+				\\[0.7\baselineskip]
+
+				\item \textbf{Exploiter les données pour déterminer les coefficients de dangeurosité d'une zone} 
+				\\[0.7\baselineskip]
+				Priorité : Moyenne 
+				\\[0.7\baselineskip]
+				Description : Après avoir déterminé les zones d'influence et les potentiels offensifs et défensifs des unités, nous pourrons exploiter ces données pour 
+				créer un plateau secondaire coefficienté sur lequel seront représentées les zones à éviter ou non. Les coefficients seront calculés pour chaque case en 
+				fonction de la proximité des unités et de leur valeur offensive. Dans un premier temps, une seule armée sera prise en compte dans les calculs. Nous pourrons 
+				par la suite prendre en compte la seconde armée et adapter les coefficients en fonction de celle-ci. 
+				\\[0.7\baselineskip]
+				Tests : Prévoir plusieurs situations différentes et déterminer nous-même les zones dangereuses ou interessantes, puis comparer 
+				avec le résultat de notre algorithme. 
+				\\[0.7\baselineskip]
+				
+			\end{enumerate}
+
+		\subsection{Evaluation dynamique des positions}
+
+			\begin{enumerate}
+
+				\item \textbf{Déterminer les coefficients de dangeurosité d'une zone sur plusieurs tours} 
+				\\[0.7\baselineskip]
+				Priorité : Faible 
+				\\[0.7\baselineskip]
+				Description : De la même manière que l'évaluateur statique déterminera des coefficients pour chaque zone, nous devrons par la suite en reprenant des 
+				algorithmes très similaires, redéterminer des coefficients de dangeurosité sur chaque case, en prenant en compte cette fois ci, plusieurs tours de jeu. 
+				Le but sera d'obtenir un plateau de jeu coefficienté indiquant les zones avantageuses et désavantageuses pour chaque armée. 
+				\\[0.7\baselineskip]
+				Tests : Dans un premier temps, en prenant des situations précises, il s'agira de déterminer sur papier (en appliquant les mêmes algorithmes que ceux 
+				implémentés dans l'évaluateur) les cases du plateau étant dangereuses pour une armée et avantageuses pour l'autre, et d'en comparer les résultats avec 
+				les coefficients obtenus par l'évaluateur. 
+				\\[0.7\baselineskip]
+				
+			\end{enumerate}
+
+		\subsection{Moteur tactique}
+
+			\begin{enumerate}
+
+				\item \textbf{Appliquer une stratégie en fonction des données résultantes de l'évaluation de positions} 
+				\\[0.7\baselineskip]
+				Priorité : Faible 
+				\\[0.7\baselineskip]
+				Description : Ce dernier besoin consistera à essayer de mettre en place un système de règles logiques permettant la décision de coups en exploitant les 
+				calculs de l'évaluateur dynamique de positions. 
+				
+			\end{enumerate}
+	
+
+	\section{Besoins non fonctionnels}
