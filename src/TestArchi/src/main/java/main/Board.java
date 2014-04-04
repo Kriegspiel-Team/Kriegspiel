@@ -56,8 +56,8 @@ public class Board {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * 	Tells if the map is loaded
+	 * @return whether the map is loaded
 	 */
 	public boolean isMapLoaded() {
 		return mapLoaded;
