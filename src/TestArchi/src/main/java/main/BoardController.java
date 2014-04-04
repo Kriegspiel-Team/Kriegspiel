@@ -66,6 +66,8 @@ public class BoardController {
 						
 		engine.computeCommunications();
 		
+		board.setMapLoaded(true);
+		
 		InfluenceArea.runInfluenceArea(board);
 		
       	engine.computeAttackDefence();
