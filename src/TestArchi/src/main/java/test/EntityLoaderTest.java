@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import main.Board;
 import main.BoardFileFormatException;
 import main.EntityLoader;
+import model.Infantry;
 
 import org.junit.After;
 import org.junit.Before;
@@ -112,6 +113,20 @@ public class EntityLoaderTest  {
 		} catch (BoardFileFormatException e) {
 			fail(e.getMessage());
 		}
+	}
+	
+	@Test
+	public void testEntityPlacement() {
+		Board b = new Board();
+		EntityLoader loader = new EntityLoader(b, "src/main/resources/board/SingleInfantry.ksv", "src/main/resources/board/Map1.kmp");
+		try {
+			loader.loadMovableEntities();
+		} catch (BoardFileFormatException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals("Infantry placed in (7,3)", Infantry.class, b.getMatrix()[7][3].getClass());
+		assertEquals("Own to player 0", 0, b.getMatrix()[7][3].getOwner());
 	}
 
 }
