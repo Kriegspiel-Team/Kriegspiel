@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class SwiftRelay.
+ * A Swift Relay.
  */
 public class SwiftRelay extends MovableEntity {
 	

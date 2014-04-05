@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class Fortress.
+ * A Fortress.
  */
 public class Fortress extends UnmovableEntity {
 
