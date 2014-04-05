@@ -31,16 +31,22 @@ public class EntityLoader {
 	/** The filename. */
 	private String movableEntityFilename;
 	
+	/** Modifies the movableEntity filename */
 	public void setMovableEntityFilename(String movableEntityFilename) {
 		this.movableEntityFilename = movableEntityFilename;
 	}
-
+	/** Modifies the map filename */
 	public void setMapFilename(String mapFilename) {
 		this.mapFilename = mapFilename;
 	}
-
+	
+	/** The map filename */
 	private String mapFilename;
 	
+	/** Instantiates a new entity loader.
+	 * 
+	 * @param board the board
+	 */
 	public EntityLoader(Board board) {
 		this.board = board;
 	}
@@ -57,12 +63,16 @@ public class EntityLoader {
 		this.mapFilename = mapFilename;
 	}
 	
+	/**
+	 * Checks both files' formatting
+	 * @return true if both files are formatted correctly
+	 */
 	public boolean isValidFormat() {
 		return isValidFileFormat(movableEntityFilename) && isValidFileFormat(mapFilename);
 	}
 	
 	/**
-	 * Checks if file is formatted correctly.
+	 * Checks if file is formatted correctly to be read by the loader.
 	 *
 	 * @return true, if file is formatted correctly
 	 */
@@ -99,17 +109,25 @@ public class EntityLoader {
 		return valid;
 	}
 	
+	/**
+	 * Loads the map
+	 * @throws BoardFileFormatException
+	 */
 	public void loadMap() throws BoardFileFormatException{
 		readFile(mapFilename);
 	}
 	
+	/**
+	 * Loads the movable entities
+	 * @throws BoardFileFormatException
+	 */
 	public void loadMovableEntities() throws BoardFileFormatException {
 		readFile(movableEntityFilename);
 	}
 	
 	/**
-	 * Load file.
-	 *
+	 * Loads data from a file in the board.
+	 * @param filename the file to load
 	 * @throws BoardFileFormatException the board file format exception
 	 */
 	private void readFile(String filename) throws BoardFileFormatException{
