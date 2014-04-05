@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import main.BoardController;
 
 /**
- * The Class MenuDisplayer.
+ * The Menu Displayer.
  */
 @SuppressWarnings("serial")
 public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {
@@ -56,16 +56,26 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	/** The display defence button. */
 	private JButton displayDefenceBtn;
 	
-	/** The display prevailing0 button. */
+	/** The display defence minus attack button. */
+	private JButton displayDefenceMinusAttackBtn;
+	
+	/** The display attackEvaluator0 button. */
 	private JButton displayAttackEvaluator0Btn;
 	
-	/** The display prevailing1 button. */
-	private JButton displayAttackEvaluator1Btn;
-	
+	/** The display defenceEvaluator0 button. */
 	private JButton displayDefenceEvaluator0Btn;
 	
+	/** The display defenceEvaluatorMinusAttack0 button. */
+	private JButton displayDefenceMinusAttackEvaluator0Btn;
+	
+	/** The display attackEvaluator1 button. */
+	private JButton displayAttackEvaluator1Btn;
+	
+	/** The display defenceEvaluator1 button. */
 	private JButton displayDefenceEvaluator1Btn;
 	
+	/** The display defenceEvaluatorMinusAttack1 button. */
+	private JButton displayDefenceMinusAttackEvaluator1Btn;
 	
 	/**
 	 * Instantiates a new menu displayer.
@@ -117,6 +127,8 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
 		displayDefenceBtn.setFocusable(false);
+		displayDefenceMinusAttackBtn = new JButton("Defence - Attack");
+		displayDefenceMinusAttackBtn.setFocusable(false);
 		displayAttackEvaluator0Btn = new JButton("Dangerous zone for red team");
 		displayAttackEvaluator0Btn.setFocusable(false);
 		displayAttackEvaluator1Btn = new JButton("Dangerous zone for blue team");
@@ -124,24 +136,34 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		
 		displayDefenceEvaluator0Btn = new JButton("Safe zone for blue team");
 		displayDefenceEvaluator0Btn.setFocusable(false);
+		displayDefenceMinusAttackEvaluator0Btn = new JButton("Safe minus dagerous zone for blue team");
+		displayDefenceMinusAttackEvaluator0Btn.setFocusable(false);
 		displayDefenceEvaluator1Btn = new JButton("Safe zone for red team");
 		displayDefenceEvaluator1Btn.setFocusable(false);
+		displayDefenceMinusAttackEvaluator1Btn = new JButton("Safe minus dangerous zone for blue team");
+		displayDefenceMinusAttackEvaluator1Btn.setFocusable(false);
 				
 		displayUnitBtn.addMouseListener(this);
 		displayAttackBtn.addMouseListener(this);
 		displayDefenceBtn.addMouseListener(this);
+		displayDefenceMinusAttackBtn.addMouseListener(this);
 		displayAttackEvaluator0Btn.addMouseListener(this);
 		displayAttackEvaluator1Btn.addMouseListener(this);
 		displayDefenceEvaluator0Btn.addMouseListener(this);
+		displayDefenceMinusAttackEvaluator0Btn.addMouseListener(this);
 		displayDefenceEvaluator1Btn.addMouseListener(this);
+		displayDefenceMinusAttackEvaluator1Btn.addMouseListener(this);
 		
 		displayModePanel.add(displayUnitBtn);
 		displayModePanel.add(displayAttackBtn);
 		displayModePanel.add(displayDefenceBtn);
+		displayModePanel.add(displayDefenceMinusAttackBtn);
 		displayModePanel.add(displayAttackEvaluator0Btn);
 		displayModePanel.add(displayDefenceEvaluator1Btn);
 		displayModePanel.add(displayAttackEvaluator1Btn);
 		displayModePanel.add(displayDefenceEvaluator0Btn);
+		displayModePanel.add(displayDefenceMinusAttackEvaluator0Btn);
+		displayModePanel.add(displayDefenceMinusAttackEvaluator1Btn);
 		
 		this.add(loadBoardBtn);
 		this.add(displayCom0);
@@ -258,53 +280,8 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		}else if (source == displayDefenceBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
 			boardDisplayer.displayGUI();
-		}else if (source == displayAttackEvaluator0Btn) {
-			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK_EVAL_TEAM0);
-			
-			if(boardDisplayer.getP0Coms())
-				boardDisplayer.switchPOComs();
-			
-			if(boardDisplayer.getP1Coms())
-				boardDisplayer.switchP1Coms();
-			
-			displayCom0.setSelected(false);
-			displayCom1.setSelected(false);
-			boardDisplayer.displayGUI();
-		}else if (source == displayAttackEvaluator1Btn) {
-			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK_EVAL_TEAM1);
-			
-			if(boardDisplayer.getP0Coms())
-				boardDisplayer.switchPOComs();
-			
-			if(boardDisplayer.getP1Coms())
-				boardDisplayer.switchP1Coms();
-			
-			displayCom0.setSelected(false);
-			displayCom1.setSelected(false);
-			boardDisplayer.displayGUI();
-		}else if (source == displayDefenceEvaluator0Btn) {
-			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_EVAL_TEAM0);
-			
-			if(boardDisplayer.getP0Coms())
-				boardDisplayer.switchPOComs();
-			
-			if(boardDisplayer.getP1Coms())
-				boardDisplayer.switchP1Coms();
-			
-			displayCom0.setSelected(false);
-			displayCom1.setSelected(false);
-			boardDisplayer.displayGUI();
-		}else if (source == displayDefenceEvaluator1Btn) {
-			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_EVAL_TEAM1);
-			
-			if(boardDisplayer.getP0Coms())
-				boardDisplayer.switchPOComs();
-			
-			if(boardDisplayer.getP1Coms())
-				boardDisplayer.switchP1Coms();
-			
-			displayCom0.setSelected(false);
-			displayCom1.setSelected(false);
+		}else if (source == displayDefenceMinusAttackBtn) {
+			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_MINUS_ATTACK);
 			boardDisplayer.displayGUI();
 		}else if (source == loadBoardBtn) {
 			int returnVal = fileChooser.showOpenDialog(MenuDisplayer.this);
@@ -323,7 +300,36 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
                 	if(extension.equals("kmp"))
                 		controller.loadNewMap(file.getAbsolutePath());
             }
-			 
+		}else if (source == displayAttackEvaluator0Btn || source == displayAttackEvaluator1Btn 
+				|| source == displayDefenceEvaluator0Btn || source == displayDefenceMinusAttackEvaluator0Btn 
+				|| source == displayDefenceEvaluator1Btn || source == displayDefenceMinusAttackEvaluator1Btn) {
+			if (source == displayAttackEvaluator0Btn)
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK_EVAL_TEAM0);
+				
+			else if (source == displayAttackEvaluator1Btn) 
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK_EVAL_TEAM1);
+				
+			else if (source == displayDefenceEvaluator0Btn) 
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_EVAL_TEAM0);
+				
+			else if (source == displayDefenceMinusAttackEvaluator0Btn) 
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM0);
+				
+			else if (source == displayDefenceEvaluator1Btn) 
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_EVAL_TEAM1);
+				
+			else if (source == displayDefenceMinusAttackEvaluator1Btn) 
+				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM1);
+				
+			if(boardDisplayer.getP0Coms())
+				boardDisplayer.switchPOComs();
+			
+			if(boardDisplayer.getP1Coms())
+				boardDisplayer.switchP1Coms();
+			
+			displayCom0.setSelected(false);
+			displayCom1.setSelected(false);
+			boardDisplayer.displayGUI();
 		}
 	}
 

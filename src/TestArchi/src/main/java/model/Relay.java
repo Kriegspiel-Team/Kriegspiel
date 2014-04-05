@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class Relay.
+ * A Relay.
  */
 public class Relay extends MovableEntity {
 	

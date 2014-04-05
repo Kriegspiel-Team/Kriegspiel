@@ -3,20 +3,20 @@ package model;
 import main.Coord;
 
 /**
- * The Class Entity.
+ * This represents an Entity.
  */
 public abstract class Entity {
 	
-	/** The symbol. */
+	/** The ASCII symbol used to represent the Entity in the board. */
 	protected char symbol;
 	
-	/** The owner. */
+	/** The entity's owner. */
 	protected int owner = -1;
 	
-	/** The coord. */
+	/** The entity's coordinates. */
 	protected Coord coord;
 	
-	/** Whether it can contain. */
+	/** Whether it can contain another Entity. */
 	protected Boolean canContain = false;
 	
 	/**

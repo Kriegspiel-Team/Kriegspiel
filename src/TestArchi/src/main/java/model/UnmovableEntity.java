@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class UnmovableEntity.
+ * An UnmovableEntity.
  */
 public abstract class UnmovableEntity extends Entity {
 

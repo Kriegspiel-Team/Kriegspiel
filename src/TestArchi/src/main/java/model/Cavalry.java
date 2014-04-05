@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class Cavalry.
+ * A Cavalry.
  */
 public class Cavalry extends Fighter {
 	

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class Arsenal.
+ * An Arsenal.
  */
 public class Arsenal extends UnmovableEntity {
 	
