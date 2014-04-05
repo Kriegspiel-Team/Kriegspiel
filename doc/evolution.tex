@@ -1,0 +1,63 @@
+%\section{Evolution possible}
+\chapter{Evolution possible}
+\markboth{\MakeUppercase{Evolution possible}}{}     
+
+	\section{Mise en place d'un joueur minimal}
+	
+	\paragraph{}
+	Actuellement, l'évaluation d'une situation de jeu se fait de façon statique et il n'est pas possible de passer d'une situation de jeu à une autre
+	en permettant de jouer un coup. Nous aurions pu concrétiser le projet en mettant en place un joueur très minimal (qui aurait simplement pour but de
+	se déplacer vers les arsenaux ennemis par exemple) et ce en mettant en place une boucle de jeu et un moteur décisionnel le plus basique possible.
+	Le joueur automatique aurait alors été très sommaire, c'est pourquoi nous nous étions penchés sur de nombreuses possibilités d'évolution.
+
+	\section{Extraction d'informations plus pertinentes}
+		
+		\paragraph{}
+		A ce jour, nous sommes parvenus à extraire une matrice permettant de visualiser les points faibles d'une armée à partir d'une situation de jeu donnée
+		dans le cas d'une confrontation directe. (c'est à dire que les deux armées doivent être sur le point de s'attaquer)
+		Cette matrice est cependant très insuffisante pour permettre à un joueur automatique de prendre un décision puisque beaucoup d'informations manquent.
+		Nous pourrions déduire de cette matrice un vaste ensemble de coups possibles, qu'il faudrait ensuite raffiner en prenant d'autres informations en compte.
+	
+		\subsection{Raffinement grâce aux lignes de communication}
+	
+		\paragraph{}
+		Pour la suite du projet, si nous nous basions exclusivement sur la matrice permettant la visualisation des points faibles pour prendre une décision,
+		le joueur automatique pourrait faire sortir ses unités des lignes de communication, ce qui serait dans la plupart des cas une erreur tactique importante.
+		Nous pourrions donc déduire de cette matrice un ensemble de coups potentiellement intéressants et ferions l'intersection avec l'ensemble
+		des coups permettant de rester dans les lignes de communication. Nous obtiendrions alors l'ensemble des coups permettant l'attaque des points faibles
+		de l'armée adverse tout en restant sur des lignes de comunication alliées.
+		Bien que plus efficace que la matrice des points faibles seule, cette solution nécessitera malgré tout de nombreuses autres améliorations avant d'être
+		réellement exploitable.
+		
+		\subsection{Prise en compte des arsenaux}
+		
+		\paragraph{}
+		Si nous nous basions seulement sur la méthode précédente pour créer un joueur automatique, celui-ci serait très vite limité puisque les arsenaux qui sont des
+		éléments cruciaux dans la partie ne seraient alors pas pris en compte.
+		Il pourrait être intéressant d'ajouter à la liste des coups intéressants les coups permettant de s'approcher d'un arsenal ennemi sans avoir à combattre.
+		Pour cela, il faudrait générer k chemins sensiblement différents entre un groupe d'unités et un arsenal, puis analyser pour chacun des k chemins si une 
+		zone dangeureuse se trouve entre le groupe d'unité et l'arsenal.
+		Il suffit pour cela de récupérer les cases composants les k chemins puis de regarder les valeurs de dangerosité disponibles dans la matrice des zones dangereuses
+		que nous avons calculé.
+		Si une des valeurs est élevée, alors le chemin doit être abandonné et si toutes les valeurs sont faibles, il peut être intéressant de se diriger vers cet
+		arsenal et les cases composant le début du chemin doivent être ajoutées aux déplacements potentiellement intéressants.
+		Cette méthode devra également être raffinée grâce à la prise en compte des lignes de communication (de la même façon qu'expliquée précédemment) pour éviter de 
+		sortir des lignes en se dirigeant vers un arsenal.
+
+		\subsection{Autres données à prendre en compte}
+		
+		\paragraph{}
+		Après avoir mis en place ces tactiques de base, des tactiques plus compèxes devront être mises en place pour obtenir un joueur minimal.
+		Nous ne nous sommes pas penchés en profondeur sur le sujet étant donné qu'il ne s'agissait pas de notre but premier mais avons tout de même quelques idées.
+		Il serait intéressant par exemple de mettre en place des stratégies de défense en vérifant qu'il n'existe pas de chemin en ligne droite entre un groupe
+		d'unité ennemi et un arsenal allié sur lequel les valeurs défensives seraient faibles.
+		Les relais sont également des unités essentielles au niveau statégique, il faudra donc prévoir de les prendre en compte pour les attaquer si possible
+		en priorité.
+		
+		\paragraph{}
+		Il faut bien sûr garder à l'esprit que même si toutes ces stratégies étaient correctement implémentées, de grosses failles tactiques persisteraient
+		très probablement. Il faudrait par la suite un travail conséquent pour les détecter et mettre en place des algorithme plus efficaces prenant en compte
+		tous les paramètres du jeu.
+		
+
+	
