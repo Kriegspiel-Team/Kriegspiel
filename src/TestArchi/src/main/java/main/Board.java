@@ -56,8 +56,8 @@ public class Board {
 	}
 	
 	/**
-	 * 	Tells if the map is loaded
-	 * @return whether the map is loaded
+	 * 	Tells whether the map is loaded
+	 * @return true if the map is loaded
 	 */
 	public boolean isMapLoaded() {
 		return mapLoaded;
@@ -76,11 +76,11 @@ public class Board {
 	}
 
 	/**
-	 * Gets the number of instances in the board
+	 * Gets the number of instances of a class in the board
 	 *
 	 * @param c the class of the instance we are searching in the board
 	 * @param team the team
-	 * @return the number of instance of c
+	 * @return the number of instances of c
 	 */
 	public int getNbInstances(Class<? extends Entity> c, int team) {
 		int n = 0;
@@ -161,7 +161,7 @@ public class Board {
 	 * Checks whether an Arsenal is under attack.
 	 * 
 	 * @param a the Arsenal to check
-	 * @return whether a is under attack
+	 * @return true if a is under attack
 	 */
 	public boolean arsenalIsAttacked(Arsenal a) {
 		if(!a.isEmpty() && a.getEntity().getOwner() != a.getOwner())
@@ -183,7 +183,7 @@ public class Board {
 	}
 	
 	/**
-	 * Place entity.
+	 * Place an entity.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -243,9 +243,9 @@ public class Board {
 	/**
 	 * Checks if an unit is on a communication line.
 	 *
-	 * @param coord the coord
+	 * @param coord the coordinates
 	 * @param team the team
-	 * @return true, if is on communications
+	 * @return true if the unit at (x,y) is on communications
 	 */
 	public boolean isOnCommunications(Coord coord, int team) {
 		return getCommunications(team).contains(coord);
@@ -401,7 +401,7 @@ public class Board {
 	}
 	
 	/**
-	 * Can contain.
+	 * Checks if an unit can contain another unit.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -503,7 +503,7 @@ public class Board {
 	}
 	
 	/**
-	 * Compute arsenals communications.
+	 * Computes arsenals communications.
 	 */
 	public void computeArsenalsCommunications() {
 
@@ -532,7 +532,7 @@ public class Board {
 	}
 	
 	/**
-	 * Compute communications.
+	 * Compute communications for the given team.
 	 *
 	 * @param x the x
 	 * @param y the y

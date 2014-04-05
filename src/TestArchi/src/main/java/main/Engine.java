@@ -12,20 +12,17 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 /**
- * The Class Engine.
+ * This class represents the rules engine.
  */
 public class Engine implements IEngine {
 	
 	/** The board. */
 	private Board board;
 	
-	/** The ks. */
 	private KieServices ks;
 	
-	/** The k container. */
 	private KieContainer kContainer;
 	
-	/** The k session. */
 	private KieSession kSession;
 
     /**

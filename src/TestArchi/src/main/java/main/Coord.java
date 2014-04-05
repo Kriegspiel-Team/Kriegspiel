@@ -1,7 +1,7 @@
 package main;
 
 /**
- * The Class Coord.
+ * This represents a pair of coordinates.
  */
 public class Coord {
 	

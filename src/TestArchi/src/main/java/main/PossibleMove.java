@@ -3,11 +3,11 @@ package main;
 import model.MovableEntity;
 
 /**
- * The Class PossibleMove.
+ * This class represents a playable move of an unit.
  */
 public class PossibleMove {
 
-	/** The coord. */
+	/** The target coordinates. */
 	private Coord coord;
 	
 	/** The movable entity. */
@@ -16,7 +16,7 @@ public class PossibleMove {
 	/**
 	 * Instantiates a new possible move.
 	 *
-	 * @param coord the coord
+	 * @param coord the coordinates
 	 * @param movableEntity the movable entity
 	 */
 	public PossibleMove(Coord coord, MovableEntity movableEntity){
@@ -25,9 +25,9 @@ public class PossibleMove {
 	}
 
 	/**
-	 * Gets the coord.
+	 * Gets the coordinates.
 	 *
-	 * @return the coord
+	 * @return the coordinates
 	 */
 	public Coord getCoord() {
 		return coord;
