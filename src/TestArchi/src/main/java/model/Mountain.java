@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class Mountain.
+ * A Mountain.
  */
 public class Mountain extends UnmovableEntity {
 	

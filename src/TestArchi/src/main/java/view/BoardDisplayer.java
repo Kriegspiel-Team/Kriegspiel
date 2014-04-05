@@ -32,7 +32,7 @@ import model.MovableEntity;
 import model.Fighter;
 
 /**
- * The Class BoardDisplayer.
+ * The BoardDisplayer.
  */
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
@@ -95,6 +95,7 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_DEFENCE_EVAL_TEAM1 = 8;
 	
 	public static final int DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM1 = 9;
+
 	
 	
 	/** The current display mode. */
@@ -194,7 +195,7 @@ public class BoardDisplayer extends JFrame {
 	}
 			
 	/**
-	 * Draw entities.
+	 * Draws the entities.
 	 */
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
@@ -251,7 +252,7 @@ public class BoardDisplayer extends JFrame {
 	}
 		
 	/**
-	 * Clear possible movement display.
+	 * Clears possible movement display.
 	 */
 	private void clearPossibleMovement() {
 		if (selectedSquare == null)
@@ -270,7 +271,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Color square by owner.
+	 * Colors every unit depending on its owner.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -332,7 +333,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Display the GUI.
+	 * Displays the GUI.
 	 */
 	public void displayGUI() {			
 		for(int j=0 ; j<Board.HEIGHT ; j++) {
@@ -409,7 +410,7 @@ public class BoardDisplayer extends JFrame {
 	}
 
 	/**
-	 * Draw the communication lines.
+	 * Draws the communication lines.
 	 */
 	private void drawCommunications() {		
 		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
@@ -439,7 +440,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Display the prevailing matrix of a team.
+	 * Display the attack matrix of a team.
 	 *
 	 * @param team the team
 	 */
@@ -466,6 +467,11 @@ public class BoardDisplayer extends JFrame {
 		
 	}
 	
+	/**
+	 * Displays the defence matrix of a team.
+	 * 
+	 * @param team the team
+	 */
 	private void displayDefenceEvaluator(int team) {
 		
 		Integer[][] matrix = this.potential.matrix_defence.get(team);
@@ -509,7 +515,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Display attack potential on a square.
+	 * Displays the total attack potential on a square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -528,7 +534,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Display defence potential on a square.
+	 * Displays the defence potential on a square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -547,6 +553,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Display defence minus attack potential on a square.
 	 *
 	 * @param x the x
@@ -572,6 +579,9 @@ public class BoardDisplayer extends JFrame {
 	
 	/**
 	 * Display entity symbol in its square.
+=======
+	 * Displays an entity's symbol in its square.
+>>>>>>> b245f7723a71af53682f1e53738129b521b33c53
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -583,7 +593,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Display a popup.
+	 * Display a pop-up.
 	 *
 	 * @param text the text
 	 * @param title the title
@@ -608,7 +618,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Reset selected square.
+	 * Resets the selected square.
 	 */
 	public void resetSelectedSquare(){
 		selectedSquare = null;

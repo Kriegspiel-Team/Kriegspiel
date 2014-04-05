@@ -260,7 +260,7 @@ public class InfluenceAreaTest {
 		engine.computeCommunications();
 
 		InfluenceArea.computeInfluenceArea(board, 15, 12, c.getSpeed(), c);
-		
+
 		assertTrue(c.getPossibleMovement().contains(new Coord(13,12)));
 		assertTrue(c.getPossibleMovement().contains(new Coord(14,12)));
 		assertTrue(c.getPossibleMovement().contains(new Coord(16,12)));

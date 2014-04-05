@@ -79,6 +79,9 @@ public class BoardController {
       	engine.computeWin();
 	}
 	
+	/**
+	 * Checks if a winner has been found and displays a pop-up if so.
+	 */
 	private void checkWinner() {
 		if (board.getWinner() == 0) {
 			boardDisplayer.displayPopup("Blue player win", "There is a winner!", JOptionPane.DEFAULT_OPTION);
@@ -88,14 +91,14 @@ public class BoardController {
 	}
 	
 	/**
-	 * Load default board.
+	 * Loads the default board.
 	 */
 	public void loadDefaultBoard() {
 		loadNewBoard("src/main/resources/board/Livre.ksv");
 	}
 	
 	/**
-	 * Load new board.
+	 * Loads a new board and repaints everything.
 	 *
 	 * @param file the file from which to load the board data
 	 */
@@ -116,7 +119,7 @@ public class BoardController {
 	}
 	
 	/**
-	 * Load new map.
+	 * Loads a new map and repaints everything.
 	 *
 	 * @param file the file from which to load the map data
 	 */

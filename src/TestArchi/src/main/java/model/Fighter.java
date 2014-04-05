@@ -1,11 +1,11 @@
 package model;
 
 /**
- * The Class Fighter.
+ * This represents any Entity that can attack (A MovableEntity except relays).
  */
 public abstract class Fighter extends MovableEntity {
 	
-	/** Whether it is connected to the com network. */
+	/** Whether it is connected to the communications network. */
 	protected boolean isConnected;
 
 	/**
