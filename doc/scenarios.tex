@@ -4,8 +4,8 @@
 
 	\section{Aspect général}
 
-		\includegraphics[scale=0.4]{images/screen1.eps}
-		
+		%\centerline{\includegraphics[scale=0.45]{images/screen1.eps}}
+
 		\paragraph{Le plateau :}
 			L'affichage du plateau prend la majorité de la fenêtre.
 			Les entités sont représentées par des lettres dans des cases de la couleur de leur équipe.
@@ -19,36 +19,42 @@
 		\paragraph{Le menu :}
 	
 			Le menu contient différents éléments :
-			- Le bouton de chargement en haut permet de charger une situation depuis un fichier?
-			- Les checkboxes permettent d'activer ou de désactiver les communications
-			- Les grands boutons permettent de changer le mode d'affichage
+			\begin{itemize}
+			\item[-]Le bouton de chargement en haut permet de charger une situation depuis un fichier
+			\item[-]Les checkboxes permettent d'activer ou de désactiver les communications
+			\item[-]Les grands boutons permettent de changer le mode d'affichage
+			\end{itemize}
 
 	\section{Les modes d'affichage}
 
 		\subsection{Mode unités}
-			\includegraphics[scale=0.4]{images/screen1.eps}
-			C'est le mode d'affichage principal, les symboles des unités sont affichés.
+
+			\centerline{\includegraphics[scale=0.45]{images/screen1.eps}}
+			C'est le mode d'affichage principal, les symboles des unités sont affichés dans les cases.
 
 			\clearpage
 
 		\subsection{Modes attaque/défense}
-			\includegraphics[scale=0.4]{images/screen2.eps}
-			Dans le mode attaque, le total d'attaque potentiel est affiché sur chaque unité.
+
+			\centerline{\includegraphics[scale=0.45]{images/screen2.eps}}
+			Dans le mode attaque, le total d'attaque potentielle subie est affiché à la place du symbole de chaque unité.
 			Dans le mode défense, le total de défense de l'unité est affiché.
 		
 			\clearpage	
 
-		\subsection{Mode prédominance}
-			\includegraphics[scale=0.4]{images/screen3.eps}
-			Dans le mode prédominance, la matrice de prédominance du joueur choisi est affichée.
+		\subsection{Modes zone sûre/zone dangereuse}
+			\centerline{\includegraphics[scale=0.45]{images/screen3.eps}}
+			Dans les modes zone sûre, la matrice de défense de l'équipe choisie est affichée.
+			Dans les modes zone dangereuse, la matrice d'attaque de l'équipe choisie est affichée
 
 			\clearpage
 
 	\section{Autres fonctionnalités}
 
 		\subsection{Lignes de communication}
-			\includegraphics[scale=0.4]{images/screen4.eps}
-			Les lignes de communication sont représentées par des cercles de la couleur de l'équipe.
+
+			\centerline{\includegraphics[scale=0.45]{images/screen4.eps}}
+			Les lignes de communication sont représentées par des cercles de la couleur de l'équipe sur les cases vides.
 			Les unités déconnectées ont une teinte plus claire que les unités connectées.
 			On peut remarquer que les unités adverses bloquent les communications et que les relais alliés les propagent.
 

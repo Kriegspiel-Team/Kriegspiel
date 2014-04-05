@@ -45,7 +45,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 		
-		InfluenceArea.computeInfluenceAreas(board, 14, 5, i0.getSpeed(), i0);
+		InfluenceArea.computeInfluenceArea(board, 14, 5, i0.getSpeed(), i0);
 		
 		assertTrue(i0.getPossibleMovement().contains(new Coord(14,6)));
 		assertTrue(i0.getPossibleMovement().contains(new Coord(14,4)));
@@ -65,7 +65,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 		
-		InfluenceArea.computeInfluenceAreas(board, 0, 19, c.getSpeed(), c);
+		InfluenceArea.computeInfluenceArea(board, 0, 19, c.getSpeed(), c);
 		
 		assertTrue(c.getPossibleMovement().contains(new Coord(0,18)));
 		assertTrue(c.getPossibleMovement().contains(new Coord(0,17)));
@@ -85,7 +85,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 10, 1, i0.getSpeed(), i0);
+		InfluenceArea.computeInfluenceArea(board, 10, 1, i0.getSpeed(), i0);
 		
 		assertTrue(i0.getPossibleMovement().contains(new Coord(9,1)));
 		assertTrue(i0.getPossibleMovement().contains(new Coord(11,1)));
@@ -102,7 +102,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 7, 3, i0.getSpeed(), i0);
+		InfluenceArea.computeInfluenceArea(board, 7, 3, i0.getSpeed(), i0);
 		
 		assertTrue(i0.getPossibleMovement().contains(new Coord(7,4)));
 		assertTrue(i0.getPossibleMovement().contains(new Coord(7,2)));
@@ -122,7 +122,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 9, 5, i0.getSpeed(), i0);
+		InfluenceArea.computeInfluenceArea(board, 9, 5, i0.getSpeed(), i0);
 		
 		assertTrue(i0.getPossibleMovement().contains(new Coord(8,6)));
 		assertTrue(i0.getPossibleMovement().contains(new Coord(8,5)));
@@ -141,7 +141,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 8, 10, i1.getSpeed(), i1);
+		InfluenceArea.computeInfluenceArea(board, 8, 10, i1.getSpeed(), i1);
 		
 		assertTrue(i1.getPossibleMovement().contains(new Coord(8,9)));
 		assertTrue(i1.getPossibleMovement().contains(new Coord(8,11)));
@@ -161,7 +161,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 8, 1, i1.getSpeed(), i1);
+		InfluenceArea.computeInfluenceArea(board, 8, 1, i1.getSpeed(), i1);
 		
 		assertTrue(i1.getPossibleMovement().contains(new Coord(7,0)));
 		assertTrue(i1.getPossibleMovement().contains(new Coord(8,0)));
@@ -183,7 +183,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 0, 0, c.getSpeed(), c);
+		InfluenceArea.computeInfluenceArea(board, 0, 0, c.getSpeed(), c);
 		
 		assertTrue(c.getPossibleMovement().size() == 0);
 		
@@ -196,7 +196,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 5, 10, i0.getSpeed(), i0);
+		InfluenceArea.computeInfluenceArea(board, 5, 10, i0.getSpeed(), i0);
 		
 		assertTrue(i0.getPossibleMovement().size() == 0);
 		
@@ -208,7 +208,7 @@ public class InfluenceAreaTest {
 		board.setMapLoaded(true);
 		engine.computeCommunications();
 
-		InfluenceArea.computeInfluenceAreas(board, 15, 11, c.getSpeed(), c);
+		InfluenceArea.computeInfluenceArea(board, 15, 11, c.getSpeed(), c);
 		
 		assertTrue(c.getPossibleMovement().contains(new Coord(13,9)));
 		assertTrue(c.getPossibleMovement().contains(new Coord(13,10)));

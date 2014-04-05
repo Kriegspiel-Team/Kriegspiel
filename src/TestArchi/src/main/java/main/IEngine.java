@@ -16,7 +16,7 @@ public interface IEngine {
 	public void computeCommunications();
 	
 	/**
-	 * Compute attack defence.
+	 * Compute attack and defence.
 	 */
 	public void computeAttackDefence();
 	
@@ -25,5 +25,8 @@ public interface IEngine {
 	 */
 	public void computeDeath();
 	
+	/**
+	 * Computes win.
+	 */
 	public void computeWin();
 }
