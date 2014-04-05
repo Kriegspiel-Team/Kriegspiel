@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import main.BoardController;
 
 /**
- * The Class MenuDisplayer.
+ * The Menu Displayer.
  */
 @SuppressWarnings("serial")
 public class MenuDisplayer extends JPanel implements ItemListener, MouseListener {

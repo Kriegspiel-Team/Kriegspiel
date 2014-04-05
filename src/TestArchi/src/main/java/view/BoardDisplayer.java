@@ -32,7 +32,7 @@ import model.MovableEntity;
 import model.Fighter;
 
 /**
- * The Class BoardDisplayer.
+ * The BoardDisplayer.
  */
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
@@ -79,14 +79,16 @@ public class BoardDisplayer extends JFrame {
 	/** The Display mode DISPLAY_DEFENCE. */
 	public static final int DISPLAY_DEFENCE = 2;
 	
-	/** The Display mode DISPLAY_PREVAILING0. */
+	/** The Display mode DISPLAY_ATTACK_EVAL_TEAM0. */
 	public static final int DISPLAY_ATTACK_EVAL_TEAM0 = 3;
 	
-	/** The Display mode DISPLAY_PREVAILING1. */
+	/** The Display mode DISPLAY_ATTACK_EVAL_TEAM1. */
 	public static final int DISPLAY_ATTACK_EVAL_TEAM1 = 4;
-	
+
+	/** The Display mode DISPLAY_DEFENCE_EVAL_TEAM0. */
 	public static final int DISPLAY_DEFENCE_EVAL_TEAM0 = 5;
 	
+	/** The Display mode DISPLAY_DEFENCE_EVAL_TEAM1. */
 	public static final int DISPLAY_DEFENCE_EVAL_TEAM1 = 6;
 	
 	
@@ -187,7 +189,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 			
 	/**
-	 * Draw entities.
+	 * Draws the entities.
 	 */
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
@@ -244,7 +246,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 		
 	/**
-	 * Clear possible movement display.
+	 * Clears possible movement display.
 	 */
 	private void clearPossibleMovement() {
 		if (selectedSquare == null)
@@ -263,7 +265,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Color square by owner.
+	 * Colors every unit depending on its owner.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -325,7 +327,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display the GUI.
+	 * Displays the GUI.
 	 */
 	public void displayGUI() {			
 		for(int j=0 ; j<Board.HEIGHT ; j++) {
@@ -393,7 +395,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 
 	/**
-	 * Draw the communication lines.
+	 * Draws the communication lines.
 	 */
 	private void drawCommunications() {		
 		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
@@ -423,7 +425,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display the prevailing matrix of a team.
+	 * Display the attack matrix of a team.
 	 *
 	 * @param team the team
 	 */
@@ -450,6 +452,11 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 		
 	}
 	
+	/**
+	 * Displays the defence matrix of a team.
+	 * 
+	 * @param team the team
+	 */
 	private void displayDefenceEvaluator(int team) {
 		
 		Integer[][] matrix = this.potential.matrix_defence.get(team);
@@ -469,7 +476,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display attack potential on a square.
+	 * Displays the total attack potential on a square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -488,7 +495,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display defence potential on a square.
+	 * Displays the defence potential on a square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -507,7 +514,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display entity symbol in its square.
+	 * Displays an entity's symbol in its square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -519,7 +526,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display a popup.
+	 * Display a pop-up.
 	 *
 	 * @param text the text
 	 * @param title the title
@@ -544,7 +551,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Reset selected square.
+	 * Resets the selected square.
 	 */
 	public void resetSelectedSquare(){
 		selectedSquare = null;
