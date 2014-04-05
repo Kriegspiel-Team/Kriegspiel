@@ -490,6 +490,10 @@ public class BoardDisplayer extends JFrame {
 		
 	}
 	
+	/**
+	 * Displays weakpoints for a team.
+	 * @param team the team
+	 */
 	private void displayDefenceMinusAttackEvaluator(int team) {
 		
 		Integer[][] matrixDef = this.potential.matrix_defence.get(team);
@@ -553,7 +557,6 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Display defence minus attack potential on a square.
 	 *
 	 * @param x the x
@@ -578,10 +581,7 @@ public class BoardDisplayer extends JFrame {
 	}
 	
 	/**
-	 * Display entity symbol in its square.
-=======
 	 * Displays an entity's symbol in its square.
->>>>>>> b245f7723a71af53682f1e53738129b521b33c53
 	 *
 	 * @param x the x
 	 * @param y the y
