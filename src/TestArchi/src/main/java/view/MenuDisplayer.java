@@ -192,18 +192,24 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		Action doDisplayCom0 = new AbstractAction(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boardDisplayer.switchPOComs();
-				displayCom0.setSelected(boardDisplayer.getP0Coms());
-				boardDisplayer.displayGUI();
+				if(displayCom0.isEnabled())
+				{
+					boardDisplayer.switchPOComs();
+					displayCom0.setSelected(boardDisplayer.getP0Coms());
+					boardDisplayer.displayGUI();
+				}
 		    }
 		};
 		
 		Action doDisplayCom1 = new AbstractAction(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boardDisplayer.switchP1Coms();
-				displayCom1.setSelected(boardDisplayer.getP1Coms());
-				boardDisplayer.displayGUI();
+				if(displayCom1.isEnabled())
+				{
+					boardDisplayer.switchP1Coms();
+					displayCom1.setSelected(boardDisplayer.getP1Coms());
+					boardDisplayer.displayGUI();
+				}
 		    }
 		};
 		
