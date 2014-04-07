@@ -572,7 +572,9 @@ public class BoardDisplayer extends JFrame {
 	public void displayDefenceMinusAttackPotential(int x, int y) {
 		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
-			if(unit != null) {
+			if(unit == null)
+				squares[x][y].setBackground(COLOR_EMPTY);
+			else {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
 				
 				int diff = (unit.getAllyDefence() - unit.getEnemyAttack());
