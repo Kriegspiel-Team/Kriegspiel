@@ -4,8 +4,6 @@
 
 	\section{Aspect général}
 
-		%\centerline{\includegraphics[scale=0.45]{images/screen1.eps}}
-
 		\paragraph{Le plateau :}
 			L'affichage du plateau prend la majorité de la fenêtre.
 			Les entités sont représentées par des lettres dans des cases de la couleur de leur équipe.
@@ -27,31 +25,50 @@
 
 	\section{Les modes d'affichage}
 
+		Ne pouvant pas afficher la totalité des informations sur le plateau, (unités, potentiels, zones dangereuses, points faibles) nous
+		avons décidé de créer plusieurs modes d'affichage distincts afin de ne pas le surcharger.
+
 		\subsection{Mode unités}
 
-			\centerline{\includegraphics[scale=0.5]{images/screen_units.eps}}
+			\centerline{\includegraphics[scale=0.5]{images/screen_units.png}}
 			C'est le mode d'affichage principal, les symboles des unités sont affichés dans les cases.
-
 			\clearpage
 
 		\subsection{Modes attaque/défense}
 
-			\centerline{\includegraphics[scale=0.5]{images/screen_def.eps}}
+			\centerline{\includegraphics[scale=0.5]{images/screen_def.png}}
 			Dans le mode attaque, le total d'attaque potentielle subie est affiché à la place du symbole de chaque unité.
 			Dans le mode défense, le total de défense de l'unité est affiché.
-		
+			Ces valeurs sont calculées à partir des indications données dans les règles du jeu.
 			\clearpage	
 
-		\subsection{Mode score de combat}
+		\subsection{Mode score de combat / points faibles}
 
-			\centerline{\includegraphics[scale=0.5]{images/screen_fscore.eps}}
+			\centerline{\includegraphics[scale=0.5]{images/screen_fscore.png}}
+			
+			\paragraph{}
 			Le mode score de combat permet de voir les unités en situation de force ou de faiblesse.
-			Plus l'unité est foncée, plus son score est faible, plus elle est vulnérable.
-		
+			Plus l'unité est foncée, plus son score est faible et donc plus elle est vulnérable.
+			Cette matrice permet donc de déterminer les points faibles d'une armée s'ils existent.
+			
+			\paragraph{}
+			Pour vérifier l'utilité de cette matrice, nous avons transcrit une situation de jeu commentée du livre de Debord.\cite{ref2} (partie retranscrite
+			par la capture d'écran ci-dessus) Nous avons ensuite lu les commentaires à propos de cette partie voir si la stratégie utilisée concordait bien
+			avec les points faibles indiqués par notre matrice.
+			
+			\paragraph{Citation livre "Jeu de la Guerre" de Guy Debord - Page 159 \cite{ref2} : }
+			"La figure 6 représente deux armées groupées, sur le point d'engager la bataille, après avoir marché l'une et l'autre pour s'assurer certaines positions
+			de départ. Le camp Nord est à pied d'oeuvre pour prendre d'assaut la forteresse en L15 qui constitue le pivot de manoeuvre du camp sud"
+			
+			\paragraph{}
+			Il est clair d'après la partie commentée que le fort est le point clef de cette bataille, or nous pouvons remarquer que la matrice des points faibles
+			met justement en exergue l'unité se trouvant sur le fort. Il s'agit donc d'une situation pour laquelle cette matrice pourra être parfaitement exploitable
+			pour une éventuelle future prise de décision.	
+			
 			\clearpage	
 
 		\subsection{Modes zone sûre/zone dangereuse}
-			\centerline{\includegraphics[scale=0.5]{images/screen_safe.eps}}
+			\centerline{\includegraphics[scale=0.5]{images/screen_safe.png}}
 			Dans les modes zone sûre, la matrice de défense de l'équipe choisie est affichée.
 			Dans les modes zone dangereuse, la matrice d'attaque de l'équipe choisie est affichée
 			Plus les cases sont foncées, plus elles sont sûres (respectivement dangereuses) pour l'équipe.
@@ -60,7 +77,7 @@
 			\clearpage
 
 		\subsection{Modes modificateur de score de combat}
-			\centerline{\includegraphics[scale=0.5]{images/screen_fsmod.eps}}
+			\centerline{\includegraphics[scale=0.5]{images/screen_fsmod.png}}
 			Dans ces derniers modes d'affichage, on utilise les zones sûres et dangereuses pour calculer pour chaque cas le modificateur
 			qui serait appliqué au score de combat d'une unité si elle y était présente.
 
@@ -68,11 +85,12 @@
 
 		\subsection{Lignes de communication}
 
-			\centerline{\includegraphics[scale=0.45]{images/screen_com.eps}}
+			\centerline{\includegraphics[scale=0.45]{images/screen_com.png}}
 			Les lignes de communication sont représentées par des cercles de la couleur de l'équipe sur les cases vides.
 			Les unités déconnectées ont une teinte plus claire que les unités connectées.
-			On peut remarquer que les unités adverses bloquent les communications et que les relais alliés les propagent.
-
+			On peut remarquer que les unités adverses bloquent les communications et que les relais alliés les propagent. 
+			(sauf relais ne se trouvant pas sur une ligne de communication)
+			
 			\clearpage
 
 		\subsection{Raccourcis clavier}
