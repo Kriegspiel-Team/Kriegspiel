@@ -3,22 +3,35 @@
 
 	\section{Difficultés rencontrées}   
 
-		\subsection{ A. gna gna}
+		\subsection{A. Utilisation de Drools}
+		Il est vrai qu'en début de projet, nous ne savions pas encore très bien utiliser Drools. Nous avions testé sur de petits exemple mais cela a été plus compliqué
+		à mettre en place sur un projet de cette ampleur. Nous avions en effet beaucoup de code java dans les règles et cela manquait donc de clarté. Nous avons
+		donc clarifié notre code au fur et à mesure du projet et avons appris petit à petit à nous servir de Drools correctement. 
 		
-		Ceci est du texte
+		\subsection{B. Gestion des attaques}
+		Les combats étant définis par de nombreuses règles, il a été assez complexe de les implémenter sans erreur.
+		En effet, le potentiel d'attaque reçu par une unité se calcule en fonction des unités adverses à portée, en vérifiant bien sûr que celle-ci est connectée aux lignes
+		de communication et qu'aucun obstacle se situe entre les deux.
+		Il faut également prendre en compte les bonus défensifs des cols et des forteresses, mais aussi la possibilité de charge pour les cavaliers.
+		Rappelons que pour bénéficier de la charge, il faut aligner un ou plusieurs cavaliers face à une unité adverse.
+		Cela leur octroie alors un bonus d'attaque et permet aux cavaliers en bout de ligne d'attaquer même s'ils ne sont pas à portée sauf dans le cas ou l'un des cavaliers
+		se situe sur une forteresse.
+		Il fut donc assez compliqué d'implémenter toutes ces règles sans faire d'erreur notamment la charge qui est une règle spéciale pour laquelle il y a
+		plusieurs exceptions.
 		
-		\subsection{ B. gna gna}
+	\section{Rendu final}
+	
+		Nous sommes parvenus à réaliser tous nos besoins fonctionnels et à extraire une matrice des points faibles plutôt intéressante. 
+		Nous sommes donc satisfait sur ce point mais aurions aimé avoir eu le temps de concrétiser réellement le projet en mettant en place un joueur minimal
+		en implémentant une boucle de jeu. Nous avons cependant préféré peaufiner notre code et tester plus en profondeur afin d'avoir un rendu plus stable.
 		
-		Ceci est du texte
-		
-		\subsection{ C. gna gna}
-		
-		Ceci est du texte
-		
-		\clearpage
+	\clearpage
 
 	\section{Conclusion}
 	
-		Importer la biblio à la fin car chiant à générer sous latex.
+		Il est vrai que nous n'imaginions pas au moment du choix du sujet que le travail à réaliser en amont du joueur artificiel serait si conséquent.
+		Nous sommes cependant parvenus à extraire des informations qui pourront être utilisées dans une future prise de décision et cet aspect fut
+		intéressant à réaliser. Ces données extraites des situations de jeu pourront par ailleurs être utilisées pour la création d'un joueur automatique 
+		si le sujet est proposé l'année prochaine.
 		
-		\clearpage
+	\clearpage
