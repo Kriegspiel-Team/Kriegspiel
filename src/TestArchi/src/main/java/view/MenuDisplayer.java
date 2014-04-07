@@ -121,26 +121,26 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		displayModePanel.setLayout(new GridLayout(15, 1));
 		displayModePanel.setBorder(BorderFactory.createTitledBorder("Display mode"));
 		
-		displayUnitBtn = new JButton("Unit");
+		displayUnitBtn = new JButton("Units");
 		displayUnitBtn.setFocusable(false);
 		displayAttackBtn = new JButton("Attack");
 		displayAttackBtn.setFocusable(false);
 		displayDefenceBtn = new JButton("Defence");
 		displayDefenceBtn.setFocusable(false);
-		displayDefenceMinusAttackBtn = new JButton("Defence - Attack");
+		displayDefenceMinusAttackBtn = new JButton("Fighting score");
 		displayDefenceMinusAttackBtn.setFocusable(false);
-		displayAttackEvaluator0Btn = new JButton("Dangerous zone for red team");
+		displayAttackEvaluator0Btn = new JButton("Red Dangerous zone");
 		displayAttackEvaluator0Btn.setFocusable(false);
-		displayAttackEvaluator1Btn = new JButton("Dangerous zone for blue team");
+		displayAttackEvaluator1Btn = new JButton("Blue Dangerous zone");
 		displayAttackEvaluator1Btn.setFocusable(false);
 		
-		displayDefenceEvaluator0Btn = new JButton("Safe zone for blue team");
+		displayDefenceEvaluator0Btn = new JButton("Blue safe zone");
 		displayDefenceEvaluator0Btn.setFocusable(false);
-		displayDefenceMinusAttackEvaluator0Btn = new JButton("Safe minus dagerous zone for blue team");
+		displayDefenceMinusAttackEvaluator0Btn = new JButton("Blue Fighting Score modifiers");
 		displayDefenceMinusAttackEvaluator0Btn.setFocusable(false);
-		displayDefenceEvaluator1Btn = new JButton("Safe zone for red team");
+		displayDefenceEvaluator1Btn = new JButton("Red safe zone");
 		displayDefenceEvaluator1Btn.setFocusable(false);
-		displayDefenceMinusAttackEvaluator1Btn = new JButton("Safe minus dangerous zone for blue team");
+		displayDefenceMinusAttackEvaluator1Btn = new JButton("Red FIghting Score modifiers");
 		displayDefenceMinusAttackEvaluator1Btn.setFocusable(false);
 				
 		displayUnitBtn.addMouseListener(this);
