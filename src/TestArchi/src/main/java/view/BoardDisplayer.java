@@ -349,17 +349,23 @@ public class BoardDisplayer extends JFrame {
 					currentSquare.setBackground(COLOR_EMPTY);
 				else {				
 					switch(displayMode) {
-						case DISPLAY_UNITS: 
+						case DISPLAY_UNITS:
 							displayUnit(i, j);
 							break;
 						case DISPLAY_ATTACK:
+							resetSelectedSquare();
 							displayAttackPotential(i, j);
 							break;
 						case DISPLAY_DEFENCE:
+							resetSelectedSquare();
 							displayDefencePotential(i, j);
 							break;
 						case DISPLAY_DEFENCE_MINUS_ATTACK:
+							resetSelectedSquare();
 							displayDefenceMinusAttackPotential(i, j);
+							break;
+						default:
+							resetSelectedSquare();
 							break;
 					}
 					
