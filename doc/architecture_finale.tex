@@ -131,3 +131,30 @@
 			Le MenuDisplayer modifie les paramètres d'affichage contenus dans le BoardDisplayer lorsque l'utilisateur clique
 			sur les éléments du menu ou utilise des raccourcis clavier.
 
+	\section{Librairie Drools}
+
+		\subsection{Présentation}
+			Drools est un moteur de règles, c'est à dire que c'est un système dans lequel il y a des règles qui sont appliquées à des données. 
+			Les règles et les données sont ajoutées	à un moteur d'inférence afin qu'il puisse déterminer les règles applicables aux données et ainsi aboutir à une conclusion qui résulte en une action.
+			Le moteur de règles s'occupe de bien agencer les règles afin d'optimiser l'exécution (Agenda).
+
+		
+			\begin{figure}[!h]
+			    \caption{Schéma du fonctionnement de Drools}
+			    \centering
+			    \includegraphics[width=\textwidth]{images/architecture/drools_schema.ps}
+			\end{figure}
+	
+
+		\subsection{Les avantages}
+			L'utilisation d'un moteur de règles nous permet de pouvoir séparer la logique et les données de sorte à ce que le maintien de l'application soit plus facile dans le futur.
+			\\
+			Avec cette librairie nous pouvons centraliser la gestion des connaissances dans des fichiers de règles dont l'extension est {\itshape drl}.
+			\\
+			Cette librairie utilise l'algorithme de Rete afin de trouver les règles en fonction des données. Cela assure un maintien de la rapidité même si nous avons de nombreuses règles.
+			\\
+			Drools nous permet de nous concentrer sur le « Qu'est ce que je dois faire » plutot que sur le « Comment le faire ».
+
+
+		\subsection{Exemple d'utilisation}
+
