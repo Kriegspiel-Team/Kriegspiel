@@ -8,8 +8,16 @@
 \usepackage[hidelinks,breaklinks]{hyperref}
 \usepackage{breakurl}
 \usepackage{listings} 
+\usepackage{epigraph}
 
+\setlength\epigraphwidth{13cm}
+\setlength\epigraphrule{0pt}
 
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
 
 \input{vc.tex}
 
