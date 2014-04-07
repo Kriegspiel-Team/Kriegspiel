@@ -21,10 +21,10 @@
 		\subsection*{EntityLoader}
 
 			\paragraph{Définition :}
-			Classe permettant de charger une partie à partir d'un fichier. Elle transcrira les informations brute du 
-			fichier en un Board contenant des Entity.
+			Classe permettant de charger une partie à partir d'un fichier.
+			Elle permet de parcourir un fichier ligne par ligne pour parser les informations et les insérer dans le Board.
 			\paragraph{Interaction :}
-			L'EntityLoader interagira avec le Board puisque sa fonction consiste à modifier celui-ci.
+			L'EntityLoader interagit avec le Board en placant directement les objets dans la matrice du Board.
 
 		\subsection*{Entity}
 
@@ -54,10 +54,10 @@
 
 			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
-			Cette classe représente le moteur de règles et doit faire l'intermediaire entre les faits (la situation de jeu actuelle) 
+			Cette classe représente le moteur de règles et fait l'intermediaire entre les faits (la situation de jeu actuelle) 
 			et les règles qui sont implémentées dans un fichier ".drl".
 			\paragraph{Interaction :}
-			L'Engine intéragira avec .....
+			L'Engine interagit avec les entités du Board pour modifier certains attributs.
 
 		\subsection*{Rule}
 

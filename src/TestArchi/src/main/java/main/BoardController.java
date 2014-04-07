@@ -94,7 +94,7 @@ public class BoardController {
 	 * Loads the default board.
 	 */
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/livre.ksv");
+		loadNewBoard("src/main/resources/board/Livre.ksv");
 	}
 	
 	/**

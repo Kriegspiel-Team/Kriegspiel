@@ -76,10 +76,8 @@ public class Engine implements IEngine {
 		
 		ArrayList<Coord> coord_arsenals = board.getCoord_arsenals();
     	
-		for (Coord c : coord_arsenals) {
-			System.out.println("OH : " + c.x + "," + c.y);
+		for (Coord c : coord_arsenals) 
 			kSession.insert((Arsenal)board.getMatrix()[c.x][c.y]);
-		}
 		
     	for (MovableEntity entity : movableEntity){
     		if(entity instanceof Fighter)

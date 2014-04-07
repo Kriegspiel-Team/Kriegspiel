@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class Canon.
+ * A Canon.
  */
 public class Cannon extends Fighter {
 	

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class SwiftCanon.
+ * A Swift Canon.
  */
 public class SwiftCannon extends Fighter {
 	

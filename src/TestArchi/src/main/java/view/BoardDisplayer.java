@@ -32,7 +32,7 @@ import model.MovableEntity;
 import model.Fighter;
 
 /**
- * The Class BoardDisplayer.
+ * The BoardDisplayer.
  */
 @SuppressWarnings("serial")
 public class BoardDisplayer extends JFrame {
@@ -79,15 +79,23 @@ public class BoardDisplayer extends JFrame {
 	/** The Display mode DISPLAY_DEFENCE. */
 	public static final int DISPLAY_DEFENCE = 2;
 	
+	/** The Display mode DISPLAY_DEFENCE_MINUS_ATTACK. */
+	public static final int DISPLAY_DEFENCE_MINUS_ATTACK = 3;
+	
 	/** The Display mode DISPLAY_PREVAILING0. */
-	public static final int DISPLAY_ATTACK_EVAL_TEAM0 = 3;
+	public static final int DISPLAY_ATTACK_EVAL_TEAM0 = 4;
 	
 	/** The Display mode DISPLAY_PREVAILING1. */
-	public static final int DISPLAY_ATTACK_EVAL_TEAM1 = 4;
+	public static final int DISPLAY_ATTACK_EVAL_TEAM1 = 5;
 	
-	public static final int DISPLAY_DEFENCE_EVAL_TEAM0 = 5;
+	public static final int DISPLAY_DEFENCE_EVAL_TEAM0 = 6;
 	
-	public static final int DISPLAY_DEFENCE_EVAL_TEAM1 = 6;
+	public static final int DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM0 = 7;
+	
+	public static final int DISPLAY_DEFENCE_EVAL_TEAM1 = 8;
+	
+	public static final int DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM1 = 9;
+
 	
 	
 	/** The current display mode. */
@@ -106,7 +114,7 @@ public class BoardDisplayer extends JFrame {
 	private static final Color COLOR_COM_PLAYER1 = new Color(200,50,50);
 //	private static final Color COLOR_COM_INTERSECT = new Color(200,50,200);
 	/** The mountains' color */
-private static final Color COLOR_MOUTAIN = new Color(200,200,200);
+	private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	
 	/** The color to use to display possible moves. */
 	private static final Color COLOR_POSSIBLEMOVE = new Color(50,255,50);
@@ -187,7 +195,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 			
 	/**
-	 * Draw entities.
+	 * Draws the entities.
 	 */
 	public void drawEntities(){
 		this.matrix = this.board.getMatrix();
@@ -244,7 +252,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 		
 	/**
-	 * Clear possible movement display.
+	 * Clears possible movement display.
 	 */
 	private void clearPossibleMovement() {
 		if (selectedSquare == null)
@@ -263,7 +271,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Color square by owner.
+	 * Colors every unit depending on its owner.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -325,7 +333,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display the GUI.
+	 * Displays the GUI.
 	 */
 	public void displayGUI() {			
 		for(int j=0 ; j<Board.HEIGHT ; j++) {
@@ -349,6 +357,9 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 						case DISPLAY_DEFENCE:
 							displayDefencePotential(i, j);
 							break;
+						case DISPLAY_DEFENCE_MINUS_ATTACK:
+							displayDefenceMinusAttackPotential(i, j);
+							break;
 					}
 					
 					if(currentEntity instanceof Mountain)
@@ -357,9 +368,11 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 					if(currentEntity.canContain())
 						currentEntity = board.getUnit(i,j);
 					
-					colorSquareByOwner(i, j);
+					if(displayMode != DISPLAY_DEFENCE_MINUS_ATTACK)
+						colorSquareByOwner(i, j);
 					if(currentEntity instanceof MovableEntity && displayMode != DISPLAY_ATTACK_EVAL_TEAM0 && displayMode != DISPLAY_ATTACK_EVAL_TEAM1 
-							&& displayMode != DISPLAY_DEFENCE_EVAL_TEAM0 && displayMode != DISPLAY_DEFENCE_EVAL_TEAM1) {
+							&& displayMode != DISPLAY_DEFENCE_EVAL_TEAM0 && displayMode != DISPLAY_DEFENCE_EVAL_TEAM1 && displayMode != DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM0 
+							&& displayMode != DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM1) {
 						MovableEntity currentMovable = ((MovableEntity)currentEntity);
 						if(currentMovable.canBeKilled()) {
 							((JLabel)currentSquare.getComponent(0)).setText("("+((JLabel)currentSquare.getComponent(0)).getText()+")");
@@ -387,13 +400,17 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 			displayDefenceEvaluator(0);
 		if (displayMode == DISPLAY_DEFENCE_EVAL_TEAM1) 
 			displayDefenceEvaluator(1);
+		if (displayMode == DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM0)
+			displayDefenceMinusAttackEvaluator(0);
+		if (displayMode == DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM1)
+			displayDefenceMinusAttackEvaluator(1);
 		
 		this.repaint();
 		this.setVisible(true);
 	}
 
 	/**
-	 * Draw the communication lines.
+	 * Draws the communication lines.
 	 */
 	private void drawCommunications() {		
 		Font fnt = new Font("Serif", Font.PLAIN, windowHeight/60);
@@ -423,7 +440,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display the prevailing matrix of a team.
+	 * Display the attack matrix of a team.
 	 *
 	 * @param team the team
 	 */
@@ -450,6 +467,11 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 		
 	}
 	
+	/**
+	 * Displays the defence matrix of a team.
+	 * 
+	 * @param team the team
+	 */
 	private void displayDefenceEvaluator(int team) {
 		
 		Integer[][] matrix = this.potential.matrix_defence.get(team);
@@ -469,7 +491,35 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display attack potential on a square.
+	 * Displays weakpoints for a team.
+	 * @param team the team
+	 */
+	private void displayDefenceMinusAttackEvaluator(int team) {
+		
+		Integer[][] matrixDef = this.potential.matrix_defence.get(team);
+		Integer[][] matrixAtt = this.potential.matrix_attack.get((team+1)%2);
+		
+		for(int y = 0 ; y < Board.HEIGHT ; y++) {
+			for(int x = 0 ; x < Board.WIDTH ; x++) {
+				if(matrixDef[x][y] != 0 || matrixAtt[x][y] != 0) {
+					int diff = matrixDef[x][y] - matrixAtt[x][y];
+					Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+					JLabel tmp = new JLabel(Integer.toString(diff), SwingConstants.RIGHT);
+					tmp.setFont(fnt);
+					squares[x][y].add(tmp);
+					
+					//squares[x][y].setBackground(new Color(200, Math.min(255, Math.max(0, 150 + 6 * diff)) ,50));
+					squares[x][y].setBackground(Color.getHSBColor((float)Math.min(100, Math.max(10, 65 + 1.5 * diff))/360, 0.84f, 0.99f));
+				} else {
+					squares[x][y].setBackground(COLOR_EMPTY);
+				}
+			}
+		}
+		
+	}
+	
+	/**
+	 * Displays the total attack potential on a square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -488,7 +538,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display defence potential on a square.
+	 * Displays the defence potential on a square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -507,7 +557,31 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display entity symbol in its square.
+	 * Display defence minus attack potential on a square.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
+	public void displayDefenceMinusAttackPotential(int x, int y) {
+		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
+			MovableEntity unit = board.getUnit(x, y);
+			if(unit != null) {
+				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
+				
+				int diff = (unit.getAllyDefence() - unit.getEnemyAttack());
+				JLabel tmp = new JLabel(Integer.toString(diff), SwingConstants.RIGHT);
+				tmp.setFont(fnt);
+				squares[x][y].add(tmp);
+				if(board.getUnit(x,y).getOwner() == 0)
+					squares[x][y].setBackground(new Color(Math.min(240, Math.max(0, 75 + 4 * diff)), Math.min(240, Math.max(0, 75 + 4 * diff)), 255));
+				else
+					squares[x][y].setBackground(new Color(255, Math.min(240, Math.max(0, 75 + 4 * diff)), Math.min(240, Math.max(0, 75 + 4 * diff))));
+			}
+		}
+	}
+	
+	/**
+	 * Displays an entity's symbol in its square.
 	 *
 	 * @param x the x
 	 * @param y the y
@@ -519,7 +593,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Display a popup.
+	 * Display a pop-up.
 	 *
 	 * @param text the text
 	 * @param title the title
@@ -544,7 +618,7 @@ private static final Color COLOR_MOUTAIN = new Color(200,200,200);
 	}
 	
 	/**
-	 * Reset selected square.
+	 * Resets the selected square.
 	 */
 	public void resetSelectedSquare(){
 		selectedSquare = null;

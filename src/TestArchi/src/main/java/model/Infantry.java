@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class Infantry.
+ * An Infantry.
  */
 public class Infantry extends Fighter {
 	

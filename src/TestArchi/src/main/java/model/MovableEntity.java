@@ -6,7 +6,7 @@ import java.util.Set;
 import main.Coord;
 
 /**
- * The Class MovableEntity.
+ * A Movable Entity.
  */
 public abstract class MovableEntity extends Entity {
 	
