@@ -109,7 +109,7 @@
 				\begin{figure}[!h]
 				    \caption{Résultats des tests de la classe EntityLoader}
 				    \centering
-				    \includegraphics[width=\textwidth]{images/tests_unitaires/entityloader.ps}
+				    \includegraphics[width=\textwidth]{images/tests_unitaires/entityloader.png}
 				\end{figure}
 
 				
@@ -121,17 +121,19 @@
 				L'utilisateur est libre de pouvoir charger une partie en utilisant un fichier pour charger les éléments statiques (montagne, arsenal, forteresse, col) et un autre fichier pour charger les unités (infanterie, cavalier, ...). Etant donné que nous utilisons un format particulier pour que notre chargeur puisse lire les informations contenues dans ces fichiers, il faut donc vérifier que le format est bon pour éviter tout problème.
 				\\ \\
 				Dans ce test nous allons voir ce qu'il se passe si l'on décide de charger un fichier dont le format ne correspond pas au format attendu par notre chargeur.
-				Nous essayons de charger le fichier "ErrSample.ksv" dont la dernière ligne est la suivante "WrongName;1;10;11". 
+				Nous essayons de charger le fichier {\itshape ErrSample.ksv} dont la dernière ligne est la suivante {\itshape WrongName;1;10;11}. 
 
 				\begin{figure}[!h]
 				    \caption{Chargement d'un fichier incorrect}
 				    \centering
-				    %\includegraphics[scale=0.4]{images/tests_fonctionnels/incorrect_file.ps}
+				    %\includegraphics[width=\textwidth]{images/tests_fonctionnels/incorrect_file.ps}
 				\end{figure}
 
 				\paragraph{Résultat\\}
 					Un message d'erreur apparait à l'écran pour nous indiquer que le fichier n'a pas pu être chargé et le plateau reste inchangé.
 					Ce test est validé dans la mesure où cela ne provoque pas de disfonctionnement mais l'utilisateur est informé du problème.
+
+			\clearpage
 
 			\subsubsection{Représentation d'une situation}
 				Un de nos besoins fonctionnels était de pouvoir représenter une situation de jeu pour tester cela on lance notre application et nous chargeons une partie.
@@ -139,7 +141,7 @@
 				\begin{figure}[!h]
 				    \caption{Représentation d'une situation}
 				    \centering
-				    %\includegraphics[scale=0.4]{images/tests_fonctionnels/representation_situation.ps}
+				    %\includegraphics[width=\textwidth]{images/tests_fonctionnels/representation_situation.ps}
 				    \label{fig:representation_situation}
 				\end{figure}
 
@@ -147,14 +149,15 @@
 					On voit sur la figure~\ref{fig:representation_situation} les différentes entités du jeu représentées par différents symboles.
 					L'information de la partie est affichée à l'écran nous pouvons donc dire que ce test est validé.
 
+			\clearpage
+
 			\subsubsection{Affichage de la zone d'influence}
 				Un autre besoin fonctionnel était l'intégration des règles du jeu dans notre moteur de règles. Dans ce test nous allons vérifier que la zone d'influence affichée est correcte. Pour cela nous chargeons une partie et lors du clic sur une unité nous obtenons le résultat visible ci-dessous.
 
 				\begin{figure}[!h]
 				    \caption{Affichage de la zone d'influence}
 				    \centering
-				    %Screen de la zone d'influence d'un cavalier
-				    %\includegraphics[scale=0.4]{images/tests_fonctionnels/zone_influence.ps}
+				    %\includegraphics[width=\textwidth]{images/tests_fonctionnels/zone_influence.ps}
 				    \label{fig:affichage_zone_influence}
 				\end{figure}
 
@@ -162,6 +165,4 @@
 					Les cases avec un fond vert sont les cases sur lesquelles peuvent se déplacer l'unité selectionnée. Sur la figure~\ref{fig:affichage_zone_influence} un cavalier a été selectionné, nous constatons que la zone d'influence est en accord avec la règle spécifiant qu'un cavalier peut se déplacer de 2 cases. 
 					
 
-
-			\subsubsection{Affichage des potentiels}
 
