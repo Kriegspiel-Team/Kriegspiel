@@ -4,9 +4,10 @@
 	\section{Difficultés rencontrées}   
 
 		\subsection{A. Utilisation de Drools}
-		Il est vrai qu'en début de projet, nous ne savions pas encore très bien utiliser Drools. Nous avions testé sur de petits exemple mais cela a été plus compliqué
-		à mettre en place sur un projet de cette ampleur. Nous avions en effet beaucoup de code java dans les règles et cela manquait donc de clarté. Nous avons
-		donc clarifié notre code au fur et à mesure du projet et avons appris petit à petit à nous servir de Drools correctement. 
+		Il est vrai qu'en début de projet, nous ne savions pas très bien utiliser Drools et nous avons fait quelques erreurs lors de l'implémentation des premières règles. 
+		Nous avions testé sur de petits exemple mais cela a été plus compliqué à mettre en place sur un projet de cette ampleur. Nous avions en effet beaucoup de code java 
+		dans les règles et cela manquait donc de clarté. Nous avons donc clarifié notre code au fur et à mesure du projet et avons appris petit à petit à nous servir de 
+		Drools correctement. 
 		
 		\subsection{B. Gestion des attaques}
 		Les combats étant définis par de nombreuses règles, il a été assez complexe de les implémenter sans erreur.
@@ -21,17 +22,30 @@
 		
 	\section{Rendu final}
 	
-		Nous sommes parvenus à réaliser tous nos besoins fonctionnels et à extraire une matrice des points faibles plutôt intéressante. 
+		Nous sommes parvenus à réaliser tous nos besoins fonctionnels et à extraire une matrice des points faibles plutôt efficace. 
 		Nous sommes donc satisfait sur ce point mais aurions aimé avoir eu le temps de concrétiser réellement le projet en mettant en place un joueur minimal
-		en implémentant une boucle de jeu. Nous avons cependant préféré peaufiner notre code et tester plus en profondeur afin d'avoir un rendu plus stable.
+		en implémentant une boucle de jeu et une prise de décision sommaire. Nous avons cependant préféré peaufiner notre code et tester plus en profondeur 
+		afin d'avoir un rendu stable.
+		En effet, suite à nos nombreux tests en boîte noire et à nos tests unitaires, nous estimons à présent que notre programme comporte assez peu de bugs bien
+		que le nombre de cas particulier soit assez important. Nous n'excluons bien sûr pas la possibilité qu'il puisse en rester mais leur nombre et leurs conséquences
+		doivent être assez réduits.
 		
 	\clearpage
 
 	\section{Conclusion}
 	
-		Il est vrai que nous n'imaginions pas au moment du choix du sujet que le travail à réaliser en amont du joueur artificiel serait si conséquent.
-		Nous sommes cependant parvenus à extraire des informations qui pourront être utilisées dans une future prise de décision et cet aspect fut
-		intéressant à réaliser. Ces données extraites des situations de jeu pourront par ailleurs être utilisées pour la création d'un joueur automatique 
-		si le sujet est proposé l'année prochaine.
+		\paragraph{}
+		Il est vrai que nous n'imaginions pas au moment du choix du sujet que le travail à réaliser en amont du joueur automatique serait aussi important.
+		Nous pensions initialement pouvoir avancer sur la conception de celui-ci mais ce projet nous a permis de comprendre que l'implémentation du
+		moteur de règles et l'évaluation statique des situations était un travail conséquent et nécessaire à la prise de décision.
+		
+		\paragraph{}
+		Nous sommes cependant parvenus à extraire des informations qui pourront être utilisées pour une future prise de décision et cet aspect fut
+		intéressant à réaliser. En effet, le fait que notre matrice des points faibles concorde par exemple avec l'analyse de la situation de jeu
+		dont parle le livre de Debord \cite{ref1} nous conforte dans l'idée que notre travail aboutit sur un résultat concret.
+		Ces données extraites des situations de jeu pourront sûrement être utilisées pour la création d'un joueur automatique si le sujet est proposé 
+		l'année prochaine.
+		
+		
 		
 	\clearpage
