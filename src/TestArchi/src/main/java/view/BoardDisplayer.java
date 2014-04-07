@@ -509,8 +509,9 @@ public class BoardDisplayer extends JFrame {
 					tmp.setFont(fnt);
 					squares[x][y].add(tmp);
 					
-					//squares[x][y].setBackground(new Color(200, Math.min(255, Math.max(0, 150 + 6 * diff)) ,50));
-					squares[x][y].setBackground(Color.getHSBColor((float)Math.min(100, Math.max(10, 65 + 1.5 * diff))/360, 0.84f, 0.99f));
+					float degradeHSBColor =  (float)Math.min(100, Math.max(10, 65 + 1.5 * diff))/360;
+					
+					squares[x][y].setBackground(Color.getHSBColor(degradeHSBColor, 0.84f, 0.99f));
 				} else {
 					squares[x][y].setBackground(COLOR_EMPTY);
 				}
