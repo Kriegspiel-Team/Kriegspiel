@@ -10,7 +10,7 @@
 
 	\section{Description des classes}
 
-		\subsection{Board}
+		\subsection*{Board}
 		
 			\paragraph{Définition :}
 			Le Board est une matrice de taille fixe représentant une situation de jeu.
@@ -18,7 +18,7 @@
 			Certaines cases du Board contiendront des objets de type Entity.
 			
 
-		\subsection{EntityLoader}
+		\subsection*{EntityLoader}
 
 			\paragraph{Définition :}
 			Classe permettant de charger une partie à partir d'un fichier. Elle transcrira les informations brute du 
@@ -26,14 +26,14 @@
 			\paragraph{Interaction :}
 			L'EntityLoader interagira avec le Board puisque sa fonction consiste à modifier celui-ci.
 
-		\subsection{Entity}
+		\subsection*{Entity}
 
 			\paragraph{Définition :}
 			Les Entity représentent les éléments de jeu (les unités ainsi que les batiments et obstacles).
 			\paragraph{Interaction :}
 			Toutes les Entity seront disposées à l'intérieur d'une matrice dans la classe Board.
 
-		\subsection{MovableEntity}
+		\subsection*{MovableEntity}
 
 			\paragraph{Définition :}
 			Les MovableEntity sont les unités movibles telles que les infanteries, les cavaliers, les canons ou toute autre unité 
@@ -41,7 +41,7 @@
 			\paragraph{Interaction :}
 			Les MovableEntity seront disposées à l'intérieur d'une matrice dans la classe Plateau.
 
-		\subsection{UnmovableEntity}
+		\subsection*{UnmovableEntity}
 
 			\paragraph{Définition :}
 			Les UnmovableEntity sont des entités présentes sur le plateau mais que les règles ne permettent pas de déplacer. 
@@ -50,7 +50,7 @@
 			Les UnmovableEntity seront disposées à l'intérieur d'une matrice dans la classe Board. 
 			Certaines UnmovableEntity pourront par ailleurs contenir des MovableEntity. (exemple : les forts)
 
-		\subsection{Engine}
+		\subsection*{Engine}
 
 			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
@@ -59,7 +59,7 @@
 			\paragraph{Interaction :}
 			L'Engine intéragira avec .....
 
-		\subsection{Rule}
+		\subsection*{Rule}
 
 			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
@@ -68,7 +68,7 @@
 			\paragraph{Interaction :}
 			Les règles seront envoyées à l'Engine qui devra se charger de les appliquer.
 
-		\subsection{InfluenceArea}
+		\subsection*{InfluenceArea}
 
 			\paragraph{Définition :}
 			Cette classe permettra de calculer les zones d'influence des unités, c'est à dire l'ensemble des cases sur lesquelles 
@@ -77,7 +77,7 @@
 			La classe InfluenceArea aura besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans 
 			les entités elles-mêmes.
 
-		\subsection{Potential}
+		\subsection*{Potential}
 
 			\paragraph{Définition :}
 			Cette classe permettra de calculer les potentiels offensifs et défensifs des unités en fonction de leur configuration spatiale.
@@ -85,7 +85,7 @@
 			La classe Potential aura besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans les 
 			entités elles-mêmes.
 
-		\subsection{DangerousnessMatrix}
+		\subsection*{DangerousnessMatrix}
 
 			!!!!!!!!!!!! A COMPLETER - Ne va même pas exister ? !!!!!!!!!!!!
 			\paragraph{Définition :}
@@ -93,7 +93,7 @@
 			\paragraph{Interaction :}
 			La classe DangerousnessMatrix ...
 
-		\subsection{StaticEvaluator}
+		\subsection*{StaticEvaluator}
 
 			!!!!!!!!!!!! A COMPLETER - Ne va même pas exister ? !!!!!!!!!!!!
 			\paragraph{Définition :}
@@ -104,7 +104,7 @@
 			de les mettre à jour. Le moteur décisionnel aura quant à lui accès à l'évaluateur pour pouvoir prendre des décisions en fonction 
 			des résultats trouvés par l'évaluateur.
 
-		\subsection{DecisionnalEngine}
+		\subsection*{DecisionnalEngine}
 
 			\paragraph{Définition :}
 			Le DecisionnalEngine se charge de choisir le coup à jouer en fonction d'une situation de jeu donnée et des résultats 
@@ -113,7 +113,7 @@
 			Le DecisionnalEngine interagira avec le Board pour connaître la situation de jeu et les Entity pour connaître les 
 			différentes données calculées par le StaticEvaluator.
 
-		\subsection{BoardDisplayer}
+		\subsection*{BoardDisplayer}
 
 			\paragraph{Définition :}
 			Ceci est la classe principale de l'interface graphique. Elle se charge d'afficher les données (Entités et valeurs calculées)
@@ -122,7 +122,7 @@
 			Le BoardDisplayer récupère les données contenues dans le Board afin de pouvoir les afficher, il récupère également des données qui sont calculées
 			par le moteur de règles pour chaque entité et stockées dans les entités.
 
-		\subsection{MenuDisplayer}
+		\subsection*{MenuDisplayer}
 
 			\paragraph{Définition :}
 			C'est la deuxième classe formant l'interface graphique. Elle contient les boutons et checkboxes qui permettent
