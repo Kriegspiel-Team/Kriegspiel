@@ -349,17 +349,23 @@ public class BoardDisplayer extends JFrame {
 					currentSquare.setBackground(COLOR_EMPTY);
 				else {				
 					switch(displayMode) {
-						case DISPLAY_UNITS: 
+						case DISPLAY_UNITS:
 							displayUnit(i, j);
 							break;
 						case DISPLAY_ATTACK:
+							resetSelectedSquare();
 							displayAttackPotential(i, j);
 							break;
 						case DISPLAY_DEFENCE:
+							resetSelectedSquare();
 							displayDefencePotential(i, j);
 							break;
 						case DISPLAY_DEFENCE_MINUS_ATTACK:
+							resetSelectedSquare();
 							displayDefenceMinusAttackPotential(i, j);
+							break;
+						default:
+							resetSelectedSquare();
 							break;
 					}
 					
@@ -509,8 +515,9 @@ public class BoardDisplayer extends JFrame {
 					tmp.setFont(fnt);
 					squares[x][y].add(tmp);
 					
-					//squares[x][y].setBackground(new Color(200, Math.min(255, Math.max(0, 150 + 6 * diff)) ,50));
-					squares[x][y].setBackground(Color.getHSBColor((float)Math.min(100, Math.max(10, 65 + 1.5 * diff))/360, 0.84f, 0.99f));
+					float degradeHSBColor =  (float)Math.min(100, Math.max(10, 65 + 1.5 * diff))/360;
+					
+					squares[x][y].setBackground(Color.getHSBColor(degradeHSBColor, 0.84f, 0.99f));
 				} else {
 					squares[x][y].setBackground(COLOR_EMPTY);
 				}
@@ -566,7 +573,9 @@ public class BoardDisplayer extends JFrame {
 	public void displayDefenceMinusAttackPotential(int x, int y) {
 		if(matrix[x][y] != null && !(matrix[x][y] instanceof Mountain)) {
 			MovableEntity unit = board.getUnit(x, y);
-			if(unit != null) {
+			if(unit == null)
+				squares[x][y].setBackground(COLOR_EMPTY);
+			else {
 				Font fnt = new Font("Serif", Font.PLAIN, windowHeight/50);
 				
 				int diff = (unit.getAllyDefence() - unit.getEnemyAttack());
