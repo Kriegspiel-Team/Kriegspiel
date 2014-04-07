@@ -273,15 +273,19 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		
 		if (source == displayUnitBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_UNITS);
+			enableCheckboxes();
 			boardDisplayer.displayGUI();
 		}else if (source == displayAttackBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK);
+			enableCheckboxes();
 			boardDisplayer.displayGUI();
 		}else if (source == displayDefenceBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE);
+			enableCheckboxes();
 			boardDisplayer.displayGUI();
 		}else if (source == displayDefenceMinusAttackBtn) {
 			boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_DEFENCE_MINUS_ATTACK);
+			disableCheckboxes();
 			boardDisplayer.displayGUI();
 		}else if (source == loadBoardBtn) {
 			int returnVal = fileChooser.showOpenDialog(MenuDisplayer.this);
@@ -303,6 +307,7 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 		}else if (source == displayAttackEvaluator0Btn || source == displayAttackEvaluator1Btn 
 				|| source == displayDefenceEvaluator0Btn || source == displayDefenceMinusAttackEvaluator0Btn 
 				|| source == displayDefenceEvaluator1Btn || source == displayDefenceMinusAttackEvaluator1Btn) {
+			disableCheckboxes();
 			if (source == displayAttackEvaluator0Btn)
 				boardDisplayer.setDisplayMode(BoardDisplayer.DISPLAY_ATTACK_EVAL_TEAM0);
 				
@@ -356,4 +361,18 @@ public class MenuDisplayer extends JPanel implements ItemListener, MouseListener
 	 */
 	@Override
 	public void mouseExited(MouseEvent e){}
+	
+	private void disableCheckboxes()
+	{
+		displayCom0.setSelected(false);
+		displayCom0.setEnabled(false);
+		displayCom1.setSelected(false);
+		displayCom1.setEnabled(false);
+	}
+	
+	private void enableCheckboxes()
+	{
+		displayCom0.setEnabled(true);
+		displayCom1.setEnabled(true);
+	}
 }
