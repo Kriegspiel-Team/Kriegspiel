@@ -144,7 +144,7 @@
 			    \centering
 			    \includegraphics[width=\textwidth]{images/architecture/drools_schema.ps}
 			\end{figure}
-	
+
 
 		\subsection{Les avantages}
 			L'utilisation d'un moteur de règles nous permet de pouvoir séparer la logique et les données de sorte à ce que le maintien de l'application soit plus facile dans le futur.
@@ -156,5 +156,25 @@
 			Drools nous permet de nous concentrer sur le « Qu'est ce que je dois faire » plutot que sur le « Comment le faire ».
 
 
+		\pagebreak
 		\subsection{Exemple d'utilisation}
+
+			Nous allons présenter un exemple de l'utilisation de Drools dans le cas du calcul des mouvements possibles. Mais avant cela nous allons expliquer le fonctionnement global de Drools dans notre projet à l'aide du schéma~\ref{fig:drools_global_utilisation}.
+
+			\begin{figure}[!h]
+			    \caption{Schéma de l'intégration de Drools}
+			    \centering
+			    \includegraphics[width=\textwidth]{images/architecture/drools_schema_use.ps}
+			    \label{fig:drools_global_utilisation}
+			\end{figure} 
+
+			Notre {\itshape BoardController} s'occupe de l'instanciation du {\itshape Board} et de la classe {\itshape Engine} (1).
+			\\ \\
+			Le {\itshape Board} contient les informations du jeu, il contient notamment une matrice d'{\itshape Entity} (2).
+			\\ \\
+			La classe {\itshape Engine} s'occupe de faire appel aux méthodes de l'API de Drools. Par exemple, elle doit appeller les différentes règles et comme les règles doivent travailler sur des données il faut aussi qu'elles puissent avoir accès aux données du {\itshape Board}.
+			\\ \\
+			Pour cela nous avons accés au {\itshape Board} dans la classe {\itshape Engine} (3) et nous pouvons insérer les données dans le système de Drools (4) de façon à ce qu'il s'occupe de les transmettre aux règles.
+			\\ \\
+			Drools ayant accés aux données et aux règles, il s'occupe alors de déterminer quelles règles sont à appliquer. Lorsqu'une règle est appliquée elle peut travailler sur les données du {\itshape Board} (5) et les modifier (6). 
 
