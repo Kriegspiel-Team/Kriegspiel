@@ -97,6 +97,7 @@ public class BoardDisplayer extends JFrame {
 	public static final int DISPLAY_DEFENCE_MINUS_ATTACK_EVAL_TEAM1 = 9;
 
 	
+	public static final int MENU_WIDTH = 150;
 	
 	/** The current display mode. */
 	private int displayMode = DISPLAY_UNITS;
@@ -230,7 +231,7 @@ public class BoardDisplayer extends JFrame {
 		GraphicsDevice[] gs = ge.getScreenDevices();
 		DisplayMode dm = gs[0].getDisplayMode();
 		windowHeight = dm.getHeight()-50;
-		windowWidth = windowHeight*Board.WIDTH/Board.HEIGHT;
+		windowWidth = ((windowHeight*Board.WIDTH)/Board.HEIGHT)+MENU_WIDTH;
 		this.setTitle("Kriegspiel Board Display");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(windowWidth, windowHeight));
