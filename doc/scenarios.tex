@@ -9,7 +9,7 @@
 			Les entités sont représentées par des lettres dans des cases de la couleur de leur équipe.
 			Les \^{} sur fond gris sont les montagnes.
 			Les cases possédant une bordure pointillée noire permettent d'identifier les forts et arsenaux.
-			Les cases vertes représentent les possibilités de mouvement	de l'entité sélectionnée (ici le SwiftCanon bleu). 
+			Les cases vertes représentent les possibilités de mouvement	de l'entité sélectionnée (l'infanterie bleu sur la figure~\ref{fig:affichage_zone_influence}). 
 			Notons que l'unité ne peut pas se déplacer sur une case déja occupée.
 			Lorsqu'une entité risque d'être détruite au prochain tour, son symbole est entouré de ( ).
 			Lorsqu'elle est forcée de se retirer au prochain tour, son symbole est entouré de [ ].
@@ -32,6 +32,7 @@
 			\begin{figure}[!h]
 				\centerline{\includegraphics[scale=0.4]{images/screen_units.png}}
 				\caption{Exemple d'affichage du mode unités}
+				\label{fig:mode_unite}
 			\end{figure}
 
 			C'est le mode d'affichage principal, les symboles des unités sont affichés dans les cases.
@@ -54,6 +55,7 @@
 			\begin{figure}[!h]
 				\centerline{\includegraphics[scale=0.35]{images/screen_fscore.png}}
 				\caption{Le mode score de combat appliqué a une situation du livre}
+				\label{fig:partie_livre}
 			\end{figure}
 			
 			\paragraph{}
@@ -63,8 +65,8 @@
 			Cette matrice permet donc de déterminer les points faibles d'une armée s'ils existent.
 			
 			\paragraph{}
-			Pour vérifier l'utilité de cette matrice, nous avons transcrit une situation de jeu commentée du livre de Debord.\cite{ref2} (partie retranscrite
-			par la capture d'écran ci-dessus) Nous avons ensuite lu les commentaires à propos de cette partie voir si la stratégie utilisée concordait bien
+			Pour vérifier l'utilité de cette matrice, nous avons transcrit une situation de jeu commentée du livre de Debord\cite{ref2} (partie retranscrite
+			par la figure~\ref{fig:partie_livre}). Nous avons ensuite lu les commentaires à propos de cette partie voir si la stratégie utilisée concordait bien
 			avec les points faibles indiqués par notre matrice.
 
 			\epigraph{La figure 6 représente deux armées groupées, sur le point d'engager la bataille, après avoir marché l'une et l'autre pour s'assurer certaines positions
