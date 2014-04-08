@@ -81,16 +81,16 @@
 		Afin d'éviter la régression lors de l'évolution du projet nous avons utilisé la librairie JUnit pour faciliter la gestion des tests. 
 		Nous avons généré des classes de tests afin de valider le bon fonctionnement de l'ensemble des méthodes pour une classe donnée.
 		Par soucis de temps, nous n'avons pas pu réaliser les tests pour chaque classes du projet, nous avons donc décidé de ne faire ces tests que sur les classes les plus « critiques ».\\ \\
-		Parmis ces classes dites « critiques » nous avons la classe {\itshape EntityLoader} qui est garante du bon placement des unités ainsi que la classe Board qui contient les données du jeu
+		Parmis ces classes dites « critiques » nous avons la classe {\itshape EntityLoader} qui est garantie le bon placement des unités ainsi que la classe Board qui contient les données du jeu
 		ainsi que certains algorithmes principaux.
 		\\ \\
-		Après chaque modification du code nous pouvons lancer tout nos tests afin de vérifier que les changements apportés n'ont pas altérés le fonctionnement du code précédent.
+		Après chaque modification du code nous pouvons lancer tous nos tests afin de vérifier que les changements apportés n'ont pas altérés le fonctionnement du code précédent.
 		
 		\subsection{Tests unitaires}
 
 			\subsubsection{EntityLoader}
 				
-				Afin de tester cette classe nous avons créer 9 tests, parmis ces tests nous en avons 2 pour tester les constructeurs et 2 pour tester les setters.\\ \\
+				Afin de tester cette classe nous avons créé 9 tests, parmis ces tests nous en avons 2 pour tester les constructeurs et 2 pour tester les setters.\\ \\
 				La méthode {\itshape isValidFormat(String[] line)} permet de vérifier qu'une ligne d'un fichier chargé respecte le bon format.
 				Pour tester cette méthode nous lui passons en paramètre une ligne invalide et nous vérifions que {\itshape isValidFormat} nous retourne {\itshape false}.
 				Ensuite nous testons avec un paramètre respectant le format et nous vérifions que la méthode retourne {\itshape true}.\\ \\
@@ -123,7 +123,7 @@
 				\begin{figure}[!h]
 				    \caption{Chargement d'un fichier incorrect}
 				    \centering
-				    \centerline{\includegraphics[scale=0.4]{images/tests_fonctionnels/incorrect_file.png}}
+				    \centerline{\includegraphics[scale=0.35]{images/tests_fonctionnels/incorrect_file.png}}
 				\end{figure}
 
 				\paragraph{Résultat\\}
@@ -135,7 +135,7 @@
 
 				\begin{figure}[!h]
 				    \caption{Représentation d'une situation}
-				    \centerline{\includegraphics[scale=0.4]{images/tests_fonctionnels/representation_situation.png}}
+				    \centerline{\includegraphics[scale=0.35]{images/tests_fonctionnels/representation_situation.png}}
 				    \label{fig:representation_situation}
 				\end{figure}
 
@@ -144,19 +144,20 @@
 					L'information de la partie est affichée à l'écran nous pouvons donc dire que ce test est validé.
 
 
-			\clearpage
-
 			\subsubsection{Affichage de la zone d'influence}
 				Un autre besoin fonctionnel était l'intégration des règles du jeu dans notre moteur de règles. Dans ce test nous allons vérifier que la zone d'influence affichée est correcte. Pour cela nous chargeons une partie et lors du clic sur une unité nous obtenons le résultat visible ci-dessous.
 
 				\begin{figure}[!h]
 				    \caption{Affichage de la zone d'influence}
-				    \centerline{\includegraphics[scale=0.4]{images/tests_fonctionnels/zone_influence.png}}
+				    \centerline{\includegraphics[scale=0.35]{images/tests_fonctionnels/zone_influence.png}}
 				    \label{fig:affichage_zone_influence}
 				\end{figure}
 
 				\paragraph{Résultat\\}
 					Les cases avec un fond vert sont les cases sur lesquelles peuvent se déplacer l'unité selectionnée. Sur la figure~\ref{fig:affichage_zone_influence} un cavalier a été selectionné, nous constatons que la zone d'influence est en accord avec la règle spécifiant qu'un cavalier peut se déplacer de 2 cases. 
 					
-
-
+			\subsubsection{Autres tests}
+			
+				Nous avons créé 15 classes de test permettant de tester un total de 68 méthodes, qui sont les plus importantes pour le bon fonctionnent de notre projet.
+				Tous ces tests nous ont permis de détecter certaines erreurs que nous avons bien sûr corrigé.
+				Ne pouvant évidemment pas présenter l'ensemble de ces tests dans le rapport, nous vous invitons à parcourir les différentes classes de test existantes.
