@@ -19,15 +19,6 @@
 			Le Board est une matrice de taille fixe représentant une situation de jeu.
 			\paragraph{Interaction :}
 			Certaines cases du Board contiendront des objets de type Entity.
-			
-
-		\subsection*{EntityLoader}
-
-			\paragraph{Définition :}
-			Classe permettant de charger une partie à partir d'un fichier.
-			Elle permet de parcourir un fichier ligne par ligne pour parser les informations et les insérer dans le Board.
-			\paragraph{Interaction :}
-			L'EntityLoader interagit avec le Board en placant directement les objets dans la matrice du Board.
 
 		\subsection*{Entity}
 
@@ -53,17 +44,28 @@
 			Les UnmovableEntity sont disposées à l'intérieur d'une matrice dans la classe Board. 
 			Certaines UnmovableEntity peuvent par ailleurs contenir des MovableEntity. (exemple : les forts)
 
+		\subsection*{EntityLoader}
+
+			\paragraph{Définition :}
+			Classe permettant de charger une partie à partir d'un fichier.
+			Elle permet de parcourir un fichier ligne par ligne pour parser les informations et les insérer dans le Board.
+			\paragraph{Interaction :}
+			L'EntityLoader interagit avec le Board en placant directement les objets dans la matrice du Board.
 		
+		\subsection*{DroolsEngine}
+
+			\paragraph{Définition :}
+			
+			\paragraph{Interaction :}
+			
 		\subsection*{IEngine}
 
 			\paragraph{Définition :}
 			Cette interface nous permet une certaine flexibilité au niveau du moteur de règles. Actuellement nous utilisons Drools pour gérer cette partie mais si jamais nous décidons de ne plus utiliser cette librairie alors avec cette interface il nous sera facile de faire le changement.
 			Il nous suffira de créer une nouvelle classe implémentant cette interface et il n'y aura pas d'autres modifications à faire.
 
-
 		\subsection*{Engine}
 
-			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
 			Cette classe implémente l'interface IEngine et dans cette implémentation nous utilisons Drools. Chaque méthode de cette classe fais appel à des règles qui sont stockées dans les fichiers drl. 
 			De plus cette classe se charge de transmettre à Drools les données sur lesquelles devront travailler les règles.
@@ -72,7 +74,6 @@
 
 		\subsection*{Rule}
 
-			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
 			Une règle s'applique sur l'ensemble des instances d'une classe se trouvant dans un états donné.
 			Elles ne sont en fait pas codées sous forme de classe mais sous forme de fichier en ".drl". 
@@ -96,6 +97,13 @@
 			\paragraph{Interaction :}
 			La classe Potential a besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans les 
 			entités elles-mêmes ou dans des matrices qu'elle possède en attribut.
+
+		\subsection*{BoardController}
+
+			\paragraph{Définition :}
+			
+			\paragraph{Interaction :}
+		
 
 		\subsection*{BoardDisplayer}
 
