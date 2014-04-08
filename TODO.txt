@@ -3,7 +3,7 @@ DONE - Rédiger README dans /bin pour expliquer comment lancer l'appli + spécif
 	- Parler de l'interface IEngine qui permet de changer facilement le moteur de règle si besoin
 - Ajouter dans la partie Archi > Librairie Drools > Exemple d'utilisation, un example de l'utilisation de Drools + java sur la gestion des communications + schema
 DONE - Changer les temps qui sont au futur dans la biblio + architecture
-- Parler des autres tests unitaires + screenshot ?
+DONE - Parler des autres tests unitaires + screenshot ?
 - Faire un sommaire des figures ?
 - Ajouter les numéros de figure sur les images de la partie scénario
 - Faire une partie de remerciement ?
