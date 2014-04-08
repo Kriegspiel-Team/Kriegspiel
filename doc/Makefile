@@ -4,7 +4,7 @@ all: rapport.pdf
 	pdflatex $<
 
 clean:
-	rm -f *.pdf *.aux *.log *.bbl *.blg *.dvi *.out vc.tex
+	rm -f *.pdf *.aux *.log *.bbl *.blg *.dvi *.out vc.tex *.toc *.lof
 
 pdf: vc.tex rapport.tex ref.bib
 	pdflatex rapport.tex
