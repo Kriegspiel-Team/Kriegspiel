@@ -5,7 +5,7 @@ DONE - Rédiger README dans /bin pour expliquer comment lancer l'appli + spécif
 DONE - Changer les temps qui sont au futur dans la biblio + architecture
 DONE - Parler des autres tests unitaires + screenshot ?
 - Faire un sommaire des figures ?
-- Ajouter les numéros de figure sur les images de la partie scénario
+DONE - Ajouter les numéros de figure sur les images de la partie scénario
 - Faire une partie de remerciement ?
 - Remplir la partie besoins non fonctionnels
 - Page de garde OK ?
