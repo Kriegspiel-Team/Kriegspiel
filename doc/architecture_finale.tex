@@ -53,14 +53,22 @@
 			Les UnmovableEntity sont disposées à l'intérieur d'une matrice dans la classe Board. 
 			Certaines UnmovableEntity peuvent par ailleurs contenir des MovableEntity. (exemple : les forts)
 
+		
+		\subsection*{IEngine}
+
+			\paragraph{Définition :}
+			Cette interface nous permet une certaine flexibilité au niveau du moteur de règles. Actuellement nous utilisons Drools pour gérer cette partie mais si jamais nous décidons de ne plus utiliser cette librairie alors avec cette interface il nous sera facile de faire le changement.
+			Il nous suffira de créer une nouvelle classe implémentant cette interface et il n'y aura pas d'autres modifications à faire.
+
+
 		\subsection*{Engine}
 
 			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
-			Cette classe représente le moteur de règles et fait l'intermediaire entre les faits (la situation de jeu actuelle) 
-			et les règles qui sont implémentées dans un fichier ".drl".
+			Cette classe implémente l'interface IEngine et dans cette implémentation nous utilisons Drools. Chaque méthode de cette classe fais appel à des règles qui sont stockées dans les fichiers drl. 
+			De plus cette classe se charge de transmettre à Drools les données sur lesquelles devront travailler les règles.
 			\paragraph{Interaction :}
-			L'Engine interagit avec les entités du Board pour modifier certains attributs.
+			L'Engine interagit avec la librairie Drools pour lui transmettre les données et ordonner l'appel des règles.
 
 		\subsection*{Rule}
 
