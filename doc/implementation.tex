@@ -9,12 +9,12 @@
 			\paragraph{}
 			Le calcul des zones d'influence est découpé en 2 fonctions distinctes :
 			
-			\paragraph{1. runInfluenceArea : }
+			\paragraph{1. computeAllInfluenceAreas : }
 			Cette fonction se charge de récupérer toutes les unités mobiles d'un Board qui lui est passé en paramètre.
-			Elle lance ensuite computeInfluenceAreas sur chacune de ces unités.
-			[Code de la fonction]
+			Elle lance ensuite computeInfluenceAreas sur chacune de ces unités.\\
+			\includegraphics[scale=0.4]{images/implementation/computeAllInfluenceAreas.png}
 			
-			\paragraph{2. computeInfluenceAreas : }
+			\paragraph{2. computeInfluenceArea : }
 			Cette fonction récursive calcule la zone d'influence pour une unité donnée à partir d'une case et d'une variable speedLeft. 
 			(qui correspond à la capacité de déplacement restante de l'unité)
 			Si la capacité de déplacement restante d'une unité n'est pas nulle (speedLeft\textgreater0), alors on parcoure toutes les cases 
@@ -22,8 +22,8 @@
 			Au premier appel de cette fonction, cette case sera la case sur laquelle se situe l'entité pour laquelle on calcule la zone d'influence.
 			Si une ou plusieurs de ces cases sont libres, on modifie l'entité en ajoutant ces cases dans la liste de ses mouvements possibles, 
 			puis on rappelle computeInfluenceAreas sur celles-ci en décrémentant le speedLeft de 1.
-			Ainsi La zone d'influence ne pourra pas s'étendre à travers les unités ou les montagnes.
-			[Code de la fonction]
+			Ainsi La zone d'influence ne pourra pas s'étendre à travers les unités ou les montagnes.\\
+			\includegraphics[scale=0.4]{images/implementation/computeInfluenceArea.png}
 		
 		\subsection{Calcul des communications}
 		
@@ -50,7 +50,8 @@
 			\paragraph{1. computePotentials : }
 			Cette fonction se charge de remplir la matrice des potentiels pour chaque équipe.
 			Elle parcoure le board dans son intégralité (une fois pour chaque équipe), appelle sur chaque case les fonctions computeAttack et 
-			computeDefence, puis enregistre les valeurs dans une matrice.
+			computeDefence, puis enregistre les valeurs dans une matrice.\\
+			\includegraphics[scale=0.4]{images/implementation/computePotentials.png}
 			
 			\paragraph{2. computeDefence : }
 			Cette fonction calcule la défense pour une case et une équipe donnée.
