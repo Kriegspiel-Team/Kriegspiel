@@ -1,7 +1,9 @@
-Procédure pour lancer le projet :
+Requirment : 
+	- To launch the Kriegspiel Board Displayer you need Java Runtime Environment greater or equal 1.7
+	- You need to have Drools's library in "kriegspiel_lib" folder
+	- You need to have default file "DefaultMap.kmp" and "PartieLivre.ksv" in "files" folder
 
-/!\ Il est nécessaire d'avoir java 1.7 installé
+How launch the program ?
+	To run the program you have to execute "java -jar kriegspiel.jar"
+	If you are trying to launch the program from CREMI you can use the launcher "launcher.sh"
 
-- Modifier le chemin d'accès à Java 1.7 si nécessaire dans launcher.sh
-
-- Lancer launcher.sh
