@@ -1,4 +1,4 @@
 Kriegspiel
 ==========
 
-PDP Project of an AI for Kriegspiel (originally described by Guy Debord)
+PDP Project of a Kriegspiel game evaluator (originally described by Guy Debord)

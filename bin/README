@@ -1,6 +1,5 @@
 Requirment : 
 	- To launch the Kriegspiel Board Displayer you need Java Runtime Environment greater or equal 1.7
-	- You need to have Drools's library in "kriegspiel_lib" folder
 	- You need to have default file "DefaultMap.kmp" and "PartieLivre.ksv" in "files" folder
 
 How launch the program ?

@@ -59,18 +59,18 @@
 			Il y a donc 8 lignes distinctes. (ligne au nord de l'unité, ligne au nord-est, ligne à l'est, etc)
 			Pour chaque ligne, nous parcourons ensuite chaque case de la plus proche à la plus lointaine.
 			Si une de ces cases contient une unité alliée à portée, nous ajoutons la défense de cette unité à la défense de cette case, 
-			sauf dans le cas ou nous avons rencontré un obstacle.
+			sauf dans le cas ou nous avons rencontré un obstacle. (Pour le calcul de la défence, les seuls obstacles sont les montagnes et les limites du plateau)
 			Pour savoir si nous avons rencontré un obstacle, nous mettons simplement le booléen obstacle à true si une des cases de la 
-			ligne contient une unité ennemie ou une montagne.
+			ligne contient une montagne.
 			
 			\paragraph{3. computeAttack : }
 			Cette fonction calcule l'attaque subie pour une case et une équipe donnée.
 			Elle a un fonctionnement très similaire à computeDefence, excepté que nous avons du ici prendre en compte la charge pour les cavaleries. 
-			(qui est d'ailleurs annulée dés lors qu'un cavalier se situe sur un fort)
+			(cette charge est annulée dès lors que nous rencontrons une unité autre qu'un cavalier sur la ligne courante, ou bien que le cavalier rencontré se situe dans un fort)
 			Pour prendre en compte ceci, nous avons rajouté un booléen charge qui est passé à false quand on rencontre un obstacle 
 			ou un fort sur la ligne analysée.
 			La valeur d'attaque varie suivant si le cavalier est en charge ou non donc nous ajoutons attackCharge si le booléen charge est 
-			à true ou attack si le booléen est à false.
+			à true ou attack si le booléen est à false. (à condition qu'il soit à portée de la case)
 			
 		\clearpage
 	 
@@ -82,7 +82,7 @@
 		Afin d'éviter la régression lors de l'évolution du projet nous avons utilisé la librairie JUnit pour faciliter la gestion des tests. 
 		Nous avons généré des classes de tests afin de valider le bon fonctionnement de l'ensemble des méthodes pour une classe donnée.
 		Par soucis de temps, nous n'avons pas pu réaliser les tests pour chaque classes du projet, nous avons donc décidé de ne faire ces tests que sur les classes les plus « critiques ».\\ \\
-		Parmis ces classes dites « critiques » nous avons la classe {\itshape EntityLoader} qui est garantie le bon placement des unités ainsi que la classe Board qui contient les données du jeu
+		Parmis ces classes dites « critiques » nous avons la classe {\itshape EntityLoader} qui garantie le bon placement des unités ainsi que la classe Board qui contient les données du jeu
 		ainsi que certains algorithmes principaux.
 		\\ \\
 		Après chaque modification du code nous pouvons lancer tous nos tests afin de vérifier que les changements apportés n'ont pas altérés le fonctionnement du code précédent.

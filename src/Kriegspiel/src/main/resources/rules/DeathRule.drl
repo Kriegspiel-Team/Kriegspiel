@@ -1,0 +1,23 @@
+package model
+
+import model.MovableEntity;
+import model.Cavalry;
+import model.Fortress;
+
+rule "canBeKilled"
+	agenda-group "DeathRule"
+	when 
+		$m : MovableEntity($coord : coord)
+	then
+		if($m.getAllyDefence() < $m.getEnemyAttack())
+			$m.setCanBeKilled(true);
+end
+
+rule "mustRetreat"
+	agenda-group "DeathRule"
+	when 
+		$m : MovableEntity($coord : coord)
+	then
+		if($m.getAllyDefence() > 0 && $m.getAllyDefence() == $m.getEnemyAttack())
+			$m.setMustRetreat(true);
+end
