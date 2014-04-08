@@ -8,6 +8,6 @@ DONE - Parler des autres tests unitaires + screenshot ?
 DONE - Ajouter les numéros de figure sur les images de la partie scénario
 - Faire une partie de remerciement ?
 - Remplir la partie besoins non fonctionnels
-- Page de garde OK ?
+DONE - Page de garde OK ?
 - Mettre tout le projet sur SAVANE !!!!!!!!!!
 - Mettre le numéro de fin de page à coté du numéro courant

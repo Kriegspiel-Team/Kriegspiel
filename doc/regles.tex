@@ -8,7 +8,7 @@
 		Le but de celui-ci est de détruire l'armée adverse en la privant de ses arsenaux ou en détruisant toutes ses unités. (Voir les conditions de victoire)
 		Vous disposerez de plusieurs types d'unités ayant des caractéristiques différentes (attaque, défense, portée, vitesse) que vous devrez déplacer 
 		en prenant en compte les lignes de communication.
-		En effet, si vos unités sortent des lignes de communication, celles-ci ne pourront alors plus bouger et seront donc plus vulérables.
+		En effet, si vos unités sortent des lignes de communication, celles-ci ne pourront alors plus bouger et seront donc plus vulnérables.
 		Pour accéder aux règles complètes, (caractéristiques des unités, explications plus détaillées) rendez-vous sur le site r-s-g.org~\cite{ref1}
 		
 		\section{Règles à implémenter}
@@ -28,9 +28,9 @@
 		\item Un arsenal détruit ne propage plus de lignes de communication.
 		\item Un relais propage les lignes de communications de la même manière qu'un arsenal, depuis sa position, si il se trouve lui même sur une ligne de communication alliée.
 		\item Une unité est connectée si elle se trouve sur une ligne de communication.
-		\item Une unité est connectée si elle se trouve à proximité d'une unité alliée connectée.
+		\item Une unité est connectée si elle se trouve sur l'une des huit cases voisines d'une unité alliée connectée.
 		\item Une unité déconnectée ne peut ni bouger ni attaquer.
-		\item L'attaque et la défense d'une unité déconnectée est égale à 0.
+		\item L'attaque et la défense d'une unité déconnectée est égale à 0.(Mais elle peut tout de même bénéficier de la défence apportée par les unités alliées à porté)
 		\end{enumerate}
 		
 		\paragraph{Règles de combat}
@@ -48,7 +48,7 @@
 		\begin{enumerate}
 		\item Les cols octroient un bonus défensif de 2 aux infanteries et aux canons.
 		\item Les forteresses octroient un bonus défensif de 4 aux infanteries et aux canons.
-		\item Si plusieurs cavaliers sont alignés face à une unité adverse, ils bénéficient d'un bonus d'attaque de 3 et peuvent tous attaquer même si ils sont hors de portée.
+		\item Si plusieurs cavaliers sont alignés face à une unité adverse et que l'un d'eux est voisin de cette unité, ils sont en situation de charge et bénéficient d'un bonus d'attaque de 3 et peuvent tous attaquer même si ils sont hors de portée.
 		\end{enumerate}
 		
 		\clearpage

@@ -8,7 +8,7 @@
 			L'affichage du plateau prend la majorité de la fenêtre.
 			Les entités sont représentées par des lettres dans des cases de la couleur de leur équipe.
 			Les \^{} sur fond gris sont les montagnes.
-			Les cases possédant une bordure pointillée noire sont les entités qui peuvent contenir une autre entité	(les arsenaux et les forts).
+			Les cases possédant une bordure pointillée noire permettent d'identifier les forts et arsenaux.
 			Les cases vertes représentent les possibilités de mouvement	de l'entité sélectionnée (ici le SwiftCanon bleu). 
 			Notons que l'unité ne peut pas se déplacer sur une case déja occupée.
 			Lorsqu'une entité risque d'être détruite au prochain tour, son symbole est entouré de ( ).
@@ -59,6 +59,7 @@
 			\paragraph{}
 			Le mode score de combat permet de voir les unités en situation de force ou de faiblesse.
 			Plus l'unité est foncée, plus son score est faible et donc plus elle est vulnérable.
+                        Les scores affichés dans les cases sont le résultat de la soustraction de l'attaque subit par l'unité à son score de défence. Cela signifie que si ce score est négatif, l'unité est potentiellement tuable (voir les règles) et la case sera mise en évidence par une couleur très foncée.
 			Cette matrice permet donc de déterminer les points faibles d'une armée s'ils existent.
 			
 			\paragraph{}
@@ -86,6 +87,8 @@
 			Dans les modes zone dangereuse, la matrice d'attaque de l'équipe choisie est affichée
 			Plus les cases sont foncées, plus elles sont sûres (respectivement dangereuses) pour l'équipe.
 			Ici c'est la zone sûre de l'équipe rouge qui est affichée.
+                        Dans le cas de la matrice de défence, les scores affichés dans chaque case indiquent le score de défense octroyé par les unités alliés (dans le cas où il serait décidé d'y placer une unité, elle bénéficierai du score de défence affiché dans la case, en plus de sa propre défence).
+                        Dans le cas de la matrice d'attaque, les scores affichés dans chaque case indiquent le score d'attaque subit des unités adverses (une unité placée sur une de ces cases subira donc le score d'attaque qui y est affiché).
 
 			\clearpage
 
@@ -108,7 +111,7 @@
 			\end{figure}
 			Les lignes de communication sont représentées par des cercles de la couleur de l'équipe sur les cases vides.
 			Les unités déconnectées ont une teinte plus claire que les unités connectées.
-			On peut remarquer que les unités adverses bloquent les communications et que les relais alliés les propagent. 
+			On peut remarquer que les unités adverses (excepté les relais) bloquent les communications et que les relais alliés les propagent. 
 			(sauf relais ne se trouvant pas sur une ligne de communication)
 			
 			\clearpage
@@ -118,4 +121,4 @@
 			Ces raccourcis ont été maintenus et fonctionnent correctement de concert avec les boutons mais nous avons cessé d'en rajouter 
 			en considérant qu'il était inutile d'apprendre des raccourcis alors qu'un clic sur un bouton est aussi rapide et efficace.
 			Il est donc possible d'afficher / cacher les lignes de communications avec les touches 0 et 1 (pour les équipes 0 et 1) du pavé numérique.
-			Il est également possible de changer de mode d'affichage entre Unités (u) Attaque (a) et Défense (d)
+			Il est également possible de changer de mode d'affichage entre Unités (u) Attaque (a) et Défense (d).
