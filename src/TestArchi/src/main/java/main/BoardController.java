@@ -35,7 +35,7 @@ public class BoardController {
 		engine = new Engine(board);
 		potentials = new Potentials(board);
 		loader = new EntityLoader(board);
-		loader.setMapFilename("src/main/resources/board/Map1.kmp");
+		loader.setMapFilename("files/DefaultMap.kmp");
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class BoardController {
 	 * Loads the default board.
 	 */
 	public void loadDefaultBoard() {
-		loadNewBoard("src/main/resources/board/Livre.ksv");
+		loadNewBoard("files/PartieLivre.ksv");
 	}
 	
 	/**

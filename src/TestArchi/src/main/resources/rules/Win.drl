@@ -14,7 +14,7 @@ rule "Team0WithoutArsenal"
     when
     	$b : Board( isMapLoaded(), getNbInstances(Arsenal.class, 0) == 0 )
     then
-    	System.out.println("Win because : Team0WithoutArsenal");
+    	//System.out.println("Win because : Team0WithoutArsenal");
     	//if ($b.getNbrInstances(Arsenal.class, 0) == 0)
     		$b.setWinner(1);
 end
@@ -25,7 +25,7 @@ rule "Team1WithoutArsenal"
     when
     	$b : Board( isMapLoaded(), getNbInstances(Arsenal.class, 1) == 0 )
     then
-    	System.out.println("Win because : Team1WithoutArsenal");
+    	//System.out.println("Win because : Team1WithoutArsenal");
     	//if ($b.getNbrInstances(Arsenal.class, 1) == 0)
     		$b.setWinner(0);
 end
@@ -36,7 +36,7 @@ rule "Team0WithoutFighter"
     when
     	$b : Board( isMapLoaded(), getNbInstances(Fighter.class, 0) == 0 )
     then
-    	System.out.println("Win because : Team0WithoutFighter");
+    	//System.out.println("Win because : Team0WithoutFighter");
     	//if ($b.getNbrInstances(Fighter.class, 0) == 0)
     		$b.setWinner(1);
 end
@@ -47,7 +47,7 @@ rule "Team1WithoutFighter"
     when
     	$b : Board( isMapLoaded(), getNbInstances(Fighter.class, 1) == 0 )
     then
-    	System.out.println("Win because : Team1WithoutFighter");
+    	//System.out.println("Win because : Team1WithoutFighter");
     	//if ($b.getNbrInstances(Fighter.class, 1) == 0)
     		$b.setWinner(0);
 end
@@ -58,7 +58,7 @@ rule "Team0WithoutRelay"
     when
     	$b : Board( isMapLoaded(), getNbInstances(Relay.class, 0) == 0 && getNbInstances(SwiftRelay.class, 0) == 0 && getNbFighterConnected(0) == 0 )
     then
-    	System.out.println("Win because : Team0WithoutRelay");
+    	//System.out.println("Win because : Team0WithoutRelay");
     	//if ($b.getNbFighterConnected(0) == 0 && $b.getNbrInstances(Relay.class, 0) == 0 && $b.getNbrInstances(SwiftRelay.class, 0) == 0)
     		$b.setWinner(1);
 end
@@ -69,7 +69,7 @@ rule "Team1WithoutRelay"
     when
     	$b : Board( isMapLoaded(), getNbInstances(Relay.class, 1) == 0 && getNbInstances(SwiftRelay.class, 1) == 0 && getNbFighterConnected(1) == 0 )
     then
-    	System.out.println("Win because : Team1WithoutRelay");
+    	//System.out.println("Win because : Team1WithoutRelay");
    		//if ($b.getNbFighterConnected(1) == 0 && $b.getNbrInstances(Relay.class, 1) == 0 && $b.getNbrInstances(SwiftRelay.class, 1) == 0 )
    			$b.setWinner(0);
 end
