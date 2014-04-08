@@ -17,7 +17,7 @@
 			\paragraph{2. computeInfluenceArea : }
 			Cette fonction récursive calcule la zone d'influence pour une unité donnée à partir d'une case et d'une variable speedLeft. 
 			(qui correspond à la capacité de déplacement restante de l'unité)
-			Si la capacité de déplacement restante d'une unité n'est pas nulle (speedLeft\textgreater0), alors on parcoure toutes les cases 
+			Si la capacité de déplacement restante d'une unité n'est pas nulle (speedLeft\textgreater0), alors on parcourt toutes les cases 
 			qui sont autour de la case passée en paramètre. 
 			Au premier appel de cette fonction, cette case sera la case sur laquelle se situe l'entité pour laquelle on calcule la zone d'influence.
 			Si une ou plusieurs de ces cases sont libres, on modifie l'entité en ajoutant ces cases dans la liste de ses mouvements possibles, 
@@ -37,7 +37,7 @@
 			Chaque fois qu'une entité propageant des communications est trouvée, (donc arsenal ou relais en communication) cette fonction est appelée
 			avec les coordonnées x et y de l'unité en question.
 			N'importe quelle unité propageant les lignes de communication le fait dans 8 directions. (nord, nord-est, est, etc)
-			Nous parcourons donc ces 8 lignes une à une, case par case et ajoutons toutes les cases libre à la liste des communications jusqu'à
+			Nous parcourons donc ces 8 lignes une à une, case par case et ajoutons toutes les cases libres à la liste des communications jusqu'à
 			la rencontre d'un obstacle. (Montagne, unités adverse ou bien fin du plateau)
 			Par la suite, si Drools détecte qu'un nouveau relais est connecté suite à la propagation de lignes de communications, computeCommunications
 			sera ré-appelée sur ces relais nouvellement connectés.
@@ -81,7 +81,7 @@
 		
 		Afin d'éviter la régression lors de l'évolution du projet nous avons utilisé la librairie JUnit pour faciliter la gestion des tests. 
 		Nous avons généré des classes de tests afin de valider le bon fonctionnement de l'ensemble des méthodes pour une classe donnée.
-		Par soucis de temps, nous n'avons pas pu réaliser les tests pour chaque classes du projet, nous avons donc décidé de ne faire ces tests que sur les classes les plus « critiques ».\\ \\
+		Par soucis de temps, nous n'avons pas pu réaliser les tests pour toutes les classes du projet, nous avons donc décidé de ne faire ces tests que sur les classes les plus « critiques ».\\ \\
 		Parmis ces classes dites « critiques » nous avons la classe {\itshape EntityLoader} qui garantie le bon placement des unités ainsi que la classe Board qui contient les données du jeu
 		ainsi que certains algorithmes principaux.
 		\\ \\
