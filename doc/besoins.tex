@@ -19,7 +19,7 @@
 				propager les lignes de communications, octroyer les bonus défensifs pour les unités sur les forts, etc.
 				\\[0.7\baselineskip]
 				Tests : Pour tester notre moteur de règles, nous pouvons utiliser la partie commentée du livre de Guy Debord. Nous pouvons 
-				vérifier que les coups qui sont effectués dans cette partie soient bien affichés parmis les coups valides proposés par notre 
+				vérifier que les coups qui sont effectués dans cette partie soient bien affichés parmi les coups valides proposés par notre 
 				moteur de règles. Cela ne nous garantira pas un fonctionnement parfait du moteur de règles néanmoins ce test pourrait nous 
 				aider à trouver des dysfonctionnements. 
 				\\[0.7\baselineskip]
@@ -63,7 +63,7 @@
 				\\[0.7\baselineskip]
 				Description : Afin de pouvoir tester les algorithmes du moteur de règles et l'évaluation de positions plus efficacement, nous aurons besoin 
 				d'un système permettant de charger des situations de jeu directement depuis un fichier texte, par exemple en ASCII ou autre format simple. 
-				Ce fichier devra simplement contenir les coordonnées de tout les pions sur le plateau de jeu. 
+				Ce fichier devra simplement contenir les coordonnées de toutes les unités sur le plateau de jeu. 
 				\\[0.7\baselineskip]
 				Tests : Il s'agira simplement de comparer les données du fichier de chargement avec celles du plateau de jeu. 
 				\\[0.7\baselineskip]
@@ -90,15 +90,15 @@
 				\\[0.7\baselineskip]
 				Priorité : Moyenne 
 				\\[0.7\baselineskip]
-				Description : Chaque unité possède d'après les règles ses propres caractéristiques (attaque, défense...) mais le potentiel offensif et défensif 
-				d'une unité peut être modifié si d'autres sont en présence directe. Il sera donc nécessaire de calculer ces potentiels pour chaque unité pour en déduire 
+				Description : Chaque unité possède d'après les règles ses propres caractéristiques (attaque, défense...) mais les potentiels offensif et défensif 
+				d'une unité peuvent être modifiés si d'autres sont en présence directe. Il sera donc nécessaire de calculer ces potentiels pour chaque unité pour en déduire 
 				par la suite les zones fortes ou faibles. 
 				\\[0.7\baselineskip]
 				Tests : Prévoir différentes situations radicalement différentes et noter les potentiels calculés par le jeu disponible sur r-s-g.org. Vérifier ensuite 
 				que nous avons les mêmes valeurs pour toutes les situations testées. 
 				\\[0.7\baselineskip]
 
-				\item \textbf{Exploiter les données pour déterminer les coefficients de dangeurosité d'une zone} 
+				\item \textbf{Exploiter les données pour déterminer les coefficients de dangerosité d'une zone} 
 				\\[0.7\baselineskip]
 				Priorité : Moyenne 
 				\\[0.7\baselineskip]
@@ -117,7 +117,7 @@
 
 			\begin{enumerate}
 
-				\item \textbf{Déterminer les coefficients de dangeurosité d'une zone sur plusieurs tours} 
+				\item \textbf{Déterminer les coefficients de dangerosité d'une zone sur plusieurs tours} 
 				\\[0.7\baselineskip]
 				Priorité : Faible 
 				\\[0.7\baselineskip]
