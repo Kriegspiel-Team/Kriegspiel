@@ -19,7 +19,30 @@
 			Le Board est une matrice de taille fixe représentant une situation de jeu.
 			\paragraph{Interaction :}
 			Certaines cases du Board contiendront des objets de type Entity.
-			
+
+		\subsection*{Entity}
+
+			\paragraph{Définition :}
+			Les Entity représentent les éléments de jeu (les unités ainsi que les batiments et obstacles).
+			\paragraph{Interaction :}
+			Toutes les Entity sont disposées à l'intérieur d'une matrice dans la classe Board.
+
+		\subsection*{MovableEntity}
+
+			\paragraph{Définition :}
+			Les MovableEntity sont les unités movibles telles que les infanteries, les cavaliers, les canons ou toute autre unité 
+			qu'il est possible de déplacer.
+			\paragraph{Interaction :}
+			Les MovableEntity sont disposées à l'intérieur d'une matrice dans la classe Board.
+
+		\subsection*{UnmovableEntity}
+
+			\paragraph{Définition :}
+			Les UnmovableEntity sont des entités présentes sur le plateau mais que les règles ne permettent pas de déplacer. 
+			Les forts, les arsenaux, les montagnes ou les cols sont par exemple des UnmovableEntity.
+			\paragraph{Interaction :}
+			Les UnmovableEntity sont disposées à l'intérieur d'une matrice dans la classe Board. 
+			Certaines UnmovableEntity peuvent par ailleurs contenir des MovableEntity. (exemple : les forts)
 
 		\subsection*{EntityLoader}
 
@@ -28,93 +51,59 @@
 			Elle permet de parcourir un fichier ligne par ligne pour parser les informations et les insérer dans le Board.
 			\paragraph{Interaction :}
 			L'EntityLoader interagit avec le Board en placant directement les objets dans la matrice du Board.
-
-		\subsection*{Entity}
-
-			\paragraph{Définition :}
-			Les Entity représentent les éléments de jeu (les unités ainsi que les batiments et obstacles).
-			\paragraph{Interaction :}
-			Toutes les Entity seront disposées à l'intérieur d'une matrice dans la classe Board.
-
-		\subsection*{MovableEntity}
+		
+		\subsection*{DroolsEngine}
 
 			\paragraph{Définition :}
-			Les MovableEntity sont les unités movibles telles que les infanteries, les cavaliers, les canons ou toute autre unité 
-			qu'il est possible de déplacer.
+			
 			\paragraph{Interaction :}
-			Les MovableEntity seront disposées à l'intérieur d'une matrice dans la classe Plateau.
-
-		\subsection*{UnmovableEntity}
+			
+		\subsection*{IEngine}
 
 			\paragraph{Définition :}
-			Les UnmovableEntity sont des entités présentes sur le plateau mais que les règles ne permettent pas de déplacer. 
-			Les forts, les arsenaux, les montagnes ou les cols sont par exemple des UnmovableEntity.
-			\paragraph{Interaction :}
-			Les UnmovableEntity seront disposées à l'intérieur d'une matrice dans la classe Board. 
-			Certaines UnmovableEntity pourront par ailleurs contenir des MovableEntity. (exemple : les forts)
+			Cette interface nous permet une certaine flexibilité au niveau du moteur de règles. Actuellement nous utilisons Drools pour gérer cette partie mais si jamais nous décidons de ne plus utiliser cette librairie alors avec cette interface il nous sera facile de faire le changement.
+			Il nous suffira de créer une nouvelle classe implémentant cette interface et il n'y aura pas d'autres modifications à faire.
 
 		\subsection*{Engine}
 
-			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
-			Cette classe représente le moteur de règles et fait l'intermediaire entre les faits (la situation de jeu actuelle) 
-			et les règles qui sont implémentées dans un fichier ".drl".
+			Cette classe implémente l'interface IEngine et dans cette implémentation nous utilisons Drools. Chaque méthode de cette classe fais appel à des règles qui sont stockées dans les fichiers drl. 
+			De plus cette classe se charge de transmettre à Drools les données sur lesquelles devront travailler les règles.
 			\paragraph{Interaction :}
-			L'Engine interagit avec les entités du Board pour modifier certains attributs.
+			L'Engine interagit avec la librairie Drools pour lui transmettre les données et ordonner l'appel des règles.
 
 		\subsection*{Rule}
 
-			!!!!!!!!!!!! A COMPLETER !!!!!!!!!!!!
 			\paragraph{Définition :}
-			Une règle sera une expression logique associée à un fait. Elles ne seront en fait pas codées sous forme de classe mais 
-			sous forme de fichier en ".drl".
+			Une règle s'applique sur l'ensemble des instances d'une classe se trouvant dans un états donné.
+			Elles ne sont en fait pas codées sous forme de classe mais sous forme de fichier en ".drl". 
 			\paragraph{Interaction :}
 			Les règles seront envoyées à l'Engine qui devra se charger de les appliquer.
 
 		\subsection*{InfluenceArea}
 
 			\paragraph{Définition :}
-			Cette classe permettra de calculer les zones d'influence des unités, c'est à dire l'ensemble des cases sur lesquelles 
+			Cette classe permet de calculer les zones d'influence des unités, c'est à dire l'ensemble des cases sur lesquelles 
 			chaque unité peut agir.
 			\paragraph{Interaction :}
-			La classe InfluenceArea aura besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans 
+			La classe InfluenceArea a besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans 
 			les entités elles-mêmes.
 
 		\subsection*{Potential}
 
 			\paragraph{Définition :}
-			Cette classe permettra de calculer les potentiels offensifs et défensifs des unités en fonction de leur configuration spatiale.
+			Cette classe permet de calculer les potentiels offensifs et défensifs des unités en fonction de leur configuration spatiale.
+			Elle se charge également de remplir les différentes matrices comme la matrice des zones dangereuses ou la matrice des points faibles.
 			\paragraph{Interaction :}
-			La classe Potential aura besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans les 
-			entités elles-mêmes.
+			La classe Potential a besoin d'un objet de type Board pour faire ses calculs et stockera les résultats dans les 
+			entités elles-mêmes ou dans des matrices qu'elle possède en attribut.
 
-		\subsection*{DangerousnessMatrix}
-
-			!!!!!!!!!!!! A COMPLETER - Ne va même pas exister ? !!!!!!!!!!!!
-			\paragraph{Définition :}
-			Cette classe permettra de stocker la matrice de dangerosité représentant les endroit avantageux ou à éviter.
-			\paragraph{Interaction :}
-			La classe DangerousnessMatrix ...
-
-		\subsection*{StaticEvaluator}
-
-			!!!!!!!!!!!! A COMPLETER - Ne va même pas exister ? !!!!!!!!!!!!
-			\paragraph{Définition :}
-			AREFAIRE : Le StaticEvaluator est la classe permettant de calculer et stocker l'ensemble des résultats de nos algorithme 
-			d'évaluation statique du jeu.
-			\paragraph{Interaction :}
-			AREFAIRE : Le StaticEvaluator agit directement sur InfluenceArea, Potential et DangerousnessMatrix puisqu'il se charge 
-			de les mettre à jour. Le moteur décisionnel aura quant à lui accès à l'évaluateur pour pouvoir prendre des décisions en fonction 
-			des résultats trouvés par l'évaluateur.
-
-		\subsection*{DecisionnalEngine}
+		\subsection*{BoardController}
 
 			\paragraph{Définition :}
-			Le DecisionnalEngine se charge de choisir le coup à jouer en fonction d'une situation de jeu donnée et des résultats 
-			du StaticEvaluator.
+			
 			\paragraph{Interaction :}
-			Le DecisionnalEngine interagira avec le Board pour connaître la situation de jeu et les Entity pour connaître les 
-			différentes données calculées par le StaticEvaluator.
+		
 
 		\subsection*{BoardDisplayer}
 
@@ -137,7 +126,7 @@
 	\section{Librairie Drools}
 
 		\subsection{Présentation}
-			Drools est un moteur de règles, c'est à dire que c'est un système dans lequel il y a des règles qui sont appliquées à des données. 
+			Drools est un moteur de règles, c'est à dire un système dans lequel il y a des règles qui sont appliquées à des données. 
 			Les règles et les données sont ajoutées	à un moteur d'inférence afin qu'il puisse déterminer les règles applicables aux données et ainsi aboutir à une conclusion qui résulte en une action.
 			Le moteur de règles s'occupe de bien agencer les règles afin d'optimiser l'exécution (Agenda).
 
@@ -151,7 +140,7 @@
 		\subsection{Les avantages}
 			L'utilisation d'un moteur de règles nous permet de pouvoir séparer la logique et les données de sorte à ce que le maintien de l'application soit plus facile dans le futur.
 			\\
-			Avec cette librairie nous pouvons centraliser la gestion des connaissances dans des fichiers de règles dont l'extension est {\itshape drl}.
+			Avec cette librairie nous pouvons centraliser la gestion des connaissances dans des fichiers de règles dont l'extension est {\itshape .drl}.
 			\\
 			Cette librairie utilise l'algorithme de Rete afin de trouver les règles en fonction des données. Cela assure un maintien de la rapidité même si nous avons de nombreuses règles.
 			\\
