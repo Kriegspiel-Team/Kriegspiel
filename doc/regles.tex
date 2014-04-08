@@ -24,21 +24,21 @@
 		
 		\paragraph{Lignes de communications}
 		\begin{enumerate}
-		\item Les arsenaux propagent des lignes de communication.
+		\item Les arsenaux propagent des lignes de communication suivant huit axes (nord, nord-est, est, sud-est, sud, sud-ouest, ouest, nord-ouest).
 		\item Un arsenal détruit ne propage plus de lignes de communication.
-		\item Un relais transmet les lignes de communications si il se trouve lui même sur une ligne de communication alliée.
+		\item Un relais propage les lignes de communications de la même manière qu'un arsenal, depuis sa position, si il se trouve lui même sur une ligne de communication alliée.
 		\item Une unité est connectée si elle se trouve sur une ligne de communication.
 		\item Une unité est connectée si elle se trouve à proximité d'une unité alliée connectée.
-		\item Une unité déconnectée ne peut pas bouger.
+		\item Une unité déconnectée ne peut ni bouger ni attaquer.
 		\item L'attaque et la défense d'une unité déconnectée est égale à 0.
 		\end{enumerate}
 		
 		\paragraph{Règles de combat}
 		\begin{enumerate}
-		\item Chaque type d'unité movible a une valeur d'attaque/défense/portée qui lui est spécifique. (voir règles précises)
+		\item Chaque type d'unité mobile a une valeur d'attaque/défense/portée qui lui est spécifique. (voir règles précises)
 		\item L'attaque subie par une unité se calcule en additionnant toutes les attaques des unités adverses à portée.
 		\item Le potentiel défensif d'une unité se calcule en additionnant toutes les défenses des unités alliées à portée.
-		\item Même si une unité est à portée d'une autre, sa valeur d'attaque/défense n'est pas ajoutée lors des calculs si un obstacle (unité adverse ou montagne) se trouve entre les deux.
+		\item Même si une unité est à portée d'une autre, sa valeur d'attaque/défense n'est pas ajoutée lors des calculs si un obstacle (montagne) se trouve entre les deux.
 		\item Un cavalier ne peut pas charger dans une forteresse.
 		\item Une unité peut être détruite si l'attaque subie par celle-ci est supérieur à son potentiel défensif.
 		\item Une unité doit battre en retraite si l'attaque subie par celle-ci est égale à son potentiel défensif.
