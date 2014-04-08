@@ -41,7 +41,7 @@ public class Potentials {
 	}
 	
 	/**
-	 * Compute potentials and build 4 potentiel matrices
+	 * Compute potentials and build 4 potential matrices
 	 */
 	public void computePotentials() {
 
@@ -68,14 +68,9 @@ public class Potentials {
 	}
 	
 	/**
-	 * Compute ennemy attack received by a unit
-	 *
-	 * @param xi the x coord
-	 * @param yi the y coord
-	 * @param owner the owner of the unit on the square
-	 * @return the total potential attack by the enemy team on this square.
+	 * Computes the maximum unit range among every unit type
+	 * @return the maximum unit range
 	 */
-	
 	public int computeMaxUnitRange()
 	{
 		int maxUnitRange = Math.max(new Infantry(0).getRange(),new Cavalry(0).getRange());
@@ -87,6 +82,14 @@ public class Potentials {
 		return maxUnitRange;
 	}
 	
+	/**
+	 * Compute ennemy attack received by a unit
+	 *
+	 * @param xi the x coord
+	 * @param yi the y coord
+	 * @param owner the owner of the unit on the square
+	 * @return the total potential attack by the enemy team on this square.
+	 */
 	public int computeEnnemyAttack(int xi, int yi, int owner) {
 		
 		int nbCavalry = 0;
